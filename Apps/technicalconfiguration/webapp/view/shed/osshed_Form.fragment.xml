@@ -1,0 +1,104 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:f="sap.ui.layout.form">
+	<VBox class="sapUiSmallMargin">
+		<f:SimpleForm title="Datos del galpón" editable="true" layout="ResponsiveGridLayout" labelSpanM="4" emptySpanM="2">
+			<f:content>
+        <Label text="{i18n>shed.disabled}" id="disable_label"/>
+      <CheckBox selected="{path: 'OSSHED>/disable/value'}" editable="{OSSHED>/disable/editable/}" />        
+       <Label text="Realojamiento" id="rehousing" required="{OSSHED>/rehousing/required}"/>
+			<CheckBox selected="{path: 'OSSHED>/rehousing/value'}" editable="{OSSHED>/rehousing/editable/}"/>
+				<Label text="Código" required="{OSSHED>/name/required}"/>
+				<Input value="{ path: 'OSSHED>/name/value', type: 'sap.ui.model.type.String'}"
+               valueState="{OSSHED>/name/state}"
+					     valueStateText="{OSSHED>/name/stateText}"
+               editable="{OSSHED>/name/editable/}"
+               liveChange="changeName"/>
+
+				<Label text="Largo" required="{OSSHED>/stall_height/required}"/>
+				<Input value="{ path: 'OSSHED>/stall_height/value', type: 'sap.ui.model.type.String'}"
+               id="stall_height_id"
+               description="metros"
+					     valueState="{OSSHED>/stall_height/state}"
+               valueStateText="{OSSHED>/stall_height/stateText}"
+               editable="{OSSHED>/stall_height/editable/}"
+               liveChange="validateFloatInput"/>
+
+        <Label text="Ancho" required="{OSSHED>/stall_width/required}"/>
+				<Input value="{ path: 'OSSHED>/stall_width/value', type: 'sap.ui.model.type.String'}"
+               id="stall_width_id"
+               description="metros"
+					     valueState="{OSSHED>/stall_width/state}"
+               valueStateText="{OSSHED>/stall_width/stateText}"
+               editable="{OSSHED>/stall_width/editable/}"
+               liveChange="validateFloatInput"/>
+
+        <Label  text="Orden Alojamiento" required="{OSSHED>/order/required}"/>
+				<Input id="Order_input"
+					valueState="{OSSHED>/order/state}"
+		 			valueStateText="{OSSHED>/order/stateText}"
+					value="{ path: 'OSSHED>/order/value', type: 'sap.ui.model.type.Number'}"
+					editable="{OSSHED>/order/editable}"
+					liveChange="validateOrderIntInput"/>
+
+        <Label text="Estatus" required="{OSSHED>/status/required}"/>
+				<Select items="{OSSHED>/statusRecords/}"
+          selectedKey="{OSSHED>/status/value}"
+          change="onStatus"
+          id="statusSelect"
+					enabled="{OSSHED>/status/editable/}"
+          valueState="{OSSHED>/status/state}"
+          valueStateText="{OSSHED>/status/stateText}">
+					<core:Item text="{OSSHED>name}" key="{OSSHED>shed_status_id}"/>
+				</Select>
+        <Label text="{i18n>CapMin}" required="{OSSHED>/capmin/required}"/>
+				<Input fieldWidth= "20%"
+               id="capmin_id"
+               value="{OSSHED>/capmin/value}"
+               description="{i18n>UNITCAP1}{i18n>TOTALCAP} {parts: [{path: 'OSSHED>/capmin/value/'} , {path: 'OSSHED>/stall_height/value'}, {path: 'OSSHED>/stall_width/value'} ], formatter: '.formatter.onCapMinShed'} {i18n>UNITCAP2}"
+				       valueState="{OSSHED>/capmin/state}"
+               valueStateText="{OSSHED>/capmin/stateText}"
+               editable="{OSSHED>/capmin/editable/}"
+               liveChange="validateIntInput"/>
+
+        <Label text="{i18n>CapMax}" required="{OSSHED>/capmax/required}"/>
+				<Input fieldWidth= "20%"
+               id="capmax_id"
+               value="{OSSHED>/capmax/value}"
+               description="{i18n>UNITCAP1}{i18n>TOTALCAP} {parts: [{path: 'OSSHED>/capmax/value/'} , {path: 'OSSHED>/stall_height/value'}, {path: 'OSSHED>/stall_width/value'} ], formatter: '.formatter.onCapMaxShed'} {i18n>UNITCAP2}"
+				       valueState="{OSSHED>/capmax/state}"
+               valueStateText="{OSSHED>/capmax/stateText}"
+               editable="{OSSHED>/capmax/editable/}"
+               liveChange="validateIntInput"/>
+
+				<Label text="Días Rotación" required="{OSSHED>/rotation_days/required}"/>
+ 				<Input  fieldWidth= "20%" 
+                id="rotation_days_id"
+                value="{ path: 'OSSHED>/rotation_days/value', type: 'sap.ui.model.type.String'}"
+                description="días"
+ 					      valueState="{OSSHED>/rotation_days/state}"
+                valueStateText="{OSSHED>/rotation_days/stateText}"
+                editable="{OSSHED>/rotation_days/editable/}"
+                liveChange="validateIntInput"
+								 />
+
+				<Label text="Cantidad Nidales" required="{OSSHED>/quantity_nests/required}"/>
+ 				<Input value="{ path: 'OSSHED>/quantity_nests/value', type: 'sap.ui.model.type.String'}"
+                description="nidales"
+                type="Number"
+ 					      valueState="{OSSHED>/quantity_nests/state}"
+                valueStateText="{OSSHED>/quantity_nests/stateText}"
+                editable="{OSSHED>/quantity_nests/editable/}"
+								visible= "{OSSHED>/quantity_nests/visible/}" />
+
+				<Label text="Cantidad Jaulas" required="{OSSHED>/quantity_cages/required}"/>
+ 				<Input value="{ path: 'OSSHED>/quantity_cages/value', type: 'sap.ui.model.type.String'}"
+                description="jaulas"
+                type="Number"
+ 					      valueState="{OSSHED>/quantity_cages/state}"
+                valueStateText="{OSSHED>/quantity_cages/stateText}"
+                editable="{OSSHED>/quantity_cages/editable/}"
+								visible= "{OSSHED>/quantity_cages/visible/}" />
+
+      </f:content>
+		</f:SimpleForm>
+	</VBox>
+</core:FragmentDefinition>

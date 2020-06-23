@@ -1,0 +1,117 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="technicalConfiguration.controller.abaConsumptionAndMortality">
+	<VBox class="sapUiSmallMargin" id="centerFormVBox">
+		<Toolbar>
+			<content>
+				<!--<Title text="Alimento" level="H2"/>-->
+				<!--<Button text="Agregar" icon="sap-icon://add" press="onPress" ariaLabelledBy="editButtonLabel" />-->
+				<Text text="Raza" />
+				<ComboBox selectedKey="{ABACONSUMPTIONANDMORTALITY>/breeds/id}"
+						editable="{ABACONSUMPTIONANDMORTALITY>/breeds/editable}"
+						items="{ABACONSUMPTIONANDMORTALITY>/breeds}"
+						valueState="{ABACONSUMPTIONANDMORTALITY>/breeds/state}"
+						valueStateText="{ABACONSUMPTIONANDMORTALITY>/breeds/stateText}">
+					<items>
+						<core:Item key="{ABACONSUMPTIONANDMORTALITY>breed_id}" text="{ABACONSUMPTIONANDMORTALITY>name}" />
+					</items>
+				</ComboBox>
+
+				<Text text="Tipo" />
+				<ComboBox id="abaFormulation_321312type_combo" 
+				selectedKey="{ABACONSUMPTIONANDMORTALITY>/types/id}"
+						  editable="{ABACONSUMPTIONANDMORTALITY>/types/editable}"
+						items="{ABACONSUMPTIONANDMORTALITY>/types}"
+						valueState="{ABACONSUMPTIONANDMORTALITY>/types/state}"
+						valueStateText="{ABACONSUMPTIONANDMORTALITY>/types/stateText}">
+					<items>
+						<core:Item key="{ABACONSUMPTIONANDMORTALITY>stage_id}" text="{ABACONSUMPTIONANDMORTALITY>name}" />
+					</items>
+				</ComboBox>
+
+				<Text text="Código" />
+				<Input id="abaConsumptio321312nAndMortality_name_input11" width="15%"
+					   value="{ABACONSUMPTIONANDMORTALITY>/code/value}"
+					   editable="{ABACONSUMPTIONANDMORTALITY>/code/editable}"
+						valueState="{ABACONSUMPTIONANDMORTALITY>/code/state}"
+						valueStateText="{ABACONSUMPTIONANDMORTALITY>/code/stateText}"/>
+				
+			</content>
+		</Toolbar>
+<Label></Label>
+		<Toolbar >
+			<content >
+<!--<ToolbarSpacer></ToolbarSpacer>-->
+				<Text text="Nombre" />
+				<Input id="abaConsumptio3213213nAndMortality_name_input21" width="15%"
+					   value="{ABACONSUMPTIONANDMORTALITY>/name/value}"
+					   editable="{ABACONSUMPTIONANDMORTALITY>/name/editable}"
+						valueState="{ABACONSUMPTIONANDMORTALITY>/name/state}"
+						valueStateText="{ABACONSUMPTIONANDMORTALITY>/name/stateText}"/>
+
+				<!--<Text text="{ABACONSUMPTIONANDMORTALITY>/time/timeUnit}" />-->
+				<Text text="Tiempo" />
+
+				<Input width="5%"
+					   value="{ABACONSUMPTIONANDMORTALITY>/timeUnitInfo/timeUnitNumber}"
+					   editable="{ABACONSUMPTIONANDMORTALITY>/timeUnitInfo/editable}"
+						valueState="{ABACONSUMPTIONANDMORTALITY>/timeUnitInfo/state}"
+						valueStateText="{ABACONSUMPTIONANDMORTALITY>/timeUnitInfo/stateText}"
+						liveChange="validateIntInput"/>
+
+				<ComboBox id="abaFormulation_321312time_combo" selectedKey="{ABACONSUMPTIONANDMORTALITY>/time/id}"
+						  editable="{ABACONSUMPTIONANDMORTALITY>/time/editable}"
+						  items="{ABACONSUMPTIONANDMORTALITY>/time}"
+						valueState="{ABACONSUMPTIONANDMORTALITY>/time/state}"
+						valueStateText="{ABACONSUMPTIONANDMORTALITY>/time/stateText}">
+					<items>
+						<core:Item key="{ABACONSUMPTIONANDMORTALITY>id}" text="{ABACONSUMPTIONANDMORTALITY>plural_name}" />
+					</items>
+				</ComboBox>
+
+				<Button text="Generar Formulario" icon="sap-icon://add" press="onPressGenerateForm" ariaLabelledBy="editButtonLabel" />
+			</content>
+		</Toolbar>
+		<Label></Label>
+
+
+		<Table id="idProductsTable8"
+			   inset="false"
+			   width="100%"
+			   items="{ABACONSUMPTIONANDMORTALITY>/timeUnitInfo/value}">
+			<columns>
+				<Column>
+					<Text text="{ABACONSUMPTIONANDMORTALITY>/time/timeUnitNameSingular}"/>
+				</Column>
+				<Column>
+					<Text text="Consumo (GRMS)"/>
+				</Column>
+				<Column>
+					<Text text="Mortalidad (%)"/>
+				</Column>
+			</columns>
+
+			<items>
+				<ColumnListItem>
+					<cells>
+						<Text text="{ABACONSUMPTIONANDMORTALITY>time_unit_number}"/>
+						<Input id="abaFormulation_name_input12331"
+							   valueState="{ABACONSUMPTIONANDMORTALITY>state}"
+							   valueStateText="{ABACONSUMPTIONANDMORTALITY>stateText}"
+							   value="{ABACONSUMPTIONANDMORTALITY>consumption}"
+							   editable="{ABACONSUMPTIONANDMORTALITY>/time/editable}"
+								width="30%"
+								liveChange="validateFloatInput"
+						/>
+						<Input id="abaFormulation_name_input12313"
+							   valueState="{ABACONSUMPTIONANDMORTALITY>state2}"
+							   valueStateText="{ABACONSUMPTIONANDMORTALITY>stateText2}"
+							   value="{ABACONSUMPTIONANDMORTALITY>mortality}"
+							   editable="{ABACONSUMPTIONANDMORTALITY>/time/editable}"
+							   width="30%"
+							   liveChange="validateFloatInput"
+						/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</VBox>
+</mvc:View>

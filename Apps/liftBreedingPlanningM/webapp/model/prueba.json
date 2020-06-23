@@ -1,0 +1,19 @@
+{
+	"pruebaRecords": [ {
+		"semana": "12/11/2017",
+		"cantidad": "5000",
+		"shed_id": "G1"
+
+
+	}, {
+		"semana": "13/11/2017",
+		"cantidad": "1000",
+		"shed_id": "G2"
+
+	}, {
+		"semana": "14/11/2017",
+		"cantidad": "1000",
+		"shed_id": "G3"
+
+	}]
+}

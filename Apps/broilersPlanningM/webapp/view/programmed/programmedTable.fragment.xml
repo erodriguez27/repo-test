@@ -1,0 +1,93 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+  <Table id="idtable2"
+      inset="false"
+      items="{path:'mdprogrammed>/records'}"
+      mode="SingleSelect"  
+      delete="handleDelete"
+       busy="{util>/busy}"
+      selectionChange="onSelectExecutedRecord"
+      growing="true"
+      growingScrollToLoad="true">
+      <columns>
+
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Granja" />
+        </Column>
+
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Núcleo" />
+        </Column>
+
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Galpón" />
+        </Column>
+
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Capacidad (UN)" />
+        </Column>
+
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Producto" />
+        </Column>
+
+
+
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Cantidad Programada (UN)" />
+        </Column>
+
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Lote" />
+        </Column>
+
+        <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+          <Text text="Ejecutado"/>
+        </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+      </Column>
+
+      </columns>
+      <items>
+        <ColumnListItem>
+          <cells>
+             <Text text="{mdprogrammed>farm_name}" />
+             <Text text="{mdprogrammed>center_name}" />
+             <Text text="{mdprogrammed>shed_name}" />
+             <ObjectNumber
+             number="{path:'mdprogrammed>capacity_shed',formatter: '.formatter.formatMiles' }"/>
+             <Button icon="sap-icon://search" type="Transparent" press="handleLinkPress"></Button>
+             <Text text="{path:'mdprogrammed>scheduled_quantity',formatter: '.formatter.formatMiles' }" />
+             <Link text="{mdprogrammed>lot}" press="showProgrammedLots"/>
+             <core:Icon
+                src="{path: 'mdprogrammed>isexecuted', formatter: '.formatter.formaticon'}"
+                color="{path: 'mdprogrammed>isexecuted', formatter: '.formatter.formatcolor'}" 
+                >
+              </core:Icon>
+              <Button id="button" type="Transparent" icon="sap-icon://sys-cancel" visible = "{parts : [{path: 'mdprogrammed>synchronized'} ,{ path: 'mdprogrammed>isexecuted'}],formatter:'.formatter.formatVisible'}" press="onPressDetProg"/>
+          </cells>
+        </ColumnListItem>
+      </items>
+    </Table>
+</core:FragmentDefinition>

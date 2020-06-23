@@ -1,0 +1,72 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" 	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form">
+
+
+  <Table id="Realinventory"
+				 inset="false"
+				 items="{path:'mdinventory>/recordsReal'}"
+				 mode="nome"
+         enableBusyIndicator="true"
+				 delete="handleDelete"
+				 selectionChange="onSelectProgrammedRecord"
+         growing="true"
+        growingScrollToLoad="true">
+
+
+    <!-- <infoToolbar>
+      <OverflowToolbar width="100%" design="Transparent">
+        <content>
+          <ToolbarSpacer id="paramenter_space2"/>
+          <Button width="50px" id="paramenter_buttonReal" icon="sap-icon://action-settings" press="onDialogSettingsDisp"/>
+        </content>
+      </OverflowToolbar>
+    </infoToolbar> -->
+
+    <columns>
+        <Column hAlign="Center">
+          <Text text="{i18n>incubatorPlanning}"/>
+        </Column>
+
+        <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+          <Text text="{i18n>Acc} (UND)"/>
+        </Column>
+
+        <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+          <Text text="{i18n>App} (UND)"/>
+        </Column>
+
+        <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+          <Text text="{i18n>Exp} (UND)"/>
+        </Column>
+
+        <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+          <Text text="{i18n>disp} (UND)"/>
+        </Column>
+
+     <!--  <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Total (UND)"/>
+      </Column> -->
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>days}"/>
+      </Column>
+    </columns>
+    <items>
+      <ColumnListItem>
+        <cells>
+          <Link
+            text="{mdinventory>name}"
+            press="handleLinkPress" />
+					<ObjectNumber number="{path:'mdinventory>acclimatization',formatter: '.formatter.formatMiles' }"/>
+          <ObjectNumber number="{path:'mdinventory>appropriate',formatter: '.formatter.formatMiles' }" />
+					<ObjectNumber number="{path:'mdinventory>expired',formatter: '.formatter.formatMiles' }" />
+          <!-- <ObjectNumber number="{path:'mdinventory>available',formatter: '.formatter.formatMiles' }" /> -->
+          <ObjectNumber number="{path:'mdinventory>total',formatter: '.formatter.formatMiles' }" />
+          <ObjectNumber number="{path:'mdinventory>_days',formatter: '.formatter.formatMiles'}" />
+
+      </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</core:FragmentDefinition>
+

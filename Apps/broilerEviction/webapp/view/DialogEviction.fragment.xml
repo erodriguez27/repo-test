@@ -1,0 +1,25 @@
+<core:FragmentDefinition 
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:f="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core">
+    <Dialog title="{i18n>Edesalojo}"
+            class="sapUiPopupWithPadding"
+            confirm="onCancelCopy"
+            cancel="onCancelCopy"
+            busy="false">
+
+   
+      <Label text="Desalojar Galpón" />
+			<CheckBox 	selected="{mdprogrammed>/shedEviction}"
+      select="testeameste"/> 
+
+      <beginButton>
+        <Button text="Guardar" type="Accept" press="onDialogPressExAcept"/>
+      </beginButton>
+      <endButton>
+        <Button text="Cancelar" type="Reject" press="destroy"/>
+      </endButton>
+
+    </Dialog>
+</core:FragmentDefinition>

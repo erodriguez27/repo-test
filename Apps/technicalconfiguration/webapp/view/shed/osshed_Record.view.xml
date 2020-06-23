@@ -1,0 +1,19 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="technicalConfiguration.controller.osshed">
+	<sap.m.semantic:DetailPage busy="{dummy>/busy}" xmlns:sap.m.semantic="sap.m.semantic" title="{i18n>recordTitle}" showNavButton="true" navButtonPress="onNavBack">
+		<sap.m.semantic:content>
+			<core:Fragment fragmentName="technicalConfiguration.view.shed.osshed_Header" type="XML"/>
+			<core:Fragment fragmentName="technicalConfiguration.view.shed.osshed_Form" type="XML"/>
+			<FlexBox width="100%" justifyContent="Center" alignItems="Center" height="5em">
+				<items>
+					<Button visible="false" text="Silos asociados" width="auto"/>
+				</items>
+			</FlexBox>
+		</sap.m.semantic:content>
+		<sap.m.semantic:customFooterContent>
+			<Button text="{i18n>modify}" width="100px" visible="{OSSHED>/modify}" press="onEdit"/>
+			<Button text="{i18n>save}" width="100px" type="Accept" visible="{OSSHED>/save}" press="onUpdate"/>
+			<Button text="{i18n>cancel}" width="100px" type="Reject" visible="{OSSHED>/cancel}" press="onCancelEdit"/>
+			<Button text="{i18n>delete}" width="100px" type="Reject" visible="{OSSHED>/delete}" press="onConfirmDelete"/>
+		</sap.m.semantic:customFooterContent>
+	</sap.m.semantic:DetailPage>
+</mvc:View>

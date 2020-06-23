@@ -1,0 +1,76 @@
+{
+  "name": {
+      "value": "",
+      "state": "None",
+      "stateText": "",
+      "visible": true,
+      "editable": false,
+      "required": true
+  },
+    "records": [],
+    "selectedRecordPath": "",
+    "create": false,
+  	"modify": true,
+  	"delete": true,
+  	"save": true,
+  	"cancel": true,
+  "weight": {
+      "value": "",
+      "state": "None",
+      "stateText": "",
+      "visible": true,
+      "editable": true,
+      "required": true
+  },
+  "min_days": {
+      "value": "",
+      "state": "None",
+      "stateText": "",
+      "visible": true,
+      "editable": false,
+      "required": true
+  },
+  
+  "days_eviction": {
+      "value": "",
+      "state": "None",
+      "stateText": "",
+      "visible": true,
+      "editable": false,
+      "required": true
+  },
+    "initial": {
+      "records": [],
+      "selectedKey": "",
+      "value": "",
+      "state": "None",
+      "stateText": "",
+      "visible": false,
+      "editable": false,
+      "required": true
+  },
+  "code" : {
+      "value" : "",
+      "state": "None",
+      "stateText": "",
+      "visible": true,
+      "editable": false,
+      "required": true
+  },
+  "gender" : {
+      "value" : "",
+      "state": "None",
+      "stateText": "",
+      "visible": true,
+      "enabled": false,
+      "required": true,
+      "selectedKey":""
+  },
+  "breed":{
+    "enabled":false,
+    "state":"None",
+    "stateText":""
+  },
+  "breedRequired":false,
+  "nButton":true
+}

@@ -1,0 +1,96 @@
+<mvc:View
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:fb="sap.ui.comp.filterbar"
+	controllerName="Mantenimiento-escenarios.controller.Main"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+>
+	<Page title="Definición de Metas" id="page">
+		<headerContent>
+			<Button icon="sap-icon://undo" tooltip="Ir al launchpad" text="Ir al launchpad" press="goToLaunchpad" />
+		</headerContent>
+		<content>
+			<ObjectHeader>
+				<attributes>
+					<ObjectAttribute text="Escenario activo: {scenarios>/selectedScenario/name}" />
+				</attributes>
+			</ObjectHeader>
+		    <IconTabBar
+		    	id="tabBar"
+		    	selectedKey="scenarioFilter"
+		    	expandable="false"
+		    	applyContentPadding="false"
+		    	select="onTabSelection"
+	    	>
+		        <items>
+		            <IconTabFilter id="scenarioTab" text="Escenario" icon="sap-icon://task">
+		                <content>
+		                	<core:Fragment fragmentName="Mantenimiento-escenarios.view.maintenance.Maintenance-table" type="XML"/>
+		                </content>
+		            </IconTabFilter>
+		            <IconTabSeparator icon="sap-icon://open-command-field"/>
+		            <IconTabFilter id="scenarioProcessesTab" text="Procesos" icon="sap-icon://task">
+		            	<content>
+		            		<core:Fragment fragmentName="Mantenimiento-escenarios.view.processes.Processes-table" type="XML"/>
+		                </content>
+		            </IconTabFilter>
+		            <IconTabSeparator/>
+		            <IconTabFilter id="scenarioEstimationTab" text="M. Producción" icon="sap-icon://activity-2">
+		            	<content>
+										<core:Fragment fragmentName="Mantenimiento-escenarios.view.budget.Budget-table" type="XML"/>
+		                </content>
+		            </IconTabFilter>
+								<IconTabSeparator />
+								<!--<IconTabFilter id="scenarioEstimationTab2" text="M. Compra" icon="sap-icon://sales-quote">
+		            	<content>
+										<core:Fragment fragmentName="Mantenimiento-escenarios.view.budget.Budget-table2" type="XML"/>
+		                </content>
+		            </IconTabFilter>
+								<IconTabSeparator/>-->
+								<IconTabFilter id="goalsTab" text="Metas" icon="sap-icon://goal">
+									<HBox xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" width="100%" justifyContent="End">
+										<Button tooltip="Configuracion de Filtros e indicadores" icon="sap-icon://drop-down-list" press="handleViewSettingsDialogButtonPressed" halign= "Right"/>
+									</HBox>
+									<content>
+										<core:Fragment fragmentName="Mantenimiento-escenarios.view.goals.Goals-table2" type="XML"/>
+										</content>
+								</IconTabFilter>
+
+
+
+
+
+
+		        </items>
+		    </IconTabBar>
+		</content>
+		<footer>
+			<Bar>
+				<contentRight>
+					<Button text="Nuevo" id="scenariosNewBtn" type="Accept" press="onNewScenario" visible="{scenarios>/new}"/>
+					<!-- <Button text="Modificar" id="scenarioEdit" type="Transparent" press="onEditScenario" visible="{scenarios>/edit}"/> -->
+					<!-- <Button text="Eliminar" id="scenariosDeleteBtn" type="Reject" press="onDeleteScenario" visible="{scenarios>/delete}"/> -->
+					<Button id="processesEditBtn" text="Editar" type="Transparent" press="onProcessesEdit" visible="{processes>/edit}"/>
+					<Button id="processesSaveBtn" text="Guardar" type="Accept" press="onProcessesSave" visible="{processes>/save}"/>
+					<Button id="processesCancelBtn" text="Cancelar" type="Reject" press="onProcessesCancel" visible="{processes>/cancel}"/>
+					<Button id="budgetPrevBtn" text="Anterior" type="Transparent" press="onBudgetPreviousYear" visible="{budget>/prev}"/>
+					<Button id="budgetNextBtn" text="Siguiente" type="Transparent" press="onBudgetNextYear" visible="{budget>/next}"/>
+					<Button id="budgetEditBtn" text="Editar" type="Transparent" press="toggleBudgetEditability" visible="{budget>/edit}"/>
+					<Button id="budgetSaveBtn" text="Guardar" type="Accept" press="onBudgetSave" visible="{budget>/cancel}"/>
+					<Button id="budgetCancelBtn" text="Cancelar" type="Reject" press="onBudgetCancel" visible="{budget>/cancel}"/>
+					<Button id="goalsDownload" text="Exportar" type="Transparent" icon="sap-icon://excel-attachment" press="onGoalsExport2" visible="{goals>/export}"/>
+					<!-- <Button id="goalsToERP" text="toSAP" type="Transparent" icon="sap-icon://synchronize" press="onGoalsToERP" visible="{goals>/export_erp}"/> -->
+					
+					<!--
+					<Button id="goalsDownload" text="Resumen" type="Transparent" icon="sap-icon://download" press="onGoalsExport" visible="{goals>/export}"/>
+					<Button id="goalsDownload2" text="Detalles" type="Transparent" icon="sap-icon://download" press="onGoalsExport2" visible="{goals>/export2}"/>
+					-->
+				</contentRight>
+				<contentLeft>
+					<!-- <Button text="test" id="test" type="Accept" press="testFunction" visible="true"/> -->
+				</contentLeft>
+			</Bar>
+		</footer>
+	</Page>
+</mvc:View>

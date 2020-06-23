@@ -1,0 +1,5 @@
+/* Enter your custom styles here */
+
+tr[data-background-color="Error"] {
+background-color: #ffefef !important;
+}

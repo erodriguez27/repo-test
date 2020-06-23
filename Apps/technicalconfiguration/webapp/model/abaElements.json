@@ -1,0 +1,74 @@
+{
+  "id":{
+      "value":""
+  },
+  "code": {
+      "value": "",
+      "state": "None",
+      "stateText": "",
+      "visible": true,
+      "editable": false,
+      "required": true
+  },
+  "name": {
+      "value": "",
+      "state": "None",
+      "stateText": "",
+      "visible": true,
+      "editable": false,
+      "required": true
+  },
+  "equivalent_quantity": {
+      "value": "",
+      "state": "None",
+      "stateText": "",
+      "visible": true,
+      "editable": false,
+      "required": true
+  },
+    "order": {
+        "value": "",
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": false
+    },
+    "records": [
+      {
+        "abaElement_id": 1,
+        "code": "1",
+        "name": "Maiz",
+        "order": "1"
+      },
+      {
+        "abaElement_id": 2,
+        "code": "2",
+        "name": "Soya",
+        "order": "2"
+      },
+      {
+        "abaElement_id": 3,
+        "code": "3",
+        "name": "Sorgo",
+        "order": "3"
+      },
+      {
+        "abaElement_id": 4,
+        "code": "4",
+        "name": "Trigo",
+        "order": "4"
+      },
+      {
+        "abaElement_id": 5,
+        "code": "5",
+        "name": "Cebada",
+        "order": "5"
+      }],
+    "selectedRecordPath": "",
+    "create": false,
+  	"modify": true,
+  	"delete": true,
+  	"save": true,
+  	"cancel": true
+}

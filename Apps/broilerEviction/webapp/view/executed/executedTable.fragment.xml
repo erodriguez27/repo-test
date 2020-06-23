@@ -1,0 +1,113 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+  <Table id="idexecuted"
+    inset="false"
+    items="{path:'mdexecuted>/records'}"
+    delete="handleDelete" 
+    selectionChange="onDialogPress"
+    growing="true"
+    growingScrollToLoad="true">
+
+    <!--headerToolbar>
+      <OverflowToolbar>
+        <Title text="Semana {mdprogrammed>/selectedRecord/projected_date}" level="H2"/>
+        <ToolbarSpacer/-->
+        <!--Label text="Saldo (UND) " />
+        <ObjectNumber
+          number="{path:'mdprogrammed>/programmed_residue',formatter: '.formatter.formatMiles' }"/-->
+        <!-- <Button text="fromSAP" icon="sap-icon://synchronize" enabled="true" press="onPress" /> -->
+        <!--Button text="toSAP" icon="sap-icon://synchronize" enabled="true" press="toSap" /-->
+    <!--/OverflowToolbar>
+  </headerToolbar-->
+
+  <columns>
+    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+      <Text text="Granja"/>
+    </Column>
+    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+      <Text text="Núcleo"/>
+    </Column>
+    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+      <Text text="Galpón"/>
+    </Column>
+    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" visible= "{mdexecuted>/isexecuted}">
+      <Text text="Planta de Beneficio"/>
+    </Column>
+    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" visible= "{mdexecuted>/isnotexecuted}">
+      <Text text="Planta de Beneficio"/>
+    </Column>
+
+    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+      <Text text="Lote"/>
+    </Column>
+
+    <Column hAlign="Center" visible= "{mdexecuted>/isexecuted}">
+      <Text text="Fecha"/>
+    </Column>
+    <Column hAlign="Center" visible= "{mdexecuted>/isnotexecuted}">
+      <Text text="Fecha"/>
+    </Column>
+
+    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" visible= "{mdexecuted>/isexecuted}">
+      <Text text="Cantidad (UN)"/>
+    </Column>
+    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" visible= "{mdexecuted>/isnotexecuted}">
+      <Text text="Cantidad (UN)"/>
+    </Column>
+
+    <!--
+    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+      <Text text="Venta"/>
+    </Column>
+    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+      <Text text=""/>
+    </Column>-->
+  </columns>
+
+  <items>
+    <ColumnListItem>
+      <cells>
+        <Text text="{mdprogrammed>/selectedRecord/farm_name}"/>
+        <Text text="{mdprogrammed>/selectedRecord/center_name}"/>
+        <Text text="{mdprogrammed>/selectedRecord/shed_name}"/>
+        <Text text="{mdexecuted>slaughterhous_name}" visible= "{mdexecuted>/isexecuted}"/>
+        <Select items="{path: 'mdexecuted>/slaughterhouse',templateShareable:false}"
+          selectedKey="{mdexecuted>/slaughterhouse/selectedKey}"
+          id="selectFarmE"
+          visible= "{mdexecuted>/isnotexecuted}"
+          enabled = "{mdexecuted>available}">
+          <core:Item text="{mdexecuted>name}" key="{mdexecuted>slaughterhouse_id}"/> 
+        </Select>
+        <!--Select items="{path:'mdcenter>/records',templateShareable:false}"
+                selectedKey="{mdcenter>/selectedKey}"
+                change="onChangeCenterE"
+                id="selectCore"
+                enabled = "{mdexecuted>available}">
+                <core:Item text="{mdcenter>name}" key="{mdcenter>center_id}"/> 
+        </Select>
+        <Select items="{path:'mdshed>/records',templateShareable:false}"
+                selectedKey="{mdshed>/selectedKey}"
+                change="onChangeShedE"
+                id="selectShed"
+                enabled = "{mdexecuted>available}">
+                <core:Item text="{mdshed>code}" key="{mdshed>shed_id}"/>
+        </Select--> <!--galpon-->
+        <Text text="{mdexecuted>lot}"/> <!--lote-->
+        <Text text="{mdexecuted>execution_date}" visible= "{mdexecuted>/isexecuted}"/> <!--lote-->
+        <DatePicker id="execution_dateE" textAlign="Center" valueFormat="dd-MM-yyyy" value="{mdexecuted>execution_date}" enabled = "{mdexecuted>available}" valueState="{mdexecuted>state_date}" valueStateText="{mdexecuted>state_text_date}" change="changeProgrammedDate" visible= "{mdexecuted>/isnotexecuted}"/> <!--Fecha-->
+        <Text text="{path:'mdexecuted>/execution_quantity',formatter: '.formatter.formatMiles' }" visible= "{mdexecuted>/isexecuted}"/>
+        <Input id="execution_quantityE" textAlign="Center" visible= "{mdexecuted>/isnotexecuted}" enabled = "{mdexecuted>available}" valueState="{mdexecuted>/name/state}" valueStateText="{mdexecuted>/name/stateText}" value="{mdexecuted>/execution_quantity}" liveChange = "onValidExecutedQuantity"/> <!--cantidad-->
+
+        <!--Text text="{mdprogrammed>name} "/>
+        <Text text="{mdprogrammed>center_name} "/>
+        <Text text="{mdprogrammed>code}"/-->
+        <!--<Text text="{mdprogrammed>execution_date}"/>
+        <ObjectNumber
+          number="{mdprogrammed>execution_quantity}"
+          unit="Pollitas"/>-->
+        <!--<Button icon="sap-icon://delete" press="onProgrammedDelete" enabled="{mdprogrammed>available}" />
+        <Input id="sales_quantity" textAlign="End" type="Number" valueState="{mdprogrammed>state_sales_quantity}" valueStateText="{mdprogrammed>state_text_squantity}" value="{mdprogrammed>sales_quantity}" enabled="{mdprogrammed>available}"/>-->
+      </cells>
+    </ColumnListItem>
+  </items>
+</Table>
+</core:FragmentDefinition>

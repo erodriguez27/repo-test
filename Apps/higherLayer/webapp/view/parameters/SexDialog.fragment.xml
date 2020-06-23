@@ -1,0 +1,38 @@
+<core:FragmentDefinition xmlns="sap.m" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:f="sap.ui.layout.form" 
+	xmlns:core="sap.ui.core">
+	<Dialog title="Clasificación Sexaje" class="sapUiPopupWithPadding" busy="false" contentWidth="500px" id = "sexDialog" escapeHandler="onProyectedCloseDialog">
+
+		<f:SimpleForm editable="true" labelSpanL="5" labelSpanM="4" labelSpanS="4" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsL="2" columnsM="2" maxContainerCols="2" layout="ResponsiveGridLayout" width="100%" busy="false">
+
+			<Label text="Nombre"/>
+			<Input maxLength="30" value="{tables>/SexDialog/name}" liveChange="validatenoinput" id="inputaname" placeholder="Nombre" />
+			<Label text="Sexo"/>
+			<Select selectedKey="Cobb" id="genderic" forceSelection="false">
+				<core:Item text="Hembra" key="H"/>
+				<core:Item text="Macho" key="M"/>
+			</Select>
+
+			<Label text="Raza"/>
+			<Select items="{tables>/Breeds}" id="breeds" forceSelection="false">
+				<core:Item text="{tables>name}" key="{tables>breed_id}"/>
+			</Select >
+			<Label text="Ganancia de Peso (KG)"/>
+			<Input value="{tables>/SexDialog/weight_gain}" id="inpugain" placeholder="KG" liveChange="validateFloatInput" />
+			<Label text="Edad (Días)"/>
+			<Input value="{tables>/SexDialog/age}" id="inputage" placeholder="Días" liveChange="validateIntInput" />
+			<Label text="Mortalidad (%)"/>
+			<Input value="{tables>/SexDialog/mortality}" id="inputdead" placeholder="%" liveChange="validateFloatInput" />
+
+
+		</f:SimpleForm>
+
+		<buttons>
+			<Button text="Guardar" visible="{tables>/ButtonsParameter}" type="Accept" press="validateDialog" />
+			<Button text="Guardar" visible="{=!${tables>/ButtonsParameter}}" type="Accept" press="SaveChangeSex" />
+			<Button text="Cancelar" type="Reject" press="onProyectedCloseDialog" />
+		</buttons>
+
+	</Dialog>
+</core:FragmentDefinition>

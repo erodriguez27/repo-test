@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" 
+  xmlns="sap.m" 
+  xmlns:f="sap.ui.layout.form">
+
+
+    <f:SimpleForm  
+				title="Parámetros de optimización"
+				editable="true"
+        layout="ResponsiveGridLayout" labelSpanM="4" emptySpanM="2"
+				class="editableForm">
+        <f:content>
+
+            <Label text="Raza" />
+            <Select id="selectBreed"  enabled="{optimizer>/active}" selectedKey='{optimizer>/newData/breed_id}' forceSelection="false" change='onBreedChanged' items="{optimizer>/breed}">
+              <items>
+                <core:Item text="{optimizer>name}" key="{optimizer>breed_id}" />
+              </items>
+            </Select>
+            
+            <Label  visible="true" text="Mínimo alojamiento de reproductoras (UND)"  required="{MDBROILERPRODUCT>/breedRequired}"/>
+            <Input id="inputMin" liveChange="validateIntInput" enabled="{optimizer>/active}"  value="{optimizer>/newData/min_housing}"/>
+            <Label  visible="true" text="Máximo alojamiento de reproductoras (UND)"  required="{MDBROILERPRODUCT>/breedRequired}"/>
+            <Input id="inputMax"  liveChange="validateIntInput" enabled="{optimizer>/active}" value="{optimizer>/newData/max_housing}"/>
+            <Label  visible="true" text="Margen de error en producción (%)"  required="{MDBROILERPRODUCT>/breedRequired}"/>
+            <Input id="inputDif" liveChange="validateFloatInput" enabled="{optimizer>/active}"  value="{optimizer>/newData/difference}"/>
+        </f:content>
+    </f:SimpleForm>
+
+    <!-- <List id="list" mode="Delete" delete="handleDeleteRecu" enableBusyIndicator="true" headerText="" growing="true" width="auto" busy='false' items="{TXPOSTURECURVE>/newRecords}">
+          <StandardListItem title="{TXPOSTURECURVE>week}" info="{TXPOSTURECURVE>theorical_performance}"/>
+        </List> -->
+
+</core:FragmentDefinition>

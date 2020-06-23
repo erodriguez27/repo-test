@@ -1,0 +1,52 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+	<VBox xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" width="100%" direction="Column" id="incubatorVBox">
+		<items>
+			<Toolbar xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" id="incubatorToolbar">
+				<content>
+					<SearchField liveChange="onIncubatorSearch" placeholder="{i18n>OS.searchRecord} por {i18n>incubatorPlant.code} o {i18n>incubatorPlant.name}" width="100%"/>
+				</content>
+			</Toolbar>
+      <Table
+        xmlns:core="sap.ui.core"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns:sap.m.semantic="sap.m.semantic"
+        xmlns="sap.m"
+        noDataText="{i18n>noRecords}"
+        id="incubatorTable"
+        items="{OSINCUBATOR>/records/}"
+        mode="{OSINCUBATOR>/settings/tableMode}"
+				selectionChange="onSelectFarmRecord"
+        growing="true"
+        growingScrollToLoad="true">
+        <items>
+          <ColumnListItem counter="0" id="incubator_list_item" type="DetailAndActive" detailPress="onViewIncubatorRecord">
+            <cells>
+              <Text text="{OSINCUBATOR>name}" maxLines="0" id="incubator_name_text"/>
+              <Text text="{OSINCUBATOR>code}" maxLines="0" id="incubator_code_text"/>
+							<Text text="{OSINCUBATOR>capacity}" maxLines="0" id="incubator_capacity_text"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+        <columns>
+
+          <Column id="incubator_name_column" vAlign="Middle" >
+            <header>
+              <Label text="{i18n>incubatorPlant.name}" id="incubator_table_name_label"/>
+            </header>
+          </Column>
+          <Column id="incubator_code_column" vAlign="Middle" >
+            <header>
+              <Label text="{i18n>incubatorPlant.code}" id="incubator_table_code_label"/>
+            </header>
+          </Column>
+					<Column id="incubator_capacity_column" vAlign="Middle" >
+						<header>
+							<Label text="{i18n>incubator.capacity}" id="incubator_table_capacity_label"/>
+						</header>
+					</Column>
+        </columns>
+      </Table>
+		</items>
+	</VBox>
+</core:FragmentDefinition>

@@ -1,0 +1,85 @@
+<mvc:View controllerName="userControl.controller.UserControl"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:mvc="sap.ui.core.mvc"
+  displayBlock="true"
+  xmlns:u="sap.ui.unified"
+  xmlns="sap.m"
+  xmlns:t="sap.ui.table"
+  xmlns:l="sap.ui.layout"
+  xmlns:fm="sap.ui.layout.form"
+  xmlns:f="sap.ushell.ui.footerbar"
+  xmlns:core="sap.ui.core"
+  >
+  <App >
+    <pages>
+      <Page showFooter="true">
+        <customHeader>
+          <Bar>
+          
+          <contentMiddle>
+            <title text = "{i18n>title} - {i18n>subtitle}" design="Bold"></title>
+          </contentMiddle>
+            
+          </Bar>
+        </customHeader>
+        <content>
+
+         <VBox alignItems="Center">
+
+          <fm:SimpleForm id="SimpleFormChange354"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                emptySpanS="0"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1"
+                singleContainerFullSize="false" >
+                
+                
+                
+            <fm:content>
+              
+				      <Label text="{i18n>user}" class="sapUiSmallMarginTop" design="Bold" textAlign="Center" />
+              <Input 
+                type="Text"
+                placeholder="{i18n>inputUser}" 
+                id="user" 
+                liveChange="_validateCredentials"
+                >
+              </Input>
+
+              <Label text="{i18n>password}" class="sapUiSmallMarginTop" design="Bold" textAlign="Center"/>
+              <Input 
+                type="Password"
+                placeholder="{i18n>inputPassword}" 
+                id="password"
+                liveChange="_validateCredentials">
+              </Input>
+            </fm:content>
+		      </fm:SimpleForm>
+        </VBox>
+        </content>
+        <footer>
+          <Bar>
+            <contentRight>
+              <Button
+                id="ingress"
+                text="{i18n>getIn}"
+                press="onPressButton"
+                enabled="false"
+              />
+            </contentRight>
+          </Bar>
+     </footer>
+      </Page>
+    </pages>
+  </App>
+</mvc:View>

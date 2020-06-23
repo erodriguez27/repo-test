@@ -1,0 +1,104 @@
+{
+	"_version": "1.5.0",
+	"sap.app": {
+		"id": "Launchpad",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "ui5template.basicSAPUI5ApplicationProject",
+			"version": "1.40.12"
+		}
+	},
+
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_belize"
+
+		]
+	},
+
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "Launchpad.view.App",
+			"type": "XML"
+		},
+		"dependencies": {
+			"minUI5Version": "1.30.0",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ui.layout": {},
+				"sap.uxap": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "Launchpad.i18n.i18n"
+				}
+			},
+			"dummy": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/dummy.json"
+			},
+			"data": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/data.json"
+			  }
+		},
+		"resources": {
+			"css": [{
+				"uri": "css/style.css"
+			}]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "Launchpad.view",
+				"controlId": "appControl",
+				"controlAggregation": "pages",
+				"async": true 
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "home",
+					"target": "main"
+				}
+			],
+			"targets": {
+				"main": {
+					"viewName": "View1",
+					"viewLevel": 1,
+					"viewId": "mainView"
+				}
+			}
+		}
+	}
+}

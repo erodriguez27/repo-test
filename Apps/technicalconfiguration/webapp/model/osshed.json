@@ -1,0 +1,141 @@
+{
+	"name": {
+		"value": "",
+		"state": "None",
+		"stateText": "",
+		"required": false,
+		"editable": false
+	},
+	"stall_height": {
+		"value": "",
+		"state": "None",
+		"stateText": "",
+		"required": false,
+		"editable": false
+	},
+	"stall_width": {
+		"value": "",
+		"state": "None",
+		"stateText": "",
+		"required": false,
+		"editable": false
+	},
+	"order": {
+		"value": "",
+		"state": "None",
+		"stateText": "",
+		"required": false,
+		"editable": false
+	},
+	"capmin": {
+		"value": "0",
+		"state": "None",
+		"stateText": "",
+		"required": false,
+		"editable": false
+	},
+	"capmax": {
+		"value": "0",
+		"state": "None",
+		"stateText": "",
+		"required": false,
+		"editable": false
+	},
+	"status": {
+		"value": "0",
+		"state": "None",
+		"stateText": "",
+		"required": false,
+		"editable": false
+	},
+	"disable": {
+		"value": false,
+		"state": "None",
+		"stateText": "",
+		"required": false,
+		"editable": false
+	},
+	"rehousing": {
+		"value": false,
+		"state": "None",
+		"stateText": "",
+		"required": false,
+		"editable": false
+	},
+	"rotation_days": {
+		"value": "",
+		"state": "None",
+		"stateText": "",
+		"required": false,
+		"editable": false,
+		"visible": false
+	},
+	"quantity_nests": {
+		"value": "",
+		"state": "None",
+		"stateText": "",
+		"required": false,
+		"editable": false,
+		"visible": false
+	},
+	"quantity_cages": {
+		"value": "",
+		"state": "None",
+		"stateText": "",
+		"required": false,
+		"editable": false,
+		"visible": false
+	},
+	"statusRecords": [],
+	"environmentRecords": [ {
+		"value": "54",
+		"name": "Controlado"
+	}, {
+		"value": "55",
+		"name": "Semi-Controlado"
+	}, {
+		"value": "56",
+		"name": "No Controlado"
+	}],
+	"environment": {
+		"value": " ",
+		"state": "None",
+		"stateText": "",
+		"required": false,
+		"editable": false
+	},
+		"capacity": {
+		"MIN": "",
+		"MAX": ""
+	},
+	"records": [],
+	"old": [],
+	"settings": {
+		"enabledTab": false,
+		"tableMode": "None"
+	},
+	"settings2": {
+		"enabledTab": false,
+		"tableMode": "None"
+	},
+	"selectedRecordPath": "",
+	"create": false,
+	"modify": true,
+	"delete": true,
+	"save": true,
+	"cancel": true,
+	
+	"farmSaveOrdenButt":false,
+	"farmModOrdenButt": false,
+	"farmCancelOrdenButt":false,
+
+	"centerSaveOrdenButt":false,
+	"centerModOrdenButt": false,
+	"centerCancelOrdenButt":false,
+
+	"shedSaveOrdenButt":false,
+	"shedModOrdenButt": false,
+	"shedCancelOrdenButt":false,
+	"breed":false
+	
+}

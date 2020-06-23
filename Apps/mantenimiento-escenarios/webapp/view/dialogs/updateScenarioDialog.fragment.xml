@@ -1,0 +1,104 @@
+<core:FragmentDefinition 
+	xmlns="sap.m" 
+	xmlns:core="sap.ui.core" 
+	xmlns:l="sap.ui.layout">
+
+	<Dialog id="dialogoReporte" type="Standard" title="Modificar Escenario">
+		<!-- <content> -->
+
+		<IconTabBar id="idIconTabBarNoIcons" expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding">
+	      	<items>
+	        	<IconTabFilter text="Escenario">
+					<sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" editable="true" layout="ResponsiveGridLayout" id="__form0" labelSpanL="5" labelSpanM="3" adjustLabelSpan="false">
+				        <sap.ui.layout.form:content>
+				        	<l:VerticalLayout class="sapUiContentPadding" width="100%">
+					        	<l:content>
+						          	<Label text="Nombre" design="Bold" required="true" />
+						            <Input id="editName" width="100%" type="Text" change="changeNameScenario"
+						            		valueState="{budget>/nameInput/valueState}"
+						            		valueStateText="{budget>/nameInput/valueStateText}"
+						            		value= "{scenarios>/setScenario/name}"/>
+
+						            <Label text="Descripción" design="Bold" required="false"/>
+						            <Input id="editDescripcion" width="100%" type="Text"
+						            		value="{scenarios>/setScenario/description}" />
+
+						            <Label text="Calendario" design="Bold" required="true"/>
+									<Select
+										id="editCalendar"
+										forceSelection="false"
+										valueState="{budget>/calendar/valueState}"
+										valueStateText="{budget>/calendar/valueStateText}"
+										items="{calendar>/records}"
+										change="changeCalendar"
+										selectedKey="{scenarios>/setScenario/calendar_id}">
+										<core:Item
+											key="{calendar>calendar_id}"
+											text="{calendar>code}"
+										/>
+									</Select>
+
+			                  		<Label text="Inicio" design="Bold" required="true"/>
+									<HBox width="100%">
+										<Select
+												id="editInitMonth"
+												forceSelection="true"
+												items="{date>/months}"
+												selectedKey="{scenarios>/setScenario/monthBegin}">
+												<core:Item
+													key="{date>key}"
+													text="{date>name}"
+												/>
+										</Select>
+										<Select
+												id="editInitYear"
+												forceSelection="true"
+												items="{date>/years}"
+												selectedKey="{scenarios>/setScenario/yearBegin}">
+												<core:Item key="{date>year}" text="{date>year}" />
+												<!-- selectedKey="{date>/selectedCalendar/yearEnd}" -->
+												<!-- selectedKey="{calendar>/selectRecords/year_start}" -->
+
+										</Select>
+									</HBox>
+									<Label text="Fin" design="Bold" required="true"/>
+									<HBox width="100%">
+										<Select
+												id="editEndMonth"
+												forceSelection="true"
+												items="{date>/months}"
+												selectedKey="{scenarios>/setScenario/monthEnd}">
+												<core:Item
+													key="{date>key}"
+													text="{date>name}"
+												/>
+										</Select>
+										<Select
+												id="editEndYear"
+												forceSelection="true"
+												items="{date>/years}"
+												selectedKey="{scenarios>/setScenario/yearEnd}">
+												<core:Item key="{date>year}" text="{date>year}" />
+										</Select>
+									</HBox>
+					        	</l:content>
+				            </l:VerticalLayout>
+				        </sap.ui.layout.form:content>
+				    </sap.ui.layout.form:SimpleForm>
+
+				</IconTabFilter>
+
+			</items>
+		</IconTabBar>
+
+	      
+		<!-- </content> -->
+		<beginButton>
+			<Button id="createBtn" type="Accept" width="auto" text="Crear" enabled="{budget>/updateScenario}"/>
+		</beginButton>
+		<endButton>
+      		<Button id="cancelBtn" type="Reject" width="auto" text="Cancelar"/>
+		</endButton>
+
+	</Dialog>
+</core:FragmentDefinition>

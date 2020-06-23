@@ -1,0 +1,17 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="technicalConfiguration.controller.mdbreed">
+	<App>
+		<pages>
+			<sap.m.semantic:DetailPage busy="{util>/busy}" xmlns:sap.m.semantic="sap.m.semantic" title="{i18n>OS.record.details}" id="centerPage" showNavButton="true" navButtonPress="onNavBack">
+				<sap.m.semantic:content>
+					<mvc:XMLView viewName="technicalConfiguration.view.breed.mdbreed_Form"/>
+				</sap.m.semantic:content>
+				<sap.m.semantic:customFooterContent>
+					<Button text="{i18n>modify}" width="100px" id="modBtn" visible="{MDBREED>/modify}" press="onEdit"/>
+					<Button text="{i18n>save}" width="100px" id="saveBtn" type="Accept" visible="{MDBREED>/save}" press="onUpdate"/>
+					<Button text="{i18n>cancel}" width="100px" id="cancelBtn" type="Reject" visible="{MDBREED>/cancel}" press="onCancelEdit"/>
+					<Button text="{i18n>delete}" width="100px" id="deleteBtn" type="Reject" visible="{MDBREED>/delete}" press="onConfirmDelete"/>
+				</sap.m.semantic:customFooterContent>
+			</sap.m.semantic:DetailPage>
+		</pages>
+	</App>
+</mvc:View>

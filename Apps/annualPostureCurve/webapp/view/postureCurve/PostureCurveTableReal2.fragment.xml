@@ -1,0 +1,37 @@
+<core:FragmentDefinition
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m">
+
+	<Table id="RealDayTable"
+		growing="true"
+		items="{path:'posturecurve>/dayExecuted', key: 'no_quiten_esto'}"
+		growingThreshold="20">
+
+		<columns>
+			<Column hAlign="Center">
+				<Text text="Fecha"/>
+			</Column>
+			<Column hAlign="Center">
+				<Text text="Lote"/>
+			</Column>
+			<Column hAlign="Center">
+				<Text text="Huevos Proyectados (UND)"/>
+			</Column>
+			<Column hAlign="Center">
+				<Text text="Huevos Ejecutados (UND)"/>
+			</Column>
+		</columns>
+
+		<items>
+			<ColumnListItem >
+				<cells>
+					<Text textAlign="Right" text="{posturecurve>dia}"/>
+					<Text textAlign="Center" text="{posturecurve>lot}"/>
+					<Text textAlign="Center" text="{posturecurve>sum}"/>
+					<Input id="inputExecuted" textAlign="Center" value="{posturecurve>eggs_executed}"
+						width="70%" type="Number" enabled="{posturecurve>available}" liveChange="onChange"/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

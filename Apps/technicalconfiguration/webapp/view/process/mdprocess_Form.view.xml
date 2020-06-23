@@ -1,0 +1,159 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="technicalConfiguration.controller.mdprocess">
+	<VBox class="sapUiSmallMargin" id="centerFormVBox">
+		<sap.ui.layout.form:SimpleForm
+				xmlns:sap.ui.layout.form="sap.ui.layout.form"
+				editable="true"
+				title= "{i18n>process.data}"
+				layout="ResponsiveGridLayout"
+				id="__form2"
+				columnsM="2"
+				labelSpanXL="-1"
+				labelSpanS="5"
+				breakpointL="1024"
+				breakpointM="600"
+				breakpointXL="1440"
+				columnsL="2"
+				width="100%"
+				emptySpanL="0"
+				emptySpanM="0"
+				emptySpanS="0"
+				emptySpanXL="-1"
+				labelMinWidth="192"
+				labelSpanL="4"
+				labelSpanM="2"
+				maxContainerCols="2"
+				minWidth="-1">
+
+
+			<sap.ui.layout.form:content>
+				<core:Title emphasized="true" text="Proceso"/>
+				<Label id="product_name_label" visible="true" text="{i18n>process.name}" required="{MDPROCESS>/name/required}"/>
+				<Input id="product_name_input"
+					valueState="{MDPROCESS>/name/state}"
+		 			valueStateText="{MDPROCESS>/name/stateText}"
+					value="{ path: 'MDPROCESS>/name/value', type: 'sap.ui.model.type.String'}"
+					editable="{MDPROCESS>/name/editable}"
+					liveChange="changeName"/>
+
+
+				<Label id="product_processOrder_label" visible="true" text="{i18n>process.processOrder}" required="{MDPROCESS>/process_order/required}"/>
+				<Input id="product_processOrder_input"
+					valueState="{MDPROCESS>/process_order/state}"
+		 			valueStateText="{MDPROCESS>/process_order/stateText}"
+					value="{ path: 'MDPROCESS>/process_order/value', type: 'sap.ui.model.type.Number'}"
+					editable="{MDPROCESS>/process_order/editable}"
+					liveChange="validateOrderInput"/>
+
+
+				<Label id="product_capacity_label" visible="true" text="{i18n>process.capacity}" required="{MDPROCESS>/capacity/required}"/>
+				<Input id="product_capacity_input"
+					valueState="{MDPROCESS>/capacity/state}"
+		 			valueStateText="{MDPROCESS>/capacity/stateText}"
+					value="{ path: 'MDPROCESS>/capacity/value', type: 'sap.ui.model.type.String'}"
+					liveChange="validateIntCapacityInput"
+					editable="{MDPROCESS>/capacity/editable}"/>
+
+				<Label text="{i18n>process.stage}" id="process_stage_label" required="{MDPROCESS>/stage_id/required}"/>
+				<ActionSelect id="process_stage_model"
+					class="sapUiSmallMarginBottom"
+					items="{path: 'MDSTAGE>/records'}"
+					selectedKey="{path: 'MDPROCESS>/stage_id/value'}"
+					change="updateStageModel"
+					forceSelection="false"
+					enabled="{MDPROCESS>/stage_id/editable}"
+					valueState="{MDPROCESS>/stage_id/state}"
+					valueStateText="{MDPROCESS>/stage_id/stateText}">
+					<items>
+						<core:Item key="{MDSTAGE>stage_id}" text="{MDSTAGE>name}"/>
+					</items>
+				</ActionSelect>                          
+
+				<Label text="{i18n>process.productionBreed}" id="process_breed_label" required="{MDPROCESS>/breed_id/required}"/>
+				<ActionSelect id="process_breed_model"
+				 	class="sapUiSmallMarginBottom"
+				 	items="{path: 'MDBREED>/records'}"
+				 	selectedKey="{path: 'MDPROCESS>/breed_id/value'}"
+				 	change="updateBreedModel"
+					forceSelection="false"
+				 	enabled="{MDPROCESS>/breed_id/editable}"
+					valueState="{MDPROCESS>/breed_id/state}"
+		 			valueStateText="{MDPROCESS>/breed_id/stateText}">
+				 	<items>
+				 		<core:Item key="{MDBREED>breed_id}" text="{MDBREED>name}"/>
+				 	</items>
+				 </ActionSelect>
+
+			
+
+			<Label text="{i18n>process.ProductOut}" id="process_nameProduct_label" required="{MDPROCESS>/product_id/required}"/>
+			<ActionSelect id="process_nameProduct_model"
+				class="sapUiSmallMarginBottom"
+				items="{path: 'MDPRODUCT>/records'}"
+				selectedKey="{path: 'MDPROCESS>/product_id/value'}"
+				change="updateProductModel"
+				forceSelection="false"
+				enabled="{MDPROCESS>/product_id/editable}"
+				valueState="{MDPROCESS>/product_id/state}"
+		 		valueStateText="{MDPROCESS>/product_id/stateText}">
+				<items>
+					<core:Item key="{MDPRODUCT>product_id}" text="{MDPRODUCT>name}"/>
+				</items>
+			</ActionSelect>
+
+			<Label text="{i18n>process.predecessor}" id="process_ispredecessor_label"/>
+			<CheckBox id="ispredecessor_checkbox"
+				selected="{path: 'MDPROCESS>/ispredecessor/value'}"
+				editable="{MDPROCESS>/ispredecessor/editable}"
+				select="onChangePredecessor"/>
+
+			<Label id="process_predecessorconfirm_label" />
+			<ActionSelect id="process_predecessor_model"
+				forceSelection="false"
+				class="sapUiSmallMarginBottom"
+				items="{path: 'MDPROCESS>/predecessor'}"
+				selectedKey="{path: 'MDPROCESS>/predecessor_id/value'}"
+				change="updatePredecessorModel"
+				enabled="{MDPROCESS>/predecessor_id/editable}"
+				valueState="{MDPROCESS>/predecessor_id/state}"
+		 		valueStateText="{MDPROCESS>/predecessor_id/stateText}">
+				<items>
+					<core:Item key="{MDPROCESS>process_id}" text="{MDPROCESS>name}"/>
+				</items>
+			</ActionSelect>
+
+			<core:Title emphasized="true" text="Producto"/>
+
+			<Label text="{i18n>process.biological_active}" id="biological_sync_considered_label"/>
+			<CheckBox id="biological_active_checkbox" selected="{path: 'MDPROCESS>/biological_active/value'}" editable="{MDPROCESS>/biological_active/editable}" />
+			
+				<Label id="product_historicalMerma_label" visible="true" text="{i18n>process.Merma} ({i18n>process.merma})" required="{MDPROCESS>/historical_decrease/required}"/>
+				<Input id="product_historicalMerma_input"
+					valueState="{MDPROCESS>/historical_decrease/state}"
+		 			valueStateText="{MDPROCESS>/historical_decrease/stateText}"
+					value="{ path: 'MDPROCESS>/historical_decrease/value'}"
+					liveChange="validateFloatInput"
+					editable="{MDPROCESS>/historical_decrease/editable}"
+					description=""/>
+							
+				<Label id="product_historicalWeight_label" visible="true" text="{i18n>process.Weight} ({i18n>process.measure})" required="{MDPROCESS>/historical_weight/required}"/>
+				<Input id="product_historicalWeight_input"
+					valueState="{MDPROCESS>/historical_weight/state}"
+		 			valueStateText="{MDPROCESS>/historical_weight/stateText}"
+					value="{ path: 'MDPROCESS>/historical_weight/value'}"
+					liveChange="validateFloatWeightInput"
+					editable="{MDPROCESS>/historical_weight/editable}"
+					description=""/>
+
+				<Label id="product_historicalDuration_label2" visible="true" text="{i18n>process.Duration}({i18n>process.day})" required="{MDPROCESS>/historical_duration/required}"/>
+				<Input id="product_historicalDuration_input"
+					valueState="{MDPROCESS>/historical_duration/state}"
+		 			valueStateText="{MDPROCESS>/historical_duration/stateText}"
+					value="{ path: 'MDPROCESS>/historical_duration/value'}"
+					liveChange="validateIntCapacityInput"
+					editable="{MDPROCESS>/historical_duration/editable}"
+					description=""/>
+
+			</sap.ui.layout.form:content>
+		</sap.ui.layout.form:SimpleForm>
+	</VBox>
+</mvc:View>

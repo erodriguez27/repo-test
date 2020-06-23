@@ -1,0 +1,50 @@
+{
+  "postureRecords":[],
+  "compareButton": {
+    "text": "Comparar",
+    "type": "Emphasized"
+  },
+  "calculateButton": {
+    "text": "Calcular",
+    "type": "Emphasized",
+    "visible": false
+  },
+  "listType": "SingleSelectMaster",
+  "scenarios": [],
+  "idSelected": "",
+  "dates": [],
+  "selectedDates": [],
+  "scenariosAndDates": [],
+  "stats": [],
+  "popOverData": {
+    "diferenceNro": "",
+    "isAlojamiento": ""
+  },
+  "columns": [{"columnName1":"fecha"},{"columnName1":"production"},{"columnName1":"demanda"}],
+  "items": [
+    {
+      "key": 1,
+      "text": "Prueba 1"
+    },
+    {
+      "key": 2,
+      "text": "Prueba 2"
+    },
+    {
+      "key": 3,
+      "text": "Prueba 3"
+    },
+    {
+      "key": 4,
+      "text": "Prueba 4"
+    }
+  ],
+  "algoritmo":[{"key":1,"name":"Optimización de diferencias"},{"key":2,"name":"Cumplimiento de demandas"}],
+  "selectedItem": {},
+  "tableInfo": {"equivalents":[]},
+  "busy": false,
+  "menuGeneral":false,
+  "semaforo" :true,
+  "decision":[{"name":"Sin"},{"name":"Con"}]
+ 
+}

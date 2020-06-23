@@ -1,0 +1,89 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+  <Table id="idtable2"
+      inset="false"
+      items="{path:'mdprogrammed>/records'}"
+      mode="SingleSelect"
+      busy="{util>/busy}"
+      delete="handleDelete"
+      selectionChange="onSelectExecutedRecord"
+      growing="true"
+        						growingScrollToLoad="true">
+      <columns>
+        <Column
+          hAlign="Center">
+          <Text text="Fecha" />
+        </Column>
+
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Lote" />
+        </Column>
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Cantidad (UND)" />
+        </Column>
+
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Granja" />
+        </Column>
+
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Núcleo" />
+        </Column>
+
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Galpón" />
+        </Column>
+
+        <Column
+         minScreenWidth="Tablet"
+         demandPopin="true"
+         hAlign="Center">
+         <Text text="Planta Incubadora" />
+       </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Ejecutado"/>
+      </Column>
+
+      <Column
+        minScreenWidth="Tablet"
+        demandPopin="true"
+        hAlign="Right">
+      </Column>
+      </columns>
+      <items>
+        <ColumnListItem>
+          <cells>
+             <Text text="{path:'mdprogrammed>scheduled_date'}" />
+             <Link text="{mdprogrammed>lot}" press="showProgrammedLots"/>
+             <ObjectNumber
+             number="{path:'mdprogrammed>scheduled_quantity',formatter: '.formatter.formatMiles' }"/>
+             <Text text="{mdprogrammed>name}" />
+             <Text text="{mdprogrammed>center_name}" />
+             <Text text="{mdprogrammed>code}" />
+             <Text text="{mdprogrammed>incubatorname}" />
+             <core:Icon
+                src="{path: 'mdprogrammed>isexecuted', formatter: '.formatter.formaticon'}"
+                color="{path: 'mdprogrammed>isexecuted', formatter: '.formatter.formatcolor'}" 
+                >
+              </core:Icon>
+              <Button id="button" type="Transparent" icon="sap-icon://sys-cancel" visible = "{parts : [{path: 'mdprogrammed>synchronized'} ,{ path: 'mdprogrammed>isexecuted'}],formatter:'.formatter.formatVisible'}" press="onPressDetProg"/>
+             
+          </cells>
+        </ColumnListItem>
+      </items>
+    </Table>
+</core:FragmentDefinition>

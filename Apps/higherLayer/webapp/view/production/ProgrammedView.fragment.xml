@@ -1,0 +1,111 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" 
+  xmlns="sap.m">
+  <FlexBox width="100%" justifyContent="Center">
+    <items>
+      <Select items="{production>/selectScenariomains}" id="selectscenariomain" selectedKey="{production>/ProductionMain/scenario_id}">
+        <core:Item text="{production>name}" key="{production>scenario_id}"/>
+      </Select>
+      <Select items="{production>/farmss}" id="selectfarm" selectedKey="{production>/ProductionMain/farm_id}">
+        <core:Item text="{production>name}" key="{production>farm_id}"/>
+      </Select>
+      <Select items="{production>/breedss}" id="selectbreed" selectedKey="{production>/ProductionMain/breed_id}">
+        <core:Item text="{production>name}" key="{production>breed_id}"/>
+      </Select>
+      <DatePicker valueFormat="dd-MM-yyyy" value="{production>/ProductionMain/date1}" />
+      <DatePicker valueFormat="dd-MM-yyyy" value="{production>/ProductionMain/date2}" />
+      <Button text="Buscar" press="LoadProduction"/>
+
+    </items>
+  </FlexBox>
+
+
+
+
+  <Table inset="false" mode="Delete" delete="DeleteProduction" items="{path:'production>/ProductionTable', key: 'no_quiten_esto'}" selectionChange="onSelectProgrammedRecords" growing="true" growingScrollToLoad="true">
+
+    <columns>
+      <!-- <Column minScreenWidth="Tablet" visible="{= isNaN(${production>/ProductionMainCopy/scenario_id}) ? true : false }" demandPopin="true" hAlign="Center">
+        <Text text="Escenario" />
+      </Column> -->
+      <Column hAlign="Center" visible="{= isNaN(${production>/ProductionMainCopy/breed_id}) ? true : false }">
+        <Text text="Raza" />
+      </Column>
+      <Column minScreenWidth="Tablet" visible="{= isNaN(${production>/ProductionMainCopy/farm_id}) ? true : false }" demandPopin="true" hAlign="Center">
+        <Text text="Granja" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Galpones" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad Programada (UN)" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Fecha de Encasetamiento" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad Ejecutada (UN)" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Fecha Ejecutada" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Fecha Inicio de Postura" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Mortalidad (%)" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="100px">
+        <Text text="Lote" />
+      </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Proyectar" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Ejecutar" />
+      </Column>
+
+    </columns>
+    <items>
+      <ColumnListItem>
+        <cells>
+          <!-- <Link press="PopOverscenario" text="{production>name_scenario}" /> -->
+          <Text text="{production>name_breed}" />
+          <Text text="{production>name_farm}" />
+          <Button press="PopOverProduction" icon="sap-icon://search" type="Transparent" />
+          <Text text="{path:'production>programmed_quantity',formatter: '.formatter.formatMiles' }" />
+          <Text text="{production>housing_date}" />
+
+          <FlexBox justifyContent="Center">
+            <input maxLength="8" type="Number" visible="{= ${production>projected} === false? true : (${production>executed} === false? true : false) }" valueState="{production>stateQuantity}" valueStateText="{production>stateTextQuantity}" liveChange="validateIntInput" enabled="{= ${production>mortality} === null? false : (${production>executed} === false? true : false) }" value="{production>execution_quantity}"/>
+            <Text visible="{= ${production>projected} === false? false : (${production>executed} === false? false : true) }" text="{path:'production>execution_quantity',formatter: '.formatter.formatMiles' }" />
+          </FlexBox>
+
+          <FlexBox justifyContent="Center">
+            <DatePicker visible="{= ${production>projected} === false? true : (${production>executed} === false? true : false) }" change = "changeDateExecution" valueState="{production>stateExeDate}" valueStateText="{production>stateTextExeDate}" enabled="{= ${production>mortality} === null? false : (${production>executed} === false? true : false) }" valueFormat="yyyy-MM-dd" value="{production>execution_date}" />
+            <Text visible="{= ${production>projected} === false? false : (${production>executed} === false? false : true) }" text="{production>ex_date}" />
+          </FlexBox>
+
+          <FlexBox justifyContent="Center">
+            <!-- <DatePicker minDate="{production>execution_date_ref}" visible="{= ${production>projected} === false? true : (${production>executed} === false? true : false) }" change = "changeDate" valueState="{production>statePosDate}" valueStateText="{production>stateTextPosDate}" enabled="{= ${production>mortality} === null? false : (${production>executed} === false? true : false) }" valueFormat="yyyy-MM-dd" value="{production>start_posture_date}" />
+            <Text visible="{= ${production>projected} === false? false : (${production>executed} === false? false : true) }" text="{production>post_date}" /> -->
+            <Text text="{production>post_date}" />
+          </FlexBox>
+
+          <Text text="{production>mortality}" />
+
+          <FlexBox justifyContent="Center">
+            <!-- <input visible="{= ${production>projected} === false? true : (${production>executed} === false? true : false) }" valueState="{production>stateQuantityLot}" valueStateText="{production>stateTextQuantityLot}" liveChange="validateIntInput" enabled="{= ${production>mortality} === null? false : (${production>executed} === false? true : false) }" value="{production>lot}" />
+            <Text visible="{= ${production>projected} === false? false : (${production>executed} === false? false : true) }" text="{production>lot}" /> -->
+            <Text text="{production>lot}" />
+          </FlexBox>
+          <FlexBox justifyContent="Center">
+            <Button visible="{=!${production>projected}}" press="ChangeDecreaseButton" enabled="{=!${production>projected}}" icon="sap-icon://filter-analytics" />
+            <Button visible="{production>projected}" press="PopOverProductionProjected" icon="sap-icon://search" type="Transparent" />
+          </FlexBox>
+          <Button press="ChangePostureCurveButton" icon="sap-icon://complete" enabled="{= ${production>mortality} === null? false : (${production>executed} === false? true : false) }" />
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</core:FragmentDefinition>

@@ -1,0 +1,44 @@
+<mvc:View xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m" 
+	xmlns:html="http://www.w3.org/1999/xhtml" controllerName="higherLayer.controller.Master">
+	<App>
+		<pages>
+			<sap.m.semantic:MasterPage xmlns:sap.m.semantic="sap.m.semantic" title="{prueba>/Title}"  id="__page1" navButtonPress="Navback">
+				<sap.m.semantic:customHeaderContent>
+					<Button icon="sap-icon://undo" tooltip="Ir al launchpad" press="goToLaunchpad" />
+				</sap.m.semantic:customHeaderContent>
+				<!-- <sap.m.semantic:subHeader>
+					<Bar id="headerBar">
+						<contentMiddle>
+							<SearchField id="searchField" width="100%" liveChange="onSearch"/>
+						</contentMiddle>
+					</Bar>
+				</sap.m.semantic:subHeader> -->
+
+				<sap.m.semantic:content>
+					<List id="list1" mode="SingleSelectMaster" items="{prueba>/stages}" noDataText="Drop list items here" selectionChange="onSelectionChange" >
+						<items>
+							<ObjectListItem press="onSelectionChange" type="Active" counter="0" title="{prueba>name}" markFavorite="false" markFlagged="false" showMarkers="false" id="__item0">
+								<attributes>
+									<ObjectAttribute text="{}" active="false" id="__attribute0"/>
+								</attributes>
+							</ObjectListItem>
+						</items>
+					</List>
+					<List id="list2"  items="{prueba>/stages/0/stages}" visible="false" selectionChange="parametersSelect" mode="SingleSelectMaster">
+						<items>
+							<ObjectListItem press="parametersSelect" type="Active" counter="0" title="{prueba>name}" markFavorite="false" markFlagged="false" showMarkers="false" >
+							</ObjectListItem>
+						</items>
+					</List>
+					
+
+
+				</sap.m.semantic:content>
+			</sap.m.semantic:MasterPage>
+
+
+		</pages>
+	</App>
+</mvc:View>

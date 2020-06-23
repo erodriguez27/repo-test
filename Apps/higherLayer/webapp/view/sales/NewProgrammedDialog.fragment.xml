@@ -1,0 +1,46 @@
+<core:FragmentDefinition xmlns="sap.m" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:f="sap.ui.layout.form" 
+	xmlns:core="sap.ui.core">
+	<Dialog id="programewdialogsales" title="Venta/Compra" class="sapUiPopupWithPadding"  busy="false">
+
+		<f:SimpleForm editable="true" labelSpanL="5" labelSpanM="4" labelSpanS="4" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsL="2" columnsM="2" maxContainerCols="2" layout="ResponsiveGridLayout" width="100%" busy="false">
+
+			<Label text="Escenario"/>
+			<Select id="salesscenario" items="{sales>/scenarios}" forceSelection="false" selectedKey="{sales>/salesDialog/scenario_id}">
+				<core:Item text="{sales>name}" key="{sales>scenario_id}"/>
+			</Select>
+			<Label text="Fecha"/>
+			<DatePicker id="projected_date" valueFormat="yyyy-MM-dd" value="{sales>/salesDialog/programmed_date}" change="handleChange"/>
+			<Label text="Concepto"/>
+			<Select id="salesconcept" forceSelection="false" selectedKey="{sales>/salesDialog/concept}">
+				<core:Item text="Compra" key="Compra"/>
+				<core:Item text="Venta" key="Venta"/>
+			</Select>
+			<Label text="Cantidad"/>
+			<Input id="salesinpu" value="{sales>/salesDialog/quantity}" placeholder="Cantidad" liveChange="validateIntInput"/>
+
+			<Label text="Tipo"/>
+			<Select id="salestype" forceSelection="false" selectedKey="{sales>/salesDialog/type}">
+				<core:Item text="Huevo Fértil" key="Huevo Fértil"/>
+				<core:Item text="Pollito de un día" key="Pollito de un día"/>
+				<core:Item text="Pollo Vivo" key="Pollo Vivo"/>
+			</Select>
+			<Label text="Raza"/>
+			<Select id="salesbreed" items="{sales>/breedss}"  forceSelection="false" selectedKey="{sales>/salesDialog/breed_id}">
+				<core:Item text="{sales>name}" key="{sales>breed_id}"/>
+			</Select>
+			<Label text="Descripción"/>
+			<TextArea id="descri" value="{sales>/salesDialog/description}" placeholder="Descripción" />
+
+
+		</f:SimpleForm>
+		<beginButton>
+			<Button text="Guardar" type="Accept" press="SaveDecrease" />
+		</beginButton>
+		<endButton>
+			<Button text="Cancelar" type="Reject" press="CloseDialog" />
+		</endButton>
+
+	</Dialog>
+</core:FragmentDefinition>

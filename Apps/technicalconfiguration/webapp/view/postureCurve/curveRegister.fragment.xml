@@ -1,0 +1,39 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+  <VBox xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" width="100%" direction="Column">
+		<items>
+			<Toolbar xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+				<content>
+					<SearchField id="curveSearchField" liveChange="onCurveSearch" placeholder="{i18n>OS.searchRecord}" width="100%"/>
+				</content>
+			</Toolbar>
+			<Table xmlns:core="sap.ui.core"
+				xmlns:mvc="sap.ui.core.mvc"
+				xmlns:html="http://www.w3.org/1999/xhtml"
+				xmlns:sap.m.semantic="sap.m.semantic"
+				xmlns="sap.m"
+				noDataText="{i18n>noRecords}"
+				id="curveTable"
+				items="{TXPOSTURECURVE>/curves/}"
+				mode="SingleSelect"
+				selectionChange="onSelectBreedRecord"
+				growing="true"
+				growingScrollToLoad="true">
+
+				<items>
+					<ColumnListItem type="Inactive" detailPress="onViewShedRecord">
+						<cells>
+							<Text text="{TXPOSTURECURVE>name}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+				<columns>
+					<Column vAlign="Middle">
+						<header>
+							<Label text="{i18n>posturecurve.breed}"/>
+						</header>
+					</Column>
+				</columns>
+			</Table>
+		</items>
+	</VBox>
+</core:FragmentDefinition>

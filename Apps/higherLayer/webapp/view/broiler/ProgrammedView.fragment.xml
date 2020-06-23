@@ -1,0 +1,85 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" 
+  xmlns="sap.m">
+
+
+
+
+  <Table inset="false" mode="Delete" delete="DeleteBroiler" items="{path:'broiler>/broilerProgrammedTable', key: 'no_quiten_esto'}" growing="true" growingScrollToLoad="true">
+
+    <columns>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Granja" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Galpones" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad Ejecutada (UN)" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="105px">
+        <Text text="Fecha Encasetamiento" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad Referencial" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Sexo" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad Desalojo (UN)" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Edad (Días)" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Fecha Desalojo" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Peso Promedio (KG)" />
+      </Column>
+      <!-- <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Sync" />
+      </Column> -->
+
+
+    </columns>
+    <items>
+      <ColumnListItem>
+        <cells>
+
+          <Text text="{broiler>farm}" />
+          <Button press="PopOverBroiler" icon="sap-icon://search" type="Transparent" />
+          <Text text="{path:'broiler>housing_quantity',formatter: '.formatter.formatMiles' }" />
+          <Text text="{broiler>h_date}" />
+          <Button press="PopOverQuality" icon="sap-icon://search" type="Transparent" />
+
+
+          <FlexBox justifyContent="Center">
+            <Select visible="{= ${broiler>executed} === true ? false : true}" items="{broiler>/genders}" selectedKey="{broiler>category}" change="sexChange" forceSelection="false">
+              <core:Item text="{broiler>name}" key="{broiler>slgenderclassification_id}"/>
+            </Select>
+            <Text visible="{= ${broiler>executed} === true ? true : false}" text="{broiler>gender_class}" />
+          </FlexBox>
+
+          <FlexBox justifyContent="Center">
+
+            <input visible="{= ${broiler>executed} === true ? false : true}" value="{broiler>eviction_quantity}" />
+            <Text visible="{= ${broiler>executed} === true ? true : false}" text=" {path:'broiler>eviction_quantity',formatter: '.formatter.formatMiles'}" />
+          </FlexBox>
+
+          <FlexBox justifyContent="Center">
+            <input visible="{= ${broiler>executed} === true ? false : true}" value="{broiler>age}" type="Number" liveChange="ageinput" />
+            <Text visible="{= ${broiler>executed} === true ? true : false}" text="{broiler>age}" />
+          </FlexBox>
+
+          <Text text="{broiler>showdate}" />
+          <Text text="{broiler>weightgain}" />
+          <!-- <core:Icon src="{= ${broiler>synchronized} === true ? 'sap-icon://accept' : 'sap-icon://decline'}" class="size1" color="{= ${broiler>synchronized} === true ? 'green' : 'red'}" /> -->
+
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+
+</core:FragmentDefinition>

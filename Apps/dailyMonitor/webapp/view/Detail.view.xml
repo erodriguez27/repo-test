@@ -1,0 +1,80 @@
+<mvc:View xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m" 
+	xmlns:html="http://www.w3.org/1999/xhtml" controllerName="dailyMonitor.controller.Detail">
+	<App>
+		<pages>
+			<sap.m.semantic:DetailPage xmlns:sap.m.semantic="sap.m.semantic" title="Monitor diario" id="__page1">
+				<sap.m.semantic:content>
+					<ObjectHeader title="{ospartnership>name}" intro="{ospartnership>address}" iconActive="false" id="__header0" icon="sap-icon://factory" backgroundDesign="Translucent" responsive="true">
+						<attributes>
+							<ObjectAttribute text="Escenario Activo: {mdscenario>/name}" />
+						</attributes>
+
+						<!-- <headerContainer> <IconTabBar id="tabBar" headerMode="Inline" selectedKey="farmFilter" expandable="false" applyContentPadding="false" backgroundDesign="Solid" headerBackgroundDesign="Translucent" select="onTabSelection">
+
+		         			</IconTabBar>
+						</headerContainer> -->
+
+						<headerContainer>
+							<IconTabBar id="tabBar" headerMode="Inline" selectedKey="farmFilter" expandable="false" applyContentPadding="false" backgroundDesign="Solid" headerBackgroundDesign="Translucent" select="onTabSelection">
+								<items>
+									<IconTabFilter id="tabLiftBreeding" key="ktabLiftBreeding" text="{i18n>tabLevante}">
+										<content>
+											<core:Fragment fragmentName="dailyMonitor.view.stages.liftBreeding" type="XML"/>
+										</content>
+									</IconTabFilter>
+
+									<IconTabSeparator id="__separator1" icon="sap-icon://open-command-field"/>
+
+									<IconTabFilter id="tabBreeding" key="ktabBreeding" text="{i18n>tabReproductora}" showAll="false" iconDensityAware="true">
+										<content>
+											<core:Fragment fragmentName="dailyMonitor.view.stages.breeding" type="XML"/>
+										</content>
+									</IconTabFilter>
+
+									<IconTabSeparator  icon="sap-icon://open-command-field"/>
+
+									<IconTabFilter  key="ktabColdRoom" text="{i18n>tabColdRoom}" showAll="false" iconDensityAware="true">
+										<content>
+											<core:Fragment fragmentName="dailyMonitor.view.stages.coldRoom" type="XML"/>
+										</content>
+									</IconTabFilter>
+
+									<IconTabSeparator id="__separator11" icon="sap-icon://open-command-field"/>
+
+									<IconTabFilter id="tabIncubator" key="ktabIncubator" text="{i18n>tabIncubadora}" showAll="false" iconDensityAware="true">
+										<content>
+											<core:Fragment fragmentName="dailyMonitor.view.stages.incubator" type="XML"/>
+										</content>
+									</IconTabFilter>
+
+									<IconTabSeparator id="__separator111" icon="sap-icon://open-command-field"/>
+
+									<IconTabFilter id="tabBroiler" key="ktabBroiler" text="{i18n>tabEngorde}" showAll="false" iconDensityAware="true">
+										<content>
+											<core:Fragment fragmentName="dailyMonitor.view.stages.broiler" type="XML"/>
+										</content>
+									</IconTabFilter>
+
+									<IconTabSeparator id="__separator1111" icon="sap-icon://open-command-field"/>
+
+									<IconTabFilter id="tabBroilerEviction" key="ktabBroilerEviction" text="{i18n>tabDesalojo}" showAll="false" iconDensityAware="true">
+										<content>
+											<core:Fragment fragmentName="dailyMonitor.view.stages.broilerEviction" type="XML"/>
+										</content>
+									</IconTabFilter>
+
+
+
+
+
+								</items>
+							</IconTabBar>
+						</headerContainer>
+					</ObjectHeader>
+				</sap.m.semantic:content>
+			</sap.m.semantic:DetailPage>
+		</pages>
+	</App>
+</mvc:View>

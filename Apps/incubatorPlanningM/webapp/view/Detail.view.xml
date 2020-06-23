@@ -1,0 +1,69 @@
+<mvc:View xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m" 
+	xmlns:html="http://www.w3.org/1999/xhtml" controllerName="incubatorPlanningM.controller.Detail">
+	<App>
+		<pages>
+			<sap.m.semantic:DetailPage xmlns:sap.m.semantic="sap.m.semantic" title="Incubadora" id="__page1">
+				<sap.m.semantic:content>
+					<ObjectHeader title="{ospartnership>name}" intro="{ospartnership>address}" titleSelectorPress="handleTitleSelectorPress" iconActive="false" id="__header0" icon="sap-icon://factory" backgroundDesign="Translucent" responsive="true">
+						<attributes>
+							<ObjectAttribute text="Escenario Activo:  {mdscenario>/name}" />
+						</attributes>
+						<headerContainer>
+							<IconTabBar id="tabBar" headerMode="Inline" selectedKey="farmFilter" expandable="false" applyContentPadding="false" backgroundDesign="Solid" headerBackgroundDesign="Translucent" select="onTabSelection">
+								<items>
+									<IconTabFilter id="tabProjected" key="ktabProjected" text="{i18n>Proyect}">
+										<content>
+											<core:Fragment fragmentName="incubatorPlanningM.view.projected.projectedTable" type="XML"/>
+										</content>
+									</IconTabFilter>
+
+									<IconTabSeparator id="__separator1" icon="sap-icon://open-command-field"/>
+
+									<IconTabFilter id="tabProgrammed" key="ktabProgrammed" text="Programado" showAll="false" enabled="{mdprogrammed>/enabledTabAssigned}">
+										<content>
+											<core:Fragment fragmentName="incubatorPlanningM.view.programmed.programmedTable" type="XML"/>
+										</content>
+									</IconTabFilter>
+
+									<IconTabSeparator id="__separator2" icon="sap-icon://open-command-field"/>
+
+									<IconTabFilter id="tabExecuted" key="ktabExecuted" text="{i18n>Program}" showAll="false" enabled="{mdexecuted>/enabledTabAssigned}">
+										<content>
+											<core:Fragment fragmentName="incubatorPlanningM.view.executed.executedTable" type="XML"/>
+										</content>
+									</IconTabFilter>
+									<IconTabSeparator id="__separator3" icon="sap-icon://open-command-field"/>
+
+									<IconTabFilter id="tabSales" key="ktabSales" text="{i18n>Sales}" showAll="false" enabled="{mdprogrammed>/enabledTabAssignedSales}">
+										<content>
+											<core:Fragment fragmentName="incubatorPlanningM.view.sales.salesTable" type="XML"/>
+										</content>
+									</IconTabFilter>
+									<IconTabSeparator id="__separator00000" icon="sap-icon://open-command-field" />
+									<IconTabFilter id="tabReports" key="ktabReports" text="{i18n>Reports}" showAll="false">
+										<content>
+											<core:Fragment fragmentName="incubatorPlanningM.view.reports.reportTable" type="XML" />
+										</content>
+									</IconTabFilter>
+								</items>
+							</IconTabBar>
+						</headerContainer>
+					</ObjectHeader>
+				</sap.m.semantic:content>
+				<sap.m.semantic:customFooterContent>
+					<Button id="projectedNextBtn" text="Siguiente" type="None" press="onProjectedNext" visible="{mdprogrammed>/projectedSaveBtn}" enabled="{= ${mdprogrammed>/selectedRecords/length} > 0}"/>
+					<!--<Button id="projectedSaveBtn" text="Nuevo" type="Accept" press="onDialogPressPj" visible="{mdprojected>/projectedSaveBtn}"/>-->
+					<Button id="programmedsaveBtn" text="Nuevo" type="Accept" press="onDialogPressPg" visible="{mdprogrammed>/programmedNewBtn}"/>
+
+					<Button id="executionSaveBtn" text="Guardar" type="Accept" press="saveExecution" visible="{=${mdexecuted>/executionSaveBtn}=== true}"/>
+					<!-- <Button id="executionSaveBtn" text="Guardar" type="Accept" press="saveExecution" visible="{mdexecuted>/executionSaveBtn}"/> -->
+					<Button id="exportBtn" text="Exportar" type="Transparent" icon="sap-icon://excel-attachment" press="generatedCSV" visible="{mdreports>/reportsBtn}"/>
+					<Button id="executionRealInventory" text="Nuevo" type="Accept" press="onDialogPressReal" visible="{mdprogrammed>/executionNewReal}"/>
+					<Button id="salesBtn" text="Nuevo" type="Accept" press="onDialogPressSales" visible="{mdprogrammed>/salesC}"/>
+				</sap.m.semantic:customFooterContent>
+			</sap.m.semantic:DetailPage>
+		</pages>
+	</App>
+</mvc:View>

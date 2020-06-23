@@ -1,0 +1,49 @@
+{
+  "NOMBRE DE LA EMPRESA": {
+    "default" : "",
+    "type" : "Input",
+    "validate" : {
+      "required" : true,
+      "errorEmpty" : "Nombre no puede ser vacio",
+      "pattern" : "^.{1,45}$",
+      "errorPattern" : "Debe estar entre 1 y 45 caracteres"
+    },
+    "binding" : "name"
+  },
+  "DIRECCIÓN": {
+    "default" : "",
+    "type" : "Input",
+    "validate" : {
+      "required" : true,
+      "errorEmpty" : "Dirección no puede estar vacio",
+      "pattern" : "^.{1,250}$",
+      "errorPattern" : "Debe estar entre 1 y 250 caracteres"
+    },
+    "binding" : "address"
+  },
+  "DESCRIPCIÓN": {
+    "default" : "",
+    "type" : "Input",
+    "validate" : {
+      "required" : true,
+      "errorEmpty" : "Descripción no puede estar vacío",
+      "pattern" : "^.{1,250}$",
+      "errorPattern" : "Debe estar entre 1 y 250 caracteres"
+    },
+    "binding" : "description"
+  },
+  "CÓDIGO DE EMPRESA": {
+    "default" : "",
+    "type" : "Input",
+    "validate" : {
+      "required" : true,
+      "errorEmpty" : "Código no puede estar vacío",
+      "pattern" : "^([A-Za-z0-9]{1,9}-{1}[A-Za-z0-9]{1,10}|[A-Za-z0-9]{1,20}){1}$",
+      "errorPattern" : "Los códigos deben ser alfanuméricos sin espacios en blanco y máximo de 20 digitos",
+      "unique": true,
+      "errorUnique": "Codigó duplicado"
+    },
+    "binding" : "code"
+  }
+  
+}

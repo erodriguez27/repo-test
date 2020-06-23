@@ -1,0 +1,56 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+	<VBox xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" width="100%" direction="Column" id="partnershipVBox">
+		<items>
+      <Toolbar xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" id="processToolbar">
+        <content>
+          <SearchField id="partnershipSearchField" liveChange="onPartnershipSearch" placeholder="{i18n>OS.searchRecord} por {i18n>partnership.code}, {i18n>partnership.name} o {i18n>partnership.description}" width="100%"/>
+        </content>
+      </Toolbar>
+
+      <Table
+        xmlns:core="sap.ui.core"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns:sap.m.semantic="sap.m.semantic"
+        xmlns="sap.m"
+        noDataText="{i18n>noRecords}"
+        id="partnershipTable"
+        items="{OSPARTNERSHIP>/records/}"
+				mode="{OSPARTNERSHIP>/settings/tableMode}"
+				selectionChange="onSelectPartnershipRecord"
+        growing="true"
+        growingScrollToLoad="true">
+
+        <items>
+          <ColumnListItem counter="0" id="partnership_list_item" type="{OSPARTNERSHIP>/itemType}" detailPress="onViewPartnershipRecord">
+            <cells>
+							<Text text="{OSPARTNERSHIP>code}" maxLines="0" id="ospartnership_code_text"/>
+              <Text text="{OSPARTNERSHIP>name}" maxLines="0" id="ospartnership_name_text"/>
+              <Text text="{OSPARTNERSHIP>description}" maxLines="0" id="ospartnership_description_text"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+        <columns>
+					<Column id="ospartnership_code_column" width="20%">
+						<header>
+							<Label text="{i18n>partnership.code}" id="ospartnership_code_name_label"/>
+						</header>
+					</Column>
+          <Column id="ospartnership_name_column" vAlign="Middle" width="20%">
+            <header>
+              <Label text="{i18n>partnership.name}" id="ospartnership_table_name_label"/>
+            </header>
+          </Column>
+          <Column id="ospartnership_description_column" vAlign="Middle" width="30%">
+            <header>
+              <Label text="{i18n>partnership.description}" id="partnership_table_description_label"/>
+            </header>
+          </Column>
+        </columns>
+      </Table>
+
+
+
+		</items>
+	</VBox>
+</core:FragmentDefinition>

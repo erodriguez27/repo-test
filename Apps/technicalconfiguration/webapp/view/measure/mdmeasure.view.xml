@@ -1,0 +1,61 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="technicalConfiguration.controller.mdmeasure">
+	<App>
+		<pages>
+			<sap.m.semantic:DetailPage busy="{util>/busy}" xmlns:sap.m.semantic="sap.m.semantic" title="{i18n>OS.entity.details}" id="stagePage" showNavButton="{util>/phone}" navButtonPress="onNavMaster">
+				<sap.m.semantic:content>
+					<ObjectHeader title="{i18n>measure.entityName}" numberUnit="{i18n>records}" id="stageHeader" backgroundDesign="Solid" responsive="true"/>
+					<VBox xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" width="100%" direction="Column" id="stageVBox">
+						<items>
+							<Toolbar xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" id="stageToolbar">
+								<content>
+									<SearchField id="stageSearchField" liveChange="onstageSearch" placeholder="{i18n>OS.searchRecord}" width="100%"/>
+								</content>
+							</Toolbar>
+							<Table
+								xmlns:core="sap.ui.core"
+								xmlns:mvc="sap.ui.core.mvc"
+								xmlns:html="http://www.w3.org/1999/xhtml"
+								xmlns:sap.m.semantic="sap.m.semantic"
+								xmlns="sap.m"
+								noDataText="{i18n>noRecords}"
+								id="stageTable"
+								items="{MDMEASURE>/records/}"
+								mode="None"
+								growing="true"
+        						growingScrollToLoad="true">
+								
+								<items>
+									<ColumnListItem counter="0" id="stage_list_item" type="{=(${MDMEASURE>name}==='porDefecto')?'Inactive':'DetailAndActive'}" detailPress="onViewMeasureRecord">
+										<cells>
+											<Text text="{MDMEASURE>name}" maxLines="0" id="stage_name_text"/>
+											<Text text="{MDMEASURE>abbreviation}" maxLines="0" id="stage_abbr_text"/>
+											<Text text="{MDMEASURE>originvalue} {MDMEASURE>abbreviation}" maxLines="0" id="stage_ovalue_text"/>
+											<Text text="{parts: [{path: 'MDMEASURE>valuekg'}, {path: 'MDMEASURE>abbreviation'} ], formatter: '.formatter.onkg'}" maxLines="0" id="stage_valuekg_text"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+								<columns>
+									<Column id="measure_name_column" vAlign="Middle" width="30%">
+										<Label text="{i18n>measure.name}" id="stage_table_name_label"/>
+									</Column>
+									<Column id="measure_abbr_column" vAlign="Middle" width="20%">
+										<Label text="{i18n>measure.abbr}" id="stage_table_abbr_label"/>
+									</Column>
+									<Column id="measure_measureValue_column" vAlign="Middle" demandPopin="false" minScreenWidth="Tablet">
+										<Label text="{i18n>measure.measureValue}" id="stage_table_measureValue_label"/>
+									</Column>
+									<Column id="measure_valueKg_column" vAlign="Middle" demandPopin="false" minScreenWidth="Tablet">
+										<Label text="{i18n>measure.valueKg}" id="stage_table_valueKg_label"/>
+									</Column>
+								</columns>
+							</Table>
+						</items>
+					</VBox>
+				</sap.m.semantic:content>
+				<sap.m.semantic:customFooterContent>
+					<Button text="{i18n>new}" width="100px" id="newBtn" type="Accept" visible="{MDMEASURE>/new}" press="onNewRecord"/>
+				</sap.m.semantic:customFooterContent>
+			</sap.m.semantic:DetailPage>
+		</pages>
+	</App>
+</mvc:View>

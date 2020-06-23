@@ -1,0 +1,41 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="technicalConfiguration.controller.osIncubator">
+	<App>
+		<pages>
+			<sap.m.semantic:DetailPage busy="{util>/busy}" xmlns:sap.m.semantic="sap.m.semantic" title="{i18n>OS.entity.details}" id="incubatorPlantPage" showNavButton="{util>/phone}" navButtonPress="onNavMaster">
+				<sap.m.semantic:content>
+					<core:Fragment fragmentName="technicalConfiguration.view.incubator.osIncubator_Header" type="XML"/>
+						<IconTabBar headerMode="Inline"
+							selectedKey="partnershipFilter"
+							id="tabBar"
+							select="onSelectChangedTab"
+							expandable="false"
+							applyContentPadding="false">
+
+							<items>
+								<IconTabFilter text="{i18n>farm.partnerships}" id="partnershipFilter" key="kpartnershipFilter">
+									<content>
+										<core:Fragment fragmentName="technicalConfiguration.view.partnership.ospartnership-Table" type="XML"/>
+									</content>
+								</IconTabFilter>
+								<IconTabSeparator icon="sap-icon://open-command-field"/>
+								<IconTabFilter text="{i18n>incubatorPlant.plant}" id="incubatorPlantFilter" key="kincubatorPlantFilter" count="{parts: [{path: 'OSINCUBATORPLANT>/records'}], formatter: '.formatter.recordsCount'}" enabled="{OSINCUBATORPLANT>/settings/enabledTab}">
+									<content>
+										<core:Fragment fragmentName="technicalConfiguration.view.incubatorPlant.osIncubatorPlant-Table" type="XML"/>
+									</content>
+								</IconTabFilter>
+								<IconTabSeparator icon="sap-icon://open-command-field"/>
+								<IconTabFilter text="{i18n>incubator.machine}" id="incubatorFilter" key="kincubatorFilter" count="{parts: [{path: 'OSINCUBATOR>/records'}], formatter: '.formatter.recordsCount'}" enabled="{OSINCUBATOR>/settings/enabledTab}">
+									<content>
+										<core:Fragment fragmentName="technicalConfiguration.view.incubator.osIncubator-Table" type="XML"/>
+									</content>
+								</IconTabFilter>
+							</items>
+						</IconTabBar>
+				</sap.m.semantic:content>
+				<sap.m.semantic:customFooterContent>
+					<Button text="{i18n>new}" width="100px" id="newBtn" type="Accept" visible="{OSINCUBATOR>/new}" press="onNewRecord"/>
+				</sap.m.semantic:customFooterContent>
+			</sap.m.semantic:DetailPage>
+		</pages>
+	</App>
+</mvc:View>

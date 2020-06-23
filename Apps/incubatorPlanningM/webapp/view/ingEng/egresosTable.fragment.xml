@@ -1,0 +1,78 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+
+
+<FlexBox width="100%" id="FlexBoxEgresos" justifyContent="Center">
+<items>
+    <OverflowToolbar>
+        <ToolbarSpacer/>
+        <Title text="{i18n>from}: " level="H2"/>
+    </OverflowToolbar>
+    <DatePicker id="dayparam3" valueFormat="MM-dd-yyyy" placeholder="Desde" change="handleChange" class="sapUiSmallMarginBottom"/>
+    <OverflowToolbar>
+        <ToolbarSpacer/>
+        <Title text="{i18n>until}: " level="H2"/>
+    </OverflowToolbar>
+    <DatePicker id="dayparam4" valueFormat="MM-dd-yyyy" placeholder="Hasta" change="handleChange" class="sapUiSmallMarginBottom"/>
+    <Button id="EgresosButton" text="{i18n>search}" press="onPress"></Button>
+</items>
+</FlexBox>
+
+<Table id="EgresosTable"
+          inset="false"
+          items="{path:'mdegresoIngresoAjustes>/Egresos'}"
+          mode="Delete"
+          delete="handleDelete"
+          selectionChange="onDialogPress"
+          growing="true"
+        	growingScrollToLoad="true">
+
+   <columns>
+     <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>lot}"/>
+      </Column>
+       <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>quantityEggsIngreso}"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>quantityIngreso}"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>quantityEgresos}"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>difference}"/>
+      </Column>
+       <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>dateEjecution}"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>quantityEggs}"/>
+      </Column>
+   </columns>
+
+   <items>
+      <ColumnListItem>
+        <cells>
+        <Text text="{mdegresoIngresoAjustes>lot}"/>
+        <Text text="{mdegresoIngresoAjustes>fecha_movements}"/>
+        <Text text="{mdegresoIngresoAjustes>ingreso}"/>
+        <Text text="{mdegresoIngresoAjustes>egreso}"/>
+        <Text text="{mdegresoIngresoAjustes>eggs}"/>
+      
+        <DatePicker id="NewDayEgresos"  valueFormat="yyyy-MM-dd"  value="{mdegresoIngresoAjustes>newDate}"
+           change="handleChange" class="sapUiSmallMarginBottom" enabled="{mdegresoIngresoAjustes>available}"
+           width="120px"/> 
+
+        <Input id="eggsEgresos" valueState="" valueStateText="" 
+           value="{mdegresoIngresoAjustes>newEggs}"
+           width="50%"  enabled="{mdegresoIngresoAjustes>available}" editable="true"
+           liveChange="validateIntInput"/>
+     
+          <!-- <Text text="{mdegresoIngresoAjustes>incubator}"/> -->
+        </cells>
+      </ColumnListItem>
+    </items>
+
+</Table>
+
+</core:FragmentDefinition>

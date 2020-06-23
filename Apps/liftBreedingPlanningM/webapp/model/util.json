@@ -1,0 +1,12 @@
+{
+  "serviceUrl" : "",
+  "service": "local",
+  "local": {
+    "addliftBreedingPlanningM": "/liftBreedingPlanningM",
+    "truncateliftBreedingPlanningM": "/liftBreedingPlanningM/truncateliftBreedingPlanningM"
+    },
+  "remote": {
+    "addliftBreedingPlanningM": "/liftBreedingPlanningM",
+    "truncateliftBreedingPlanningM": "/liftBreedingPlanningM/truncateliftBreedingPlanningM"
+  }
+}

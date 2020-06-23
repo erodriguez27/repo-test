@@ -1,0 +1,2575 @@
+sap.ui.define([
+    "breedingPlanningM/controller/BaseController",
+    "jquery.sap.global",
+    "sap/ui/model/Filter",
+    "sap/ui/core/Fragment",
+    "sap/ui/model/json/JSONModel",
+    "sap/m/MessageToast",
+    "sap/m/Dialog",
+    "sap/m/Button",
+    "sap/m/Text"
+], function(BaseController, jQuery, Filter, Fragment, JSONModel, MessageToast, Dialog, Button, Text) {
+    "use strict";
+    const breedingStage = 3; /*Clase para Reproductora*/
+    return BaseController.extend("breedingPlanningM.controller.Detail", {
+
+        onInit: function() {
+            this.setFragments();
+            this.getRouter().getRoute("detail").attachPatternMatched(this._onRouteMatched, this);
+        },
+
+        _onRouteMatched: function(oEvent) {
+            var oArguments = oEvent.getParameter("arguments");
+
+            this.index = oArguments.id;
+
+            let oView= this.getView();
+            let ospartnership = this.getModel("ospartnership");
+            oView.byId("tabBar").setSelectedKey("tabParameter");
+            oView.byId("tableBreed").addEventDelegate({
+                onAfterRendering: oEvent=>{
+                }
+            });
+
+            this.projectedPopover = sap.ui.xmlfragment("breedingPlanningM.view.projected.ProjectedPopover", this);
+            this.getView().addDependent(this.projectedPopover);
+
+            this.programmedPopover = sap.ui.xmlfragment("breedingPlanningM.view.programmed.ProgrammedPopover", this);
+            this.getView().addDependent(this.programmedPopover);
+    
+    
+            if(ospartnership.getProperty("/records").length>0){
+                let partnership_id = ospartnership.getProperty("/selectedRecords/partnership_id");
+                this.onRead(partnership_id);
+            } else{
+                this.reloadPartnership()
+                    .then(data => {
+                        if(data.length>0){
+                            let obj= ospartnership.getProperty("/selectedRecords/");
+                            if(obj){
+                                this.onRead(obj.partnership_id);
+                            } else{
+                                MessageToast.show("no existen empresas cargadas en el sistema", {
+                                    duration: 3000,
+                                    width: "20%"
+                                });
+                                console.log("err: ", data);
+                            }
+                        } else{
+                            MessageToast.show("ha ocurrido un error al cargar el inventario", {
+                                duration: 3000,
+                                width: "35%"
+                            });
+                            console.log("err:", data);
+                        }
+                    });
+            }
+
+            this.getView().byId("__header0").bindElement("ospartnership>/records/" + this.index + "/");
+            this.onRead(this.index);
+        },
+
+        reloadPartnership: function(){
+            let util = this.getModel("util");
+            let that = this;
+            let ospartnership = this.getModel("ospartnership");
+
+            util.setProperty("/busy/", true);
+            ospartnership.setProperty("/records", []);
+
+            let url = util.getProperty("/serviceUrl") +util.getProperty("/" + util.getProperty("/service") + "/getPartnership");
+            let method = "GET";
+            let data = {};
+            return new Promise((resolve, reject) => {
+                function getPartnership(res) {
+                    util.setProperty("/busy/", false);
+                    ospartnership.setProperty("/records/", res.data);
+                    if(res.data.length>0){
+                        let obj= res.data[0];
+                        obj.index= 0;
+                        ospartnership.setProperty("/selectedRecords/", obj);
+                        ospartnership.setProperty("/name", obj.name);
+                        ospartnership.setProperty("/address", obj.address);
+                    }
+                    resolve(res.data);
+                }
+
+                function error(err) {
+                    console.log("error en reloadPartnership ---> ",err);
+                    ospartnership.setProperty("/selectedRecords/", []);
+                    util.setProperty("/error/status", err.status);
+                    util.setProperty("/error/statusText", err.statusText);
+                    reject(err);
+                }
+
+                /*Envía la solicitud*/
+                this.sendRequest.call(this, url, method, data, getPartnership, error, error);
+            });
+        },
+
+        changeProgrammedFilter: function(oEvent) {
+            const mdprojected = this.getView().getModel("mdprojected");
+            const programmedFilter = mdprojected.getProperty("/programmedFilter");
+
+            if (programmedFilter !== "programmed") {
+                mdprojected.setProperty("/lotFilter", "");
+            } 
+        },
+
+        changeLotFilter: function(oEvent) {
+            const mdprojected = this.getView().getModel("mdprojected");
+            const query = mdprojected.getProperty("/lotFilter");
+
+            if (query !== "") {
+                mdprojected.setProperty("/programmedFilter", "programmed");
+            }
+        },
+
+        onRead: async function(index) {
+            let ospartnership = this.getModel("ospartnership"),
+                mdscenario = this.getModel("mdscenario"),
+                oView = this.getView();
+
+            oView.byId("tabBar").setSelectedKey("kTabParameter");
+
+            let activeS = await this.activeScenario();
+            mdscenario.setProperty("/scenario_id", activeS.scenario_id);
+            mdscenario.setProperty("/name", activeS.name);
+
+            ospartnership.setProperty("/selectedRecordPath/", "/records/" + index);
+            ospartnership.setProperty("/selectedRecord/", ospartnership.getProperty(ospartnership.getProperty("/selectedRecordPath/")));
+
+            let isFarmLoad = await this.onFarmLoad();
+            let isBreedLoad = await this.onBreedLoad();
+            let isIncubatorPlant = await this.onIncubatorPlant();
+
+            let util = this.getModel("util"),
+                that = this,
+                mdprojected = this.getModel("mdprojected"),
+                mdprogrammed = this.getModel("mdprogrammed");
+
+            ospartnership.setProperty("/selectedPartnership/partnership_index", index);
+
+            let process_info = await this.processInfo(),
+                mdprocess = this.getModel("mdprocess");
+            mdprocess.setProperty("/records", process_info.data);
+            let findScenario = await this.findProjected();
+            mdprojected.setProperty("/records", findScenario.data);
+            that.hideButtons(false, false,false, false);
+
+            let mdincubatorplant = this.getModel("mdincubatorplant");
+
+            mdincubatorplant.setProperty("/records", isIncubatorPlant.data);
+            if(isIncubatorPlant.data.length>0){
+                mdincubatorplant.setProperty("/selectedKey", isIncubatorPlant.data[0].incubator_plant_id);
+            }
+        },
+
+        validateIntInput: function (o) {
+            let input= o.getSource();
+            let length = 10;
+            let value = input.getValue();
+            let regex = new RegExp(`/^[0-9]{1,${length}}$/`);
+
+            if (regex.test(value)) {
+                return true;
+            }
+            else {
+                let aux = value
+                    .split("")
+                    .filter(char => {
+                        if (/^[0-9]$/.test(char)) {
+                            if (char !== ".") {
+                                return true;
+                            }
+                        }
+                    })
+                    .join("");
+                value = aux.substring(0, length);
+                input.setValue(value);
+                return false;
+            }
+        },
+
+        onValidProgrammedQuantity: function(o)
+        {
+            let input= o.getSource();
+            let length = 10;
+            let value = input.getValue();
+            let regex = new RegExp(`/^[0-9]{1,${length}}$/`);
+  
+            if (regex.test(value)){
+                return true;
+            }
+            else {
+                let aux = value.split("").filter(char => {
+                    if (/^[0-9]$/.test(char)){
+                        if (char !== ".") {
+                            return true;
+                        }
+                    }
+                }).join("");
+                value = aux.substring(0, length);
+                input.setValue(value);
+                this.validQuantityShed(value);
+                return false;
+            }
+        },
+
+        validQuantityShed: function(value){
+            let mdshed = this.getModel("mdshed");
+            let selectedShed = sap.ui.getCore().byId("selectShed").getSelectedKey();
+            let array1 = mdshed.getProperty("/records");
+            let mdprogrammed = this.getModel("mdprogrammed");
+            let programmed_residue = mdprogrammed.getProperty("/programmed_residue");
+      
+            var found = array1.find(function(element) {
+                return element.shed_id == selectedShed;
+            });
+            mdprogrammed.setProperty("/confirmBtn", true);
+            if(value === null || value ===""){//VALIDACION PARA ENTRADA NULA
+                mdprogrammed.setProperty("/name/state", "None");
+                mdprogrammed.setProperty("/name/stateText", "");
+                mdprogrammed.setProperty("/confirmBtn", false);
+            }
+            else if(parseInt(value)===0){//VALIDACION PARA ENTRADA IGUAL A 0
+                mdprogrammed.setProperty("/name/state", "Error");
+                mdprogrammed.setProperty("/name/stateText", "La cantidad programada debe ser mayor a 0");
+                mdprogrammed.setProperty("/confirmBtn", false);
+            }
+            else if(parseInt(value) > programmed_residue){//VALIDACION PARA ENTRADA MAYOR AL RESIDUO
+                mdprogrammed.setProperty("/name/state", "Warning");
+                mdprogrammed.setProperty("/name/stateText", "La cantidad programada supera al saldo");
+            }
+            else if(parseInt(value) > found.capmax) {//VALIDACION PARA ENTRADA MAYOR A CAPACID. MAX
+                mdprogrammed.setProperty("/name/state", "Warning");
+                mdprogrammed.setProperty("/name/stateText", "La cantidad programada supera la capacidad del galpon");
+            }
+            else if(parseInt(value)< parseInt(found.capmin)){//VALIDACION PARA ENTRADA MENOR A CAPAC. MIN
+                mdprogrammed.setProperty("/name/state", "Warning");
+                mdprogrammed.setProperty("/name/stateText", "La cantidad programada esta por debajo de la capacidad mínima del galpón");
+            }
+            else{
+                mdprogrammed.setProperty("/name/state", "None");
+                mdprogrammed.setProperty("/name/stateText", "");
+            }
+
+        },
+
+        reports: function()
+        {
+            var mdreports = this.getModel("mdreports");
+            let date1 = this.getView().byId("sd").mProperties.value,
+                date2 = this.getView().byId("sd2").mProperties.value,
+                partnership_id = this.getView().getModel("ospartnership").getProperty("/records/" + this.index + "/partnership_id"),
+                breed_id = this.getView().byId("breedSelect").getSelectedKey(),
+                scenario_id = this.getModel("mdscenario").getProperty("/scenario_id");
+
+
+            let aDate = date1.split("-"),
+                init_date = `${aDate[0]}/${aDate[1]}/${aDate[2]}`;
+
+            let aDate2 = date2.split("-"),
+                end_date = `${aDate2[0]}/${aDate2[1]}/${aDate2[2]}`;
+
+            if (date1 === null || date1== "" || date2 === null || date2== "" ){
+                MessageToast.show("No se pueden consultar fechas vacías", {
+                    duration: 3000,
+                    width: "20%"
+                });
+            }else{
+                let serverName = "/reports/breeding";
+
+                fetch(serverName, {
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    method: "POST",
+                    body: JSON.stringify({
+                        date1: date1,
+                        date2: date2,
+                        breed_id: breed_id,
+                        partnership_id: partnership_id,
+                        scenario_id: scenario_id
+                    })
+                })
+                    .then(
+                        function(response) {
+                            if (response.status !== 200) {
+                                console.log("Looks like there was a problem. Status Code: " +
+                  response.status);
+                                return;
+                            }
+
+                            response.json().then(function(res) {
+                                mdreports.setProperty("/records", res.data);
+                                mdreports.setProperty("/raza", res.raza);
+                                if (res.data.length > 0) 
+                                {
+                                    mdreports.setProperty("/reportsBtn", true);
+                                    mdreports.setProperty("/desde", init_date);
+                                    mdreports.setProperty("/hasta", end_date);
+                                    mdreports.setProperty("/visible", true);
+                  
+                                }
+                                else
+                                {
+                                    mdreports.setProperty("/reportsBtn", false);
+                                    mdreports.setProperty("/visible", false);
+                                }
+                                resolve(res);
+                            });
+                        }
+                    )
+                    .catch(function(err) {
+                        console.log("Fetch Error :-S", err);
+                    });
+            }
+      
+        },
+
+        generatedCSV: function()
+        {
+            var mdreports = this.getModel("mdreports").getProperty("/records");
+            this.arrayObjToCsv(mdreports);
+        },
+
+        arrayObjToCsv: function (ar) {
+        //comprobamos compatibilidad
+            let breed_id = this.getView().byId("breedSelect").getSelectedKey();
+            let array = [];
+            if(window.Blob && (window.URL || window.webkitURL)){
+                var contenido = "",
+                    d = new Date(),
+                    blob,
+                    reader,
+                    save,
+                    clicEvent;
+                //creamos contenido del archivo
+                if(breed_id === "Todas"){
+                    array = ["Fecha Programada",  "Cantidad Programada", "Fecha Ejecutada", "Cantidad Ejecutada", "Lote", "Raza", "Granja", "Núcleo", "Galpón", "Granja Ejecutada", "Núcleo Ejecutado", "Galpón Ejecutado","Variación Cantidad", "Variación Dias"];
+                }else{
+                    array = ["Fecha Programada",  "Cantidad Programada", "Fecha Ejecutada", "Cantidad Ejecutada", "Lote", "Granja", "Núcleo", "Galpón", "Granja Ejecutada", "Núcleo Ejecutado", "Galpón Ejecutado","Variación Cantidad", "Variación Dias"];
+                }
+                for (var i = 0; i < ar.length; i++) {
+                    //construimos cabecera del csv
+                    if (i == 0)
+                        contenido += array.join(";") + "\n";
+                    //resto del contenido
+                    contenido += Object.keys(ar[i]).map(function(key){
+                        return ar[i][key];
+                    }).join(";") + "\n";
+                }
+                //creamos el blob
+                blob =  new Blob(["\ufeff", contenido], {type: "text/csv"});
+                //creamos el reader
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                //escuchamos su evento load y creamos un enlace en dom
+                    save = document.createElement("a");
+                    save.href = event.target.result;
+                    save.target = "_blank";
+                    //aquí le damos nombre al archivo
+                
+                    save.download = "salida.csv";
+                
+
+                    try {
+                    //creamos un evento click
+                        clicEvent = new MouseEvent("click", {
+                            "view": window,
+                            "bubbles": true,
+                            "cancelable": true
+                        });
+                    } catch (e) {
+                    //si llega aquí es que probablemente implemente la forma antigua de crear un enlace
+                        clicEvent = document.createEvent("MouseEvent");
+                        clicEvent.initEvent("click", true, true);
+                    }
+                    //disparamos el evento
+                    save.dispatchEvent(clicEvent);
+                    //liberamos el objeto window.URL
+                    (window.URL || window.webkitURL).revokeObjectURL(save.href);
+                };
+                //leemos como url
+                reader.readAsDataURL(blob);
+            }else {
+            //el navegador no admite esta opción
+                alert("Su navegador no permite esta acción");
+            }
+        },
+
+        onBreedLoad: function() {
+            const util = this.getModel("util"),
+                serverName = "/breed/findAllBreedWP";
+            let mdbreed = this.getModel("mdbreed"),
+                that = this;
+            mdbreed.setProperty("/records", []);
+
+            let isRecords = new Promise((resolve, reject) => {
+                fetch(serverName)
+                    .then(
+                        function(response) {
+                            if (response.status !== 200) {
+
+                                console.log("Looks like there was a problem. Status Code: " +
+                  response.status);
+                                return;
+                            }
+                            // Examine the text in the response
+                            response.json().then(function(data) {
+                                resolve(data);
+                            });
+                        }
+                    )
+                    .catch(function(err) {
+                        console.log("Fetch Error :-S", err);
+                    });
+            });
+
+
+            isRecords.then((res) => {
+                if (res.data.length > 0) {
+                    mdbreed.setProperty("/records", res.data);
+                    mdbreed.setProperty("/value", mdbreed.getProperty("/records/0/breed_id"));
+                }
+            });
+        },
+
+
+        onIncubatorPlant: function(){
+            let util = this.getModel("util"),
+                partnership_id = this.getView().getModel("ospartnership").getProperty("/records/" + this.index + "/partnership_id"),
+                that = this;
+
+            const serverName = util.getProperty("/serviceUrl") + util.getProperty("/" + util.getProperty("/service") + "/findIncPlantByPartnetship");
+
+            return new Promise((resolve, reject)=>{
+                fetch(serverName, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        partnership_id: partnership_id
+                    })
+                }).then(
+                    function(response) {
+                        if (response.status !== 200) {
+                            console.log("Looks like there was a problem. Status code: " + response.status);
+                            return;
+                        }
+                        response.json().then(function(res) {
+                            console.log("Buscando incubadora: ", res);
+
+                            resolve(res);
+                        });
+                    }
+                ).catch(function(err) {
+                    console.error("Fetch error:", err);
+                });
+            });
+        },
+
+        processInfo: function () {
+            let util = this.getModel("util"),
+                mdprocess = this.getModel("mdprocess"),
+                that = this;
+
+            const serverName = util.getProperty("/serviceUrl") + util.getProperty("/" + util.getProperty("/service") + "/findProcessBreedByStage");
+            return new Promise((resolve, reject)=>{
+                fetch(serverName, {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                    },
+                    body: "stage_id="+breedingStage
+                })
+                    .then(
+                        function(response) {
+                            if (response.status !== 200) {
+                                console.log("Looks like there was a problem. Status Code: " +
+                  response.status);
+                                return;
+                            }
+
+                            response.json().then(function(res) {
+                                resolve(res);
+                            });
+                        }
+                    )
+                    .catch(function(err) {
+                        console.log("Fetch Error :-S", err);
+                    });
+            });
+
+        },
+        findProjected: function(){
+            let util = this.getModel("util"),
+                partnership_id = this.getView().getModel("ospartnership").getProperty("/records/" + this.index + "/partnership_id"),
+                scenario_id = this.getModel("mdscenario").getProperty("/scenario_id");
+            const serverName = util.getProperty("/serviceUrl") + util.getProperty("/" + util.getProperty("/service") + "/findHousingByStage");
+      console.log(serverName)
+            return new Promise((resolve, reject)=>{
+                fetch(serverName, {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                    },
+                    body: "stage_id="+breedingStage+ "&partnership_id=" + partnership_id + "&scenario_id=" + scenario_id
+                })
+                    .then(
+                        function(response) {
+                            if (response.status !== 200) {
+                                console.log("Looks like there was a problem. Status Code: " +
+                response.status);
+                                return;
+                            }
+
+                            response.json().then(function(res) {
+                                resolve(res);
+                                console.log(res)
+
+                            });
+                        }
+                    )
+                    .catch(function(err) {
+                        console.log("Fetch Error :-S", err);
+                    });
+            });
+        },
+        activeScenario: function(){
+
+            let util = this.getModel("util"),
+                mdscenario = this.getModel("mdscenario"),
+                that = this;
+            const serverName = util.getProperty("/serviceUrl") + util.getProperty("/" + util.getProperty("/service") + "/activeScenario");
+
+            return new Promise((resolve, reject)=>{
+                fetch(serverName)
+                    .then(
+                        function(response) {
+                            if (response.status !== 200) {
+                                console.log("Looks like there was a problem. Status Code: " +
+                response.status);
+                                return;
+                            }
+
+                            response.json().then(function(res) {
+                                resolve(res);
+                            });
+                        }
+                    )
+                    .catch(function(err) {
+                        console.log("Fetch Error :-S", err);
+                    });
+
+            });
+        },
+
+        onTabSelection: async function(ev) {
+            var mdprogrammed = this.getModel("mdprogrammed");
+            var mdprojected = this.getModel("mdprojected");
+            var mdexecuted = this.getModel("mdexecuted");
+            var mdfarms = this.getModel("mdfarms");
+            var mdbreed = this.getModel("mdbreed");
+            let recordsB = mdbreed.getProperty("/records");
+            let mdreports = this.getModel("mdreports");
+            var selectedKey = ev.getSource().getSelectedKey();
+            mdprojected.setProperty("/visibleOtherButtons", false);
+
+            if (selectedKey === "kTabParameter") {
+                this.getView().byId("idTableProjected").removeSelections();
+                this.getView().getModel("mdprogrammed").setProperty("/rProgrammed/enabledTab",false);
+                this.getView().getModel("mdexecuted").setProperty("/rExecuted/enabledTab",false);
+                this.getView().byId("idTableProjected").removeSelections();
+                this.getView().byId("idtable2").removeSelections();
+                this.getView().byId("idexecuted").removeSelections();
+                this.hideButtons(false, false, false, false);
+            }
+
+            if (selectedKey === "kTabProjected") {
+                this.hideButtons(true, false, false, false);
+                this.getView().byId("idTableProjected").removeSelections();
+                this.getView().byId("idtable2").removeSelections();
+                mdprogrammed.setProperty("/selectedRecords", []);
+                
+                var oTable = this.byId('idTableProjected');
+                oTable._getSelectAllCheckbox().setVisible(false);
+                let findScenario = await this.findProjected();
+                this.getView().getModel("mdprogrammed").setProperty("/records",[]);
+                this.getView().getModel("mdprogrammed").setProperty("/rProgrammed/enabledTab",false);
+                this.getView().getModel("mdexecuted").setProperty("/rExecuted/enabledTab",false);
+                mdprojected.setProperty("/records", findScenario.data);
+                this.getView().byId("idtable2").removeSelections();
+                this.getView().byId("idexecuted").removeSelections();
+            }
+
+            if (selectedKey === "ktabProgrammed") {
+                this.hideButtons(false, true, false, false);
+                let records = mdprojected.getProperty("/records");
+                this.getView().getModel("mdexecuted").setProperty("/records",[]);
+                this.getView().getModel("mdfarms").setProperty("/selectedKey","");
+                this.getView().getModel("mdcores").setProperty("/selectedKey","");
+                this.getView().getModel("mdshed").setProperty("/selectedKey","");
+                this.getView().byId("idtable2").removeSelections();
+                this.getView().byId("idexecuted").removeSelections();
+                this.getView().getModel("mdexecuted").setProperty("/rExecuted/enabledTab",false);
+
+                if (mdprogrammed.getProperty("/selectedRecords").length===1 && mdprogrammed.getProperty("/selectedRecords/0/evictionprojected")===true){
+                    mdprogrammed.setProperty("/programmedsaveBtn", false);
+                    console.log("entro")
+                }
+            }
+
+            if (selectedKey === "ktabExecuted") {
+                this.getView().byId("idexecuted").removeSelections();
+                this.hideButtons(false,false, true, false);
+                mdprogrammed.setProperty("/programmedsaveBtn", false);
+            }
+
+            if (selectedKey === "ktabReports") {
+                this.getView().byId("idTableProjected").removeSelections();
+                this.getView().byId("idtable2").removeSelections();
+                this.getView().getModel("mdprogrammed").setProperty("/records",[]);
+                this.getView().byId("idexecuted").removeSelections();
+                this.getView().getModel("mdexecuted").setProperty("/records",[]);
+                this.getView().getModel("mdprogrammed").setProperty("/rProgrammed/enabledTab",false);
+                this.getView().getModel("mdexecuted").setProperty("/rExecuted/enabledTab",false);
+                recordsB.unshift({breed_id: "Todas", name: "Todas"});
+                mdbreed.setProperty("/records",recordsB);
+                mdbreed.setProperty("/value","Todas");
+                var lo = mdreports.getProperty("/records");
+
+                if (lo.length == 0) {
+                    this.hideButtons(false, false, false, false);
+                } else {
+                    this.hideButtons(false, false, false, true);
+                }
+            }
+
+            if (selectedKey !== "ktabReports") {
+                mdreports.setProperty("/records", []);
+                this.getView().byId("sd").setValue("");
+                this.getView().byId("sd2").setValue("");
+
+                if (recordsB[0].breed_id==="Todas"){
+                    recordsB.shift();
+                    mdbreed.setProperty("/records",recordsB);
+                }
+            }
+
+            if (selectedKey === "tabAdjust") {
+                // console.log("here i am, rock you like a hurricane");
+                mdreports.setProperty("/records", []);
+                this.getModel("mdprojected").setProperty("/adjustmenttable", {});
+                this.getModel("mdprojected").setProperty("/val_lot", null);
+
+                this.hideButtons(false, false, false, false);
+                mdprojected.setProperty("/visibleOtherButtons",false);
+            }
+        },
+
+        hideButtons: function(projected, programmed, execution, reports) {
+            let mdprojected = this.getModel("mdprojected");
+            let mdprogrammed = this.getModel("mdprogrammed");
+            let mdexecuted = this.getModel("mdexecuted");
+            let mdreports = this.getModel("mdreports");
+            mdprojected.setProperty("/projectedSaveBtn", projected);
+            mdprogrammed.setProperty("/programmedsaveBtn", programmed);
+            mdexecuted.setProperty("/executionSaveBtn", execution);
+            mdreports.setProperty("/reportsBtn", reports);
+        },
+        _handleValueHelpSearch: function(evt) {
+            var sValue = evt.getParameter("value");
+            var oFilter = new Filter(
+                "Name",
+                sap.ui.model.FilterOperator.Contains, sValue
+            );
+            evt.getSource().getBinding("items").filter([oFilter]);
+        },
+
+        _handleValueHelpClose: function(evt) {
+            var oSelectedItem = evt.getParameter("selectedItem");
+            if (oSelectedItem) {
+                var productInput = this.getView().byId(this.inputId);
+                productInput.setValue(oSelectedItem.getTitle());
+            }
+            evt.getSource().getBinding("items").filter([]);
+        },
+
+        deleteProgrammedD: function(oEvent){
+            let sId = oEvent.getParameters().listItem.sId,
+                asId = sId.split("-"),
+                idx = asId[asId.length-1],
+                mdincubator = this.getModel("mdincubator"),
+                mdprogrammed = this.getModel("mdprogrammed"),
+                that = this;
+            let obj =  mdprogrammed.getProperty("/assigned/"+idx);
+
+            var dialog = new Dialog({
+                title: "Confirmación",
+                type: "Message",
+                content: new Text({
+                    text: "Se procedera a eliminar : " + obj.projection.lot
+                }),
+                beginButton: new Button({
+                    text: "Continuar",
+                    press: function () {
+
+                        let assigned = mdprogrammed.getProperty("/assigned/");
+                        const projection = mdprogrammed.getProperty("/selectedRecords").find(record => record.housing_way_id === obj.projection.housing_way_id);
+                        projection.partial_residue = 0;
+                        assigned.splice(idx, 1);
+                        mdprogrammed.setProperty("/assigned/", assigned);
+                        dialog.close();
+                    }
+                }),
+                endButton: new Button({
+                    text: "Cancelar",
+                    press: function () {
+                        dialog.close();
+                    }
+                }),
+                afterClose: function () {
+                    dialog.destroy();
+                }
+            });
+
+            dialog.open();
+
+        },
+
+        onAddResidue: function (oEvent) {
+            const mdprogrammed = this.getModel("mdprogrammed");
+            const selectedProjectionId = sap.ui.getCore().byId("projection_select").getSelectedKey();
+            const projection = mdprogrammed.getProperty("/selectedRecords").find(records => records.housing_way_id == selectedProjectionId);
+            const oProjSelect = sap.ui.getCore().byId("projection_select");
+            const oSelectedProj = oProjSelect.getSelectedKey();
+            const oDatePicker = sap.ui.getCore().byId("programmed_date");
+            const oDate = oDatePicker.getValue();
+            const oFarm = sap.ui.getCore().byId("selectFarm");
+            const oSelectedFarm = oFarm.getSelectedKey();
+            const oCore = sap.ui.getCore().byId("selectCore");
+            const oSelectedCore = oCore.getSelectedKey();
+            const oShed = sap.ui.getCore().byId("selectShed");
+            const oSelectedShed = oShed.getSelectedKey();
+            const oIncPlant = sap.ui.getCore().byId("selectIncubatorPlant");
+            const oSelectedIncPlant = oIncPlant.getSelectedKey();
+            const quantity = parseInt(sap.ui.getCore().byId("programmed_quantity").getValue(), 10);
+            let valid = true;
+            // ====================================================================================
+            if (oSelectedProj === undefined || oSelectedProj === "") {
+                oProjSelect.setValueState("Error");
+                valid = false;
+            } else {
+                oProjSelect.setValueState("None");
+            }
+            // ====================================================================================
+            if (oDate === undefined || oDate === "") {
+                oDatePicker.setValueState("Error");
+                oDatePicker.setValueStateText("el campo fecha no puede ser vacío");
+                valid = false;
+            } else {
+                oDatePicker.setValueState("None");
+                oDatePicker.setValueStateText("");
+            }
+            // ====================================================================================
+            if (oSelectedFarm === undefined || oSelectedFarm === "" || oSelectedFarm === null) {
+                oFarm.setValueState("Error");
+                oFarm.setValueStateText("el campo granja no puede ser vacío");
+                valid = false;
+            } else {
+                oFarm.setValueState("None");
+                oFarm.setValueStateText("");
+            }
+            // ====================================================================================
+            if (oSelectedCore === undefined || oSelectedCore === "" || oSelectedCore === null) {
+                oCore.setValueState("Error");
+                oCore.setValueStateText("el campo núcleo no puede ser vacío");
+                valid = false;
+            } else {
+                oCore.setValueState("None");
+                oCore.setValueStateText("");
+            }
+            // ====================================================================================
+            if (oSelectedShed === undefined || oSelectedShed === "" || oSelectedShed === null) {
+                oShed.setValueState("Error");
+                oShed.setValueStateText("el campo galpón no puede ser vacío");
+                valid = false;
+            } else {
+                oShed.setValueState("None");
+                oShed.setValueStateText("");
+            }
+            // ====================================================================================
+            if (oSelectedIncPlant === undefined || oSelectedIncPlant === "" || oSelectedIncPlant === null) {
+                oIncPlant.setValueState("Error");
+                oIncPlant.setValueStateText("el campo planta incubadora no puede ser vacío");
+                valid = false;
+            } else {
+                oIncPlant.setValueState("None");
+                oIncPlant.setValueStateText("");
+            }
+            // ====================================================================================
+            if(valid === true){
+                if (quantity !== "" && quantity !== undefined && quantity > 0) {
+                    const assigned = mdprogrammed.getProperty("/assigned");
+                    const oldAssigned = assigned.find(assig => assig.projection.housing_way_id == projection.housing_way_id);
+    
+                    if (oldAssigned) {
+                        oldAssigned.quantity += quantity;
+                        projection.partial_residue += quantity;
+                    } else {
+                        assigned.push({
+                            quantity,
+                            projection
+                        });
+                        projection.partial_residue = quantity;
+                    }
+    
+                    sap.ui.getCore().byId("programmed_quantity").setValue("");
+                    mdprogrammed.setProperty("/name/state", "None");
+                    mdprogrammed.setProperty("/name/stateText", "");
+                    mdprogrammed.setProperty("/assigned", assigned);
+                } else {
+                    sap.ui.getCore().byId("programmed_quantity").setValueState("Error");
+                    sap.ui.getCore().byId("programmed_quantity").setValueStateText("el campo cantidad no puede ser vacío");
+                }
+            }
+        },
+
+        applyProjectedTableFilters: async function(oEvent) {
+            const mdprojected = this.getView().getModel("mdprojected");
+            const util = this.getView().getModel("util");
+            let query = mdprojected.getProperty("/lotFilter");
+            let filter =  mdprojected.getProperty("/programmedFilter");
+            const partnership_id = this.getView().getModel("ospartnership").getProperty("/records/" + this.index + "/partnership_id");
+            const scenario_id = this.getModel("mdscenario").getProperty("/scenario_id");
+
+      
+            if (filter === "all") {
+                const result = await this.findProjected();
+                mdprojected.setProperty("/records", result.data);
+            } else {
+                query = query === "" ? null : query.toUpperCase();
+                filter = filter !== "programmed";
+                filter = query !== null ? null : filter;
+        
+                const response = await fetch("/housingway/findHousingByFilters" , {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        partnership_id,
+                        scenario_id,
+                        stage_id: breedingStage,
+                        lot: query === "" ? null : query,
+                        programmed: filter
+                    })
+                });
+
+                if (!response.ok) {
+                    console.log("Looks like there was a problem. Status code: " + response.status);
+                    return;
+                }
+        
+                const result = await response.json();
+                console.log(result);
+                mdprojected.setProperty("/records", result.data);
+            }
+        },
+
+        showProjectedLots: async function(oEvent) {
+            const mdprojected = this.getView().getModel("mdprojected");
+            const projection = oEvent.getSource().getBindingContext("mdprojected").getObject();
+            const link = oEvent.getSource();
+            const response = await fetch("/housingwaydetail/findShedAndFarmProjection", {
+                headers: {
+                    "Content-type": "application/json"
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    housing_way_id: projection.housing_way_id
+                })
+            });
+
+            if (!response.ok) {
+                console.log("error en showProjectedLots----> ");
+                console.log(response);
+            }
+            else {
+                const res = await response.json();
+                mdprojected.setProperty("/popover", res.data[0]);
+                this.projectedPopover.openBy(link);
+            }
+        },
+
+        showProgrammedLots: async function(oEvent) {
+            const mdprogrammed = this.getView().getModel("mdprogrammed");
+            const programming = oEvent.getSource().getBindingContext("mdprogrammed").getObject();
+
+            const link = oEvent.getSource();
+            const response = await fetch("/housingwaydetail/findPredecesorLot", {
+                headers: {
+                    "Content-type": "application/json"
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    housingway_detail_id: programming.housingway_detail_id
+                })
+            });
+
+            if (!response.ok) {
+                console.log("error en showProgrammedLots --->");
+                console.log(response);
+            }
+            else {
+                const res = await response.json();
+                mdprogrammed.setProperty("/popover", res.data);
+                this.programmedPopover.openBy(link);
+            }
+
+        },
+
+
+        onSelectProgrammedRecords: function(oEvent) {
+            const mdprogrammed = this.getView().getModel("mdprogrammed");
+            const mdprojected = this.getView().getModel("mdprojected");
+            const projectedTable = this.getView().byId("idTableProjected");
+            const parameters = oEvent.getParameters();
+            const records = mdprogrammed.getProperty("/selectedRecords");
+
+            const items = parameters.listItems;
+            if(parameters.selectAll && records.length > 1) {
+                projectedTable.removeSelections();
+                mdprogrammed.setProperty("/selectedRecords", []);
+            }
+            else if (items.length > 1 && records.length === 0) {
+                items.forEach(item => projectedTable.setSelectedItem(item, false));
+            }
+            else if (items.length > 1) {
+                items.forEach(item => {
+                    if (item.getType() === "Inactive") {
+                        projectedTable.setSelectedItem(item, false);
+                    }
+                });
+            }
+            else if (items[0].getType() === "Inactive") {
+                let item_projection = items[0].getBindingContext("mdprojected").getObject();
+                if((item_projection.breed_name !== records[0].breed_name)&&(item_projection.projected_date !== records[0].projected_date)){
+                    MessageToast.show("Debe seleccionar registros con la misma fecha y la misma raza", {
+                        duration: 3000,
+                        width: "30%"
+                    });
+                }else{
+                    if(item_projection.breed_name !== records[0].breed_name){
+                        MessageToast.show("Debe seleccionar registros con la misma raza", {
+                            duration: 3000,
+                            width: "20%"
+                        });
+                    }
+                    if(item_projection.projected_date !== records[0].projected_date){
+                        MessageToast.show("Debe seleccionar registros proyectados con la misma fecha", {
+                            duration: 3000,
+                            width: "20%"
+                        });
+                    }
+                }
+                projectedTable.setSelectedItem(items[0], false);
+            }
+            const projections = projectedTable.getSelectedItems().map(item => mdprojected.getProperty(item.getBindingContext("mdprojected").getPath()));
+            const actualRecords = mdprogrammed.getProperty("/selectedRecords");
+
+            mdprogrammed.setProperty("/selectedRecords", projections);
+        },
+        onProjectedNext: function(oEvent) {
+            const mdprogrammed = this.getView().getModel("mdprogrammed");
+            const util = this.getModel("util");
+
+            mdprogrammed.setProperty("/rProgrammed/enabledTab", true);
+            let datee = new Date(mdprogrammed.getProperty("/selectedRecords/0/pd"))
+            datee.setDate(datee.getDate()-10)
+            mdprogrammed.setProperty("/limiteddate",datee );
+            this.getView().byId("tabBar").setSelectedKey("ktabProgrammed");
+            const serverName = util.getProperty("/serviceUrl") + util.getProperty("/" + util.getProperty("/service") + "/findHousingWayDetByHw");
+            fetch(serverName, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    records: mdprogrammed.getProperty("/selectedRecords").map(record => record.housing_way_id)
+                })
+            })
+                .then(response => {
+                    if (response.status !== 200) {
+                        console.log("Looks like there was a problem. Status Code: " +
+            response.status);
+                        return;
+                    }
+                    response.json().then((res) => {
+                        let records = res.data;
+                        records.forEach(element => {
+                            if(element.executedcenter_id && element.executedfarm_id && element.executedshed_id && element.execution_quantity && element.execution_date){
+                                element.isexecuted = true;
+                            }else{
+                                element.isexecuted = false;
+                            }
+            
+                        });
+                        mdprogrammed.setProperty("/records", records);
+                        this.hideButtons(false, true, false, false);
+
+                        if (records.length > 0) {
+                            mdprogrammed.setProperty("/executionSaveBtn", true);
+                            let residue_programmed = res.residue,
+                                projected = mdprogrammed.getProperty("/selectedRecords/"),
+                                projected_quantity = 0;
+
+                            projected.forEach(element => {
+                                projected_quantity = parseInt(projected_quantity) + parseInt(element.projected_quantity);
+                            });
+                            let total = parseInt(projected_quantity) - parseInt (residue_programmed);
+                            mdprogrammed.setProperty("/programmed_residue", total);
+                        } else {
+                            mdprogrammed.setProperty("/programmed_residue", mdprogrammed.getProperty("/selectedRecord/projected_quantity"));
+                            mdprogrammed.setProperty("/executionSaveBtn", false);
+                        }
+                        if (mdprogrammed.getProperty("/selectedRecords").length===1 && mdprogrammed.getProperty("/selectedRecords/0/evictionprojected")===true){
+                            mdprogrammed.setProperty("/programmedsaveBtn", false);
+                            console.log("entro")
+                        }
+
+                        util.setProperty("/busy/", false);
+                    });
+
+
+                })
+                .catch(err => console.log);
+        },
+
+        onMessageWarningDialogPress: function (oEvent) {
+            var dialog = new Dialog({
+                title: 'Desalojado',
+                type: 'Message',
+                state: 'Warning',
+                content: new Text({
+                    text: 'La proyección proviene de una programación que ya fue desalojada'
+                }),
+                beginButton: new Button({
+                    text: 'OK',
+                    press: function () {
+                        dialog.close();
+                    }
+                }),
+                afterClose: function() {
+                    dialog.destroy();
+                }
+            });
+
+            dialog.open();
+        },
+
+        onSelectProgrammedRecord: function(oEvent) {
+            var tabla = this.getView().byId("idtable2");
+            var itemsrows =tabla.mAggregations.items.length;
+
+            let that = this,
+                util = this.getModel("util"),
+                mdprogrammed = this.getView().getModel("mdprogrammed"),
+                mdprojected = this.getView().getModel("mdprojected"),
+                oView = this.getView(),
+                scenario_id = this.getModel("mdscenario").getProperty("/scenario_id");
+
+            this.hideButtons(false, true, false, false);
+
+            util.setProperty("/busy/", false);
+
+            //guarda la ruta del registro proyectado que fue seleccionado
+            mdprogrammed.setProperty("/selectedRecordPath/", oEvent.getSource()["_aSelectedPaths"][0]);
+            mdprogrammed.setProperty("/selectedRecord/", mdprojected.getProperty(mdprogrammed.getProperty("/selectedRecordPath/")));
+            let pDate = mdprogrammed.getProperty("/selectedRecord/projected_date"),
+                aDate = pDate.split("/"),
+                minDate = new Date(aDate[2],aDate[1]-1,aDate[0]),
+                date2 = new Date(aDate[2],aDate[1]-1,aDate[0]),
+                maxDate = this.addDays(date2,7);
+            mdprogrammed.setProperty("/selectedRecord/minDate/", minDate);
+            mdprogrammed.setProperty("/selectedRecord/maxDate/", maxDate);
+
+            //guarda la ruta del registro proyectado que fue seleccionado
+            mdprogrammed.setProperty("/selectedRecordPath/", oEvent.getSource()["_aSelectedPaths"][0]);
+            mdprogrammed.setProperty("/selectedRecord/", mdprojected.getProperty(mdprogrammed.getProperty("/selectedRecordPath/")));
+
+
+            //habilita el tab de la tabla de registros programado
+            mdprogrammed.setProperty("/rProgrammed/enabledTab", true);
+
+            oView.byId("tabBar").setSelectedKey("ktabProgrammed");
+
+            mdprojected.setProperty("/projectedSaveBtn", false);
+            mdprogrammed.setProperty("/programmedsaveBtn", true);
+
+            //Buscar los registros de hausingway_detail
+            const serverName = util.getProperty("/serviceUrl") + util.getProperty("/" + util.getProperty("/service") + "/findHousingWayDetByHw");
+            fetch(serverName, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                },
+                body: "housing_way_id="+mdprogrammed.getProperty("/selectedRecord/housing_way_id")
+            })
+                .then(
+                    function(response) {
+                        if (response.status !== 200) {
+                            console.log("Looks like there was a problem. Status Code: " +
+                response.status);
+                            return;
+                        }
+
+                        response.json().then(function(res) {
+                            let records = res.data;
+                            records.forEach(element => {
+                                if( element.executedcenter_id && element.executedfarm_id && element.executedshed_id && element.execution_quantity && element.execution_date){
+                                    element.isexecuted = true;
+                                }else{
+                                    element.isexecuted = false;
+                                }
+                
+                            });
+                            mdprogrammed.setProperty("/records", records);
+
+                            if(records.length > 0){
+                                mdprogrammed.setProperty("/executionSaveBtn", true);
+                                let residue_programmed = res.residue,
+                                    projected_quantity = mdprogrammed.getProperty("/selectedRecord/projected_quantity"),
+                                    total = projected_quantity - residue_programmed;
+
+                                mdprogrammed.setProperty("/programmed_residue", total);
+                            }else{
+                                mdprogrammed.setProperty("/programmed_residue", mdprogrammed.getProperty("/selectedRecord/projected_quantity"));
+                                mdprogrammed.setProperty("/executionSaveBtn", false);
+                            }
+                            util.setProperty("/busy/", false);
+                        });
+                    }
+                )
+                .catch(function(err) {
+                    console.log("Fetch Error :-S", err);
+                });
+
+        },
+
+        handleTitleSelectorPress: function (oEvent) {
+            var _oPopover = this._getResponsivePopover();
+            _oPopover.setModel(oEvent.getSource().getModel());
+            _oPopover.openBy(oEvent.getParameter("domRef"));
+        },
+        _getResponsivePopover: function () {
+            if (!this._oPopover) {
+
+                this._oPopover = sap.ui.xmlfragment("breedingPlanningM.view.Popover", this);
+                this.getView().addDependent(this._oPopover);
+            }
+            return this._oPopover;
+        },
+        addDays: function (ndate, ndays){
+            ndate.setDate(ndate.getDate() + ndays);
+            return ndate;
+        },
+
+        onDialogPressPj: function(oEvent) {
+            this.formProjected = sap.ui.xmlfragment(
+                "breedingPlanningM.view.DialogProject", this);
+            this.getView().addDependent(this.pressDialog);
+            this.formProjected.open();
+        },
+
+
+        findExecuted: function(){
+            let that= this,
+                util = this.getModel("util"),
+                mdprogrammed = this.getView().getModel("mdprogrammed"),
+                partnership_id = this.getView().getModel("ospartnership").getProperty("/records/" + this.index + "/partnership_id"),
+                mdprojected = this.getView().getModel("mdprojected"),
+                mdexecuted = this.getView().getModel("mdexecuted"),
+                mdfarms = this.getView().getModel("mdfarms"),
+                mdcenter = this.getView().getModel("mdcenter"),
+                mdshed = this.getView().getModel("mdshed"),
+                hwid = mdexecuted.getProperty("/selectedRecord/housingway_detail_id");
+            const serverName = util.getProperty("/serviceUrl") + util.getProperty("/" + util.getProperty("/service") + "/findHousingWayDetByHwdId");
+            return new Promise((resolve, reject) => {
+                fetch("/housingwaydetail/findHousingWayDetByHwdId", {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                    },
+                    body: "housing_way_id=" + mdexecuted.getProperty("/selectedRecord/housingway_detail_id") +"&partnership_id=" + partnership_id
+                })
+                    .then(
+                        function(response) {
+                            if (response.status !== 200) {
+                                console.log("Looks like there was a problem. Status Code: " +
+                      response.status);
+                                return;
+                            }
+      
+                            response.json().then(function(res) {
+                                let records = res.data;
+                                mdexecuted.setProperty("/records", records);
+                                mdexecuted.setProperty("/incubatorPlant/records", res.incubatorPlant);
+                                if(records[0].execution_quantity === null && records[0].execution_date === null){
+                                    mdexecuted.setProperty("/isnotexecuted",true);
+                                    mdexecuted.setProperty("/isexecuted",false);
+                                }else{
+                                    mdexecuted.setProperty("/isnotexecuted",false);
+                                    mdexecuted.setProperty("/isexecuted",true);
+                                }
+                                if(records[0].executedfarm_id!== null){
+                                    mdfarms.setProperty("/selectedKey",records[0].executedfarm_id);
+                                }else{
+                                    mdfarms.setProperty("/selectedKey",records[0].farm_id);
+                                }
+                                if(records[0].executedcenter_id!== null){
+                                    mdcenter.setProperty("/selectedKey",records[0].executedcenter_id);
+                                }else{
+                                    mdcenter.setProperty("/selectedKey",records[0].center_id);
+                                }
+                                if(records[0].executedshed_id!== null){
+                                    mdshed.setProperty("/selectedKey",records[0].executedshed_id);
+                                    mdshed.refresh(true);
+                                }else{
+                                    mdshed.setProperty("/selectedKey",records[0].shed_id);
+                                }
+                                if(records[0].executionincubatorplant_id!== null){
+                                    mdexecuted.setProperty("/incubatorPlant/selectedKey",records[0].executedincubatorplant_id);
+                                    mdexecuted.refresh(true);
+                                }else{
+                                    mdexecuted.setProperty("/incubatorPlant/selectedKey",records[0].incubator_plant_id);
+                                }
+                                if(records[0].execution_date === null){
+                                    records[0].execution_date = records[0].scheduled_date;
+                                }
+
+                    
+                                if(records[0].execution_quantity === null){
+                                    mdexecuted.setProperty("/execution_quantity",records[0].scheduled_quantity); 
+                                }else{
+                                    mdexecuted.setProperty("/execution_quantity",records[0].execution_quantity);
+                                }
+                                mdexecuted.setProperty("/saveBtn",true);
+                                that.hideButtons(false, true, true, false);
+      
+                                if (records.length > 0) {
+                                    mdprogrammed.setProperty("/executionSaveBtn", true);
+                                    let residue_programmed = res.residue,
+                                        projected_quantity = mdprogrammed.getProperty("/selectedRecord/projected_quantity"),
+                                        total = projected_quantity - residue_programmed;
+      
+                                    mdprogrammed.setProperty("/programmed_residue", total);
+                                } else {
+                                    mdprogrammed.setProperty("/programmed_residue", mdprogrammed.getProperty("/selectedRecord/projected_quantity"));
+                                }
+                                util.setProperty("/busy/", false);
+                                resolve(res);
+                            });
+                        }
+                    )
+                    .catch(function(err) {
+                        console.log("Fetch Error :-S", err);
+                    });
+            });
+            
+        },
+
+        onChangeCenterE: async function(){
+            let mdcenter =  this.getView().getModel("mdcenter"),
+                mdshed =  this.getView().getModel("mdshed"),
+                mdexecuted = this.getModel("mdexecuted"),
+                center_id = mdcenter.getProperty("/selectedKey"),
+                executed_shed = mdexecuted.getProperty("/selectedRecord").executedshed_id;
+            let findShed = await this.findShedByCenterForExecution(center_id);
+            mdshed.setProperty("/records",findShed.data);
+        },
+
+        findShedByCenterForExecution: function(selectedFarm) { /* En caso que se pida mostrar todos los galpones en la pantalla de ejecucion */
+            let util = this.getModel("util"),
+                mdexecuted = this.getModel("mdexecuted"),
+                partnership_id = this.getView().getModel("ospartnership").getProperty("/records/" + this.index + "/partnership_id");
+            const serverName = util.getProperty("/serviceUrl") + util.getProperty("/" + util.getProperty("/service") + "/findShedsByFarm");
+            return new Promise((resolve, reject) => {
+                fetch("/shed/findShedByCenter2", {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                    },
+
+                    body: "center_id=" + selectedFarm
+                })
+                    .then(
+                        function(response) {
+                            if (response.status !== 200) {
+                                console.log("Looks like there was a problem. Status Code: " +
+                  response.status);
+                                return;
+                            }
+
+                            response.json().then(function(res) {
+                                res.data= res.data.filter(function(item){
+                                    return item.statusshed_id===1||item.rehousing===true||mdexecuted.getProperty("/selectedRecord").shed_id===item.shed_id||mdexecuted.getProperty("/selectedRecord").executedshed_id===item.shed_id;
+                                });
+                                resolve(res);
+                            });
+                        }
+                    )
+                    .catch(function(err) {
+                        console.log("Fetch Error :-S", err);
+                    });
+            });
+        },
+
+
+        onChangeFarmE: async function(){
+            let mdfarms = this.getView().getModel("mdfarms"),
+                mdcenter =  this.getView().getModel("mdcenter"),
+                mdexecuted =  this.getView().getModel("mdexecuted"),
+                farm_id = mdfarms.getProperty("/selectedKey");
+            let findCenter = await this.findCenterByFarm(farm_id);
+            mdcenter.setProperty("/records",findCenter.data);
+            this.onChangeCenterE();
+            if(mdexecuted.getProperty("/records")[0].available){
+                mdexecuted.setProperty("/name/state", "None");
+                mdexecuted.setProperty("/name/stateText", "");
+                mdexecuted.setProperty("/confirmBtn", false);
+                mdexecuted.setProperty("/addBtn", false);
+            }
+        },
+
+        onChangeShedE: async function() {
+            let mdshed = this.getModel("mdshed"),
+                mdexecuted = this.getView().getModel("mdexecuted"),
+                selectedShed = mdshed.getProperty("/selectedKey");
+
+            mdexecuted.setProperty("/name/state", "None");
+            mdexecuted.setProperty("/name/stateText", "");
+            mdexecuted.setProperty("/confirmBtn", false);
+            mdexecuted.setProperty("/addBtn", false);
+            mdexecuted.refresh();
+
+        },
+        onValidExecutedQuantity: function(o)
+        {
+            let input= o.getSource();
+            let length = 10;
+            let value = input.getValue();
+            let regex = new RegExp(`/^[0-9]{1,${length}}$/`);
+
+            if (regex.test(value)) 
+            {
+                return true;
+            }
+            else 
+            {
+                let aux = value
+                    .split("")
+                    .filter(char => {
+                        if (/^[0-9]$/.test(char)) 
+                        {
+                            if (char !== ".") {
+                                return true;
+                            }
+                        }
+                    })
+                    .join("");
+                value = aux.substring(0, length);
+                input.setValue(value);
+
+                let mdexecuted = this.getView().getModel("mdexecuted"),
+                    programmedquantity = mdexecuted.getProperty("/selectedRecord").scheduled_quantity;
+
+                let mdshed= this.getView().getModel("mdshed");
+                let records= mdshed.getProperty("/records"),
+                    myshed= records.filter(function(item){
+                        return mdshed.getProperty("/selectedKey")==item.shed_id;
+                    });
+
+                if(parseInt(value) <= parseInt(myshed[0].capmax) ){
+                    mdexecuted.setProperty("/name/state", "None");
+                    mdexecuted.setProperty("/name/stateText", "");
+                    mdexecuted.setProperty("/saveBtn", true);
+
+                }else{
+                    if (parseInt(value) > parseInt(myshed[0].capmax)) {
+                        mdexecuted.setProperty("/name/state", "Warning");
+                        mdexecuted.setProperty("/name/stateText", "La cantidad ejecutada supera la capacidad del galpon");
+                    }
+                    if (value == "") {
+                        mdexecuted.setProperty("/name/state", "Error");
+                        mdexecuted.setProperty("/name/stateText", "La cantidad ejecutada no debe estar vacia");
+                        mdexecuted.setProperty("/saveBtn", false);
+                    }
+                }
+                return false;
+            }
+        },
+
+        onSelectExecutedRecord: async function(oEvent) {
+            let that = this,
+                util = this.getModel("util"),
+                mdprogrammed = this.getView().getModel("mdprogrammed"),
+                mdfarms = this.getView().getModel("mdfarms"),
+                mdexecuted = this.getView().getModel("mdexecuted"),
+                oView = this.getView(),
+                scenario_id = this.getModel("mdscenario").getProperty("/scenario_id");
+            //guarda la ruta del registro proyectado que fue seleccionado
+            mdprogrammed.setProperty("/selectedRecordPath/", oEvent.getSource()["_aSelectedPaths"][0]);
+            var selected = mdprogrammed.getProperty(mdprogrammed.getProperty("/selectedRecordPath/"));
+            mdexecuted.setProperty("/selectedRecord",mdprogrammed.getProperty(mdprogrammed.getProperty("/selectedRecordPath/")));
+
+            mdexecuted.setProperty("/rExecuted/enabledTab", true);
+
+            oView.byId("tabBar").setSelectedKey("ktabExecuted");
+
+            let findExecuted = await this.findExecuted();
+            mdprogrammed.setProperty("/programmedsaveBtn", false);
+            let records = mdexecuted.getProperty("/records");
+            if (records.length > 0) {
+                mdexecuted.setProperty("/executionSaveBtn", true);
+            }
+            if(records[0].executedfarm_id){
+                mdfarms.setProperty("/selectedKey",records[0].executedfarm_id);
+       
+            }else{
+                mdfarms.setProperty("/selectedKey",records[0].farm_id);
+            }
+            this.onChangeFarmE();
+        },
+
+        onProyectedCloseDialog: function(oEvent) {
+            this.formProjected.close();
+            this.formProjected.destroy();
+        },
+
+        onProjectedSaveDialog: function(oEvent) {
+
+            let that = this,
+                util = this.getModel("util"),
+                mdprojected = this.getModel("mdprojected"),
+                partnership_id = this.getView().getModel("ospartnership").getProperty("/records/" + this.index + "/partnership_id"),
+                scenario_id = this.getModel("mdscenario").getProperty("/scenario_id"),
+                pDate = sap.ui.getCore().byId("projected_date").mProperties.dateValue,
+                projected_quantity = sap.ui.getCore().byId("projected_quantity").mProperties.value,
+                projected_date = `${pDate.getFullYear()}-${pDate.getMonth()+1}-${pDate.getDate()}`;
+            var dates = [];
+            const serverName = util.getProperty("/serviceUrl") + util.getProperty("/" + util.getProperty("/service") + "/housingway");
+
+            fetch(serverName, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                },
+                body: "stage_id="+breedingStage+"&partnership_id=" + partnership_id + "&scenario_id=" + scenario_id+"&projected_quantity="+projected_quantity+
+                "&projected_date="+projected_date
+            })
+                .then(
+                    function(response) {
+                        if (response.status !== 200) {
+                            console.log("Looks like there was a problem. Status Code: " +
+                response.status);
+                            return;
+                        }
+
+                        response.json().then(function(res) {
+
+                            that.formProjected.close();
+                            that.formProjected.destroy();
+                            that.onProyectedSave();
+                            var dialog = new Dialog({
+                                title: "Información",
+                                type: "Message",
+                                state: "Success",
+                                content: new Text({
+                                    text: "Semana guardada con éxito."
+                                }),
+                                beginButton: new Button({
+                                    text: "OK",
+                                    press: function () {
+                                        dialog.close();
+                    
+                                    }
+                                }),
+                                afterClose: function() {
+                                    dialog.destroy();
+                                }
+                            });
+
+                            dialog.open();
+
+                        });
+                    }
+                )
+                .catch(function(err) {
+                    console.log("Fetch Error :-S", err);
+                });
+
+        },
+
+        onProyectedSave: async function(){
+            let mdprojected = this.getModel("mdprojected"),
+                mdprogrammed = this.getModel("mdprogrammed"),
+                findScenario = await this.findProjected();
+
+            mdprogrammed.setProperty("/rProgrammed/enabledTab", false);
+            mdprogrammed.setProperty("/records", []);
+            this.getView().byId("projectedTable").removeSelections();
+            mdprojected.setProperty("/records", findScenario.data);
+            this.hideButtons(true, false, false, false);
+        },
+
+        onDialogPressPg: function (oEvent) {
+            this.formProgrammed = sap.ui.xmlfragment("breedingPlanningM.view.DialogProgrammed", this);
+            var that = this;
+            var dlg = sap.ui.getCore().byId("dialogprogramed");
+            dlg.attachAfterClose(function () {
+                that.formProgrammed.destroy();
+            });
+            this.getView().addDependent(this.formProgrammed);
+            this.formProgrammed.open();
+            this.onChangeFarm();
+
+            let mdincubatorplant = this.getModel("mdincubatorplant");
+            mdincubatorplant.setProperty("/selectedKey", null);
+        },
+
+        onChangeIncubatorPlant: function (oEvent) {
+            if(oEvent !== undefined && oEvent !== null){
+                let input = oEvent.getSource(),
+                    value = input.getSelectedKey();
+
+                input.setValueState((value !== undefined && value !== null && value !== '') ? 'None' : 'Error');
+                input.setValueStateText((value!== undefined && value!== null && value!== '')?'':'El campo galpón no puede estar vacío');
+            }
+            let mdincubatorplant = this.getModel("mdincubatorplant"),
+                selectedIncubator = sap.ui.getCore().byId("selectIncubatorPlant").getSelectedKey();
+            mdincubatorplant.setProperty("/selectedKey", selectedIncubator);
+        },
+
+        onChangeShed: async function (oEvent) {
+            if(oEvent !== undefined && oEvent !== null){
+                let input = oEvent.getSource(),
+                    value = input.getSelectedKey();
+
+                input.setValueState((value !== undefined && value !== null && value !== '') ? 'None' : 'Error');
+                input.setValueStateText((value!== undefined && value!== null && value!== '')?'':'El campo galpón no puede estar vacío');
+            }
+            let mdshed = this.getModel("mdshed"),
+                mdprogrammed= this.getModel("mdprogrammed"),
+                selectedShed =  sap.ui.getCore().byId("selectShed").getSelectedKey();
+            mdshed.setProperty("/selectedKey", selectedShed);
+
+            sap.ui.getCore().byId("programmed_quantity").setValue();
+            mdprogrammed.setProperty("/name/state", "None");
+            mdprogrammed.setProperty("/name/stateText", "");
+            mdprogrammed.setProperty("/confirmBtn", false);
+            let array1 = mdshed.getProperty("/records");
+
+            var found = array1.find(function (element) {
+                return element.shed_id == selectedShed;
+            });
+
+            mdprogrammed.setProperty("/capmin2", parseInt(found.capmin));
+            mdprogrammed.setProperty("/capmax2", parseInt(found.capmax));
+        },
+
+        onChangeCore: async function(oEvent){
+            if(oEvent !== undefined && oEvent !== null){
+                let input = oEvent.getSource(),
+                    value = input.getSelectedKey();
+
+                input.setValueState((value !== undefined && value !== null && value !== '') ? 'None' : 'Error');
+                input.setValueStateText((value!== undefined && value!== null && value!== '')?'':'El campo núcleo no puede estar vacío');
+            }
+            let mdcores = this.getModel("mdcores");
+            let mdprogrammed= this.getModel("mdprogrammed");
+            let selectedFarm = mdprogrammed.getProperty("/selectedFarm");
+            let mdfarm = this.getModel("mdfarms");
+            let selectedCore = sap.ui.getCore().byId("selectCore").getSelectedKey();
+            mdcores.setProperty("/selectedKey", selectedCore);
+            let findShed = await this.findShedByFarm(selectedCore);
+            let mdshed = this.getModel("mdshed");
+
+            mdshed.setProperty("/records", findShed.data);
+            this.onChangeShed();
+            sap.ui.getCore().byId("programmed_quantity").setValue();
+            mdprogrammed.setProperty("/name/state", "None");
+            mdprogrammed.setProperty("/name/stateText", "");
+            mdprogrammed.setProperty("/confirmBtn", false);
+        },
+
+        onChangeFarm: async function (oEvent) {
+            if(oEvent !== undefined && oEvent !== null){
+                let input = oEvent.getSource(),
+                    value = input.getSelectedKey();
+
+                input.setValueState((value !== undefined && value !== null && value !== '') ? 'None' : 'Error');
+                input.setValueStateText((value!== undefined && value!== null && value!== '')?'':'El campo granja no puede estar vacío');
+            }
+            let mdfarm = this.getModel("mdfarms"),
+                mdprogrammed = this.getModel("mdprogrammed"),
+                selectedFarm = sap.ui.getCore().byId("selectFarm").getSelectedKey();
+
+            mdfarm.setProperty("/selectedKey", selectedFarm);
+
+            let findShed = await this.findCenterByFarm(selectedFarm),
+                mdcores = this.getModel("mdcores");
+
+            mdcores.setProperty("/records", findShed.data); /* Mover a findcenterbyfarm */
+            var tmp = mdcores.getProperty("/records")[0].center_id;
+            console.log(tmp);
+            // mdcores.setProperty("/selectedKey", tmp);
+
+            console.log(mdcores.getProperty("/selectedKey"));
+            sap.ui.getCore().byId("programmed_quantity").setValue();
+            mdprogrammed.setProperty("/name/state", "None");
+            mdprogrammed.setProperty("/name/stateText", "");
+            mdprogrammed.setProperty("/confirmBtn", false);
+            this.onChangeCore();
+        },
+
+        findCenterByFarm: function (selectedFarm) {
+            let util = this.getModel("util"),
+                mdshed = this.getModel("mdshed"),
+                partnership_id = this.getView().getModel("ospartnership").getProperty("/records/" + this.index + "/partnership_id");
+
+            console.log(partnership_id);
+            console.log(selectedFarm);
+
+            return new Promise((resolve, reject) => {
+                fetch("/center/findCenterByFarm2", {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                    },
+                    body: "farm_id=" + selectedFarm
+                }).then(
+                    function (response) {
+                        if (response.status !== 200) {
+                            console.log("Looks like there was a problem. Status code: " + response.status);
+                            return;
+                        }
+
+                        response.json().then(function (res) {
+                            resolve(res);
+                        });
+                    }
+                ).catch(function (err) {
+                    console.error("Fetch error:", err);
+                });
+            });
+        },
+        findShedByFarm: function (selectedFarm) {
+            let util = this.getModel("util"),
+                mdshed = this.getModel("mdshed"),
+                partnership_id = this.getView().getModel("ospartnership").getProperty("/records/" + this.index + "/partnership_id");
+            const serverName = util.getProperty("/serviceUrl") + util.getProperty("/" + util.getProperty("/service") + "/findShedsByFarmForReprod");
+            
+            return new Promise((resolve, reject) => {
+                fetch("/shed/findShedsByCenterForReprod", {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                    },
+                    body: "center_id=" + selectedFarm
+                }).then(
+                    function(response) {
+                        if (response.status !== 200) {
+                            console.log("Looks like there was a problem. Status code: " + response.status);
+                            return;
+                        }
+
+                        response.json().then(function(res) {
+                            res.data= res.data.filter(function(item){
+                                return item.statusshed_id===1||item.rehousing===true;
+                            }); 
+                            resolve(res);
+                        });
+                    }
+                ).catch(function(err) {
+                    console.error("Fetch error:", err);
+                });
+            });
+        },
+
+        onProgrammedCloseDialog: function () {
+            const mdprogrammed = this.getModel("mdprogrammed");
+            const mdfarms = this.getModel("mdfarms");
+            const mdcores = this.getModel("mdcores");
+            const mdshed = this.getModel("mdshed");
+            mdprogrammed.getProperty("/selectedRecords").forEach(record => record.partial_residue = 0);
+            mdprogrammed.setProperty("/assigned", []);
+            mdprogrammed.setProperty("/capmin2", "");
+            mdprogrammed.setProperty("/capmax2", "");
+            mdprogrammed.setProperty("/quantity", "");
+            mdprogrammed.setProperty("/name/state", "None");
+            mdprogrammed.setProperty("/name/stateText", "");
+            mdfarms.setProperty("/selectedKey", null);
+            mdcores.setProperty("/selectedKey", null);
+            mdshed.setProperty("/selectedKey", null);
+
+            this.formProgrammed.close();
+            this.formProgrammed.destroy();
+        },
+
+        onProgrammedSaveDialog: function () {
+            let that = this,
+                util = this.getModel("util"),
+                scenario_id = this.getModel("mdscenario").getProperty("/scenario_id"),
+                mdprogrammed = this.getModel("mdprogrammed"),
+                mdfarms = this.getModel("mdfarms"),
+                mdcores = this.getModel("mdcores"),
+                mdshed = this.getModel("mdshed"),
+                mdprocess = this.getModel("mdprocess"),
+                housing_way_id = mdprogrammed.getProperty("/selectedRecord/housing_way_id"),
+                pDate = sap.ui.getCore().byId("programmed_date").mProperties.dateValue,
+                scheduled_quantity = sap.ui.getCore().byId("programmed_quantity").mProperties.value,
+                partnership_id = this.getModel("ospartnership").getProperty("/selectedRecord/"),
+                scheduled_date = `${pDate.getFullYear()}-${pDate.getMonth()+1}-${pDate.getDate()}`,
+                farm_id = sap.ui.getCore().byId("selectFarm").getSelectedKey(),
+                shed_id = sap.ui.getCore().byId("selectShed").getSelectedKey(),
+                center_id = sap.ui.getCore().byId("selectCore").getSelectedKey(),
+                incubator_plant_id = sap.ui.getCore().byId("selectIncubatorPlant").getSelectedKey(),
+                next_step = new Date(pDate.getFullYear(), pDate.getMonth() - 1, pDate.getDate());
+
+            partnership_id = partnership_id.partnership_id;
+
+            let ddate = this.addDays(next_step, mdprocess.getProperty("/duration"));
+            let next_date = `${ddate.getFullYear()}-${ddate.getMonth()+1}-${ddate.getDate()}`;
+            const serverName = util.getProperty("/serviceUrl") + util.getProperty("/" + util.getProperty("/service") + "/housingwaydetail");
+            mdprogrammed.setProperty("/confirmBtn",false);
+
+            const data = {
+                records : mdprogrammed.getProperty("/assigned").map(assg => ({housing_way_id: assg.projection.housing_way_id, quantity: assg.quantity})),
+                scheduled_date,
+                scheduled_quantity,
+                farm_id,
+                shed_id,
+                center_id,
+                confirm : 0,
+                liftBreedingStage: breedingStage,
+                partnership_id,
+                scenario_id,
+                next_date,
+                incubator_plant_id: incubator_plant_id
+            };
+
+            fetch(serverName, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify(data)
+            }).then(
+                function(response) {
+                    if (response.status !== 200) {
+                        console.log("Looks like there was a problem. Status code: " + response.status);
+                        return;
+                    }
+
+                    response.json().then(function (res) {
+                        mdprogrammed.getProperty("/selectedRecords").forEach(record => {
+                            record.residue = parseInt(record.residue, 10) + record.partial_residue;
+                            record.partial_residue = 0;
+                        });
+
+                        mdprogrammed.setProperty("/capmin2", "");
+                        mdprogrammed.setProperty("/capmax2", "");
+                        mdprogrammed.setProperty("/quantity", "");
+                        mdfarms.setProperty("/selectedKey", null);
+                        mdcores.setProperty("/selectedKey", null);
+                        mdshed.setProperty("/selectedKey", null);
+
+                        that.formProgrammed.close();
+                        that.formProgrammed.destroy();
+
+                        let residue_programmed = res.residue,
+                            projected = mdprogrammed.getProperty("/selectedRecords/"),
+                            projected_quantity = 0;
+
+                        projected.forEach(element => {
+                            projected_quantity = parseInt(projected_quantity) + parseInt(element.projected_quantity);
+                        });
+                        let total = parseInt(projected_quantity) - parseInt (residue_programmed);
+                        mdprogrammed.setProperty("/programmed_residue", total);
+                        let record = res.data;
+                        record.forEach(element => {
+                            if(element.executedcenter_id && element.executedfarm_id && element.executedshed_id && element.execution_quantity && element.execution_date){
+                                element.isexecuted = true;
+                            } else {
+                                element.isexecuted = false;
+                            }
+                        });
+
+                        mdprogrammed.setProperty("/records", record);
+                        mdprogrammed.setProperty("/assigned", []);
+
+                        that.hideButtons(false, true, false, false);
+
+                        var dialog = new Dialog({
+                            title: "Información",
+                            type: "Message",
+                            state: "Success",
+                            content: new Text({
+                                text: "Información guardada con éxito."
+                            }),
+                            beginButton: new Button({
+                                text: "OK",
+                                press: function() {
+                                    dialog.close();
+                
+                                }
+                            }),
+                            afterClose: function() {
+                                dialog.destroy();
+                            }
+                        });
+
+                        dialog.open();
+                    });
+                }
+            ).catch(function (err) {
+                console.error("Fetch error:", err);
+            });
+        },
+
+        handleTitleSelectorPress: function (oEvent) {
+            var _oPopover = this._getResponsivePopover();
+            _oPopover.setModel(oEvent.getSource().getModel());
+            _oPopover.openBy(oEvent.getParameter("domRef"));
+        },
+
+        _getResponsivePopover: function () {
+            if (!this._oPopover) {
+                this._oPopover = sap.ui.xmlfragment("breedingPlanningM.view.Popover", this);
+                this.getView().addDependent(this._oPopover);
+            }
+
+            return this._oPopover;
+        },
+
+        onFarmLoad: function() {
+            const util = this.getModel("util"),
+                serverName = util.getProperty("/serviceUrl") + util.getProperty("/" + util.getProperty("/service") + "/findFarmByPartAndStatus"),
+                partnership_id = this.getView().getModel("ospartnership").getProperty("/selectedRecord/").partnership_id;
+
+            let osfarm = this.getModel("mdfarms");
+
+            osfarm.setProperty("/records", []);
+
+            let isRecords = new Promise ((resolve, reject) => {
+                fetch("/farm/findFarmByPartAndStatus2/", {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                    },
+                    body: "partnership_id=" + partnership_id+"&status_id=1"
+                }).then(
+                    function(response) {
+                        if (response.status !== 200) {
+                            console.log("Looks like there was a problem. Status code: " + response.status);
+                            return;
+                        }
+                        response.json().then(function(data) {
+                            resolve(data);
+                        });
+                    }
+                ).catch(function (err) {
+                    console.error("Fetch error:", err);
+                });
+            });
+
+            isRecords.then((res) => {
+                if (res.data.length > 0) {
+                    osfarm.setProperty("/records", res.data);
+                }
+            });
+        },
+
+        onDialogPressEx: function() {
+            let util = this.getModel("util"),
+                mdprogrammed = this.getModel("mdprogrammed"),
+                mdexecuted = this.getModel("mdexecuted"),
+                execution_quantity = mdexecuted.getProperty("/execution_quantity"),
+                execution_incPlant = mdexecuted.getProperty("/incubatorPlant/selectedKey"),
+                aRecords = mdexecuted.getProperty("/records"),
+                scenario_id = this.getModel("mdscenario").getProperty("/scenario_id"),
+                farm_id = this.getView().getModel("mdfarms").getProperty("/selectedKey"),
+                center_id = this.getView().getModel("mdcenter").getProperty("/selectedKey"),
+                mdshed = this.getModel("mdshed"),
+                shed_id = mdshed.getProperty("/selectedKey");
+
+            let housing_way_id = mdexecuted.getProperty("/selectedRecord/housing_way_id");
+            let records_executed = [];
+            let isValidRecord = true;
+
+            aRecords.forEach(item => {
+                if ((item.execution_date) && (parseInt(execution_quantity) && execution_incPlant) /*&& (item.sales_quantity)*/ ) {
+                    item.executionfarm_id = farm_id;
+                    item.executioncenter_id = center_id;
+                    item.executionshed_id = shed_id;
+                    item.execution_quantity = execution_quantity;
+                    records_executed.push(item);
+                }
+
+                if ((!item.execution_date) && (parseInt(execution_quantity))) {
+                    item.state_date = "Error";
+                    item.state_text_date = "El campo fecha no puede estar en blanco";
+                    isValidRecord = false;
+                } else {
+                    item.state_date = "None";
+                    item.state_text_date = "";
+                }
+
+                if ((item.execution_date) && (!parseInt(execution_quantity))) {
+                    item.state_quantity = "Error";
+                    item.state_text_quantity = "el campo cantidad no puede estar vacío";
+                    isValidRecord = false;
+                } else {
+                    item.state_quantity = "None";
+                    item.state_text_quantity = "";
+                }
+            });
+            mdexecuted.refresh(true);
+            const serverName = util.getProperty("/serviceUrl") + util.getProperty("/" + util.getProperty("/service") + "/housingwaydetail");
+            if (records_executed.length > 0 && isValidRecord) {
+                //Dialogo para confirmar si esta de acuerdo con lo registrado
+                var dialogC = new Dialog({
+                    title: "Aviso",
+                    type: "Message",
+                    content: new Text({
+                        text: "¿Desea guardar los cambios?"
+                    }),
+                    beginButton: new Button({
+                        text: "Aceptar",
+                        press: function(oEvent) {
+                            oEvent.getSource().oParent.mAggregations.beginButton.setEnabled(false)
+
+                            fetch(serverName, {
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                method: "PUT",
+                                body: JSON.stringify({
+                                    records: records_executed,
+                                    stage_id: breedingStage,
+                                    housing_way_id: housing_way_id,
+                                    scenario_id: scenario_id
+                                })
+                            }).then(
+                                function(response) {
+                                    if (response.status !== 200) {
+                                        console.log("Looks like there was a problem. Status code: " + response.status);
+                                        return;
+                                    }
+
+                                    response.json().then(function(res) {
+                                        mdexecuted.setProperty("/isnotexecuted",false);
+                                        mdexecuted.setProperty("/isexecuted",true);
+                                        mdexecuted.setProperty("/records", res.data);
+                                        mdprogrammed.setProperty(mdprogrammed.getProperty("/selectedRecordPath/")+"/isexecuted",true);
+                                        mdprogrammed.refresh(true);
+                                        mdexecuted.setProperty("/name/state", "None");
+                                        mdexecuted.setProperty("/name/stateText", "");
+                                        mdexecuted.setProperty("/available", false);
+                                        mdexecuted.setProperty("/saveBtn", false);
+
+                                        var dialog = new Dialog({
+                                            title: "Información",
+                                            type: "Message",
+                                            state: "Success",
+                                            content: new Text({
+                                                text: "Información guardada con éxito."
+                                            }),
+                                            beginButton: new Button({
+                                                text: "OK",
+                                                press: function() {
+                                                    dialog.close();
+                        
+                        
+                                                }
+                                            }),
+                                            afterClose: function() {
+                                                dialog.destroy();
+                                            }
+                                        });
+
+                                        dialog.attachBeforeClose(function(){
+                                            dialogC.close();
+                                        });
+
+                                        dialog.open();
+                                    });
+                                }
+                            ).catch(function(err) {
+                                console.log("Fetch Error :-S", err);
+                            });
+                        }
+                    }),
+                    endButton: new Button({
+                        text: "Cancelar",
+                        press: function() {
+                            dialogC.close();
+                        }
+                    }),
+                    afterClose: function() {
+                        dialogC.destroy();
+                    }
+                });
+                dialogC.open();
+                //Fin Dialogo de confirmacion
+            } else if (!isValidRecord) {
+                this.onToast("Faltan campos");
+            } else {
+                //No se detectaron cambios
+                this.onToast("No de detectaron cambios");
+            }
+        },
+
+        handleDelete: function (oEvent) {
+            let sId = oEvent.getParameters().listItem.sId,
+                asId = sId.split("-"),
+                idx = asId[asId.length-1],
+                mdprogrammed = this.getModel("mdprogrammed"),
+                that = this;
+
+            let obj =  mdprogrammed.getProperty("/records/"+idx);
+
+            var dialog = new Dialog({
+                title: "Confirmación",
+                type: "Message",
+                content: new Text({
+                    text: "Se procedera a eliminar la fecha: " + obj.scheduled_date
+
+                }),
+                beginButton: new Button({
+                    text: "Continuar",
+                    press: function () {
+                        dialog.close();
+                        that.deleteProgrammed(obj.housingway_detail_id, obj.housing_way_id);
+                    }
+                }),
+                endButton: new Button({
+                    text: "Cancelar",
+                    press: function () {
+                        dialog.close();
+                    }
+                }),
+                afterClose: function() {
+                    dialog.destroy();
+                }
+            });
+
+            dialog.open();
+        },
+
+        deleteProgrammed: function(housingway_detail_id, housing_way_id) {
+            var that = this,
+                util = this.getModel("util"),
+                mdprogrammed = this.getModel("mdprogrammed"),
+                serverName = util.getProperty("/serviceUrl") + util.getProperty("/" + util.getProperty("/service") + "/deleteHousingWayDetail");
+
+            fetch(serverName, {
+                method: "DELETE",
+                headers: {
+                    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                },
+                body: "housingway_detail_id=" + housingway_detail_id+"&housing_way_id="+housing_way_id
+            })
+                .then(
+                    function(response) {
+                        if (response.status !== 200) {
+
+                            console.log("Looks like there was a problem. Status Code: " +
+                  response.status);
+
+                            response.json().then(
+                                function(resp){
+                                    MessageToast.show(resp.msg);
+                                });
+                            return;
+                        }
+                        // Examine the text in the response
+                        response.json().then(function(res) {
+                            let records = res.data;
+                            mdprogrammed.setProperty("/records", records);
+                            that.hideButtons(false, true, true, false);
+
+                            let residue_programmed = res.residue,
+                                projected_quantity = mdprogrammed.getProperty("/selectedRecord/projected_quantity"),
+                                total = projected_quantity - residue_programmed;
+                            mdprogrammed.setProperty("/programmed_residue", total);
+
+                            if (records.length > 0) {
+                                mdprogrammed.setProperty("/executionSaveBtn", true);
+                            } else {
+                                mdprogrammed.setProperty("/executionSaveBtn", false);
+                            }
+                            util.setProperty("/busy/", false);
+
+                        });
+                    }
+                )
+                .catch(function(err) {
+                    console.log("Fetch Error :-S", err);
+                });
+        },
+
+
+        reloadProgrammed: function(housingway_detail, mdprogrammed){
+            let housing_ways = [];
+
+            housing_ways = housingway_detail.map(record => record.housing_way_id);
+            fetch("/housingWayDetail/findHousingWayDetByHw", {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    records: housing_ways
+                })
+            })
+                .then(
+                    function(response) {
+                        if (response.status !== 200) {
+                            console.log("Looks like there was a problem. Status Code: " +
+                  response.status);
+                            return;
+                        }
+  
+                        response.json().then(function(res) {
+                            mdprogrammed.setProperty("/records",res.data);
+                        });
+                    }
+                )
+                .catch(function(err) {
+                    console.log("Fetch Error :-S", err);
+                });
+  
+        },
+
+        toSap: function () {
+            let util = this.getModel("util"),
+                mdprogrammed = this.getView().getModel("mdprogrammed"),
+                ids = mdprogrammed.getProperty("/selectedRecords"),
+                that = this;
+
+
+          
+            var dialogToSap = new Dialog({
+                title: "Confirmación",
+                type: "Message",
+                content: new Text({
+                    text: "Se procedera a sincronizar: "
+                }),
+                beginButton: new Button({
+                    text: "Continuar",
+                    press: function () {
+                    
+                        dialogToSap.close();
+                        dialogToSap.destroy();
+                        util.setProperty("/busy", true);
+
+                        fetch("/synchronization/syncReproductora", {
+                            method: "GET"
+                        })
+                            .then(
+                                function(response) {
+                                    if (response.status !== 200) {
+                                        util.setProperty("/busy", false);
+                                        console.log("Looks like there was a problem. Status Code: " + response.status);
+                                        response.json()
+                                            .then(data => {
+                                                var dialog = new Dialog({
+                                                    title: "Información",
+                                                    type: "Message",
+                                                    state: "Error",
+                                                    content: new Text({
+                                                        text: data.message
+                                                    }),
+                                                    beginButton: new Button({
+                                                        text: "OK",
+                                                        press: function() {
+                                                            dialog.close();
+                                                            dialogToSap.close();
+                                                            dialogToSap.destroy();
+                                                        }
+                                                    }),
+                                                    afterClose: function() {
+                                                        dialog.destroy();
+                                                    }
+                                                });
+                                                dialog.open();
+                                            });
+                                        return;
+                                    }else{
+                                        util.setProperty("/busy", false);
+                                        response.json().then(function(res) {
+
+                                            let texto = "";
+                                            if (res.resp.length > 0) 
+                                            {
+                                                texto = "Sincronización realizada con éxito.\n"+ res.resp[0].satisfactorios + " registro(s) guardados\n"+res.resp[0].error+" registro(s) erroneos";
+
+                                            }
+                                            else{
+                                                texto = "Todos los registros ya han sido sincronizados";
+                                            }
+                                            that.reloadProgrammed(ids, mdprogrammed);
+                                            var dialog = new Dialog({
+                                                title: "Información",
+                                                type: "Message",
+                                                state: "Success",
+                                                content: new Text({
+                                                    text: texto
+                                                }),
+                                                beginButton: new Button({
+                                                    text: "OK",
+                                                    press: function() {
+                                                        dialog.close();
+                                                        dialogToSap.close();
+                                                        dialogToSap.destroy();
+                                                    }
+                                                }),
+                                                afterClose: function() {
+                                                    dialog.destroy();
+                                                }
+                                            });
+                                            dialog.open();
+                                        });
+                                    }
+                                }
+                            )
+                            .catch(function(err) {
+                                console.log("Fetch Error :-S", err);
+                                util.setProperty("/busy", false);
+                                var dialog = new Dialog({
+                                    title: "Información",
+                                    type: "Message",
+                                    state: "Error",
+                                    content: new Text({
+                                        text: "Error de sincronización."
+                                    }),
+                                    beginButton: new Button({
+                                        text: "OK",
+                                        press: function() {
+                                            dialog.close();
+                                            dialogToSap.close();
+                                            dialogToSap.destroy();
+                                        }
+                                    }),
+                                    afterClose: function() {
+                                        dialog.destroy();
+                                    }
+                                });
+                                dialog.open();
+                            });
+                    }
+                }),
+                endButton: new Button({
+                    text: "Cancelar",
+                    press: function () {
+                        dialogToSap.close();
+                      
+                    }
+                }),
+                afterClose: function() {
+                    dialogToSap.destroy();
+                }
+            });
+            dialogToSap.open();
+        },
+    
+        onPressDetProg: function(oEvent){
+            let that = this,
+                path = oEvent.getSource().oPropagatedProperties.oBindingContexts.mdprogrammed.sPath;
+            var dialog = new Dialog({
+                title: "Información",
+                type: "Message",
+                state: "Warning",
+                content: new Text({
+                    text: "¿Desea eliminar la programación seleccionada?."
+                }),
+                beginButton: new Button({
+                    text: "Aceptar",
+                    press: function() {
+                        that.onUpdateDisabled(path);
+                        dialog.close();
+                    }
+                }),
+                endButton: new Button({
+                    text: "Cancelar",
+                    press: function() {
+                        dialog.close();
+                    }
+                }),
+                afterClose: function() {
+                    dialog.destroy();
+                }
+            });
+  
+            dialog.open();
+        },
+  
+        onUpdateDisabled: function(path){
+            let mdprogrammed = this.getView().getModel("mdprogrammed"),
+                selectedItem = mdprogrammed.getProperty(path),
+                id = selectedItem.housingway_detail_id,
+                housing_way_id = selectedItem.housing_way_id,
+                shed_id = selectedItem.shed_id,
+                records_selected = mdprogrammed.getProperty('/selectedRecords').map(itm => itm.housing_way_id);
+  
+            fetch("/housingWayDetail/updateDisabledHousingWayDetail", {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                method: "PUT",
+                body: JSON.stringify({
+                    housing_way_id : housing_way_id,
+                    housingway_detail_id: id,
+                    shed_id : shed_id,
+                    records_selected: records_selected
+                })
+            })
+                .then(
+                    function(response) {
+                        if (response.status !== 200 && response.status !== 409) {
+                            console.log("Looks like there was a problem. Status Code: " +
+                    response.status);
+                            return;
+                        }
+  
+                        if(response.status === 409){
+                            var dialog = new Dialog({
+                                title: "Información",
+                                type: "Message",
+                                state: "Error",
+                                content: new Text({
+                                    text: "No se puede eliminar la programación, porque ya ha sido ejecutada."
+                                }),
+                                beginButton: new Button({
+                                    text: "OK",
+                                    press: function() {
+                                        dialog.close();
+                                    }
+                                }),
+                                afterClose: function() {
+                                    dialog.destroy();
+                                }
+                            });
+    
+                            dialog.open();
+                        }
+                
+                        if(response.status === 200){
+                            response.json().then(function(res) {
+
+                                let records = res.data;
+                                records.forEach(element => {
+                                    if( element.execution_quantity && element.execution_date){
+                                        element.isexecuted = true;
+                                    }else{
+                                        element.isexecuted = false;
+                                    }
+                            
+                                });
+                                mdprogrammed.setProperty("/records", records);
+                                let residue_programmed = res.residue,
+                                    projected = mdprogrammed.getProperty("/selectedRecords/");
+
+                                    projected.forEach(element => {
+                                        const tmp = residue_programmed.find(itm => { return itm.housing_way_id === element.housing_way_id})
+                                        if(tmp !== undefined){
+                                            element.residue = parseInt(tmp.residue);
+                                            element.partial_residue = 0;
+                                        }
+                                    });
+                                    
+                                    mdprogrammed.setProperty("/selectedRecords", projected);
+                                    console.log(mdprogrammed);
+                                    mdprogrammed.refresh(true);
+
+                                var dialog = new Dialog({
+                                    title: "Información",
+                                    type: "Message",
+                                    state: "Success",
+                                    content: new Text({
+                                        text: "Programación eliminada con éxito."
+                                    }),
+                                    beginButton: new Button({
+                                        text: "OK",
+                                        press: function() {
+                                            dialog.close();
+                                        }
+                                    }),
+                                    afterClose: function() {
+                                        dialog.destroy();
+                                    }
+                                });
+      
+                                dialog.open();
+                  
+                            });
+                        }
+                
+                    }
+                )
+                .catch(function(err) {
+                    console.log("Fetch Error :-S", err);
+                });
+  
+        },
+
+        pressadjustment: function (o) {
+            console.log({
+                lot: this.getView().byId("numberL").getValue(),
+                stage: "C",
+                scenario_id: this.getModel("mdscenario").getProperty("/scenario_id")
+            })
+            let that = this
+            let mdprojected = this.getView().getModel("mdprojected")
+            fetch("/adjustments/findEvictionLotData", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    lot: this.getView().byId("numberL").getValue(),
+                    stage: "P",
+                    scenario_id: this.getModel("mdscenario").getProperty("/scenario_id"),
+                })
+            })
+                .then(function (response) {
+                    if (response.status !== 200) {
+                        console.log('Looks like there was a problem. Status Code: ' +
+                            response.status);
+                        return;
+                    }
+
+                    response.json().then(function (res) {
+                        console.log(res)
+                        that.getModel("mdprojected").setProperty("/adjustmenttable", res.data)
+                        if(res.data.length>0){
+                            console.log("2")
+                            mdprojected.setProperty("/visibleInfo", ((res.data[0].adjustment_date !== undefined && res.data[0].adjustment_date !== null) && (res.data[0].username !== undefined && res.data[0].username !== null)));
+                            mdprojected.setProperty("/visibleOtherButtons",true)
+                        }else{
+                            console.log("1")
+                            mdprojected.setProperty("/visibleOtherButtons",false)
+                            
+                        }
+                        if(res.data[0].eviction===true){
+                            mdprojected.setProperty("/visibleOtherButtons",false)
+                        }
+
+
+
+
+                    });
+
+                })
+                .catch(function (err) {
+                    console.log("Fetch Error :-S", err);
+                });
+
+
+        },
+
+        SaveEviction: async function () {
+            let mdprojected = this.getView().getModel("mdprojected"),
+              stage = "P",
+              record = mdprojected.getProperty("/adjustmenttable/0")
+            console.log(stage)
+            record.stage = stage
+            console.log(record)
+            console.log(record.eviction_date)
+            if(record.eviction_date==undefined || record.eviction_date==" " || record.eviction_date==""  || record.eviction_date==null){
+              MessageToast.show("Ingrese una parametro de fecha de desalojo");
+            }else {
+              let that = this
+              var dialogC = new Dialog({
+                title: "Aviso",
+                type: "Message",
+                content: new Text({
+                  text: "¿Desea guardar la información?"
+                }),
+                beginButton: new Button({
+                  text: "Aceptar",
+                  press: async function (oEvent) {
+                    fetch("/adjustments/updateEvictionedStage", {
+                      method: "PUT",
+                      headers: {
+                        "Content-type": "application/json"
+                      },
+                      body: JSON.stringify(record)
+                    })
+                      .then(response => {
+                        if (response.status !== 200) {
+                          console.log("Looks like there was a problem. Status Code: " +
+                            response.status);
+                          MessageToast.show("Ingrese un parametro de fecha valido");
+                          return;
+                        }
+                        response.json().then((res) => {
+                          console.log(res);
+                          that.getModel("mdprojected").setProperty("/adjustmenttable",{})
+                          MessageToast.show("Desalojo exitoso");
+                         
+                        });
+        
+        
+                      })
+                      .catch(err => console.log);
+                    dialogC.close();
+                  }
+                }),
+                endButton: new Button({
+                  text: "Cancelar",
+                  press: function () {
+                    dialogC.close();
+                  }
+                }),
+                afterClose: function () {
+                  dialogC.destroy();
+                }
+              });
+              dialogC.open();
+      
+      
+      
+            }
+          },
+
+          changeProjection: function(oEvent){
+            let input = oEvent.getSource(),
+                value = input.getSelectedKey();
+
+            input.setValueState((value!== undefined && value!== null && value!== '')?'None':'Error');
+            input.setValueStateText((value!== undefined && value!== null && value!== '')?'':'Seleccione una proyección');
+            
+        },
+
+        changeProgrammedDate: function(oEvent){
+            let input = oEvent.getSource(),
+                value = input.getValue(),
+                minus = value.split('-'),
+                divider = value.split('/');
+
+            if(divider.length===3){
+                value = `${divider[0]}-${divider[1]}-${divider[2]}`;
+            }
+            console.log(minus.length)
+            input.setValueState((minus.length===3||divider.length===3)?'None':'Error');
+            input.setValueStateText((minus.length===3||divider.length===3)?'':'Fecha no valida');
+            
+            input.setValue(value);
+        },
+
+    });
+});

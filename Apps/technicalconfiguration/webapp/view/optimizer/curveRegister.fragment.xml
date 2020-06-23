@@ -1,0 +1,69 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+  <VBox xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" width="100%" direction="Column">
+		<items>
+			<Toolbar xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+				<content>
+					<SearchField liveChange="onCurveSearch" placeholder="Buscar raza" width="100%"/>
+				</content>
+			</Toolbar>
+			<Table xmlns:core="sap.ui.core"
+             xmlns:mvc="sap.ui.core.mvc"
+             xmlns:html="http://www.w3.org/1999/xhtml"
+             xmlns:sap.m.semantic="sap.m.semantic"
+             xmlns="sap.m"
+             noDataText="Sin datos"
+             id="curveTable"
+             items="{optimizer>/register}"
+             mode="None"
+             selectionChange="onSelectBreedRecord"
+			 growing="true"
+        	growingScrollToLoad="true">
+
+				<items>
+					<ColumnListItem  type="DetailAndActive" detailPress="onViewShedRecord">
+						<cells>
+							<Text text="{optimizer>name}" />
+							<Text text="{optimizer>max_housing}" />
+							<Text text="{optimizer>min_housing}" />
+							<!-- <Text text="{path:'optimizer>max_housing', formatter:'.formatter.formatterNumber'}"/>
+							<Text text="{path: 'optimizer>min_housing', formatter:'.formatter.formatterNumber'}"/> -->
+							<Text text="{optimizer>difference}"/>
+							<Switch  type="AcceptReject" change="onChangeActive" state="{optimizer>active}" enabled="true">
+								<layoutData>
+									<FlexItemData growFactor="1" />
+								</layoutData>
+							</Switch>
+						</cells>
+					</ColumnListItem>
+				</items>
+				<columns>
+					<Column vAlign="Middle">
+						<header>
+							<Label text="Raza"/>
+						</header>
+					</Column>
+					<Column vAlign="Middle">
+						<header>
+							<Label text="Máximo alojamiento (UND)"/>
+						</header>
+					</Column>
+					<Column vAlign="Middle">
+						<header>
+							<Label text="Mínimo alojamiento (UND)"/>
+						</header>
+					</Column>
+					<Column vAlign="Middle">
+						<header>
+							<Label text="Margen de error (%)"/>
+						</header>
+					</Column>
+					<Column vAlign="Middle">
+						<header>
+							<Label text="Activo"/>
+						</header>
+					</Column>
+				</columns>
+			</Table>
+		</items>
+	</VBox>
+</core:FragmentDefinition>

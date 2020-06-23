@@ -1,0 +1,137 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+  <Dialog id="dialogprogrammed" escapeHandler="onProgrammedCloseDialog" title="Agregar nueva fecha" class="sapUiPopupWithPadding" confirm="onCancelCopy" cancel="onCancelCopy" busy="false">
+
+   <!--  <IconTabBar id="idIconTabBarNoIcons" expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding">
+      <items> -->
+        <!-- <IconTabFilter text="Granja">
+          <f:SimpleForm id="formPlanning" editable="true" labelSpanL="5" labelSpanM="4" labelSpanS="4" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsL="2" columnsM="2" maxContainerCols="2" layout="ResponsiveGridLayout" width="100%" busy="false">
+ 
+            <Label text="Fecha"/>
+            <input id="programmed_date" value="{mdprogrammed>/selectedRecord/projected_date}" enabled="false"/>
+
+            <Label text="Granja"/>
+            <Select items="{mdfarms>/records}" selectedKey="{mdfarms>/selectedKey}" change="onChangeFarm" id="selectFarm">
+              <core:Item text="{mdfarms>name}" key="{mdfarms>farm_id}"/>
+            </Select>
+
+            <Label text="Galpón"/>
+            <Select items="{mdshed>/records}" selectedKey="{mdshed>/selectedKey}" change="onChangeShed" id="selectShed">
+              <core:Item text="{mdshed>code}" key="{mdshed>shed_id}"/>
+            </Select>
+
+          </f:SimpleForm>
+        </IconTabFilter>
+        <IconTabSeparator id="__separatorBroiler1" icon="sap-icon://open-command-field"/> -->
+        
+
+        <!-- <IconTabFilter text="Lotes"> -->
+          <!--Asignacion de lotes Incubadora a Engorde-->
+
+          <f:SimpleForm
+                 id="formAssigned"
+                 editable="true"
+                 labelSpanL="5"
+                 labelSpanM="4"
+                 labelSpanS="4"
+                 emptySpanL="0"
+                 emptySpanM="0"
+                 emptySpanS="0"
+                 columnsL="2"
+                 columnsM="2"
+                 maxContainerCols="2"
+                 layout="ResponsiveGridLayout"
+                 width="100%"
+                 busy="false">
+
+                 <Label text="Granja"/>
+                 <Text id="" text="{mdprogrammed>/selectedRecord/farm_name}"  enabled="false"/>
+
+                 <Label text="Núcleo"/>
+                 <Text id="" text="{mdprogrammed>/selectedRecord/center_name}"  enabled="false"/>
+                 
+                 <Label text="Galpón/Lote"/>
+                 <Text id="" text="{mdprogrammed>/selectedRecord/shed_name}  / {mdprogrammed>/selectedRecord/lot_incubator}" enabled="false"/>
+                 <!-- <Label text="Lote:"/>
+                 <Text id="" text="{mdprogrammed>/selectedRecord/lot_incubator}" enabled="false"/>
+                 <Label text="Lote"/> -->
+                <!--  <Select items="{mdprogrammed>/selectedRecord/lot}"
+                   selectedKey="{mdprogrammed>/selectedKey}"
+                   id="selectLot">
+                   <core:Item text="{mdprogrammed>lot_incubator} / {mdprogrammed>residue} Pollitos" key="{mdprogrammed>broilereviction_id}"/>
+                 </Select> -->
+
+
+                 <Label text="Producto"/>
+                 <ComboBox  items="{mdprogrammed>/product/records}"
+                          selectedKey="{mdprogrammed>/product/selectedKey}"
+                          forceSelection="false"
+                          id="selecProduct"
+                          selectionChange="onChangeSelectProduct"
+                          enabled="{= ${mdprogrammed>/selectedRecord/lot_assigned/length} === 0}">
+
+                    <core:Item text="{mdprogrammed>name}" key="{mdprogrammed>broiler_product_id}"/>
+                 </ComboBox>
+                 
+                 <Label text="Fecha Ejecución"/>
+                 <!-- <input id="programmed_date2" value="{mdprogrammed>/programmed_date}"  enabled="false"/> --> 
+                 <DatePicker id="programmed_date" enabled="{= ${mdprogrammed>/selectedRecord/lot_assigned/length} === 0}" value = "{mdprogrammed>/programmed_date}" initialFocusedDateValue="{mdprogrammed>/focus_date}" minDate= "{path:'mdprogrammed>/minDate'}" valueFormat="dd/MM/yyyy" placeholder="Fecha" class="sapUiSmallMarginBottom" change = 'changeProgrammedDate'/><!--campo de busqueda por fecha-->
+                 <Label text="Cantidad (UND)"/>
+                 <Input id="assigned_quantity" value="" placeholder="UND Pollitos"  liveChange="change" valueState="{mdprogrammed>/name/state}"
+                   valueStateText="{mdprogrammed>/name/stateText}"/>
+                 <Label text="Galpón (%)"/>
+                 <Input id="assigned_quantity2" value="" placeholder="% Galpón" liveChange="change2"
+                  valueState="{mdprogrammed>/name/state}"
+                   valueStateText="{mdprogrammed>/name/stateText}"/>
+                 <!-- <Label text="Cap. min/max"/>
+						      <Text id="" text="{mdprogrammed>/capmin}  / {mdprogrammed>/capmax}" enabled="false"/> -->
+                  	<!-- <Label text="Desalojar Galpón" id="shedEviction"/>
+				            <CheckBox 	selected="{path: 'mdprogrammed>/shedEviction'}"/> -->
+
+
+
+
+                 <Label text="Planta Beneficio"/>
+                 <Select items="{mdprogrammed>/slaughterhouse}"
+                   selectedKey="{mdprogrammed>/slaughterhouse/selectedKey}"
+                   id="selecProduct2">
+                   <core:Item text="{mdprogrammed>name}" key="{mdprogrammed>slaughterhouse_id}"/>
+                 </Select>
+
+
+
+                 <Button
+                    text="+"
+                    press="onAddBroiler"
+                    ariaDescribedBy="acceptButtonDescription genericButtonDescription"
+                    enabled="{mdprogrammed>/addBtn}">
+                </Button>
+
+                <Label text=""/>
+                <List
+                  mode="Delete"
+                  delete="handleDelete"
+                  items="{mdprogrammed>/selectedRecord/lot_assigned}"
+                  footerText="Saldo: {path:'mdprogrammed>/selectedRecord/residue',formatter: '.formatter.formatMiles' } Pollitos" >
+                  <StandardListItem
+                    title="{mdprogrammed>name}"
+                    description="{mdprogrammed>description}"
+                    info="{path:'mdprogrammed>quantity_chicken',formatter: '.formatter.formatMiles' } Pollitos"/>
+                </List>
+               </f:SimpleForm>
+
+       <!--  </IconTabFilter>
+
+      </items>
+    </IconTabBar> -->
+
+
+    <beginButton>
+      <Button text="Guardar" type="Accept" press="onProgrammedSaveDialog" 
+              enabled="{mdprogrammed>/confirmBtn}"/>
+    </beginButton>
+    <endButton>
+      <Button text="Cancelar" type="Reject" press="onProgrammedCloseDialog"/>
+    </endButton>
+
+  </Dialog>
+</core:FragmentDefinition>

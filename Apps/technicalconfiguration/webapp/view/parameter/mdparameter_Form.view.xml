@@ -1,0 +1,68 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="technicalConfiguration.controller.mdparameter">
+	<VBox class="sapUiSmallMargin" id="centerFormVBox">
+		<sap.ui.layout.form:SimpleForm
+			xmlns:sap.ui.layout.form="sap.ui.layout.form"
+			title="{i18n>parameter.data}"
+			editable="true"
+			layout="ResponsiveGridLayout"
+			id="centerForm"
+			minWidth="1024"
+			maxContainerCols="2"
+			labelSpanL="3"
+			labelSpanM="3"
+			emptySpanL="4"
+			emptySpanM="4"
+			columnsL="1"
+			columnsM="1"
+			class="editableForm">
+
+			<sap.ui.layout.form:content>
+				<Label id="product_name_label" visible="true" text="{i18n>parameter.name}" required="{MDPARAMETER>/name/required}"/>
+				<Input id="product_name_input"
+							 valueState="{MDPARAMETER>/name/state}"
+		 					 valueStateText="{MDPARAMETER>/name/stateText}"
+							 value="{ path: 'MDPARAMETER>/name/value', type: 'sap.ui.model.type.String'}"
+							 editable="{MDPARAMETER>/name/editable}"
+							 liveChange="changeName"/>
+
+				<Label id="product_description_label" text="{i18n>parameter.description}" required="{MDPARAMETER>/description/required}"/>
+				<Input id="product_description_input"
+							 valueState="{MDPARAMETER>/description/state}"
+							 valueStateText="{MDPARAMETER>/description/stateText}"
+							 value="{path: 'MDPARAMETER>/description/value'}"
+							 editable="{MDPARAMETER>/description/editable}"
+							 liveChange="changeDescription"/>
+
+			<Label text="{i18n>parameter.nameProcess}" id="__label1" required="{MDPARAMETER>/process_id/required}"/>
+			<ActionSelect id="parameter_nameProcess_model"
+										class="sapUiSmallMarginBottom"
+										items="{path: 'MDPROCESS>/records'}"
+										selectedKey="{path: 'MDPARAMETER>/process_id/value'}"
+										valueState="{MDPARAMETER>/process_id/state}"
+					 					valueStateText="{MDPARAMETER>/process_id/stateText}"
+										change="updateProcessModel"
+										enabled="{MDPARAMETER>/process_id/editable}"
+										forceSelection="false">
+				<items>
+					<core:Item key="{MDPROCESS>process_id}" text="{MDPROCESS>name}"/>
+				</items>
+			</ActionSelect>
+
+		<Label id="parameter_measure_label" text="{i18n>parameter.measure}" required="{MDPARAMETER>/measure_id/required}" />
+		<ActionSelect id="parameter_measure_model"
+									class="sapUiSmallMarginBottom"
+									items="{path: 'MDMEASURE>/records'}"
+									selectedKey="{path: 'MDPARAMETER>/measure_id/value'}"
+									valueState="{MDPARAMETER>/measure_id/state}"
+					 				valueStateText="{MDPARAMETER>/measure_id/stateText}"
+									change="updateMeasureModel"
+									enabled="{MDPARAMETER>/measure_id/editable}"
+									forceSelection="false">
+			<items>
+				<core:Item key="{MDMEASURE>measure_id}" text="{MDMEASURE>name}"/>
+			</items>
+		</ActionSelect>
+			</sap.ui.layout.form:content>
+		</sap.ui.layout.form:SimpleForm>
+	</VBox>
+</mvc:View>

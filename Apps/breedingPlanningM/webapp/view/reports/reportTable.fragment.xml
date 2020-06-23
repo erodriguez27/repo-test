@@ -1,0 +1,89 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+
+  <FlexBox width="100%" id="b228888" justifyContent="Center">
+    <items>
+      <Select items="{path:'mdbreed>/records'}" selectedKey="{mdbreed>/value}" id="breedSelect">
+        <core:Item text="{mdbreed>name}" key="{mdbreed>breed_id}"/>
+      </Select>
+      <DatePicker id="sd" valueFormat="dd-MM-yyyy" placeholder="Desde" change="handleChange" class="sapUiSmallMarginBottom"/>
+      <DatePicker id="sd2" valueFormat="dd-MM-yyyy" placeholder="Hasta" change="handleChange" class="sapUiSmallMarginBottom"/>
+      <Button text="Buscar" press="reports"></Button>
+    </items>
+  </FlexBox>
+
+  <Table  headerText="Products" id="reportTable" inset="false" items="{path:'mdreports>/records'}" selectionChange="onDialogPress" growing="true"
+        						growingScrollToLoad="true">
+    <headerToolbar>
+      <OverflowToolbar>
+        <Title text="Desde: {mdreports>/desde}" level="H2" visible="{mdreports>/visible}"/>
+        <Title text="Hasta: {mdreports>/hasta}" level="H2" visible="{mdreports>/visible}"/>
+        <ToolbarSpacer/>
+        
+      </OverflowToolbar>
+    </headerToolbar>
+  
+    <columns>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Fecha Programada"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad Programada (UND)"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Fecha Ejecutada"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad Ejecutada (UND)"/>
+      </Column>
+       <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Lote"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" visible = "{mdreports>/raza}">
+        <Text text="Raza"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Granja"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Núcleo"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Galpón"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Variación Cantidad (UND)"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Variación Dias"/>
+      </Column>
+    
+
+    </columns>
+    <items>
+      <ColumnListItem>
+        <cells>
+          <Text text="{mdreports>scheduled_date}"/>
+          <Text text="{mdreports>scheduled_quantity}"/>
+          
+          <Text text="{mdreports>execution_date}"/>
+          <Text text="{mdreports>execution_quantity}"/>
+          <Text text="{mdreports>lot}"/>
+          <Text text="{mdreports>breed}" visible = "{mdreports>/raza}"/>
+          <Button icon="sap-icon://search" type="Transparent" press="handleLinkFarm"></Button>
+          <Button icon="sap-icon://search" type="Transparent" press="handleLinkCenter"></Button>
+          <Button icon="sap-icon://search" type="Transparent" press="handleLinkShed"></Button>
+          <ObjectNumber
+						textAlign="Center"
+						number="{path:'mdreports>diferentquantity'}"
+						state= "{path:'mdreports>diferentquantity', formatter: '.formatter.formatStatus'}"
+					/>
+          <ObjectNumber
+						textAlign="Center"
+						number="{path:'mdreports>diferentday'}"
+						state= "{path:'mdreports>diferentday', formatter: '.formatter.formatStatus'}"
+					/>
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</core:FragmentDefinition>

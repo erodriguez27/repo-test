@@ -1,0 +1,185 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+
+  <FlexBox width="100%" id="b228888" justifyContent="Center">
+    <items>
+      <ComboBox items="{path:'mdbreed>/records'}"
+              id="breedSelect2"
+              placeholder="Raza"
+              selectionChange="changeBreed"
+              > 
+        <core:Item text="{mdbreed>name}" key="{mdbreed>breed_id}"/> <!--Carga de razas a mostrar en la busqueda-->
+      </ComboBox>
+      <DatePicker id="sd" valueFormat="dd-MM-yyyy" placeholder="Desde" change="handleChange" class="sapUiSmallMarginBottom"/>
+      <DatePicker id="sd2" valueFormat="dd-MM-yyyy" placeholder="Hasta" change="handleChange" class="sapUiSmallMarginBottom"/>
+      <Button text="Buscar" press="reports"></Button>
+    </items>
+  </FlexBox>
+
+
+
+  <Table  headerText="Products" id="reportTable" inset="false" items="{path:'mdreports>/records'}" selectionChange="onDialogPress" growing="true"
+        						growingScrollToLoad="true">
+    <headerToolbar>
+      <OverflowToolbar>
+        <Title text="Desde: {mdreports>/desde}" level="H2" visible="{mdreports>/visible}"/>
+        <Title text="Hasta: {mdreports>/hasta}" level="H2" visible="{mdreports>/visible}"/>
+        <ToolbarSpacer/>
+        
+      </OverflowToolbar>
+    </headerToolbar>
+  
+    <columns>
+<!-- 
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Fecha Programada"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Fecha Ejecutada"/>
+      </Column>
+
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Granja Programada"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Granja Ejecutada"/>
+      </Column>
+
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Galpón Programado"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Galpón Ejecutado"/>
+      </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad Programada"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad Ejecutada"/>
+      </Column> -->
+      
+      
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Fecha Programada"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad Programada (UN)"/>
+      </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Lote"/>
+      </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" visible = "{mdreports>/raza}">
+        <Text text="Raza"/>
+      </Column>
+      
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Granja"/>
+      </Column>
+      
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Sexo"/>
+      </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Edad (Días)"/>
+      </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Fecha Ejecutada"/>
+      </Column>
+     
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad Ejecutada (UN)"/>
+      </Column>
+      
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Peso (Kg)"/>
+      </Column>
+      <!--Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Granja"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Núcleo"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Galpón"/>
+      </Column-->
+
+      <!--Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Granja Ejecutada"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Núcleo Ejecutado"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Galpón Ejecutado"/>
+      </Column-->
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Variación Cantidad (UN)"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Variación Días"/>
+      </Column>
+    
+
+    </columns>
+
+
+<!-- <columns>
+        <Column width="11rem" sortProperty="supplier" filterProperty="supplier">
+          <multiLabels>
+            <Text text="Cantidad"/>
+          </multiLabels>
+
+          
+        </Column>
+
+       
+      </columns> -->
+ 
+    <items>
+      <ColumnListItem>
+        <cells>
+          <Text text="{mdreports>scheduled_date}"/>
+          <Text text="{path:'mdreports>scheduled_quantity',formatter: '.formatter.formatMiles' }"/>
+          <Text text="{mdreports>lot}"/>
+          <Text text="{mdreports>breed}" visible = "{mdreports>/raza}"/>
+          <Text text="{mdreports>farm_name}"/>
+          <Text text="{mdreports>gender}"/>
+          <Text text="{mdreports>age}"/>
+          <Text text="{mdreports>execution_date}"/>
+          <Text text="{path:'mdreports>execution_quantity',formatter: '.formatter.formatMiles' }"/>
+          <Text text="{path:'mdreports>unit_weight',formatter: '.formatter.formatFloatMiles' }/{path:'mdreports>total_weight',formatter: '.formatter.formatFloatMiles' }"/>
+          <!--Text text="{mdreports>farm_name}"/>
+          <Text text="{mdreports>center_name}"/>
+          <Text text="{mdreports>shed_name} "/-->
+          <!--Text text="{mdreports>executionfarm}"/>
+          <Text text="{mdreports>executioncenter}"/>
+          <Text text="{mdreports>executionshed} "/--> 
+          <ObjectNumber
+						textAlign="Center"
+						number="{path:'mdreports>diferentquantity'}"
+						state= "{path:'mdreports>diferentquantity', formatter: '.formatter.formatStatus'}"
+					/>
+          <ObjectNumber
+						textAlign="Center"
+						number="{path:'mdreports>diferentday'}"
+						state= "{path:'mdreports>diferentday', formatter: '.formatter.formatStatus'}"
+					/>
+          <!--Text text="{mdreports>diferentday} "/-->
+          
+
+
+
+
+          
+          
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</core:FragmentDefinition>

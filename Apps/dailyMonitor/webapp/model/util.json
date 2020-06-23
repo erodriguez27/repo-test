@@ -1,0 +1,12 @@
+{
+  "serviceUrl" : "",
+  "service": "local",
+  "local": {
+    "addbroilerEviction": "/broilerEviction",
+    "truncatebroilerEviction": "/broilerEviction/truncatebroilerEviction"
+    },
+  "remote": {
+    "addbroilerEviction": "/broilerEviction",
+    "truncatebroilerEviction": "/broilerEviction/truncatebroilerEviction"
+  }
+}

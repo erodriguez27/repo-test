@@ -1,0 +1,65 @@
+<core:FragmentDefinition
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m"
+	xmlns:m="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout"
+	xmlns:fb="sap.ui.comp.filterbar"
+	width="100%">
+
+
+
+		
+<Table id="goalsTable" columns="{goals>/columns}" items="{goals>/rows}" busy="{util>/busy}" class = "myTable" fixedLayout="false" 		width="100%" 
+		growing="true"
+		growingThreshold="10"
+		sticky="HeaderToolbar">
+		<!--<headerToolbar> 
+			<Toolbar class="test1">
+				<ToolbarSpacer/> -->
+				<!-- <Button id="btnApplyFilyter" text="Aplicar Filtro" type="Transparent" press="applyFilters" visible="true"/> -->
+				<!-- <ToolbarSpacer/> -->
+
+				
+				<!-- <ToggleButton icon="sap-icon://menu" tooltip="Enable / Disable Custom Context Menu" press="onToggleContextMenu" /> -->
+			<!-- </Toolbar>
+		</headerToolbar>
+ -->
+		<infoToolbar>
+			<Toolbar id="vsdFilterBar" visible="false">
+				<Text id="vsdFilterLabel" />
+			</Toolbar>
+		</infoToolbar>
+
+		<columns>
+			<Column hAlign="{goals>halign}" width="{goals>width}" visible="{goals>visible}" >
+				<m:Label text="{goals>columnid}" design="Bold"/>
+			</Column>
+		</columns>
+
+    	<items >
+			<ColumnListItem id="columnListItemGoal" cells="{path:'goals>values',templateShareable:false}">
+				<cells >
+				
+					<m:ObjectStatus
+						class="sapUiSmallMarginBottom"
+						textAlign="{goals>textalign}"
+						text="{path:'goals>value',formatter: '.formatter.formatMiles'}"
+						active="{= ${goals>capacity} === undefined ? false : true }"	
+						press="_getPopover"			
+						state= "{ 	parts: [{path: 'goals>isStatic'},
+											{path: 'goals>residue'},
+											{path: 'goals>capacity'},
+											{path: 'parameterColors>/warningValue'}],
+									formatter: '.formatter.parameterColor'}"
+						visible="{goals>visible}"/>
+
+						
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+
+  	
+
+</core:FragmentDefinition>

@@ -1,0 +1,66 @@
+{
+	"records": [],
+	"name": {
+		"value": "",
+		"state": "None",
+		"stateText": "",
+		"editable": false
+	},
+	"code": {
+		"value": "",
+		"state": "None",
+		"stateText": "",
+		"editable": false
+	},
+	"description":{
+		"value": ""
+	},
+	"partnership_id": {
+    "value": "",
+		"state": "None",
+		"stateText": "",
+		"editable": false
+	},
+	"max_storage": {
+		"value": "",
+		"state": "None",
+		"stateText": "",
+		"editable": false
+	},
+	"min_storage": {
+		"value": "",
+		"state": "None",
+		"stateText": "",
+		"editable": false
+	},
+	"acclimatized": {
+		"value": true,
+		"state": "None",
+		"stateText": "",
+		"editable": false
+	},
+	"suitable": {
+		"value": true,
+		"state": "None",
+		"stateText": "",
+		"editable": false
+	},
+	"expired": {
+		"value": true,
+		"state": "None",
+		"stateText": "",
+		"editable": false
+	},
+	"settings": {
+		"enabledTab": false,
+		"tableMode": "None"
+	},
+	"selectedRecordPath": "",
+	"create": false,
+	"modify": true,
+	"delete": true,
+	"save": true,
+	"cancel": true,
+	"new": false,
+    "itemType" : "DetailAndActive"
+}

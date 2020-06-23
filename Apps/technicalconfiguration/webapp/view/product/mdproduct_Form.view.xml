@@ -1,0 +1,63 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="technicalConfiguration.controller.mdproduct">
+	<VBox class="sapUiSmallMargin" id="centerFormVBox">
+		<sap.ui.layout.form:SimpleForm
+				xmlns:sap.ui.layout.form="sap.ui.layout.form"
+				title="{i18n>product.data}"
+				editable="true"
+				layout="ResponsiveGridLayout"
+				id="centerForm"
+				minWidth="1024"
+				maxContainerCols="2"
+				labelSpanL="3"
+				labelSpanM="3"
+				emptySpanL="4"
+				emptySpanM="4"
+				columnsL="1"
+				columnsM="1"
+				class="editableForm">
+
+			<sap.ui.layout.form:content>
+				<Label id="product_name_label" visible="true" text="{i18n>product.name}" required="{MDPRODUCT>/name/required}"/>
+				<Input id="product_name_input"
+					valueState="{MDPRODUCT>/name/state}"
+					valueStateText="{MDPRODUCT>/name/stateText}"
+					value="{ path: 'MDPRODUCT>/name/value', type: 'sap.ui.model.type.String'}"
+					editable="{MDPRODUCT>/name/editable}"
+					liveChange="changeName"/>
+
+				<Label id="product_description_label" text="{i18n>product.code}" required="{MDPRODUCT>/code/required}"/>
+				<Input id="product_code_input"
+					valueState="{MDPRODUCT>/code/state}"
+					valueStateText="{MDPRODUCT>/code/stateText}"
+					value="{path: 'MDPRODUCT>/code/value'}"
+					editable="{MDPRODUCT>/code/editable}"
+					liveChange="changeCode"/>
+
+				<Label id="product_stage_label" text="Etapa" required="{MDPRODUCT>/stage/required}"/>
+				<Select
+					id="product_stage_select"
+					enabled="{MDPRODUCT>/stage/editable}"
+					valueState="{MDPRODUCT>/stage/state}"
+					valueStateText="{MDPRODUCT>/stage/stateText}"
+					selectedKey="{MDPRODUCT>/stage/selectedKey}"
+					change="onStage"
+					forceSelection="false"
+					items="{MDPRODUCT>/stage/records}">
+					<core:Item key="{MDPRODUCT>stage_id}" text="{MDPRODUCT>name}" />
+				</Select>
+				<Label id="product_breed_label" text="{i18n>product.breed}" required="{MDPRODUCT>/breed/required}"/>
+				<Select
+					id="product_breed_select"
+					enabled="{MDPRODUCT>/breed/editable}"
+					valueState="{MDPRODUCT>/breed/state}"
+					valueStateText="{MDPRODUCT>/breed/stateText}"
+					selectedKey="{MDPRODUCT>/breed/selectedKey}"
+					change="onBreed"
+					forceSelection="false"
+					items="{MDPRODUCT>/breed/records}">
+					<core:Item key="{MDPRODUCT>breed_id}" text="{MDPRODUCT>name}" />
+				</Select>
+			</sap.ui.layout.form:content>
+		</sap.ui.layout.form:SimpleForm>
+	</VBox>
+</mvc:View>

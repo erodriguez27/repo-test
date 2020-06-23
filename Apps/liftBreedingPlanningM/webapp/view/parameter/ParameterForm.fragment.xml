@@ -1,0 +1,71 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+
+    <Table id="tableBreed"
+           inset="false"
+           items="{path:'mdparameter_breed>/records'}"
+           mode="None"
+           busyIndicatorDelay="500"
+           enableBusyIndicator="true"
+           selectionChange="onDialogPress"
+           growing="true"
+        	growingScrollToLoad="true">
+      <columns>
+        <Column hAlign="Center">
+          <Text text="Raza"/>
+        </Column>
+
+        <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+          <Text text="Merma (%)"/>
+        </Column>
+
+        <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+          <Text text="Duración (Días)"/>
+        </Column>
+
+      </columns>
+      <items>
+        <ColumnListItem>
+          <cells>
+            <Text text="{mdparameter_breed>name}"/>
+            <ObjectNumber number="{path:'mdparameter_breed>theoretical_decrease',formatter: '.formatter.formatMiles' }"/>
+            <ObjectNumber number="{mdparameter_breed>theoretical_duration}"/>
+
+
+          </cells>
+        </ColumnListItem>
+      </items>
+    </Table>
+    <!--
+    <sap.ui.layout:Grid xmlns:sap.ui.layout="sap.ui.layout" id="__grid0" defaultSpan="XL4 L4 M6 S12" defaultIndent="XL4 L4 M3 S0">
+
+    <sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form"
+                                   editable="true"
+                                   layout="ResponsiveGridLayout"
+                                   id="__form0" emptySpanL="5"
+                                   emptySpanM="5"
+                                   adjustLabelSpan="true" width="100%">
+      <sap.ui.layout.form:content xmlns:sap.ui.layout.form="sap.ui.layout.form">
+        <Label text="{i18n>Parameter.merma}" id="__label0" design="Bold" required="true"/>
+        <Input width="auto"
+               id="groupNumber"
+               filterSuggests="false"
+               type="Number"
+               description="%"
+               value="{mdprocess>/decrease}"
+               editable="{mdprocess>/edit_decrease/}"
+               textAlign="End"/>
+
+        <Label text="{i18n>Parameter.duracion}" width="100%" id="__label6" design="Bold" required="true"/>
+        <Input width="100%"
+               id="quantityByGroup"
+               type="Number"
+               description="Días"
+               value="{mdprocess>/duration}"
+               editable="{mdprocess>/edit_duration/}"
+               textAlign="End"/>
+
+      </sap.ui.layout.form:content>
+
+    </sap.ui.layout.form:SimpleForm>
+  </sap.ui.layout:Grid>-->
+</core:FragmentDefinition>

@@ -1,0 +1,52 @@
+<core:FragmentDefinition xmlns="sap.m" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:f="sap.ui.layout.form" 
+	xmlns:core="sap.ui.core">
+	<Dialog title="Producción" class="sapUiPopupWithPadding"  busy="false" contentWidth="600px" id = "newProgrammedDialog" escapeHandler="CloseDialog">
+
+		<f:SimpleForm editable="true" labelSpanL="5" labelSpanM="4" labelSpanS="4" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsL="2" columnsM="2" maxContainerCols="2" layout="ResponsiveGridLayout" width="100%" busy="false">
+
+			<Label text="Escenario"/>
+			<Select items="{production>/scenarios}" id="selectscenario" selectedKey="{production>/ProductionDialog/scenario_id}" forceSelection="false">
+				<core:Item text="{production>name}" key="{production>scenario_id}"/>
+			</Select>
+			<Label text="Raza"/>
+			<Select items="{production>/breeds}" id="selectbreed" selectedKey="{production>/ProductionDialog/breed_id}" forceSelection="false">
+				<core:Item text="{production>name}" key="{production>breed_id}"/>
+			</Select>
+			<Label text="Granja"/>
+			<Select items="{production>/farms}" id="selectfarm" selectedKey="{production>/ProductionDialog/farm_id}" forceSelection="false" change="Loadshet">
+				<core:Item text="{production>name}" key="{production>farm_id}"/>
+			</Select>
+			<Label text="Galpones" />
+			<!-- <Select items="{production>/sheds}" selectedKey="{production>/ProductionDialog/shed_id}" id="sheets" forceSelection="false">
+				<core:Item text="{production>code}" key="{production>shed_id}"/>
+			</Select> -->
+			<MultiComboBox id = "sheets" items="{production>/sheds}" selectedKeys="{production>/ProductionDialog/shed_id}">
+				<core:Item text="{production>code}" key="{production>shed_id}"/>
+			</MultiComboBox>
+			<!-- <DatePicker id="projected_date" valueFormat="dd-MM-yyyy" value="" change="handleChange"/> -->
+
+
+			<Label text="Cantidad Programada"/>
+			<Input value="{production>/ProductionDialog/programmed_quantity}" type="Number" id="inputamount" placeholder="Cantidad" liveChange="validateIntInput" />
+			<Label text="Fecha Encasetamiento"/>
+			<DatePicker valueFormat="yyyy-MM-dd" id="datepickid" change="dateSelect" value="{production>/ProductionDialog/housing_date}" required="True"/>
+			<Label text="Fecha De Inicio De Postura"/>
+			<DatePicker  valueFormat="yyyy-MM-dd" id="datepickid2" value="{production>/ProductionDialog/posture_date}" required="True"/>
+			<Label text="Lote"/>
+			<Input value="{production>/ProductionDialog/lot}" type="Number" id="lotidinput" placeholder="Lote" liveChange="validateIntInput" />
+
+
+
+
+		</f:SimpleForm>
+		<beginButton>
+			<Button text="Guardar" type="Accept" press="onProjectedSaveDialog" />
+		</beginButton>
+		<endButton>
+			<Button text="Cancelar" type="Reject" press="CloseDialog" />
+		</endButton>
+
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,72 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <FlexBox width="100%" id="__box22666" justifyContent="Center">
+      <items>
+        <ComboBox items="{path:'escenarios>/records'}"
+          id="selectescenario"
+          class="sapUiSmallMarginBottom"
+          placeholder = "Escenario"
+          change=""
+          enabled="{optimizado>/blockButton}"
+          selectedKey="{escenarios>/selectedIncPlant}">
+          <core:Item text="{escenarios>name}" key="{escenarios>scenario_id}"/>
+        </ComboBox>
+
+        <ComboBox items="{path:'mdbreed>/records'}"
+          id="SelectBreed"
+          class="sapUiSmallMarginBottom"
+          placeholder = "Raza"
+          change=""
+          enabled="{optimizado>/blockButton}"
+          selectedKey="{mdbreed>/selectedBreed}">
+          <core:Item text="{mdbreed>name}" key="{mdbreed>breed_id}"/>
+        </ComboBox>
+
+        <DatePicker id="date_opt" valueFormat="yyyy-MM-dd"
+          placeholder="Fecha" change="onInitDateChange" enabled="{optimizado>/blockButton}" class="sapUiSmallMarginBottom"/>
+
+        <ComboBox items="{path:'mdstage>/records'}"
+          id="stageSelect"
+          class="sapUiSmallMarginBottom"
+          placeholder = "Etapa"
+          change=""
+          enabled="{optimizado>/blockButton}"
+          selectedKey="{mdstage>/selectedBreed}">
+          <core:Item text="{mdstage>name}" key="{mdstage>stage_id}"/>
+        </ComboBox>
+        <Button text="Buscar" press="onPress" enabled="{optimizado>/blockButton}"></Button>
+      </items>
+	</FlexBox>
+    <Table id="tableBreed"
+           inset="false"
+           items="{path:'optimizado>/records'}"
+           mode="None"
+           busyIndicatorDelay="500"
+           enableBusyIndicator="true"
+           selectionChange="onDialogPress"
+           busy = "{optimizado>/busy}"
+           growing="true"
+            growingThreshold="15"
+        	>
+      <columns>
+        <Column hAlign="Center">
+          <Text text="Fecha"/>
+        </Column>
+
+        <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+          <Text text="Cantidad (UND)"/>
+        </Column>
+        <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+          <Text text="Residuo (UND)"/>
+        </Column>
+      </columns>
+      <items>
+        <ColumnListItem>
+          <cells>
+            <Text text="{path:'optimizado>date',formatter: '.formatter.formatFecha' }"/>
+            <Link text="{path:'optimizado>quantity',formatter: '.formatter.formatMiles' }" press="showProjectedLots"/>
+            <Text text="{path:'optimizado>residuo',formatter: '.formatter.formatMiles' }"/>
+          </cells>
+        </ColumnListItem>
+      </items>
+    </Table>
+</core:FragmentDefinition>

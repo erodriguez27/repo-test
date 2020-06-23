@@ -1,0 +1,23 @@
+<mvc:View xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m" 
+	xmlns:html="http://www.w3.org/1999/xhtml" controllerName="higherLayer.controller.Detail">
+	<App>
+		<pages>
+			<sap.m.semantic:DetailPage xmlns:sap.m.semantic="sap.m.semantic" title="Progresiva Superior" id="__page1">
+
+				
+					<!-- <core:Fragment fragmentName="higherLayer.view.breading.breadingtable" type="XML"/> -->
+				
+				<!-- <sap.m.semantic:customFooterContent>
+
+					<Button id="confirmSync" text="Confirmar" type="Accept" press="onConfirmSyncronization" enabled="{higherLayer>/buttonsSync}" visible="{higherLayer>/visibleButtonsSync}"/>
+					<Button id="rejectSync" text="Cancelar" type="Reject" press="onCancelSyncronization" enabled="{higherLayer>/buttonsSync}" visible="{higherLayer>/visibleButtonsSync}"/>
+
+				</sap.m.semantic:customFooterContent> -->
+
+				
+			</sap.m.semantic:DetailPage>
+		</pages>
+	</App>
+</mvc:View>

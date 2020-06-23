@@ -1,0 +1,63 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="technicalConfiguration.controller.mdprocess">
+	<App>
+		<pages>
+			<sap.m.semantic:DetailPage busy="{util>/busy}" xmlns:sap.m.semantic="sap.m.semantic" title="{i18n>OS.entity.details}" id="parameterPage" showNavButton="{util>/phone}" navButtonPress="onNavMaster">
+				<sap.m.semantic:content>
+					<ObjectHeader title="{i18n>process.entityName}" numberUnit="{i18n>records}" id="pprocesspHeader" backgroundDesign="Solid" responsive="true"/>
+					<VBox xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" width="100%" direction="Column" id="parameterVBox">
+						<items>
+							<Toolbar xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" id="processToolbar">
+								<content>
+									<SearchField id="pprocessSearchField" liveChange="onProcessSearch" placeholder="{i18n>OS.searchRecord} por {i18n>process.name}, {i18n>process.nameProduct} o {i18n>process.nameStage}" width="100%"/>
+								</content>
+							</Toolbar>
+							<Table
+								xmlns:core="sap.ui.core"
+								xmlns:mvc="sap.ui.core.mvc"
+								xmlns:html="http://www.w3.org/1999/xhtml"
+								xmlns:sap.m.semantic="sap.m.semantic"
+								xmlns="sap.m"
+								noDataText="{i18n>noRecords}"
+								id="processTable"
+								items="{MDPROCESS>/records/}"
+								mode="None"
+								growing="true"
+        						growingScrollToLoad="true">
+
+								<items>
+									<ColumnListItem counter="0" id="process_list_item" type="DetailAndActive" detailPress="onViewProcessRecord">
+										<cells>
+											<Text text="{MDPROCESS>name}" maxLines="0" id="process_name_text"/>
+											<Text text="{MDPROCESS>product_name}" maxLines="0" id="process_productName_text"/>
+											<Text text="{MDPROCESS>stage_name}" maxLines="0" id="parameter_stageNAme_text"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+								<columns>
+									<Column id="process_name_column" vAlign="Middle" width="20%">
+										<header>
+											<Label text="{i18n>process.name}" id="process_table_name_label"/>
+										</header>
+									</Column>
+									<Column id="process_description_column" vAlign="Middle" width="30%">
+										<header>
+											<Label text="{i18n>process.ProductOut}" id="process_table_nameProduct_label"/>
+										</header>
+									</Column>
+									<Column id="process_nameProcess_column2" vAlign="Middle" width="30%">
+										<header>
+											<Label text="{i18n>process.nameStage}" id="process_table_nameStage_label"/>
+										</header>
+									</Column>
+								</columns>
+							</Table>
+						</items>
+					</VBox>
+				</sap.m.semantic:content>
+				<sap.m.semantic:customFooterContent>
+					<Button text="{i18n>new}" width="100px" id="newBtn" type="Accept" visible="{MDPROCESS>/new}" press="onNewRecord"/>
+				</sap.m.semantic:customFooterContent>
+			</sap.m.semantic:DetailPage>
+		</pages>
+	</App>
+</mvc:View>

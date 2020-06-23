@@ -1,0 +1,133 @@
+<core:FragmentDefinition
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m">
+
+	<!--
+	<VBox class="sapUiSmallMargin" id="FormVBox">
+		<sap.ui.layout.form:SimpleForm
+			xmlns:sap.ui.layout.form="sap.ui.layout.form"
+			editable="true"
+			layout="ResponsiveGridLayout"
+			id="__forms6"
+			columnsM="2"
+			labelSpanXL="-1"
+			labelSpanS="5"
+			breakpointL="1024"
+			breakpointM="600"
+			breakpointXL="1440"
+			columnsL="2"
+			width="100%"
+			emptySpanL="0"
+			emptySpanM="0"
+			emptySpanS="0"
+			emptySpanXL="-1"
+			labelMinWidth="192"
+			labelSpanL="4"
+			labelSpanM="2"
+			maxContainerCols="2"
+			minWidth="-1">
+			<sap.ui.layout.form:content>
+			</sap.ui.layout.form:content>
+		</sap.ui.layout.form:SimpleForm>
+	</VBox>
+	-->
+
+	<FlexBox width="100%" id="__boxS23" justifyContent="Center">
+	    <items>
+			<ComboBox items="{path:'posturecurve>/years'}"
+				id="Selectyears2"
+				change="findYear"
+				class="sapUiSmallMarginBottom"
+				placeholder="Año"
+				forceSelection="false">
+				<core:Item text="{posturecurve>year}" key="{posturecurve>year}"/>
+			</ComboBox>
+			<ComboBox items="{path:'mdbreed>/records'}"
+				change="onReadRe"
+				forceSelection= "false"
+				selectedKey=""
+				selectedText=""
+				placeholder="Raza"
+				id="selectBreed">
+				<core:Item text="{mdbreed>name}" key="{mdbreed>breed_id}"/>
+			</ComboBox>
+
+			<!-- <ComboBox items="{path:'posturecurve>/lot_rep'}" id="selectLot">
+				<core:Item text="{posturecurve>}" key="{posturecurve>}"/>
+			</ComboBox> -->
+			<ComboBox items="{path:'posturecurve>/lot_init2'}"
+				id="selectLoteFather"
+				forceSelect="false"
+				placeholder="Lote Padre"
+				enabled="{posturecurve>/enabledFather}"
+				selectionChange="onReadChild"
+				forceSelection="false"
+				selectedKey=""
+				selectedText=""
+				class="sapUiSmallMarginBottom">
+				<core:Item text="{posturecurve>}" key="{posturecurve>}"/>
+			</ComboBox>
+
+ 			<ComboBox items="{path:'posturecurve>/lot_initChild'}"
+				id="selectLoteChild"
+				placeholder="Lote Diario"
+				enabled="{posturecurve>/enabledChild}"
+				selectionChange="onReadFindChild"
+				forceSelection="false"
+				selectedKey=""
+				selectedText=""
+				class="sapUiSmallMarginBottom">
+				<core:Item text="{posturecurve>lot}" key="{posturecurve>lot}"/>
+			</ComboBox>
+
+			<ComboBox id="Reporttype"
+				selectedKey=""
+				selectedText=""
+				placeholder="Tipo de Búsqueda"
+				enabled = "{posturecurve>/enabledDiary}"
+				forceSelection= "{posturecurve>/select}"
+				items="{path:'posturecurve>/mode'}" >
+				<core:Item text="{posturecurve>name}" key="{posturecurve>name}"/>
+			</ComboBox>
+			<Button id="FindReport" text="Buscar" press="selLotReport" />
+	    </items>
+	</FlexBox>
+
+	<Table id="reportTables"
+		growing="true"
+		items="{posturecurve>/weekReport}"
+		growingThreshold="20"
+		mode="SingleSelectMaster"
+		busy='{util>/busy}'>
+
+		<columns>
+			<Column hAlign="Center" width="16em">
+				<Text text="Fecha"/>
+			</Column>
+			<Column hAlign="Center" width="16em">
+				<Text text="Lote"/>
+			</Column>
+			<Column hAlign="Center">
+				<Text text="Huevos Proyectados (UND)"/>
+			</Column>
+			<Column hAlign="Center">
+				<Text text="Huevos Ejecutados (UND)"/>
+			</Column>
+			<Column hAlign="Center">
+				<Text text="Proporción (%)"/>
+			</Column>
+		</columns>
+
+		<items>
+		<ColumnListItem >
+			<cells>
+				<Text textAlign="Center" text="{posturecurve>formatDate}" key="{posturecurve>week_id}"/>
+				<Text textAlign="Center" text="{posturecurve>lot}"/>
+				<ObjectNumber number="{path:'posturecurve>projected'}"/>
+				<ObjectNumber number="{path:'posturecurve>executed'}"/>
+				<ObjectNumber number="{path:'posturecurve>percen'}"/>
+			</cells>
+		</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

@@ -1,0 +1,163 @@
+{
+    "process_id": {
+        "value": 1,
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true
+    },
+    "process_order": {
+        "value": "",
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true
+    },
+    "product_id": {
+        "value": "",
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true
+    },
+    "stage_id": {
+        "value": null,
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true
+    },
+    "historical_decrease": {
+        "value": "",
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true
+    },
+    "theoretical_decrease": {
+        "value": "",
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true
+    },
+    "historical_weight": {
+        "value": "",
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true
+    },
+    "theoretical_weight": {
+        "value": "",
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true
+    },
+    "historical_duration": {
+        "value": "",
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true
+    },
+    "theoretical_duration": {
+        "value": "",
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true
+    },
+    "breed_id": {
+        "value": null,
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true
+    },
+    "calendar_id": {
+        "value": "",
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true
+    },
+    "visible": {
+        "value": 0,
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true
+    },
+    "name": {
+        "value": "",
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true,
+        "excepcion": ""
+    },
+    "predecessor_id": {
+        "value": "1",
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true
+    },
+    "capacity": {
+        "value": 0,
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true
+    },
+    "ispredecessor": {
+        "value": false,
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true
+    },
+    "biological_active": {
+        "value": false,
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true
+    },
+    "sync_considered": {
+        "value": false,
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true
+    },
+    "records": [],
+    "predecessor": [],
+    "selectedRecordPath": "",
+    "create": false,
+  	"modify": true,
+  	"delete": true,
+  	"save": true,
+  	"cancel": true
+}

@@ -1,0 +1,71 @@
+<core:FragmentDefinition
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m">
+	<FlexBox width="100%"
+           id="__boxS22"
+           justifyContent="Center">
+    <items vAlign="Middle">
+
+		<ComboBox
+			id="cb_scenario"
+			enabled="{data>/enabledFilters}"
+			items="{path: 'data>/filtersScenarioRecords'}"
+			selectedKey="{data>/filterssSelectedScenario}"
+			placeholder="Escenario">
+			<core:Item text="{data>name}" key="{data>scenario_id}"/>
+		</ComboBox>
+
+		<ComboBox
+			id="cb_breed"
+			enabled="{data>/enabledFilters}"
+			items="{path: 'data>/filtersBreedRecords'}"
+
+			placeholder="Raza"			>
+			<core:Item text="{data>name}" key="{data>breed_id}"/>
+		</ComboBox>
+
+		<DatePicker id="dp_date" 
+			enabled="{data>/enabledFilters}"  
+			valueFormat="dd.MM.yyyy"
+			placeholder="dd-MM-yyyy"  
+			change="changeDate"/>
+
+      <Button text="Buscar" press="applyFilterOptimizerData" enabled="{data>/enabledFilters}"/>
+
+    </items>
+  </FlexBox>
+	<Table
+		id="table_optimizer"
+		noDataText="Sin datos"
+		growing="true"
+		growingThreshold="15"
+		items="{path:'data>/optimizerData', key: 'no_quiten_esto'}"
+		mode="None"
+		selectionChange=""
+
+		busy="{data>/busy}">
+		<items>
+			<ColumnListItem>
+			<!-- type="DetailAndActive" detailPress="onUpdateScenario" -->
+				<cells>
+					<DatePicker id="dp_optdata" valueState="{data>stateDp}" valueFormat="dd/MM/yyyy" placeholder="dd-MM-yyyy" value="{data>date}" initialFocusedDateValue="{data>datesCom}" change="changeDate"/>
+					<Input id="in_optdata" valueState="{data>stateInput}" textAlign="Center" value="{data>quantity}" liveChange="validateInput"/>
+
+				</cells>
+			</ColumnListItem>
+		</items>
+		<columns>
+			<Column vAlign="Middle">
+				<header>
+					<Label text="Fecha"/>
+				</header>
+			</Column>
+			<Column vAlign="Middle">
+
+				<header>
+					<Label text="Cantidad (UN)"/>
+				</header>
+			</Column>
+		</columns>
+	</Table>
+</core:FragmentDefinition>

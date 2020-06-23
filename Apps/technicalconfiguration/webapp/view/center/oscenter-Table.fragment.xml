@@ -1,0 +1,46 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+	<VBox xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" width="100%" direction="Column" id="broilersCenterVBox">
+		<items>
+			<Toolbar xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" id="broilersCenterToolbar">
+				<content>
+					<SearchField id="searchCenterId" liveChange="onBroilersCenterSearch" placeholder="{i18n>OS.searchRecord} por {i18n>center.code} o {i18n>center.name}" width="100%"/>
+				</content>
+			</Toolbar>
+      <Table
+        xmlns:core="sap.ui.core"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns:sap.m.semantic="sap.m.semantic"
+        xmlns="sap.m"
+        noDataText="{i18n>noRecords}"
+        id="centerTable"
+        items="{OSCENTER>/records/}"
+        mode="{OSCENTER>/settings/tableMode}"
+				selectionChange="onSelectCenterRecord"
+        growing="true"
+        growingScrollToLoad="true">
+        <items>
+          <ColumnListItem counter="0" id="center_list_item" type="{OSCENTER>/itemType}" detailPress="onViewCenterRecord">
+            <cells>
+              <Text text="{OSCENTER>code}" maxLines="0" id="center_code_text"/>
+              <Text text="{OSCENTER>name}" maxLines="0" id="Center_name_text"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+        <columns>
+					<Column id="center_code_column" vAlign="Middle" demandPopin="false" minScreenWidth="Tablet">
+            <header>
+              <Label text="{i18n>center.code}" id="center_table_code_label"/>
+            </header>
+          </Column>
+          <Column id="center_name_column" vAlign="Middle" >
+            <header>
+              <Label text="{i18n>center.name}" id="center_table_name_label"/>
+            </header>
+          </Column>
+
+        </columns>
+      </Table>
+		</items>
+	</VBox>
+</core:FragmentDefinition>

@@ -1,0 +1,23 @@
+{
+	"CLIENTID": "",
+	"userId": "",
+	"phone": false,
+	"busy": true,
+	"entities": "",
+	"serviceUrl" : "",
+	"clientID": 1,
+	"delete": {
+		"message": ""
+	},
+	"selectedEntity": "",
+	"serviceError": {
+		"status": "",
+		"statusText": ""
+	},
+	"error": {
+		"status": "",
+		"statusText": ""
+	},
+	"title": "",
+	"noDataText": ""
+}

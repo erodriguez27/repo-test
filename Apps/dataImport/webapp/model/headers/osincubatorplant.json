@@ -1,0 +1,70 @@
+{
+    "NOMBRE DE LA PLANTA": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Nombre de la planta incubadora no puede estar vacío",
+            "pattern" : "^.{1,45}$",
+            "errorPattern" : "El nombre debe contener máximo 45 caracteres"
+        },
+        "binding" : "name"
+    },
+    "CÓDIGO DE LA PLANTA": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Código de la planta no puede estar vacío",
+            "pattern" : "^([A-Za-z0-9]{1,9}-{1}[A-Za-z0-9]{1,10}|[A-Za-z0-9]{1,20}){1}$",
+            "errorPattern" : "Los códigos deben ser alfanuméricos sin espacios en blanco y máximo de 20 digitos",
+            "uniqueGroup" : ["partnershipCode", "code"],
+            "errorUnique": "Codigó duplicado"      
+        },
+        "binding" : "code"
+    },
+    "DESCRIPCIÓN": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : false,
+            "errorEmpty" : "Descripción no puede estar vacío",
+            "pattern" : "^.{1,45}$",
+            "errorPattern" : "La descripción no puede ser mayor a 45 caracteres"
+        },
+        "binding" : "description"
+    },
+    "CÓDIGO DE LA EMPRESA": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : false,
+            "errorEmpty" : "Código de la empresa no puede estar vacío",
+            "pattern" : "^([A-Za-z0-9]{1,9}-{1}[A-Za-z0-9]{1,10}|[A-Za-z0-9]{1,20}){1}$",
+            "errorPattern" : "Los códigos deben ser alfanuméricos sin espacios en blanco y máximo de 20 digitos"
+        },
+        "binding" : "partnershipCode"
+    },
+    "ALMACENAMIENTO MÁXIMO (DIAS)": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : false,
+            "errorEmpty" : "Capacidad máxima no puede estar vacío",
+            "pattern" : "^[0-9]{1,9}$",
+            "errorPattern" : "El valor debe ser numérico y no mayor a 9 dígitos"
+        },
+        "binding" : "max_storage"
+    },
+    "ALMACENAMIENTO MÍNIMO (DIAS)": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : false,
+            "errorEmpty" : "Capacidad mínima no puede estar vacío",
+            "pattern" : "^[0-9]{1,9}$",
+            "errorPattern" : "El valor debe ser numérico y no mayor a 9 dígitos"
+        },
+        "binding" : "min_storage"
+    }
+}

@@ -1,0 +1,48 @@
+{
+    "CÓDIGO DE EMPRESA": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Código de empresa no puede estar vacío",
+            "pattern" : "^([A-Za-z0-9]{1,9}-{1}[A-Za-z0-9]{1,10}|[A-Za-z0-9]{1,20}){1}$",
+            "errorPattern" : "Los códigos deben ser alfanuméricos sin espacios en blanco y máximo de 20 digitos"
+        },
+        "binding" : "partnershipCode"
+    },
+    "CÓDIGO DE LA GRANJA": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Código de la granja no puede estar vacío",
+            "pattern" : "^([A-Za-z0-9]{1,9}-{1}[A-Za-z0-9]{1,10}|[A-Za-z0-9]{1,20}){1}$",
+            "errorPattern" : "Los códigos deben ser alfanuméricos sin espacios en blanco y máximo de 20 digitos",
+            "uniqueGroup" : ["partnershipCode", "code"],
+            "errorUnique": "Codigó duplicado"
+        },
+        "binding" : "code"
+    },
+    "NOMBRE DE LA GRANJA": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Nombre de la granja no puede estar vacío",
+            "pattern" : "^.{0,45}$",
+            "errorPattern" : "Nombre de la granja debe tener máximo 45 caracteres"
+        },
+        "binding" : "name"
+    },
+    "TIPO DE GRANJA": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Tipo de granja no puede estar vacío",
+            "pattern" : "Reproducción|Engorde|Levante y Cría",
+            "errorPattern" : "Los tipos de granja son 'Reproducción', 'Engorde' o 'Levante y Cría'"
+        },
+        "binding" : "typeOfFarm"
+    }
+}

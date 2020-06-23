@@ -1,0 +1,39 @@
+{
+    "busy": true,
+    "serviceError": {
+        "status": "",
+        "message": ""
+    },
+    "connectionError": {
+        "status": "",
+        "message": ""
+    },
+    "serviceUrl": "",
+    "service": "local",
+    "local": {
+        "getPartnership": "/partnership",
+        "activeScenario": "/scenario/activeScenario",
+        "findFarmByPartAndStatus": "/farm/findFarmByPartAndStatus/",
+        "findIncPlantByPartnetship": "/incubator_plant/findIncPlantByPartnetship",
+        "calculateIncubator": "/incubator/calculateIncubator",
+        "findBreed": "/breed",
+        "findInventoryByPartnership": "/eggs_storage/findInventoryByPartnership",
+        "findEggsStorageByDateDetail": "/eggs_storage/findEggsStorageByDateDetail",
+        "addprogrammedeggs": "/programmed_eggs",
+        "findProgrammedEggs": "/programmed_eggs/findProgrammedEggs",
+        "programmedeggsdetail": "/programmed_eggs",
+        "deleteProgrammedStorage": "/programmed_eggs",
+
+        "findProjectEggs":"/coldRoom/findProjectEggs",
+        "findEntryEggs":"/coldRoom/findEntryEggs",
+        "addEntryEggs":"/coldRoom/addEntryEggs",
+        "getMovementsByEntry":"/coldRoom/getMovementsByEntry",
+        "getOutMovementsForDate":"/coldRoom/getOutMovementsForDate",
+        "getAllLots":"/coldRoom/getAllLots"
+
+    },
+    "remote": {
+        "addliftBreedingPlanningM": "/liftBreedingPlanningM",
+        "truncateliftBreedingPlanningM": "/liftBreedingPlanningM/truncateliftBreedingPlanningM"
+    }
+}

@@ -1,0 +1,145 @@
+{
+    "CÓDIGO DE EMPRESA" : {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Código de la empresa no puede estar vacío",
+            "pattern" : "^([A-Za-z0-9]{1,9}-{1}[A-Za-z0-9]{1,10}|[A-Za-z0-9]{1,20}){1}$",
+            "errorPattern" : "Los códigos deben ser alfanuméricos sin espacios en blanco y máximo de 20 digitos"
+        },
+        "binding" : "partnershipCode"
+    },
+    "CÓDIGO DE LA PLANTA INCUBADORA": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Código de la planta incubadora no puede estar vacío",
+            "pattern" : "^([A-Za-z0-9]{1,9}-{1}[A-Za-z0-9]{1,10}|[A-Za-z0-9]{1,20}){1}$",
+            "errorPattern" : "Los códigos deben ser alfanuméricos sin espacios en blanco y máximo de 20 digitos"
+        },
+        "binding" : "incubatorPlantCode"
+    },
+    "NOMBRE DE LA INCUBADORA": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Nombre de la incubadora no puede estar vacío",
+            "pattern" : "",
+            "errorPattern" : ""
+        },
+        "binding" : "name"
+    },
+    "CÓDIGO DE LA MÁQUINA": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Código de la máquina no puede estar vacío",
+            "pattern" : "^([A-Za-z0-9]{1,9}-{1}[A-Za-z0-9]{1,10}|[A-Za-z0-9]{1,20}){1}$",
+            "errorPattern" : "Los códigos deben ser alfanuméricos sin espacios en blanco y máximo de 20 digitos"
+        },
+        "binding" : "code"
+    },
+    "DESCRIPCIÓN": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Descripción no puede estar vacío",
+            "pattern" : "^.{1,45}$",
+            "errorPattern" : "La descripción no puede ser mayor a 45 caracteres"
+        },
+        "binding" : "description"
+    },
+    "CAPACIDAD": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Capacidad no puede estar vacío",
+            "pattern" : "^[0-9]{1,9}$",
+            "errorPattern" : "El valor debe ser numérico y no mayor a 9 dígitos"
+        },
+        "binding" : "capacity"
+    },
+    "TRABAJA DOMINGO": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : false,
+            "errorEmpty" : "Domingo no puede estar vacío",
+            "pattern" : "SI|NO",
+            "errorPattern" : "El valor debe ser SI o NO"
+        },
+        "binding" : "sunday"
+    },
+    "TRABAJA LUNES": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : false,
+            "errorEmpty" : "Lunes no puede estar vacío",
+            "pattern" : "SI|NO",
+            "errorPattern" : "El valor debe ser SI o NO"
+        },
+        "binding" : "monday"
+    },
+    "TRABAJA MARTES": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : false,
+            "errorEmpty" : "Martes no puede estar vacío",
+            "pattern" : "SI|NO",
+            "errorPattern" : "El valor debe ser SI o NO"
+        },
+        "binding" : "tuesday"
+    },
+    "TRABAJA MIÉRCOLES": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : false,
+            "errorEmpty" : "Miércoles no puede estar vacío",
+            "pattern" : "SI|NO",
+            "errorPattern" : "El valor debe ser SI o NO"
+        },
+        "binding" : "wednesday"
+    },
+    "TRABAJA JUEVES": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : false,
+            "errorEmpty" : "Jueves no puede estar vacío",
+            "pattern" : "SI|NO",
+            "errorPattern" : "El valor debe ser SI o NO"
+        },
+        "binding" : "thursday"
+    },
+    "TRABAJA VIERNES": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : false,
+            "errorEmpty" : "Viernes no puede estar vacío",
+            "pattern" : "SI|NO",
+            "errorPattern" : "El valor debe ser SI o NO"
+        },
+        "binding" : "friday"
+    },
+    "TRABAJA SÁBADO": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : false,
+            "errorEmpty" : "Sábado no puede estar vacío",
+            "pattern" : "SI|NO",
+            "errorPattern" : "El valor debe ser SI o NO"
+        },
+        "binding" : "saturday"
+    }
+}

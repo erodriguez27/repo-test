@@ -1,0 +1,46 @@
+<core:FragmentDefinition controllerName="Mantenimiento-escenarios.controller.Budget"
+	xmlns:core="sap.ui.core" 
+	xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+	<Table 	id="idParametersTable" busy="{util>/busy}" columns="{budget>/Columns}"
+			items="{
+				path: 'budget>/tableData',
+				sorter: {
+					path: 'budget>name',
+					group: true
+				}
+			}">
+
+		<headerToolbar>
+			<OverflowToolbar id="otbSubheader">
+				<Title text="Año {budget>/bindedYear}" level="H2"/>
+			</OverflowToolbar>
+		</headerToolbar>
+		<infoToolbar>
+			<Toolbar id="vsdFilterBarProducctionGoals" visible="false" class="toolbarWarning">
+				<Text id="vsdFilterLabelProducctionGoals"  />
+			</Toolbar>
+		</infoToolbar>
+
+		<columns>
+			<Column hAlign="{budget>align}" width="{budget>width}">
+				<Text text="{budget>value}"/>
+			</Column>
+		</columns>
+
+		<items>
+			<ColumnListItem id="columnListItem" cells="{path:'budget>values',templateShareable:false}">
+				<cells>
+					<Input 	textAlign="{budget>direction}"
+							editable="{budget>editable}" 
+							value="{path:'budget>value'}"
+							valueState="{path:'budget>valueState'}"
+							liveChange="validateIntInput"
+					/>
+				</cells>
+			</ColumnListItem>
+		</items>
+		
+	</Table>
+</core:FragmentDefinition>

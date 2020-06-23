@@ -1,0 +1,42 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ResponsivePopover
+		title="Empresas"
+		placement="Bottom">
+		<content>
+			<List
+				includeItemInSelection="true"
+				selectionChange="handleItemSelect"
+				items="{ospartnership>/records}">
+				<items>
+	                    <ObjectListItem
+	                    	press="handleItemSelect"
+	                    	type="Active"
+	                    	counter="0"
+	                    	title="{ospartnership>name}"
+	                    	markFavorite="false"
+	                    	markFlagged="false"
+	                    	showMarkers="false">
+	                	
+	                	</ObjectListItem>
+	                </items>
+				<!-- <StandardListItem press="handleItemSelect" title="{ospartnership>name}" /> -->
+			</List>
+		</content>
+	</ResponsivePopover>
+
+	<!-- <Popover
+		title="Granjas Levante y Cría"
+		placement="Bottom">
+		<content>
+			<List
+				mode="SingleSelectMaster"
+				includeItemInSelection="true"
+				select="handleItemSelect"
+				items="{ospartnership>/records}">
+				<StandardListItem title="sad" />
+			</List>
+		</content>
+	</Popover> -->
+</core:FragmentDefinition>

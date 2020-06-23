@@ -1,0 +1,40 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ViewSettingsDialog
+		confirm="handleConfirm">
+		<sortItems>
+			<ViewSettingsItem text="Nombre" key="name" selected="true"/>
+			<ViewSettingsItem text="Proceso" key="name_process" />
+			<ViewSettingsItem text="tipo" key="type" />
+			
+		</sortItems>
+		<filterItems>
+
+			<ViewSettingsFilterItem
+				text="Proceso"
+				key="process_id"
+				multiSelect="false">
+				<items>
+					<ViewSettingsItem text="Beneficio Pollos" key="process_id___EQ___1___XX"/>
+					<ViewSettingsItem text="Beneficio Presas" key="process_id___EQ___2___XX" />
+					<ViewSettingsItem text="PreInicio" key="process_id___EQ___3___XX" />
+					<ViewSettingsItem text="Almacenamiento" key="process_id___EQ___4___XX" />
+					<ViewSettingsItem text="Engorde Jovenes" key="process_id___EQ___5___XX" />
+
+				</items>
+			</ViewSettingsFilterItem>
+
+			<ViewSettingsFilterItem
+				text="Tipo"
+				key="type"
+				multiSelect="false">
+				<items>
+					<!-- <ViewSettingsItem text="Entrada" key="type___EQ___Entrada___XX"/> -->
+					<ViewSettingsItem text="Salida" key="type___EQ___Salida___XX" />
+				</items>
+			</ViewSettingsFilterItem>
+
+		</filterItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

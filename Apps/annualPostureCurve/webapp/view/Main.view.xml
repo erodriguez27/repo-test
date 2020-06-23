@@ -1,0 +1,41 @@
+<mvc:View
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	controllerName="annualPostureCurve.controller.Main"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+
+	<Page title="Curva Anual de Postura" id="page">
+		<headerContent>
+			<Button icon="sap-icon://undo" tooltip="Ir al launchpad" text="Ir al launchpad" press="goToLaunchpad" />
+		</headerContent>
+		<content>
+		    <IconTabBar
+		    	id="tabBar"
+		    	selectedKey="scenarioFilter"
+		    	expandable="false"
+		    	applyContentPadding="false"
+		    	select="onTabSelection">
+		        <items>
+		            <IconTabFilter id="scenarioTab" text="Produccion" icon="sap-icon://task">
+		                <content>
+		                	 <core:Fragment fragmentName="annualPostureCurve.view.postureCurve.postureCurveTable" type="XML"/> 
+		                </content>
+		            </IconTabFilter>
+					<IconTabFilter id="scenarioTabReal" text="Produccion2" icon="sap-icon://task">
+		                <content>
+		                	<core:Fragment fragmentName="annualPostureCurve.view.postureCurve.PostureCurveTableReal" type="XML"/>
+		                </content>
+		            </IconTabFilter>
+					
+		        </items>
+		    </IconTabBar>
+		</content>
+		<footer>
+			<Bar>
+				<contentRight>
+			</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</mvc:View>

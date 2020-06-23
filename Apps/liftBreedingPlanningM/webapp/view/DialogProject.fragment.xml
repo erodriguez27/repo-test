@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog id ="dialogprojected" title="Agregar Proyección" class="sapUiPopupWithPadding" confirm="onCancelCopy" cancel="onCancelCopy" busy="false" escapeHandler="onProyectedCloseDialog">
+		<f:SimpleForm id="formProjected" editable="true" labelSpanL="5" labelSpanM="4" labelSpanS="4" emptySpanL="0" emptySpanM="0"
+						emptySpanS="0" columnsL="2" columnsM="2" maxContainerCols="2" layout="ResponsiveGridLayout" width="100%" busy="false">
+			<Label text="Fecha"/>
+			<DatePicker id="projected_date" valueFormat="dd-MM-yyyy" value="" change="handleChange"/>
+
+			<Label text="Cantidad (UND)"/>
+			<Input id="projected_quantity" value="" placeholder="UND Pollitas" liveChange="validateIntInput"/>
+
+			<Label text="Raza"/>
+			<Select items="{path:'mdbreed>/records'}" selectedKey="{mdbreed>/value}" id="breedSelect" forceSelection="false">
+				<core:Item text="{mdbreed>name}" key="{mdbreed>breed_id}"/>
+			</Select>
+		</f:SimpleForm>
+		<beginButton>
+			<Button text="Guardar" type="Accept" press="onProjectedSaveDialog" enabled="{mdprojected>/saveButton}"/>
+		</beginButton>
+		<endButton>
+			<Button text="Cancelar" type="Reject" press="onProyectedCloseDialog" />
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,54 @@
+{
+  "week": [],
+  "weekExecuted": [],
+  "dayExecuted": [],
+  "day": [],
+  "lot": [],
+  "dataPopover": [],
+  "datapopoverforall": [],
+  "real": [],
+  "daysInf": [],
+  "aja": "aja",
+  "semanas": [],
+  "id_empresa": "",
+  "lot_rep": [],
+  "lot_init": [],
+  "weekReport": [],
+  "executed": {
+    "enabledTab": false
+  },
+  "input": true,
+  "savingthedate": {},
+  "years": [],
+  "table": "SingleSelect",
+  "egglots": "Huevos Por Lote (UND)",
+  "proportion": "Proporción(%)",
+  "enabledLink": false,
+  "enabledLinkdate": true,
+  "weekenabled": false,
+  "lookenabled": true,
+  "returnupdate": {},
+  "theyeartolook": "",
+  "thebreedtolook": "",
+  "mode": [{
+      "name": "Diario"
+    },
+    {
+      "name": "Semanal"
+    }
+  ],
+  "opts3": [{
+      "name": "Proyección"
+    },
+    {
+      "name": "Programación"
+    },
+    {
+      "name": "Ejecución"
+    }
+  ],
+  "select": false,
+  "enabledFather": false,
+  "enabledDiary": false,
+  "enabledChild": false
+}

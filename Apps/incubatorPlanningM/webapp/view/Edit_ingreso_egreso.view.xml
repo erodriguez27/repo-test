@@ -1,0 +1,87 @@
+<mvc:View xmlns:core="sap.ui.core" 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns="sap.m" 
+    xmlns:html="http://www.w3.org/1999/xhtml" 
+    controllerName="incubatorPlanningM.controller.Edit_ingreso_egreso">
+
+    <App>
+        <Page title="{i18n>appEgresosIngresos}" showNavButton="true" navButtonPress="onPressReject">
+            <sap.m.semantic:DetailPage xmlns:sap.m.semantic="sap.m.semantic"  id="__page1">
+                <sap.m.semantic:content>
+                    <ObjectHeader title="{ospartnership>/selectedRecord/name}" intro="{ospartnership>/selectedRecord/address}" titleSelectorPress="handleTitleSelectorPress" iconActive="false" 
+                    id="__header1" icon="sap-icon://factory" backgroundDesign="Translucent" responsive="true">
+                        <attributes>
+                            <ObjectAttribute text="{i18n>activescene}  {mdscenario>/name}" />
+                        </attributes>
+
+                        <headerContainer>
+                            <IconTabBar id="tabBar" headerMode="Inline" selectedKey="farmFilter" expandable="false" 
+                            applyContentPadding="false" backgroundDesign="Solid" headerBackgroundDesign="Translucent" 
+                            select="onTabSelection">
+
+                          
+
+                                <items>
+
+                                    <IconTabFilter id="recordIngreso" key="recordTabIngreso" text="{i18n>recordIngress}">
+                                        <content>
+                                            <core:Fragment fragmentName="incubatorPlanningM.view.ingEng.recordIngresoTable" type="XML"/>
+                                        </content>
+                                    </IconTabFilter>
+
+
+                                    <IconTabSeparator id="__separator0" icon="sap-icon://open-command-field"/>
+
+                                    <IconTabFilter id="tabIngreso" key="ktabIngreso" text="{i18n>Ingress}">
+                                        <content>
+                                            <core:Fragment fragmentName="incubatorPlanningM.view.ingEng.ingresoTable" type="XML"/>
+                                        </content>
+                                    </IconTabFilter>
+
+                                    <IconTabSeparator id="__separator1" icon="sap-icon://open-command-field"/>
+
+                                     <IconTabFilter id="recordEgreso" key="recordTabEgreso" text="{i18n>recordEgreso}">
+                                        <content>
+                                            <core:Fragment fragmentName="incubatorPlanningM.view.ingEng.recordEgresoTable" type="XML"/>
+                                        </content>
+                                    </IconTabFilter>
+
+                                    <IconTabSeparator id="__separator2" icon="sap-icon://open-command-field"/>
+
+                                    <IconTabFilter id="tabEgreso" key="ktabEgreso" text="{i18n>Degress}">
+                                        <content>
+                                         <core:Fragment fragmentName="incubatorPlanningM.view.ingEng.egresosTable" type="XML"/>
+                                        </content>
+                                    </IconTabFilter>
+
+                                     <IconTabSeparator id="__separator3" icon="sap-icon://open-command-field"/>
+
+                                     <IconTabFilter id="recordAjuste" key="recordTabAjuste" text="{i18n>recordAjuste}">
+                                        <content>
+                                            <core:Fragment fragmentName="incubatorPlanningM.view.ingEng.recordAjusteTable" type="XML"/>
+                                        </content>
+                                    </IconTabFilter>
+
+                                     <IconTabSeparator id="__separator4" icon="sap-icon://open-command-field"/>
+
+                                    <IconTabFilter id="tabAjustes" key="ktabAjustes" text="{i18n>adjust}">
+                                        <content>
+                                         <core:Fragment fragmentName="incubatorPlanningM.view.ingEng.ajustesTable" type="XML"/>
+                                        </content>
+                                    </IconTabFilter>
+
+                                </items>
+                            </IconTabBar>
+                        </headerContainer>
+
+                    </ObjectHeader>
+                </sap.m.semantic:content>
+                <sap.m.semantic:customFooterContent>
+					<Button id="ingresosSaveBtn" text="{i18n>Save}" type="Accept" press="onDialogPress" visible="{mdegresoIngresoAjustes>/ingresosNewBtn}"/>
+                    <Button id="egresosSaveBtn" text="{i18n>Save}" type="Accept" press="onDialogPress" visible="{mdegresoIngresoAjustes>/EgresosNewBtn}"/>
+                    <Button id="ajustesSaveBtn" text="{i18n>Save}" type="Accept" press="onDialogPress" visible="{mdegresoIngresoAjustes>/AjustesNewBtn}"/>
+				</sap.m.semantic:customFooterContent>
+            </sap.m.semantic:DetailPage>
+        </Page>
+    </App>
+</mvc:View>

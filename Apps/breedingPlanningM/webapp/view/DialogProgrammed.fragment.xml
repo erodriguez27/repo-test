@@ -1,0 +1,92 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+  <Dialog title="Agregar Programación"
+    class="sapUiPopupWithPadding"
+    confirm="onCancelCopy"
+    cancel="onCancelCopy"
+    busy="false"
+    id ="dialogprogramed"
+    escapeHandler="onProgrammedCloseDialog">
+
+    <f:SimpleForm
+      id="formPlanning"
+      editable="true"
+      labelSpanL="5"
+      labelSpanM="4"
+      labelSpanS="4"
+      emptySpanL="0"
+      emptySpanM="0"
+      emptySpanS="0"
+      columnsL="2"
+      columnsM="2"
+      maxContainerCols="2"
+      layout="ResponsiveGridLayout"
+      width="100%"
+      busy="false">
+
+      <Label text="Proyección" />
+        <Select items="{mdprogrammed>/selectedRecords}" id="projection_select" forceSelection="false" change='changeProjection'>
+        <core:Item enabled = "{= ${mdprogrammed>evictionprojected} ? false : true}" text="{mdprogrammed>lot} - {parts: [{path: 'mdprogrammed>projected_quantity'}, {path: 'mdprogrammed>residue'}, {path: 'mdprogrammed>partial_residue'}], formatter: '.formatter.calculateResidue2'} {= ${mdprogrammed>evictionprojected} ? '(Desalojado)' : ''}" key="{mdprogrammed>housing_way_id}" />
+      </Select>
+
+      <Label text="Fecha"/>
+      <DatePicker id="programmed_date" placeholder='DD-MM-YYYY' enabled="{= ${mdprogrammed>/assigned/length} === 0}" minDate="{mdprogrammed>/limiteddate}" initialFocusedDateValue="{mdprogrammed>/limiteddate}" maxDate="{mdprogrammed>/selectedRecord/maxDate}" valueFormat="dd-MM-yyyy" value="" change="changeProgrammedDate"/>
+
+      <Label text="Granja"/>
+      <Select items="{mdfarms>/records}"
+        selectedKey="{mdfarms>/selectedKey}"
+        change="onChangeFarm"
+        id="selectFarm"
+        enabled="{= ${mdprogrammed>/assigned/length} === 0}"
+        forceSelection="false">
+        <core:Item text="{mdfarms>name}" key="{mdfarms>farm_id}"/>
+      </Select>
+
+      <Label text="Núcleo"/>
+      <Select items="{mdcores>/records}"
+        selectedKey="{mdcores>/selectedKey}"
+        change="onChangeCore"
+        id="selectCore"
+        enabled="{= ${mdprogrammed>/assigned/length} === 0}"
+        forceSelection="false">
+        <core:Item text="{mdcores>name}" key="{mdcores>center_id}"/>
+      </Select>
+
+      <Label text="Galpón"/>
+      <Select items="{mdshed>/records}"
+        selectedKey="{mdshed>/selectedKey}"
+        change="onChangeShed"
+        id="selectShed"
+        enabled="{= ${mdprogrammed>/assigned/length} === 0}"
+        forceSelection="false">
+        <core:Item text="{mdshed>code}" key="{mdshed>shed_id}"/>
+      </Select>
+      <Label text="Cap. min/max"/>
+      <Text id="" text="{mdprogrammed>/capmin2}  / {mdprogrammed>/capmax2}" enabled="false"/>
+						
+      <Label text="P. Incubadora"/>
+      <Select items="{mdincubatorplant>/records}"
+        selectedKey="{mdincubatorplant>/selectedKey}"
+        change="onChangeIncubatorPlant"
+        id="selectIncubatorPlant"
+        enabled="{= ${mdprogrammed>/assigned/length} === 0}"
+        forceSelection="false">
+        <core:Item text="{mdincubatorplant>name}" key="{mdincubatorplant>incubator_plant_id}"/>
+      </Select>
+
+      <Label text="Cantidad (UND)"/>
+      <Input id="programmed_quantity" placeholder="UND Pollitas" liveChange="onValidProgrammedQuantity" value="{mdprogrammed>/quantity}" valueState="{mdprogrammed>/name/state}" valueStateText="{mdprogrammed>/name/stateText}"/>
+      <Button text="+" press="onAddResidue" ariaDescribedBy="acceptButtonDescription genericButtonDescription" enabled="{mdprogrammed>/confirmMore}">
+      </Button>
+      <Label text="" />
+      <List mode="Delete" delete="deleteProgrammedD" items="{mdprogrammed>/assigned}">
+        <StandardListItem title="{mdprogrammed>projection/lot}" info="{mdprogrammed>quantity}"/>
+      </List>
+    </f:SimpleForm>
+    <beginButton>
+      <Button text="Guardar" type="Accept" press="onProgrammedSaveDialog" enabled="{= ${mdprogrammed>/assigned/length} > 0 &amp;&amp; ${mdprogrammed>/confirmBtn}}"/>
+    </beginButton>
+    <endButton>
+      <Button text="Cancelar" type="Reject" press="onProgrammedCloseDialog" />
+    </endButton>
+  </Dialog>
+</core:FragmentDefinition>

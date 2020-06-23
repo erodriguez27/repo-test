@@ -1,0 +1,94 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+  <FlexBox width="100%" id="b228888" justifyContent="Center">
+    <items>
+      <ComboBox items="{path:'mdinventory>/origin'}"
+        id="filterOriginEntry"
+        class="sapUiSmallMarginBottom"
+        forceSelection="false"
+        placeholder = "Origen"
+        selectedKey="{mdinventory>/origin/key}"
+        change="changeOrigin">
+        <core:Item text="{mdinventory>name}" key="{mdinventory>name}"/>
+      </ComboBox>
+      <ComboBox items="{path:'mdlot>/records'}"
+          id="filterLotEntry"
+          class="sapUiSmallMarginBottom"
+          forceSelection = "false"
+          placeholder = "Lote"
+          selectedKey="{mdlot>/selectRecords/entry/lot}">
+        <core:Item text="{mdlot>lot}" key="{mdlot>lot}"/>
+      </ComboBox>
+      <OverflowToolbar>
+        <ToolbarSpacer/>
+      </OverflowToolbar>
+      <DatePicker visible="{= ${mdlot>/selectRecords/entry/lot} === 'Todos'? true : false}" id="entryDesde" valueFormat="MM-dd-yyyy" placeholder="Desde" change="handleChange" class="sapUiSmallMarginBottom"/>
+      <OverflowToolbar>
+        <ToolbarSpacer/>
+      </OverflowToolbar>
+      <DatePicker visible="{= ${mdlot>/selectRecords/entry/lot} === 'Todos'? true : false}" id="entryHasta" valueFormat="MM-dd-yyyy" placeholder="Hasta" change="handleChange" class="sapUiSmallMarginBottom"/>
+      <Button id="entryButton" key="entryButton" text="{i18n>search}" press="searchEntry"></Button>
+    </items>
+  </FlexBox>
+
+  <Table  id="IngresoTable"
+    items="{path:'mdinventory>/entry/records', key: 'no_quiten_esto'}"
+    fixedLayout="false"
+    enableBusyIndicator="true"
+    growing="true"
+    growingThreshold="100"
+    mode="SingleSelect"
+    selectionChange="onSelectEntry"
+    busy="{util>/busy}"
+    busyIndicatorDelay="1">
+    <columns>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>incubatorPlanning}"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>lot}"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" visible = "{mdinventory>/curva}" >
+        <Text text="{i18n>date}"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" visible = "{mdinventory>/compra}">
+        <Text text="Fecha Ejecutada"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" visible = "{mdinventory>/curva}">
+        <Text text="{i18n>quantityEggsProy}"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" visible = "{mdinventory>/compra}">
+        <Text text="Cantidad Ejecutada (UND)"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" visible = "{mdinventory>/curva}">
+        <Text text="{i18n>dateEjecution}"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" visible = "{mdinventory>/curva}">
+        <Text text="{i18n>quantityEggs}"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" visible ="{mdinventory>/curva}">
+        <Text text="Ajuste"/>
+      </Column>
+    </columns>
+
+    <items>
+      <ColumnListItem>
+        <cells>
+          <Text text="{mdinventory>name}"/>
+          <Text text="{mdinventory>lot}"/>
+          <Text text="{path:'mdinventory>init_date',formatter: '.formatter.formatDate' }" visible = "{mdinventory>/curva}"/>
+          <Text text="{path:'mdinventory>init_date',formatter: '.formatter.formatDate' }" visible = "{mdinventory>/compra}"/>
+          <Text text="{path:'mdinventory>eggs_executed',formatter: '.formatter.formatMiles' }" visible = "{mdinventory>/curva}"/>
+            <Text text="{parts: [{path: 'mdinventory>eggs_executed'}, {path: 'mdinventory>quantity'}, {path: 'mdinventory>/plexus'}], formatter: '.formatter.formatMilesP'}" visible = "{mdinventory>/compra}"/>
+          <DatePicker id="NewDayIngresos"  valueFormat="MM-dd-yyyy"  value="{path:'mdinventory>fecha_movements' }" minDate="{path:'mdinventory>init_date',formatter: '.formatter.formatDateJ'}" width="8em"
+            change="changeDate"  enabled="{mdinventory>available}" displayFormat="dd/MM/yyyy"
+            valueState="{mdinventory>stateFecha_movements}" valueStateText="{mdinventory>stateTextFecha_movements}" visible = "{mdinventory>/curva}"/> 
+          <Input  id="eggs" value="{mdinventory>quantity}" width="8em"
+            liveChange="validateIntEntry" enabled="{mdinventory>available}" editable="true"
+            valueState="{mdinventory>stateQuantity}" valueStateText="{mdinventory>stateTextQuantity}" visible = "{mdinventory>/curva}"/>
+          <Button id="ajusteButton" key="entryButton" enabled= "{mdinventory>executed}" icon="{path: 'mdinventory>adjusted', formatter:'.formatter.formatIcon'}" type="Transparent" press="onClick" 
+            visible ="{mdinventory>/curva}"></Button>
+        </cells>
+      </ColumnListItem>
+    </items>
+</Table>
+</core:FragmentDefinition>

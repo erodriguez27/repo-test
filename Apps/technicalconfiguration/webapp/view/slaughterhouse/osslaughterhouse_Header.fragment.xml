@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+      <ObjectHeader title="{i18n>slaughterhouse.entityName}"
+                    id="slaughterhouseHeader"
+                    backgroundDesign="Solid"
+                    responsive="{util>/phone}"/>
+</core:FragmentDefinition>

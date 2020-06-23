@@ -1,0 +1,204 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" 
+xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+  <!-- <Dialog title="Programación" class="sapUiPopupWithPadding" confirm="onCancelCopy" cancel="onCancelCopy" busy="false"> -->
+
+
+   <!--  <IconTabBar
+      id="tabBar2"
+      headerMode="Inline"
+      selectedKey="farmFilter"
+      expandable="false"
+      applyContentPadding="false"
+      backgroundDesign="Solid"
+      headerBackgroundDesign="Solid"
+      select="onTabSelectionAssigned">
+
+       <items> -->
+
+         <!-- <IconTabFilter id="tabInventory" key="kTabProgrammedD" text="Programación">
+             <content>
+               <Table id="lotTable"
+                      growing="true"
+                      growingThreshold="100"
+                      items="{path:'mdprogrammed>/lot_records'}"
+                      mode="SingleSelect"
+                      selectionChange="onDialogPressAssigned">
+
+                 <columns>
+                   <Column hAlign="Center">
+                     <Text text="Antigüedad (Días)"/>
+                   </Column>
+
+                   <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                     <Text text="Lote"/>
+                   </Column>
+
+                   <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                     <Text text="Cantidad (UND)"/>
+                   </Column>
+
+                 </columns>
+                 <items>
+                   <ColumnListItem>
+                     <cells>
+                       <ObjectNumber number="{mdprogrammed>_day}" state="{mdprogrammed>state}"/>
+                       <Text text="{mdprogrammed>lot}"/>
+                       <ObjectNumber number="{path:'mdprogrammed>eggs',formatter: '.formatter.formatMiles' }"/>
+                     </cells>
+                   </ColumnListItem>
+                 </items>
+               </Table>
+
+             </content>
+         </IconTabFilter> -->
+
+            <!-- <IconTabSeparator id="__separator0" icon="sap-icon://open-command-field"/> -->
+            <!-- <IconTabFilter id="tabAssigned" key="kTabAssigned" text="Asignación"
+              enabled="{mdprogrammed>/enabledTabAssigned}">
+                <content>
+
+                <f:SimpleForm
+                       id="formAssigned"
+                       editable="true"
+                       labelSpanL="5"
+                       labelSpanM="4"
+                       labelSpanS="4"
+                       emptySpanL="0"
+                       emptySpanM="0"
+                       emptySpanS="0"
+                       columnsL="2"
+                       columnsM="2"
+                       maxContainerCols="2"
+                       layout="ResponsiveGridLayout"
+                       width="100%"
+                       busy="false">
+
+
+                       <Label text="Maquina"/> 
+                       <Select items="{mdincubator>/list}"
+                         selectedKey="{mdincubator>/selectedKey}"
+                         id="selectIncubator">
+                         <core:Item text="{mdincubator>name}" key="{mdincubator>incubator_id}"/>
+                       </Select>
+
+
+                       <Label text="Cantidad"/>
+                       <Input id="assigned_quantity" value="0" placeholder="Huevos" liveChange="onValidProgrammedQuantity"
+                         valueState="{mdprogrammed>/name/state}"
+                   valueStateText="{mdprogrammed>/name/stateText}"/>
+
+                       <Button
+              						text="+"
+              						press="onAddIncubator"
+              						ariaDescribedBy="acceptButtonDescription genericButtonDescription">
+              				</Button>
+
+                      <Label text=""/>
+                      <List
+                        mode="Delete"
+		                    delete="deleteProgrammedD"
+                        items="{mdincubator>/assigned}"
+                        footerText="Saldo: {mdincubator>/residue} Huevos" >
+                        <StandardListItem
+                          title="{mdincubator>name}"
+                          info="{mdincubator>quantity_eggs} Huevos"/>
+                      </List>
+                     </f:SimpleForm>
+                </content>
+            </IconTabFilter> -->
+
+
+
+      <!--   </items>
+
+    </IconTabBar>
+
+
+
+    <beginButton>
+      <Button text="Guardar" type="Accept" press="onProgrammedSaveDialog" visible="{mdprogrammed>/programmedSaveDialog}" enabled="{mdprogrammed>/confirmBtn}"/>
+    </beginButton>
+    <endButton>
+      <Button text="Cancelar" type="Reject" press="onProgrammedCloseDialog"/>
+    </endButton>
+
+  </Dialog> -->
+
+  <Dialog title="Agregar programación"
+      class="sapUiPopupWithPadding"
+      confirm="onCancelCopy"
+      cancel="onCancelCopy"
+      busy="false">
+
+      <f:SimpleForm
+            id="formPlanning"
+            editable="true"
+            labelSpanL="5"
+            labelSpanM="4"
+            labelSpanS="4"
+            emptySpanL="0"
+            emptySpanM="0"
+            emptySpanS="0"
+            columnsL="2"
+            columnsM="2"
+            maxContainerCols="2"
+            layout="ResponsiveGridLayout"
+            width="100%"
+            busy="false">
+
+            <Label text="Fecha"/>
+            <DatePicker id="programmed_date" minDate="{mdprogrammed>/selectedRecord/minDate}" maxDate="{mdprogrammed>/selectedRecord/maxDate}" valueFormat="yyyy-MM-dd" value="" change="handleChange"/>
+
+            <Label text="Maquina"/> 
+                       <Select items="{mdincubator>/list}"
+                         selectedKey="{mdincubator>/selectedKey}"
+                         change="onChangeMachine"
+                         id="selectIncubator">
+                         <core:Item text="{mdincubator>name}" key="{mdincubator>incubator_id}"/>
+                       </Select>
+
+            <Label text="Cantidad"/>
+                       <!-- <Input id="assigned_quantity" value="0" placeholder="Huevos" liveChange="onValidProgrammedQuantity"
+                         valueState="{mdprogrammed>/name/state}"
+                   valueStateText="{mdprogrammed>/name/stateText}"/> -->
+                   <!-- <Input id="assigned_quantity" value="" placeholder="Huevos" liveChange="validateIntInput" -->
+                   <Input id="assigned_quantity" value="" placeholder="Huevos" liveChange="onValidProgrammedQuantity"
+                         valueState="{mdprogrammed>/name/state}"
+                   valueStateText="{mdprogrammed>/name/stateText}"/>
+
+                       <Button
+                          text="+"
+                          press="onAddIncubator"
+                          ariaDescribedBy="acceptButtonDescription genericButtonDescription"
+                           enabled="{mdprogrammed>/confirmMore}">
+                      </Button>
+
+                      <Label text=""/>
+                      <List
+                        mode="Delete"
+                        delete="deleteProgrammedD"
+                        items="{mdincubator>/assigned}">
+                        <StandardListItem
+                          title="{mdincubator>name}"
+                          info="{mdincubator>quantity_eggs} Huevos"/>
+                      </List>          
+
+
+
+
+
+
+
+            
+
+          </f:SimpleForm>
+          <beginButton>
+            <!-- <Button text="Guardar" type="Accept" press="onProgrammedSaveDialog" enabled="{mdprogrammed>/confirmBtn}" /> -->
+            <Button text="Guardar" type="Accept" press="onProgrammedSaveDialog" enabled="{mdprogrammed>/confirmBtn}"/>
+          </beginButton>
+          <endButton>
+            <Button text="Cancelar" type="Reject" press="onProgrammedCloseDialog" />
+          </endButton>
+
+  </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,21 @@
+<core:FragmentDefinition
+        xmlns="sap.m"
+        xmlns:core="sap.ui.core">
+    <Popover
+            title="Detalles"
+            class="sapUiContentPadding"
+            placement="VerticalPreferredTop"
+    >
+        <Vbox visible="{data>/popOverData/booleandif}">
+            <Text text="{data>/popOverData/diference} Huevos"></Text>
+        </Vbox>
+        <FormattedText></FormattedText>
+        <Vbox visible="{data>/popOverData/booleanisAlo}"> 
+      
+            <Text text="Alojamiento Ejecutado (UN): {path:'data>/popOverData/AlojamientoPP',formatter: '.formatter.formatMiles' }"></Text>
+            <Text text="Alojamiento por Programar (UN): {path:'data>/popOverData/AlojamientoP',formatter: '.formatter.formatMiles' }"></Text>
+            
+            
+        </Vbox>
+    </Popover>
+</core:FragmentDefinition>

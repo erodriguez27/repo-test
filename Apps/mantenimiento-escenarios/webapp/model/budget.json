@@ -1,0 +1,105 @@
+{
+	"cancel":false,
+	"next":false,
+	"prev":false,
+	"edit":false,
+	"enabledBtnK":false,
+	"textBtnK": "Crear",
+	"typeActionBtnk": 0,
+	"editBudgetTable":false,
+	"ScenarioCalendar":[],
+	"test": "Error",
+
+	"Months": [{
+		"value": "Ene."
+	}, {
+		"value": "Feb."
+	}, {
+		"value": "Mar."
+	}, {
+		"value": "Abr."
+	}, {
+		"value": "May."
+	}, {
+		"value": "Jun."
+	}, {
+		"value": "Jul."
+	},{
+		"value": "Ago."
+	},{
+		"value": "Sep."
+	},{
+		"value": "Oct."
+	}, {
+		"value": "Nov."
+	},{
+		"value": "Dic."
+	}],
+	"NParameters": "",
+	"NColumns": "",
+	"NYears": "",
+	"inYear": "",
+	"bindedYear": "",
+	"outYear": "",
+	"inMonth": "",
+	"outMonth": "",
+	"Rows": [],
+	"pulledData":[],
+	"Columns": [],
+	"Datacells": [],
+	"tableData": "",
+	"tableDataAllYears": "",
+	"bindedYearPosition": "",
+
+	"nameInput": {
+		"valueState": "None",
+		"valueStateText": ""
+
+	},
+
+	"calendar": {
+		"valueState": "None",
+		"valueStateText": ""
+
+	},
+
+	"dateInicio": {
+		"valueState": "None",
+		"valueStateText": ""
+
+	},
+
+	"dateFin": {
+		"valueState": "None",
+		"valueStateText": ""
+
+	},
+
+	"btnDialog": "Crear",
+
+	"textDialog": "Nuevo Escenario",
+
+	"statusBarText": {
+		"maintenance":{
+			"activeNoFound": "Debe seleccionar y activar un escenario",
+			"selectNoFound": "Debe seleccionar un escenario activo",
+			"scenariosNoFound": "Debe crear un escenario"
+		},
+		"ProductionGoals":{
+			"parameterDayNoFound": "Para realizar la simulación regresiva, primero debe editar y guardar nuevas metas de producción"
+		}
+	},
+	
+	"statusBarMaintenance": {
+		"value": "",
+		"visible": false
+	},
+	"statusBarProductionGoals": {
+		"value": "",
+		"visible": false
+	},
+	"statusBarGoals": {
+		"value": "",
+		"visible": false
+	}
+}

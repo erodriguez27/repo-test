@@ -1,0 +1,104 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+	<FlexBox width="100%" id="__box22" justifyContent="Center">
+		<items>
+			<ComboBox items="{path:'mdincubatorplant>/records'}"
+				id="selectIncubatorPlant"
+				class="sapUiSmallMarginBottom"
+				placeholder = "Planta Incubadora"
+				change="onChangeIncubatorPlant"
+				selectedKey="{mdincubatorplant>/selectedIncPlant}">
+				<core:Item text="{mdincubatorplant>name}" key="{mdincubatorplant>incubator_plant_id}"/>
+			</ComboBox>
+
+			<ComboBox items="{path:'mdbreed>/records'}"
+				id="breedSelect"
+				class="sapUiSmallMarginBottom"
+				placeholder = "Raza"
+				change="findParentLot"
+				selectedKey="{mdbreed>/selectedBreed}">
+				<core:Item text="{mdbreed>name}" key="{mdbreed>breed_id}"/>
+			</ComboBox>
+		
+			<ComboBox items="{path:'mdprojected>/lotRecords'}"
+				id="parentLotSelect"
+				class="sapUiSmallMarginBottom"
+				placeholder="Lote de Huevos"
+				change="onChangeParentLot"
+				selectedKey="{mdprojected>/selectedLot}"
+				forceSelection="false"
+				enabled="{= ${mdprojected>/lotRecords/length} !== 0}">
+				<core:Item text="{mdprojected>lot}" key="{mdprojected>lot}"/>
+			</ComboBox>
+
+			<DatePicker id="scheduled_date" valueFormat="dd-MM-yyyy"
+				placeholder="Desde" change="onInitDateChange" class="sapUiSmallMarginBottom"
+				visible="{= (${mdprojected>/selectedLot} === 'Todos') || (!${mdprojected>/selectedLot}) ? false : true}"/>
+			<DatePicker id="scheduled_date2" valueFormat="dd-MM-yyyy"
+				placeholder="Hasta" change="onEndDateChange" class="sapUiSmallMarginBottom"
+				visible="{= (${mdprojected>/selectedLot} === 'Todos') || (!${mdprojected>/selectedLot}) ? false : true}"/>
+
+			<Button text="Buscar" press="onPress"></Button>
+		</items>
+	</FlexBox>
+
+	<Table id="projectedTable"
+		inset="false"
+		items="{path:'mdprojected>/records'}"
+		mode="MultiSelect"
+		selectionChange="onSelectProgrammedRecords"
+		growing="true"
+		growingScrollToLoad="true">
+
+		<columns>
+			<Column hAlign="Center">
+				<Text text="Fecha"/>
+			</Column>
+			<!--  <Column hAlign="Center">
+				<Text text="Meta"/>
+			</Column> -->
+			<Column hAlign="Center">
+				<Text text="Lote almacén"/>
+			</Column>
+			<Column hAlign="Center" visible = "{mdprojected>/raza}">
+				<Text text="Raza"/>
+			</Column>
+
+			<Column hAlign="Center">
+				<Text text="Antigüedad (Días)"/>
+			</Column>
+
+			<Column hAlign="Center">
+				<Text text="Cantidad (UN)"/>
+			</Column>
+
+			<Column hAlign="Center">
+				<Text text="Saldo (UN)"/>
+			</Column>
+		</columns>
+
+		<items>
+			<ColumnListItem>
+				<cells>
+					<Text text="{path:'mdprojected>fecha_movements',formatter: '.formatter.formatDate2' }"/>
+					<Text text="{path:'mdprojected>lot'}"/>
+					<Text text="{mdprojected>name}" visible = "{mdprojected>/raza}"/>
+					<!-- <Text text="Meta"/> -->
+					<Text text="{parts: [{path: 'mdprojected>init_date'}],
+								formatter: '.formatter.formatAntiguedad'}"/>
+					<Text text="{path:'mdprojected>quantity',formatter: '.formatter.formatMiles' }"/>
+					<Text text="{parts: [{path:'mdprojected>quantity'}, {path:'mdprojected>residue'}],formatter: '.formatter.calculateResidue'} "/>
+
+					<!-- <Text text="{path:'mdprojected>pdate',formatter: '.formatter.formatDate' }"/> 
+					<ObjectNumber number="{path:'mdprojected>eggs',formatter: '.formatter.formatMiles' }"/>
+					<ObjectNumber number="{path:'mdprojected>goal',formatter: '.formatter.formatMiles' }" />
+					<ObjectNumber number="{path:'mdprojected>available',formatter: '.formatter.formatMiles' }" />
+					<Text text="{mdprojected>incubator}"/>
+					<Text text="{path:'mdprojected>incubatorCapacity',formatter: '.formatter.formatMiles'}"/>
+					<ObjectNumber number="{path:'mdprojected>proyected',formatter: '.formatter.formatMiles'}" />
+					<ObjectNumber number="{path:'mdprojected>storage_quantity',formatter: '.formatter.formatMiles'}" />
+					<ObjectNumber number="" /> -->
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

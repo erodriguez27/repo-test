@@ -1,0 +1,28 @@
+{
+    "users":[
+        
+    ],
+    "exception_name_role":"",
+    "selected_user":{
+        "user_id":"",
+        "username":"",
+        "user_role":""
+    },
+    "rols":[],
+    "selected_rol":{
+        "rol_id":"",
+        "rolname":""
+    },
+    "userTypes":[
+
+
+    ],
+    "apps":[
+    
+        
+    ],
+    "user_app":[
+
+
+    ]
+}

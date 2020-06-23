@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns="sap.m" 
+    xmlns:core="sap.ui.core">
+    <Popover  title="Descripción" contentWidth="200px">
+
+        <Text text="{sales>/salesDpopOver}" />
+
+
+    </Popover>
+</core:FragmentDefinition>

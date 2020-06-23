@@ -1,0 +1,81 @@
+<mvc:View xmlns:core="sap.ui.core" 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns="sap.m" 
+    xmlns:html="http://www.w3.org/1999/xhtml" 
+    controllerName="userManagement.controller.Add_user">
+
+    <Page title="{i18n>appTitle}" showNavButton="true" navButtonPress="onPressReject">
+        <VBox class="sapUiSmallMargin" id="centerFormVBox">
+            <sap.ui.layout.form:SimpleForm
+                xmlns:sap.ui.layout.form="sap.ui.layout.form"
+                title="{i18n>add_user}"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                id="centerForm"
+                minWidth="1024"
+                maxContainerCols="2"
+                labelSpanL="3"
+                labelSpanM="3"
+                emptySpanL="4"
+                emptySpanM="4"
+                columnsL="1"
+                columnsM="1"
+                class="editableForm">
+
+                <sap.ui.layout.form:content>
+                    <Label text="{i18n>user_name}"/>
+                    <Input id="username"
+                        type="Text"
+                        liveChange="clearStatusField"/>
+                    <Label text="{i18n>name}"/>
+                    <Input id="name"
+                        type="Text"
+                        liveChange="clearStatusField"/>
+                    
+                    <Label text="{i18n>lastname}"/>
+                    <Input id="lastname"
+                        type="Text"
+                        liveChange="clearStatusField"/>
+                        
+                    <Label text="{i18n>clave}"/>
+                    <Input id="password"
+                        type="Password"
+                        liveChange="clearStatusField"/>
+
+                    <Label text="{i18n>password_2}"/>
+                    <Input id="password_2"
+                        type="Password"
+                        liveChange="clearStatusField"/>
+
+                    <Label text="{i18n>user_role}"/>
+                    <Select id="user_type"
+                        class="sapUiSmallMarginBottom"
+                        items="{path: 'data>/userTypes'}"
+                        change="clearStatusField">
+                        <items>
+                            <core:Item key="{data>rol_name}" text="{data>rol_name}"/>
+                        </items>
+                    </Select>
+                </sap.ui.layout.form:content>
+            </sap.ui.layout.form:SimpleForm>
+        </VBox>
+        <footer>
+            <Bar>
+                <contentLeft>
+                    
+                </contentLeft>
+                <contentRight>
+                    <Button
+                        text="{i18n>accept}"
+                        press="onPressAccept"
+                        type="Accept"/>
+
+                    <Button
+                        text="{i18n>reject}"
+                        press="onPressReject"
+                        type="Reject"/>
+                </contentRight>
+            </Bar>
+        </footer>
+    </Page>
+</mvc:View>

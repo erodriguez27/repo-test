@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+  <Table id="idProductsTable"
+		inset="false"
+		items="{TXPOSTURECURVE>/postureRecords}">
+			<headerToolbar>
+				<OverflowToolbar id="otbSubheader">
+					<ToolbarSpacer/>
+					<Button id="editButton" text="Editar" type="Transparent"
+						press="onEdit" />
+					<Button id="saveButton" text="Guardar" type="Accept"
+						press="onSave" visible="false" />
+					<Button id="cancelButton" text="Cancelar" type="Reject"
+						press="onCancel" visible="false" />
+				</OverflowToolbar>
+			</headerToolbar>
+
+		<columns>
+			<Column
+		        hAlign="Center"
+				width="12em">
+				<Text text="Semana" />
+			</Column>
+			<Column
+        		hAlign="Center"
+				minScreenWidth="Tablet"
+				demandPopin="true"
+				>
+				<Text text="Producción de huevos por gallina por semana (UN)" />
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<ObjectIdentifier
+						title="{TXPOSTURECURVE>week}"/>
+					<ObjectNumber
+						number="{TXPOSTURECURVE>theorical_performance}"
+						unit="Huevos"/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

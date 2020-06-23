@@ -1,0 +1,124 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" 
+  xmlns="sap.m" 
+  xmlns:l="sap.ui.layout" 
+  xmlns:f="sap.ui.layout.form">
+
+  <FlexBox width="100%" id="__box22" justifyContent="Center">
+    <items>
+      <!-- <Select change="OnChangeStage" id="SelectStage">
+        <core:Item text="C- Cría y levante" key="C"/>
+        <core:Item text="P- Producción" key="P"/>
+        <core:Item text="H- Almacén de Huevo Fértil" key="H"/>
+        <core:Item text="X- Almacén de Huevo Plexus" key="X"/>
+        <core:Item text="E- Engorde" key="E"/>
+        <core:Item text="Desalojo" key="D"/>
+      </Select>
+      <Select id="SelectEviction" visible="false">
+        <core:Item text="C- Cría y levante" key="C"/>
+        <core:Item text="P- Producción" key="P"/>
+        <core:Item text="E- Engorde" key="E"/>
+        <core:Item text="E- Desalojo" key="D"/>
+      </Select> -->
+
+      <Input placeholder="Lote" liveChange="validateInputLot" id="numberL" value = "{mdprojected>/val_lot}" valueState="{mdprojected>/stateLot}" valueStateText="{mdprojected>/stateTextLot}">
+      </Input>
+      <Button id="GoFind" text="Buscar" press="pressadjustment" />
+
+
+    </items>
+  </FlexBox>
+
+  <Table id="projectedTablee" inset="false" items="{path:'mdprojected>/adjustmenttable'}" mode="" delete="handleDelete" selectionChange="onSelectProgrammedRecord" visible= "{mdprojected>/visibleTable}" growing="true" growingScrollToLoad="true">
+
+
+    <columns>
+
+      <!-- Para levante y cria, produccion, engorde -->
+      <Column hAlign="Center" visible= "{mdprojected>/visible}">
+        <Text text="Fecha"/>
+      </Column>
+
+      <Column hAlign="Center" visible= "{mdprojected>/visible}">
+        <Text text="Lote"/>
+      </Column>
+
+      <Column hAlign="Center" visible= "{mdprojected>/visible}">
+        <Text text="Granja"/>
+      </Column>
+
+      <Column hAlign="Center" visible= "{mdprojected>/visible}">
+        <Text text="Núcleo"/>
+      </Column>
+
+      <Column hAlign="Center" visible= "{mdprojected>/visible}">
+        <Text text="Galpón"/>
+      </Column>
+
+      <Column hAlign="Center" visible = "{mdprojected>/visibleT}" id="cE">
+        <Text text="Cantidad (UND)"/>
+      </Column>
+     
+
+
+      <!-- Para almacen de huevo fertil -->
+      <!-- <Column hAlign="Center" visible= "{mdprojected>/visibleH}">
+        <Text text="Fecha"/>
+      </Column> -->
+
+      <!-- <Column hAlign="Center" visible= "{mdprojected>/visibleH}">
+        <Text text="Lote"/>
+      </Column> -->
+
+
+
+      <!-- <Column hAlign="Center" visible= "{mdprojected>/visibleInfo}">
+        <Text text="Fecha de ajuste"/>
+      </Column> -->
+      <Column hAlign="Center" visible= "{mdprojected>/visibleInfo}">
+        <Text text="Usuario"/>
+      </Column>
+
+    </columns>
+    <items>
+      <ColumnListItem id="Col" type= "{mdprojected>/editable}" detailPress="detail">
+        <cells>
+          <!-- Para levante y cria, produccion, engorde -->
+          <FlexBox visible= "{mdprojected>/visible}" justifyContent="Center">
+            <Text visible="{mdprojected>eviction}" text="{path:'mdprojected>execution_date',formatter: '.formatter.formatDate3' }" press="showLotLocationLiftBreading"/>
+            <DatePicker visible="{= ${mdprojected>eviction} === undefined ? false : !${mdprojected>eviction}}" valueFormat="yyyy-MM-dd" value="{mdprojected>eviction_date}" />
+          </FlexBox>
+          <Text text="{mdprojected>lot}" press="showLotLocationProduction"/>
+          <Text text="{mdprojected>farm}"/>
+          <Text text="{mdprojected>center}" press="showLotLocationIncubation"/>
+          <Text text= "{mdprojected>shed}" press="showLotLocationBroiler"/>
+          <Text text= "{mdprojected>execution_quantity}" visible= "{mdprojected>/visibleT}"/>
+          <!-- <FlexBox visible= "{mdprojected>/visibleI}" justifyContent="Center">
+            <Text visible="{mdprojected>/visibleLou2}" text="{mdprojected>/execution_quantity}" />
+            <Input visible="{mdprojected>/visibleLou}" value="{mdprojected>/execution_quantity}" valueState="{mdprojected>/stateQuantity}" valueStateText="{mdprojected>/stateTextQuantity}" liveChange="validateIntInput" id="input-c" />
+          </FlexBox> -->
+
+          <!-- Para almacen de huevo fertil -->
+          <!-- <FlexBox visible= "{mdprojected>/visibleH}" justifyContent="Center">
+            <Text text="{path:'mdprojected>fecha_movements',formatter: '.formatter.formatDate3' }" press="showLotLocationLiftBreading"/>
+          </FlexBox> -->
+          <!-- <Text text="{mdprojected>lot}" press="showLotLocationProduction" visible= "{mdprojected>/visibleH}"/> -->
+          <Text text="{mdprojected>username}" visible= "{mdprojected>/visibleInfo}"/>
+          <Text text= "{mdprojected>incubator_plant}" visible= "{mdprojected>/visibleH}"/>
+
+          <!-- Si el lote ya fue ajustado -->
+          <FlexBox visible= "{mdprojected>/visibleInfo}" justifyContent="Center">
+            <Text text="{path:'mdprojected>adjustment_date',formatter: '.formatter.formatDate3' }" />
+          </FlexBox>
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+
+
+
+</core:FragmentDefinition>
+
+
+
+
+

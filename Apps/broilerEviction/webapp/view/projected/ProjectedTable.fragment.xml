@@ -1,0 +1,86 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+  <FlexBox width="100%"
+           id="__box22"
+           justifyContent="Center">   
+    <items>
+      <ComboBox items="{path:'mdbreed>/records'}"
+              selectedKey="{mdbreed>/value}"
+              id="breedSelect"
+              placeholder="Raza"
+              valueState="{mdprojected>/breed/state}"
+              valueStateText="{mdprojected>/breed/stateText}"
+              selectionChange="changeBreed"
+              > 
+        <core:Item text="{mdbreed>name}" key="{mdbreed>breed_id}"/> <!--Carga de razas a mostrar en la busqueda-->
+      </ComboBox>
+ 
+      <DatePicker  id="scheduled_date" valueFormat="dd-MM-yyyy"  placeholder="Fecha" change="handleChange" class="sapUiSmallMarginBottom" valueState="{mdprojected>/age_date/state}"
+                   valueStateText="{mdprojected>/age_date/stateText}"/>
+      <Input id="age" value="" placeholder="Edad mínima"  liveChange="change_age" valueState="{mdprojected>/age/state}"
+                   valueStateText="{mdprojected>/age/stateText}"/>
+      <Input id="age2" value="" placeholder="Edad máxima"  liveChange="change_age2" valueState="{mdprojected>/age2/state}"
+                   valueStateText="{mdprojected>/age2/stateText}"/>
+      <Button id = "bProj" text="Buscar" press="onPress"></Button> <!--boton de busqueda-->
+    </items>
+  </FlexBox>
+
+
+  <Table id="projectedTable"
+      inset="false"
+      items="{path:'mdprojected>/records'}" 
+      mode="SingleSelect"
+      selectionChange="onSelectProgrammedRecord"
+      growing="true"
+        						growingScrollToLoad="true">
+
+    <columns>
+      <Column hAlign="Center">
+        <Text text="Fecha" />
+      </Column>
+       <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Lote engorde" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Granja" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Galpón" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Sexo" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Edad (Días)" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad (UN)" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Saldo (UN)" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="" />
+      </Column>
+
+
+      
+    </columns>
+   
+    <items>
+      <ColumnListItem>
+        <cells>
+          <Text text="{path:'mdprojected>projected_date',formatter: '.formatter.formatDate' }" />
+          <!-- <Text text="{mdprojected>lot_incubator}" />  -->
+          <Text text="{mdprojected>lot_incubator}" press="showProjectedProduct"/>
+          <Text text="{mdprojected>code_farm}" />  
+          <Text text="{mdprojected>shed_name}" />  
+          <Text text="{mdprojected>gender}" />  
+          <Text text="{mdprojected>age}" />  
+          <ObjectNumber number="{path:'mdprojected>projected_quantity',formatter: '.formatter.formatMiles' }"/>
+          <ObjectNumber number="{parts: [{path:'mdprojected>projected_quantity'}, {path:'mdprojected>residue'}],formatter:'.formatter.calculateResidue'}"/>
+          <core:Icon press="onMessageWarningDialogPress"  visible="{mdprojected>evictionprojected}" color="#E69A17" src="sap-icon://message-warning"/>
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</core:FragmentDefinition>

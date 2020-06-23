@@ -1,0 +1,73 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" 
+  xmlns="sap.m">
+
+  <FlexBox width="100%" justifyContent="Center">
+    <items>
+      <Select items="{inventary>/selectScenariomains}" id="selectscenariomain" selectedKey="{inventary>/inventaryMain/scenario_id}">
+        <core:Item text="{inventary>name}" key="{inventary>scenario_id}"/>
+      </Select>
+      <DatePicker valueFormat="yyyy-MM-dd" value="{inventary>/inventaryMain/date1}" />
+      <DatePicker valueFormat="yyyy-MM-dd" value="{inventary>/inventaryMain/date2}" />
+      <Button text="Buscar" press="LoadProduction"/>
+
+    </items>
+  </FlexBox>
+
+
+  <Table inset="false" items="{path:'inventary>/inventaryTable', key: 'no_quiten_esto'}" selectionChange="onSelectProgrammedRecords" growing="true" growingScrollToLoad="true">
+
+    <columns>
+      <Column hAlign="Center">
+        <Text text="Fecha" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Huevos Proyectados (UN)" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Huevos Reales (UN)" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Huevos Plexus (UN)" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Ventas (UN)" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Compras (UN)" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cargue (UN)" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Inventario Acumulado  (UN)" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Días Ponderados" />
+      </Column>
+
+
+    </columns>
+    <items>
+      <ColumnListItem>
+        <cells>
+          <Text text="{inventary>date_from_f}" />
+          <Text text="{path:'inventary>projected_total',formatter: '.formatter.formatMiles'} " />
+          <FlexBox justifyContent="Center">
+            <input valueState="{inventary>aja}" maxLength="8" enabled = "{inventary>block}" visible="{= ${inventary>execution_s} === true ? false : true}" liveChange="validateIntInput" value="{inventary>total_eggs}" />
+            <Text visible="{= ${inventary>execution_s} === true ? true : false}" text="{path:'inventary>total_eggs',formatter: '.formatter.formatMiles'}" />
+          </FlexBox>
+          <FlexBox justifyContent="Center">
+            <input maxLength="8" valueState="{inventary>aja2}" enabled = "{inventary>block}" visible="{= ${inventary>execution_s} === true ? false : true}" liveChange="validateIntInput" value="{inventary>total_plexus}"/>
+            <Text visible="{= ${inventary>execution_s} === true ? true : false}" text="{path:'inventary>total_plexus',formatter: '.formatter.formatMiles'}" />
+          </FlexBox>
+          <Text text="{path:'inventary>sells_total',formatter: '.formatter.formatMiles'} " />
+          <Text text="{path:'inventary>purchases_total',formatter: '.formatter.formatMiles'}" />
+          <Text text="{path:'inventary>incubator_total',formatter: '.formatter.formatMiles'}" />
+          <Text text="{path:'inventary>inventory',formatter: '.formatter.formatMiles'}" />
+          <Text text="{inventary>ponderet}" />
+          <!-- <Text text="60" /> -->
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</core:FragmentDefinition>

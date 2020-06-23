@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:f="sap.ui.layout.form">
+	<VBox class="sapUiSmallMargin">
+		<f:SimpleForm title="Datos del núcleo" editable="true" layout="ResponsiveGridLayout" labelSpanM="4" emptySpanM="2">
+			<f:content>
+
+				<Label text="{i18n>shed.disabled}" id="disable_label"/>
+       			<CheckBox selected="{path: 'OSCENTER>/disable/value'}" editable="{OSCENTER>/disable/editable/}" />
+				<Label text="{i18n>center.code}" required="{OSCENTER>/code/required}"/>
+				<Input value="{path: 'OSCENTER>/code/value', type: 'sap.ui.model.type.String'}"
+							 valueState="{OSCENTER>/code/state}"
+							 valueStateText="{OSCENTER>/code/stateText}"
+							 editable="{OSCENTER>/code/editable/}"
+							 liveChange="changeCode"/>
+
+				<Label text="Nombre" required="{OSCENTER>/name/required}"/>
+				<Input type="Text" value="{ path: 'OSCENTER>/name/value'}"
+						valueState="{OSCENTER>/name/state}"
+						valueStateText="{OSCENTER>/name/stateText}"
+						editable="{OSCENTER>/name/editable/}"
+						liveChange="changeName"/>
+
+			</f:content>
+		</f:SimpleForm>
+	</VBox>
+</core:FragmentDefinition>

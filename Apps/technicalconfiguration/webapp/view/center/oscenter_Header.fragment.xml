@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <ObjectHeader title="{i18n>centers}"
+                  numberUnit="{i18n>records}"
+                  id="farmHeader"
+                  responsive="{util>/phone}">
+		<attributes>
+			<ObjectAttribute text="Empresa seleccionada: { path: 'OSPARTNERSHIP>/selectedRecord/name'}" />
+			<ObjectAttribute text="Granja seleccionada: { path: 'OSFARM>/selectedRecord/name'}" />
+		</attributes>
+	</ObjectHeader>
+</core:FragmentDefinition>

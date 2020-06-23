@@ -1,0 +1,20 @@
+{
+    "busy": false,
+
+    "activeScenarioId": 0, 
+    "activeScenarioName": "", 
+
+    "filtersScenarioRecords":[],
+    "filtersBreedRecords":[],
+    "filtersSelectedScenario":"",
+    "enabledFilters":true,
+
+    "optimizerData":[],
+    "optimizerDataCpy":[],
+    "semaforo" :true,
+    "optimizerDataBtn":true,
+
+    "recalculationData":[],
+    "recalculationExportBtn":false
+    
+}

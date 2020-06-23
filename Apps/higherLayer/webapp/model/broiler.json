@@ -1,0 +1,27 @@
+{
+    "broilerMain":{      
+    },
+    "broilerMainCopy":{      
+    },
+    "broilerProjectedTable":{      
+    },
+    "broilerProgrammedTable":{      
+    },
+    "broilerProgrammedCurrent":{      
+    },
+    "broilerDialog":{
+        "sheds":[]      
+    },
+    "scenarios":[],
+    "breeds":[],
+    "lots":[],
+    "genders":[],
+    "farms":[],
+    "sheds":[],
+    "currentweight":[],
+    "PopOverShets":[],
+    "PopOverChicks":[],
+    "programmedList":[],
+    "DecreaseDialog":{},
+    "sheedpopovers":""
+}

@@ -1,0 +1,10 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="higherLayer.controller.AppsControllers.parameters">
+	<App>
+		<pages>
+			<sap.m.semantic:DetailPage xmlns:sap.m.semantic="sap.m.semantic" title="Proceso" id="_s_page1" showNavButton="true" navButtonPress="onNavBackprocess">
+					<ObjectHeader id="__header0"></ObjectHeader>
+				
+			</sap.m.semantic:DetailPage>
+		</pages>
+	</App>
+</mvc:View>

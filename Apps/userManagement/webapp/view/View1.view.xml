@@ -1,0 +1,56 @@
+
+<mvc:View xmlns:core="sap.ui.core"
+	controllerName="userManagement.controller.View1" 
+		xmlns:html="http://www.w3.org/1999/xhtml"
+		xmlns:mvc="sap.ui.core.mvc" 
+		displayBlock="true" 
+		xmlns="sap.m">
+
+	<Page title="{i18n>appTitle}">
+			
+
+		<headerContent>
+			<Button icon="sap-icon://undo" tooltip="Ir al launchpad" text="Ir al launchpad" press="goToLaunchpad" />
+		</headerContent>
+	
+		<sap.m.semantic:DetailPage xmlns:sap.m.semantic="sap.m.semantic" title="{i18n>appDescription}"  							id="__page1" backgroundDesign="Solid" responsive="true">
+
+			<IconTabBar id="tabBar"
+						headerMode="Inline"
+						selectedKey="farmFilter"
+						expandable="false"
+						applyContentPadding="false"
+						backgroundDesign="Solid"
+						headerBackgroundDesign="Translucent"
+						select="onTabSelection">
+				
+					<items>
+	                  <IconTabFilter id="tabProjected" key="kTabRol" text="{i18n>tabrol}"  showAll="false" iconDensityAware="true">
+	                    <content>
+	                      <core:Fragment fragmentName="userManagement.view.Rol.RolForm" type="XML"/>
+	                    </content>
+	                  </IconTabFilter>
+	                   <IconTabSeparator id="__separator1" icon="sap-icon://open-command-field"/>
+	                    <IconTabFilter id="tabUser" key="kTabUser" text="{i18n>tabUser}">
+	                       <content>
+	                        <core:Fragment fragmentName="userManagement.view.User.UserForm" type="XML"/>
+
+	                      </content>
+	                  </IconTabFilter>
+
+
+				</items>		
+
+			</IconTabBar>		
+				
+			<sap.m.semantic:customFooterContent>
+					<Button id="projectedSaveBtn" text="Nuevo" type="Accept" 
+							press="onPressButtonRol" visible="{mdrol>/button}"/>
+					<Button id="programmedsaveBtn" text="Nuevo" type="Accept"
+							press="onPressButton" visible="{mduser>/button}"/>
+			</sap.m.semantic:customFooterContent>
+
+		</sap.m.semantic:DetailPage>
+	</Page>
+
+</mvc:View>

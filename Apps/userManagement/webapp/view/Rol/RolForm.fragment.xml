@@ -1,0 +1,45 @@
+<core:FragmentDefinition 	
+		xmlns:core="sap.ui.core" xmlns="sap.m" 
+	    controllerName="userManagement.controller.Add_rol" 
+		xmlns:html="http://www.w3.org/1999/xhtml"
+		xmlns:mvc="sap.ui.core.mvc" 
+		displayBlock="true">
+
+<VBox xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" width="100%"   
+	  direction="Column" >
+    <items>
+    			<Toolbar xmlns:html="http://www.w3.org/1999/xhtml" 
+						 xmlns:mvc="sap.ui.core.mvc" 
+						 xmlns="sap.m">
+						<content>
+							<SearchField id="usersSearchFieldRol" liveChange="onChange" search="onSearch_Rol" placeholder="{i18n>searchR}" width="100%"/>
+						</content>
+				</Toolbar>
+
+				<Table xmlns:core="sap.ui.core"
+						xmlns:mvc="sap.ui.core.mvc"
+						xmlns:html="http://www.w3.org/1999/xhtml"
+						xmlns:sap.m.semantic="sap.m.semantic"
+						xmlns="sap.m"
+						noDataText="{i18n>no_rols}"
+						id="TableRols"
+						items="{data>/rols/}">
+							<items>
+								<ColumnListItem counter="0" id="list_item_Rol" type="DetailAndActive" detailPress="onEditrol" title="item">
+									<cells>
+										<Text text="{data>rol_name}" maxLines="0" id="breed_name_text_rol"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+							<columns>
+								<Column id="rols_column" vAlign="Middle" width="30%">
+									<!-- <header>
+										<Label text="{i18n>tabrol}" id="breed_table_name_label_Rol"/>
+									</header> -->
+								</Column>
+								
+							</columns>
+				</Table>
+   </items>
+</VBox>    
+</core:FragmentDefinition>

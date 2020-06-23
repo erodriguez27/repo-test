@@ -1,0 +1,28 @@
+<core:FragmentDefinition
+  xmlns:core="sap.ui.core"
+  xmlns="sap.m"
+>
+  <ResponsivePopover
+    title="Detalles"
+    class="sapUiPopupWithPadding"
+  >
+    <content>
+          <VBox alignItems="Center" width="100%">
+            <items>
+              <Label text="Historico de merma" design="Bold"/>
+              <Text text="{path:'processes>/selectedRecord/historical_decrease', formatter: '.formatter.formatDecimal'} %"/>
+            </items>
+          </VBox>
+          <VBox><Label text=""/></VBox>
+          <VBox alignItems="Center" width="100%" >
+            <items>
+              <Label text="Teórico de merma" design="Bold"/>
+              <Text text="{path:'processes>/selectedRecord/theoretical_decrease', formatter: '.formatter.formatDecimal'} %"/>
+            </items>
+          </VBox>
+    </content>
+    <endButton>
+      <Button text="Cerrar" press="onCloseMermaDetailsDialog" />
+    </endButton>
+  </ResponsivePopover>
+</core:FragmentDefinition>

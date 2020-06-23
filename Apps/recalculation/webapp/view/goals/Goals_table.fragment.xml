@@ -1,0 +1,111 @@
+<core:FragmentDefinition
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m"
+	xmlns:m="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout"
+	xmlns:fb="sap.ui.comp.filterbar"
+	width="100%">
+
+
+
+		
+<Table id="goalsTable" busy="{util>/busy}" class = "myTable" fixedLayout="false" items="{data>/recalculationData}" width="100%" 
+		growing="true"
+		growingThreshold="15"
+		sticky="HeaderToolbar">
+		<!--<headerToolbar> 
+			<Toolbar class="test1">
+				<ToolbarSpacer/> -->
+				<!-- <Button id="btnApplyFilyter" text="Aplicar Filtro" type="Transparent" press="applyFilters" visible="true"/> -->
+				<!-- <ToolbarSpacer/> -->
+
+				
+				<!-- <ToggleButton icon="sap-icon://menu" tooltip="Enable / Disable Custom Context Menu" press="onToggleContextMenu" /> -->
+			<!-- </Toolbar>
+		</headerToolbar>
+ -->
+		<infoToolbar>
+			<Toolbar id="vsdFilterBar" visible="false">
+				<Text id="vsdFilterLabel" />
+			</Toolbar>
+		</infoToolbar>
+
+		<columns>
+			<!-- <Column vAlign="Middle">
+				<header>
+					<Label text="N"/>
+				</header>
+			</Column> -->
+			<Column vAlign="Middle">
+
+				<header>
+					<Label text="Semana"/>
+				</header>
+			</Column>
+			<Column vAlign="Middle">
+
+				<header>
+					<Label text="Cría y Levante (UN)"/>
+				</header>
+			</Column>
+			<Column vAlign="Middle">
+
+				<header>
+					<Label text="Producción (UN)"/>
+				</header>
+			</Column>
+			<Column vAlign="Middle">
+
+				<header>
+					<Label text="Huevo Fértil (UN)"/>
+				</header>
+			</Column>
+			<Column vAlign="Middle">
+
+				<header>
+					<Label text="Pollito 1 día (UN)"/>
+				</header>
+			</Column>
+			<Column vAlign="Middle">
+
+				<header>
+					<Label text="Pollo Vivo (UN)"/>
+				</header>
+			</Column>
+		</columns>
+
+    	<items >
+			<ColumnListItem id="columnListItemGoal">
+				<cells >
+				
+					<!-- <Text text=""/> -->
+					<Text text="{data>date}"/>
+					<Text text="{path:'data>liftBreeding',formatter: '.formatter.formatMiles'}"/>
+					<Text text="{path:'data>breeding',formatter: '.formatter.formatMiles'}"/>
+					<Text text="{path:'data>fertEgg',formatter: '.formatter.formatMiles'}"/>
+					<Text text="{path:'data>dayoldChick',formatter: '.formatter.formatMiles'}"/>
+					<Text text="{path:'data>liveChicken',formatter: '.formatter.formatMiles'}"/>
+					
+					<!-- <m:ObjectStatus
+						class="sapUiSmallMarginBottom"
+						textAlign="{goals>textalign}"
+						text="{path:'goals>value',formatter: '.formatter.formatMiles'}"
+						active="{= ${goals>capacity} === undefined ? false : true }"	
+						press="_getPopover"			
+						state= "{ 	parts: [{path: 'goals>isStatic'},
+											{path: 'goals>residue'},
+											{path: 'goals>capacity'},
+											{path: 'parameterColors>/warningValue'}],
+									formatter: '.formatter.parameterColor'}"
+						visible="{goals>visible}"/> -->
+
+						
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+
+  	
+
+</core:FragmentDefinition>

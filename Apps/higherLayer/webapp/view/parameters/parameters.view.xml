@@ -1,0 +1,214 @@
+<mvc:View xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m" id="ppp" 
+	xmlns:html="http://www.w3.org/1999/xhtml" controllerName="higherLayer.controller.AppsControllers.parameters">
+	<App>
+		<pages>
+			<sap.m.semantic:DetailPage xmlns:sap.m.semantic="sap.m.semantic" title="Detalles de Parámetros" id="__page1">
+
+				<ObjectHeader visible="{= ${prueba>/CurrentParameter}==='machines'? true : false}" title="{ospartnership>name}" intro="{ospartnership>address}" titleSelectorPress="handleTitleSelectorPress" iconActive="false" id="__header0" icon="sap-icon://factory" backgroundDesign="Translucent" responsive="true" showTitleSelector="true">
+
+					<!-- <attributes>
+							<ObjectAttribute text="Escenario Activo:  {mdscenario>/name}" />
+						</attributes> -->
+
+				</ObjectHeader>
+
+				<ObjectHeader visible="{= ${prueba>/CurrentParameter}==='machines'? false : true}" title="{= ${prueba>/CurrentParameter}==='process'? 'Proceso': ${prueba>/CurrentParameter}==='machines'? 'Maquinas': ${prueba>/CurrentParameter}==='sex'? 'Clasificación de sexaje': ${prueba>/CurrentParameter}==='eviction'? ' Partición de desalojo': 'Parámetros'}" backgroundDesign="Translucent">
+
+
+				</ObjectHeader>
+				<!-- <core:Fragment fragmentName="higherLayer.view.breading.breadingtable" type="XML"/> -->
+
+
+				<VBox xmlns:html="http://www.w3.org/1999/xhtml" 
+					xmlns:mvc="sap.ui.core.mvc" 
+					xmlns="sap.m" width="100%" direction="Column">
+					<items>
+						<!-- <Toolbar xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" id="breedToolbar">
+								<content>
+									<SearchField id="broilerProductSearchField" liveChange="onbroilerProductSearch" placeholder="{i18n>OS.searchRecord}" width="100%"/>
+								</content>
+							</Toolbar> -->
+						<Table id="processtable" noDataText="Sin Datos" items="{tables>/ProcessTable}" visible="{prueba>/viewProcess}" mode="None" growing="true" growingScrollToLoad="true">
+							<columns>
+								<Column vAlign="Middle" width="30%">
+									<header>
+										<Label text="Nombre" />
+									</header>
+								</Column>
+								<Column vAlign="Middle" width="30%">
+									<header>
+										<Label text="Etapa" />
+									</header>
+								</Column>
+								<Column vAlign="Middle" width="30%">
+									<header>
+										<Label text="Raza" />
+									</header>
+								</Column>
+								<Column hAlign="End" width="10%">
+									<header>
+
+									</header>
+								</Column>
+
+							</columns>
+							<items>
+								<ColumnListItem counter="0" type="DetailAndActive" detailPress="ChangeParameter">
+									<cells>
+										<Text text="{tables>name}" maxLines="0" />
+										<Text text="{tables>stage}" maxLines="0" />
+										<Text text="{tables>breed}" maxLines="0" />
+										<Button type="Transparent" press="DeleteprocessDialog" icon="sap-icon://sys-cancel" />
+
+
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+						<!-- <Toolbar xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" id="breedToolbar">
+								<content>
+									<SearchField id="broilerProductSearchField" liveChange="onbroilerProductSearch" placeholder="{i18n>OS.searchRecord}" width="100%"/>
+								</content>
+							</Toolbar> -->
+						<Table xmlns:core="sap.ui.core" visible="{prueba>/viewMachines}" 
+							xmlns:mvc="sap.ui.core.mvc" id="machinestable" 
+							xmlns:html="http://www.w3.org/1999/xhtml" 
+							xmlns:sap.m.semantic="sap.m.semantic" 
+							xmlns="sap.m" noDataText="Sin Datos" items="{tables>/MachineTable}" mode="None" growing="true" growingScrollToLoad="true">
+							<columns>
+
+								<Column vAlign="Middle" width="30%">
+									<header>
+										<Label text="Nombre" />
+									</header>
+								</Column>
+
+								<Column vAlign="Middle" width="30%">
+									<header>
+										<Label text="Descripción" />
+									</header>
+								</Column>
+								<Column vAlign="Middle" width="30%">
+									<header>
+										<Label text="Total de Carga" />
+									</header>
+								</Column>
+								<Column vAlign="Middle" width="30%">
+									<header>
+										<Label text="Planta Incubadora" />
+									</header>
+								</Column>
+								<Column hAlign="End" width="10%">
+									<header>
+
+									</header>
+								</Column>
+
+							</columns>
+							<items>
+								<ColumnListItem counter="0" type="DetailAndActive" detailPress="ChangeParameter">
+									<cells>
+										<Text text="{tables>name}" />
+										<Text text="{tables>description}" />
+										<Text text="{path:'tables>total_of_charges',formatter: '.formatter.formatMiles' }" />
+										<Text text="{tables>incubatorplant}" />
+										<Button type="Transparent" press="DeleteMachineDialog" icon="sap-icon://sys-cancel" />
+
+
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+						<!-- <Toolbar xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" id="breedToolbar">
+								<content>
+									<SearchField id="broilerProductSearchField" liveChange="onbroilerProductSearch" placeholder="{i18n>OS.searchRecord}" width="100%"/>
+								</content>
+							</Toolbar> -->
+						<Table xmlns:core="sap.ui.core" 
+							xmlns:mvc="sap.ui.core.mvc" id="sexTable" 
+							xmlns:html="http://www.w3.org/1999/xhtml" 
+							xmlns:sap.m.semantic="sap.m.semantic" 
+							xmlns="sap.m" noDataText="Sin Datos" visible="{prueba>/viewSex}" items="{tables>/SexTable}" mode="None" growing="true" growingScrollToLoad="true">
+							<columns>
+								<Column vAlign="Middle" width="30%">
+									<header>
+										<Label text="Nombre" />
+									</header>
+								</Column>
+								<Column vAlign="Middle" width="30%">
+									<header>
+										<Label text="Sexo" />
+									</header>
+								</Column>
+								<Column vAlign="Middle" width="30%">
+									<header>
+										<Label text="Raza" />
+									</header>
+								</Column>
+								<Column hAlign="End" width="10%">
+									<header>
+
+									</header>
+								</Column>
+
+							</columns>
+							<items>
+								<ColumnListItem counter="0" type="DetailAndActive" detailPress="ChangeParameter">
+									<cells>
+										<Text text="{tables>name}" maxLines="0" />
+										<Text text="{tables>gender}" maxLines="0" />
+										<Text text="{tables>breed}" maxLines="0" />
+										<Button type="Transparent" press="DeleteSexDialog" icon="sap-icon://sys-cancel" />
+
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+						<Table xmlns:core="sap.ui.core" 
+							xmlns:mvc="sap.ui.core.mvc" id="evictionTable" 
+							xmlns:html="http://www.w3.org/1999/xhtml" 
+							xmlns:sap.m.semantic="sap.m.semantic" 
+							xmlns="sap.m" noDataText="Sin Datos" visible="{prueba>/viewEviction}" items="{tables>/EvictionTable}" mode="None" growing="true" growingScrollToLoad="true">
+							<columns>
+								<Column vAlign="Middle" width="30%">
+									<header>
+										<Label text="Nombre" />
+									</header>
+								</Column>
+								<Column vAlign="Middle" width="30%">
+									<header>
+										<Label text="Estado" />
+									</header>
+								</Column>
+								<Column hAlign="End"  width="10%">
+									<header>
+
+									</header>
+								</Column>
+
+							</columns>
+							<items>
+								<ColumnListItem counter="0" type="DetailAndActive" detailPress="ChangeParameter">
+									<cells>
+										<Text text="{tables>name}" maxLines="0" />
+										<Switch id="swithhhh" change="AlterStates" type="AcceptReject" state="{tables>active}" class="ajjja" customTextOn="Activo" customTextOff="Inactivo" />
+										<Button type="Transparent" press="DeleteEvictionDialog" icon="sap-icon://sys-cancel" />
+
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</items>
+				</VBox>
+				<sap.m.semantic:customFooterContent>
+
+					<Button id="confirmSync" text="Nuevo" type="Accept" press="NewParameter" />
+					<!-- <Button id="rejectSync" text="Cancelar" type="Reject" press="onCancelSyncronization" enabled="{higherLayer>/buttonsSync}" /> -->
+
+				</sap.m.semantic:customFooterContent>
+			</sap.m.semantic:DetailPage>
+		</pages>
+	</App>
+</mvc:View>

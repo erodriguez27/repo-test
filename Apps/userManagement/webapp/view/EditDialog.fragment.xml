@@ -1,0 +1,80 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+
+	<Dialog
+		title="{data>/selected_user/username}"
+		id="editDialog">	
+		<VBox class="sapUiSmallMargin">
+			<f:SimpleForm 
+				id="formControl"
+				editable="true"
+				labelSpanL="5"
+				labelSpanM="4"
+				labelSpanS="4"
+				emptySpanL="0"
+				emptySpanM="0"
+				emptySpanS="0"
+				columnsL="1"
+				columnsM="12"
+				maxContainerCols="1"
+				width="100%"
+				busy="false">
+				<f:content>
+					<Label text=""/>
+						<Input
+							id="username"
+							class="sapUiSmallMarginBottom"
+							type="Text"
+							value="{data>/selected_user/username}"
+							change="ChangeCod"
+                            editable="false"/>
+						<Label text=""/>
+						<Input
+							id="Material"
+							class="sapUiSmallMarginBottom"
+							type="Text"
+							select="onType"
+							placeholder="Material"
+							value=""
+							hAlign="left"
+							change="ChangeMat"
+							enabled="{data>/visibles/V1}"/>
+						<Label text=""/>
+						<Input
+							id="cantMaterial"
+							class="sapUiSmallMarginBottom"
+							type="Number"
+							placeholder="Cantidad"
+							value=""
+							change="ChangeCant"/>
+						<Label text=""/>
+						<ComboBox
+							id="seleccionG"
+							placeholder="Donde Agregar"
+							items="{data>/seleccionado/opciones}"
+							selectionChange="cambio"
+							>
+							<core:Item key="{data>id}" text="{data>nombre}" />
+						</ComboBox>
+					</f:content>
+			</f:SimpleForm>
+		</VBox>
+		<beginButton>
+			<Button
+				text="{i18n>ButtonA}"
+				press="onAddMaterial"
+				class="sapUiSmallMarginEnd"
+				enabled="{path: 'data>/visibles/agregar'}"
+				visible="{path: 'data>/visibles/agregar'}"/>
+        </beginButton>
+		<endButton>
+			<Button
+				text="{i18n>ButtonC}"
+				press="onCloseDialog"
+				class="sapUiSmallMarginEnd"/>
+        </endButton>
+	</Dialog>
+</core:FragmentDefinition>

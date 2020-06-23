@@ -1,0 +1,196 @@
+<mvc:View xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="technicalConfiguration.controller.abaStages">
+	<VBox class="sapUiSmallMargin">
+		<f:Form id="FormChange354wideDual"
+				editable="true">
+			<f:title>
+				<core:Title text="Razas y Fases" />
+			</f:title>
+			<f:layout>
+				<f:ResponsiveGridLayout
+						labelSpanXL="2"
+						labelSpanL="3"
+						labelSpanM="2"
+						labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="0"
+						emptySpanL="2"
+						emptySpanM="0"
+						emptySpanS="0"
+						columnsXL="2"
+						columnsL="1"
+						columnsM="1"
+						singleContainerFullSize="true" />
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Raza/Tipo/Apodo">
+							<ComboBox id="abaStages_breed_combo" width="40%"
+							
+									  items="{ABABREEDSANDSTAGES>/abaConsumptionAndMortality/value}"
+										selectedKey="{ABABREEDSANDSTAGES>/abaConsumptionAndMortality/id}"
+									  enabled="{ABABREEDSANDSTAGES>/abaConsumptionAndMortality/editable}"
+									valueState="{ABABREEDSANDSTAGES>/abaConsumptionAndMortality/state}"
+									valueStateText="{ABABREEDSANDSTAGES>/abaConsumptionAndMortality/stateText}"
+							>
+								<items>
+									<core:Item key="{ABABREEDSANDSTAGES>id}" text="{ABABREEDSANDSTAGES>name}" />
+								</items>
+							</ComboBox>
+							<f:fields>
+
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Producto">
+							<ComboBox id="abaStages_breed_combo2" width="40%"
+									  items="{ABABREEDSANDSTAGES>/abaProcesses/value}"
+									  selectedKey="{ABABREEDSANDSTAGES>/abaProcesses/id}"
+									  enabled="{ABABREEDSANDSTAGES>/abaProcesses/editable}"
+									valueState="{ABABREEDSANDSTAGES>/abaProcesses/state}"
+									valueStateText="{ABABREEDSANDSTAGES>/abaProcesses/stateText}"
+							>
+								<items>
+									<core:Item key="{ABABREEDSANDSTAGES>process_id}" text="{ABABREEDSANDSTAGES>name}" />
+								</items>
+							</ComboBox>
+							<f:fields>
+
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement>
+							<f:fields span="10">
+
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement text=" ">
+							<f:fields>
+
+								<!--<Label id="abaStages_code_label" visible="true" text="Código" required="false"/>-->
+								<!--<Input id="abaStages_code_input"-->
+									   <!--valueState=""-->
+									   <!--valueStateText=""-->
+									   <!--value=""-->
+									   <!--editable="false"/>-->
+
+								<Table id="idProductsTable8"
+									   inset="false"
+									   mode="{ABABREEDSANDSTAGES>/handleType}"
+									   delete="handleDelete"
+									   width="100%"
+									   items="{ABABREEDSANDSTAGES>/stages/value}"
+								>
+
+									<headerToolbar>
+										<Toolbar>
+											<content>
+												<Title text="Fases" level="H2"/>
+												<Button text="Agregar" icon="sap-icon://add" press="addToStages" ariaLabelledBy="editButtonLabel" enabled="{ABABREEDSANDSTAGES>/stages/editable}"/>
+											</content>
+										</Toolbar>
+									</headerToolbar>
+									<columns>
+										<Column
+												width="12em">
+											<Text text="Nombre" />
+										</Column>
+										<Column
+												minScreenWidth="Tablet"
+												demandPopin="true">
+											<Text text="Duración" />
+										</Column>
+										<Column
+												minScreenWidth="Tablet"
+												demandPopin="true">
+											<Text text="Alimento" />
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Input id="abaStage_substage_name_input"
+					  									valueState="{ABABREEDSANDSTAGES>state1}"
+					   									valueStateText="{ABABREEDSANDSTAGES>stateText1}"
+													   value="{ABABREEDSANDSTAGES>name}"
+													   editable="true"
+													   description=""
+													   width="100%"
+													   enabled="{ABABREEDSANDSTAGES>/stages/editable}"
+												/>
+												<Input id="abaStage_substage_duration_input2"
+					  									valueState="{ABABREEDSANDSTAGES>state}"
+					   									valueStateText="{ABABREEDSANDSTAGES>stateText}"
+													   value="{ABABREEDSANDSTAGES>duration}"
+													   editable="true"
+													   description=""
+													   width="15%"
+													   enabled="{ABABREEDSANDSTAGES>/stages/editable}"
+												/>
+												<ComboBox
+														selectedKey="{ABABREEDSANDSTAGES>id_formulation}"
+														items="{ABABREEDSANDSTAGES>/abaFormulation/value}"
+					  									valueState="{ABABREEDSANDSTAGES>state2}"
+					   									valueStateText="{ABABREEDSANDSTAGES>stateText2}"
+									  					enabled="{ABABREEDSANDSTAGES>/abaFormulation/editable}"
+												>
+													<items>
+														<core:Item key="{ABABREEDSANDSTAGES>id}" text="{ABABREEDSANDSTAGES>name}" />
+													</items>
+												</ComboBox>
+												<!--<Text-->
+												<!--text="{Width} x {Depth} x {Height} {DimUnit}" />-->
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+							</f:fields>
+
+						</f:FormElement>
+					</f:formElements>
+						<!--<f:FormElement label="Twitter account of the contact">-->
+							<!--<f:fields>-->
+								<!--<Input value="" />-->
+							<!--</f:fields>-->
+						<!--</f:FormElement>-->
+					<!--</f:formElements>-->
+				</f:FormContainer>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Código">
+							<Input id="abaStages_code_input"
+					  			valueState="{ABABREEDSANDSTAGES>/code/state}"
+					   			valueStateText="{ABABREEDSANDSTAGES>/code/stateText}"
+								   value="{ABABREEDSANDSTAGES>/code/value}"
+								   editable="{ABABREEDSANDSTAGES>/code/editable}"
+								   width="40%"/>
+							<f:fields>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Nombre">
+							<Input id="abaStages_name_input"
+					   				valueState="{ABABREEDSANDSTAGES>/name/state}"
+					   				valueStateText="{ABABREEDSANDSTAGES>/name/stateText}"
+								   value="{ABABREEDSANDSTAGES>/name/value}"
+								   editable="{ABABREEDSANDSTAGES>/name/editable}"
+								   width="40%"/>
+
+							<f:fields>
+							</f:fields>
+						</f:FormElement>
+						<!--<f:FormElement label="Orden">-->
+							<!--<Input id="abaStages_order_input"-->
+								   <!--valueState=""-->
+								   <!--valueStateText=""-->
+								   <!--value="{ABABREEDSANDSTAGES>/order/value}"-->
+								   <!--editable="{ABABREEDSANDSTAGES>/order/editable}"-->
+								   <!--width="40%" />-->
+						<!--</f:FormElement>-->
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+	</VBox>
+</mvc:View>

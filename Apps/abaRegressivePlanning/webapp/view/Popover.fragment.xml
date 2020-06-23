@@ -1,0 +1,13 @@
+<core:FragmentDefinition
+        xmlns="sap.m"
+        xmlns:core="sap.ui.core">
+    <Popover
+            title="{data>/popOverData/scenarioName}"
+            class="sapUiContentPadding"
+            placement="HorizontalPreferredRight"
+    >
+        <Text text="{data>/popOverData/criaYLevante} Unidades"></Text>
+        <FormattedText></FormattedText>
+        <Text text="{data>/popOverData/engorde} Unidades"></Text>
+    </Popover>
+</core:FragmentDefinition>

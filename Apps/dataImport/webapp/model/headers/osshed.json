@@ -1,0 +1,192 @@
+{
+    "CÓDIGO DE LA EMPRESA": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Código de la empresa no puede estar vacío",
+            "pattern" : "^[A-Za-z0-9]{1,9}$",
+            "errorPattern" : "Los códigos deben ser alfanuméricos y máximo de 9 dígitos"
+        },
+        "binding" : "partnershipCode"
+    },
+    "CÓDIGO DE LA GRANJA": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Código de la granja no puede estar vacío",
+            "pattern" : "^.{1,9}$",
+            "errorPattern" : "Los códigos deben ser alfanuméricos y máximo de 9 dígitos"
+        },
+        "binding" : "farmCode"
+    },
+    "CÓDIGO DEL NÚCLEO": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Código del núcleo no puede estar vacío",
+            "pattern" : "^[A-Za-z0-9]{1,9}$",
+            "errorPattern" : "Los códigos deben ser alfanuméricos y máximo de 9 dígitos"
+        },
+        "binding" : "centerCode"
+    },
+    "CÓDIGO DEL GALPÓN": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Código del galpón no puede estar vacío",
+            "pattern" : "^[a-zA-Z0-9]{1}[a-zA-Z0-9_-]{0,43}[a-zA-Z0-9]{1}$",
+            "errorPattern" : "Los códigos de galpón son alfanumericos y debe haber un máximo de 45 caracteres",
+            "uniqueGroup" : ["partnershipCode", "farmCode", "centerCode", "code"],
+            "errorUnique": "Codigó duplicado"      
+        },
+        "binding" : "code"
+    },
+    "ESTATUS DEL GALPÓN": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Estado del galpón no puede estar vacío",
+            "pattern" : "Disponible para Alojamiento|ocupado|Vacío|inhabilitado|reservado",
+            "errorPattern" : "Los tipos de postura son 'Disponible para Alojamiento', 'En recepcion','Alojado','Lleno','Disponible para Desalojo','En Desalojo','En Mantenimiento','Descanso','Desinfectado' o 'Deshabilitado'"
+        },
+        "binding" : "statusShed"
+    },
+    "TIPO DE GALPÓN": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : false,
+            "errorEmpty" : "Tipo de galpón no puede estar vacío",
+            "pattern" :"Reproducción|Engorde|Levante y Cría",
+            "errorPattern" : "Los tipos de granja son 'Reproducción', 'Engorde' o 'Levante y Cría'"
+        },
+        "binding" : "type"
+    },
+    "FECHA DE CONSTRUCCIÓN": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : false,
+            "errorEmpty" : "Fecha de construcción n no puede estar vacío",
+            "pattern" : "^[0-9]{4}-(((11|(0(4|6|9)))-((([0-2][1-9])|([1-3]0))))|((1(0|2)|(0(1|3|5|7|8)))-((([0-2][1-9])|31|([1-3]0))))|(02-(([0-1][1-9])|(2[0-8])|([1-2]0))))$",
+            "errorPattern" : "Lo ingresado debe estar en formato de fecha: aaaa-mm-dd"
+        },
+        "binding" : "building_date"
+    },
+    "ANCHO DEL GALPÓN (METROS)": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Ancho del galpón no puede estar vacío",
+            "pattern" : "^([0-9]{1,10})([.][0-9]{1,3})?$",
+            "errorPattern" : "Debe ingresar valores numéricos enteros o en formato numero.decimas con máximo 3 decimales"
+        },
+        "binding" : "stall_width"
+    },
+    "LARGO DEL GALPÓN (METROS)": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Largo del galpón no puede estar vacío",
+            "pattern" : "^([0-9]{1,10})([.][0-9]{1,3})?$",
+            "errorPattern" : "Debe ingresar valores numéricos enteros o en formato numero.decimas con máximo 3 decimales"
+        },
+        "binding" : "stall_height"
+    },
+    "CAPACIDAD MÍNIMA": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Capacidad mínima no puede estar vacío",
+            "pattern" : "^([0-9]{1,10})([.][0-9]{1,3})?$",
+            "errorPattern" : "Debe ingresar valores numéricos enteros o en formato numero.decimas con máximo 3 decimales"
+        },
+        "binding" : "capacity_min"
+    },
+    "CAPACIDAD MÁXIMA": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Capacidad máxima no puede estar vacío",
+            "pattern" : "^([0-9]{1,10})([.][0-9]{1,3})?$",
+            "errorPattern" : "Debe ingresar valores numéricos enteros o en formato numero.decimas con máximo 3 decimales"
+        },
+        "binding" : "capacity_max"
+    },
+    "AMBIENTE": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : false,
+            "errorEmpty" : "Ambiente no puede estar vacío",
+            "pattern" : "^[0-9]{1,9}$",
+            "errorPattern" : "Debe ingresar valores numéricos enteros"
+        },
+        "binding" : "environment_id"
+    },
+    "DÍAS DE ROTACIÓN": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "Días de rotación no puede estar vacío",
+            "pattern" : "^[0-9]{1,9}$",
+            "errorPattern" : "Debe ingresar valores numéricos enteros"
+        },
+        "binding" : "rotation_days"
+    },
+    "CANTIDAD DE NIDOS": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : false,
+            "errorEmpty" : "Cantidad de nidos no puede estar vacío",
+            "pattern" : "^[0-9]{1,9}$",
+            "errorPattern" : "Debe ingresar valores numéricos enteros"
+        },
+        "binding" : "nests_quantity"
+    },
+    "CANTIDAD DE JAULAS": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : false,
+            "errorEmpty" : "Cantidad de jaulas no puede estar vacío",
+            "pattern" : "^[0-9]{1,9}$",
+            "errorPattern" : "Debe ingresar valores numéricos enteros"
+        },
+        "binding" : "cages_quantity"
+    },
+    "CANTIDAD DE AVES": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : false,
+            "errorEmpty" : "Cantidad de aves no puede estar vacío",
+            "pattern" : "^[0-9]{1,9}$",
+            "errorPattern" : "Debe ingresar valores numéricos enteros"
+        },
+        "binding" : "birds_quantity"
+    },
+    "CAPACIDAD TEÓRICA": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : false,
+            "errorEmpty" : "Cantidad de jaulas no puede estar vacío",
+            "pattern" : "^[0-9]{1,9}$",
+            "errorPattern" : "Debe ingresar valores numéricos enteros"
+        },
+        "binding" : "capacity_theoretical"
+    }
+
+}

@@ -1,0 +1,103 @@
+{
+	"Title": "Etapas",
+	"viewProcess": true,
+	"viewMachines": false,
+	"viewSex": false,
+	"viewEviction": false,
+	"CurrentParameter": "process",
+	"program": [
+		{
+			"lot": "C32",
+			"scheduled_date": "01/04/2019",
+			"farm_code": "Madroño",
+			"shed_id": "A70",
+			"execution_date": "05/04/2019",
+			"farm_execution": "Madroño",
+			"shed_execution": "A71",
+			"errors": null
+		}
+	],
+	"stages": [
+		{
+			"name": "Parámetros",
+			"route": "parameters",
+			"stages": [
+				{
+					"name": "Proceso",
+					"route": "process"
+				},
+				{
+					"name": "Grupo de Máquinas",
+					"route": "machines"
+				},
+				{
+					"name": "Clasificación Sexaje",
+					"route": "sex"
+				},
+				{
+					"name": "Partición de Desalojo",
+					"route": "eviction"
+				}
+			]
+		},
+		{
+			"name": "Cria y Levante",
+			"route": "breedingplanning"
+		},
+		{
+			"name": "Producción",
+			"route": "production"
+		},
+		{
+			"name": "Curva de Postura",
+			"route": "posturecurve"
+		},
+		{
+			"name": "Ventas/Compras",
+			"route": "sales"
+		},
+		{
+			"name": "Inventario",
+			"route": "inventary"
+		},
+		{
+			"name": "Incubación",
+			"route": "incubator"
+		},
+		{
+			"name": "Engorde",
+			"route": "broiler"
+		}
+	],
+	"Days": [
+		{
+			"day": "Lunes",
+			"key":"monday"
+		},
+		{
+			"day": "Martes",
+			"key":"tuesday"
+		},
+		{
+			"day": "Miercoles",
+			"key":"wednesday"
+		},
+		{
+			"day": "Jueves",
+			"key":"thursday"
+		},
+		{
+			"day": "Viernes",
+			"key":"friday"
+		},
+		{
+			"day": "Sabado",
+			"key":"saturday"
+		},
+		{
+			"day": "Domingo",
+			"key":"sunday"
+		}
+		
+	]
+}

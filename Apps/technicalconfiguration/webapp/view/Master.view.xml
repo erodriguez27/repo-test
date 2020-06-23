@@ -1,0 +1,27 @@
+<mvc:View 
+	xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m" 
+	xmlns:html="http://www.w3.org/1999/xhtml" 
+	controllerName="technicalConfiguration.controller.Master">
+		<sap.m.semantic:MasterPage 
+			title="{util>/title}" 
+			xmlns:sap.m.semantic="sap.m.semantic" id="masterPage">
+				<sap.m.semantic:customHeaderContent>
+					<Button icon="sap-icon://undo" tooltip="Ir al launchpad" press="goToLaunchpad" />
+				</sap.m.semantic:customHeaderContent>
+				<sap.m.semantic:content>
+					<Toolbar>
+						<SearchField id="masterSearchField" liveChange="onSearch" placeholder="{i18n>OS.searchEntity}" width="100%"/>
+					</Toolbar>
+					<List items="{util>/entities/data}"
+								noDataText="{i18n>noRecords}"
+								id="entitiesList"
+								updateFinished="onUpdateFinished">
+						<items>
+							<ObjectListItem press="onSelectionChange" type="Active" title="{util>displayName}" id="listItem"></ObjectListItem>
+						</items>
+					</List>
+				</sap.m.semantic:content>
+		</sap.m.semantic:MasterPage>
+</mvc:View>

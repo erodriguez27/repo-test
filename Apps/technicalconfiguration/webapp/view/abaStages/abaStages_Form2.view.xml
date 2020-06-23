@@ -1,0 +1,175 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="technicalConfiguration.controller.abaStages">
+
+	<!--<VBox>-->
+		<!--<sap.ui.layout.grid:Grid-->
+
+				<!--hSpacing="2"-->
+				<!--defaultSpan="L6 M6 S10">-->
+			<!--<content>-->
+				<!--<Image src="{0/ContactPicUrl}" width="100%">-->
+					<!--<layoutData>-->
+						<!--<GridData-->
+								<!--span="L3 M3 S8"-->
+								<!--linebreakL="true"-->
+								<!--linebreakM="true"-->
+								<!--linebreakS="true" />-->
+					<!--</layoutData>-->
+				<!--</Image>-->
+				<!--<VBox>-->
+					<!--<Text text="{0/FirstName} {0/LastName}" />-->
+					<!--<Text text="{0/Description}" />-->
+				<!--</VBox>-->
+			<!--</content>-->
+		<!--</sap.ui.layout.grid:Grid>-->
+	<!--</VBox>-->
+	<VBox class="sapUiSmallMargin" id="centerFormVBox">
+
+
+		<sap.ui.layout.form:SimpleForm
+				xmlns:sap.ui.layout.form="sap.ui.layout.form"
+				title="{i18n>abaStages.data}"
+				editable="true"
+				layout="ResponsiveGridLayout"
+				id="centerForm"
+				minWidth="1024"
+				maxContainerCols="2"
+				labelSpanL="3"
+				labelSpanM="3"
+				emptySpanL="4"
+				emptySpanM="4"
+				columnsL="1"
+				columnsM="1"
+				class="editableForm"
+		>
+
+			<!--<sap.ui.layout.form:content>-->
+				<!--<Label id="broilerProduct_name_label" visible="true" text="{i18n>breed.name}" required="true"/>-->
+ 				<!--<Input id="broilerProduct_name_input"-->
+ 							 <!--valueState="{MDBROILERPRODUCT>/name/state}"-->
+ 		 					 <!--valueStateText="{MDBROILERPRODUCT>/name/stateText}"-->
+ 							 <!--value="{ path: 'MDBROILERPRODUCT>/name/value', type: 'sap.ui.model.type.String'}"-->
+ 							 <!--editable="{MDBROILERPRODUCT>/name/editable}"/>-->
+			<!--</sap.ui.layout.form:content>-->
+			<sap.ui.layout.form:content>
+				<Label id="abaStages_breed_label" visible="true" text="Raza/Tipo" required="{MDBROILERPRODUCT>/name/required}"/>
+				<ComboBox id="abaStages_breed_combo">
+					<core:Item key="1" text="Cobb Engorde cobeng0 rusas" />
+					<core:Item key="2" text="Cobb Reproductoras" />
+					<core:Item key="3" text="H Engorde" />
+					<core:Item key="4" text="H Reproductoras" />
+					<core:Item key="5" text="Ross Engorde" />
+					<core:Item key="6" text="Ross Reproductoras" />
+				</ComboBox>
+			</sap.ui.layout.form:content>
+		</sap.ui.layout.form:SimpleForm>
+			<!--<sap.ui.layout.form:content>-->
+				<!--<Label id="abaStages_stage_label" visible="true" text="Etapa" required="{MDBROILERPRODUCT>/name/required}"/>-->
+				<!--<ComboBox id="abaStages_stage_combo">-->
+					<!--<core:Item key="1" text="Engorde" />-->
+					<!--<core:Item key="2" text="Incubación" />-->
+					<!--<core:Item key="3" text="Reproductoras" />-->
+					<!--<core:Item key="4" text="Cría y Levante" />-->
+				<!--</ComboBox>-->
+			<!--</sap.ui.layout.form:content>-->
+			<!--<sap.ui.layout.form:content>-->
+				<!--<Label id="abaStages_subStage_label" visible="true" text="Fase" required="{MDBROILERPRODUCT>/name/required}"/>-->
+				<!--<Input id="abaStages_subStage_input"-->
+					   <!--valueState=""-->
+					   <!--valueStateText=""-->
+					   <!--value=""-->
+					   <!--editable="true"/>-->
+			<!--</sap.ui.layout.form:content>-->
+			<!--<sap.ui.layout.form:content>-->
+				<!--<Label id="abaStages_duration_label" visible="true" text="Duración" required="{MDBROILERPRODUCT>/name/required}"/>-->
+				<!--<Input id="abaStages_duration_input"-->
+					   <!--valueState=""-->
+					   <!--valueStateText=""-->
+					   <!--value=""-->
+					   <!--editable="true"/>-->
+			<!--</sap.ui.layout.form:content>-->
+
+		<!--<sap.ui.layout.form:content>-->
+
+		<Table id="idProductsTable8"
+			   inset="false"
+			   mode="Delete"
+			   delete="handleDelete"
+			   width="80%"
+		>
+
+			<headerToolbar>
+				<Toolbar>
+					<content>
+						<Title text="Fase" level="H2"/>
+						<Button text="Agregar" icon="sap-icon://add" press="onPress" ariaLabelledBy="editButtonLabel" />
+					</content>
+				</Toolbar>
+			</headerToolbar>
+			<columns>
+				<Column
+						width="12em">
+					<Text text="Nombre" />
+				</Column>
+				<Column
+						minScreenWidth="Tablet"
+						demandPopin="true">
+					<Text text="Duración" />
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<Input id="abaStage_substage_name_input"
+							   valueState=""
+							   valueStateText=""
+							   value=""
+							   editable="true"
+							   description=""
+							   fieldWidth="15%"
+						/>
+						<Input id="abaStage_substage_duration_input2"
+							   valueState=""
+							   valueStateText=""
+							   value=""
+							   editable="true"
+							   description=""
+							   fieldWidth="15%"
+						/>
+						<!--<Text-->
+						<!--text="{Width} x {Depth} x {Height} {DimUnit}" />-->
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+			<!--</sap.ui.layout.form:content>-->
+	<!--&lt;!&ndash;</VBox>&ndash;&gt;-->
+	<!--&lt;!&ndash;<VBox>&ndash;&gt;-->
+		<!--<sap.ui.layout.form:SimpleForm>-->
+			<sap.ui.layout.form:content>
+				<Label id="abaStages_code_label" visible="true" text="Código" required="{MDBROILERPRODUCT>/name/required}"/>
+				<Input id="abaStages_code_input"
+					   valueState=""
+					   valueStateText=""
+					   value=""
+					   editable="false"/>
+			</sap.ui.layout.form:content>
+			<sap.ui.layout.form:content>
+				<Label id="abaStages_name_label" visible="true" text="Nombre" required="{MDBROILERPRODUCT>/name/required}"/>
+				<Input id="abaStages_name_input"
+					   valueState=""
+					   valueStateText=""
+					   value=""
+					   editable="false"/>
+			</sap.ui.layout.form:content>
+			<sap.ui.layout.form:content>
+				<Label id="abaStages_order_label" visible="true" text="Orden" required="{MDBROILERPRODUCT>/name/required}"/>
+				<Input id="abaStages_order_input"
+					   valueState=""
+					   valueStateText=""
+					   value=""
+					   editable="false"/>
+			</sap.ui.layout.form:content>
+	<!--</sap.ui.layout.form:SimpleForm>-->
+
+	</VBox>
+</mvc:View>

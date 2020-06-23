@@ -1,0 +1,189 @@
+{
+  "id": {
+    "value": ""
+  },
+  "code": {
+    "value": "",
+    "state": "None",
+    "stateText": "",
+    "visible": true,
+    "editable": false,
+    "required": true
+  },
+  "name": {
+    "value": "",
+    "state": "None",
+    "stateText": "",
+    "visible": true,
+    "editable": false,
+    "required": true
+  },
+  "breeds": {
+    "id": "",
+    "value": "",
+    "state": "None",
+    "stateText": "",
+    "visible": true,
+    "editable": false,
+    "required": true
+  },
+  "types": {
+    "id": "",
+    "value": "",
+    "state": "None",
+    "stateText": "",
+    "visible": true,
+    "editable": false,
+    "required": true
+  },
+  "time": {
+    "id": "",
+    "timeUnitNameSingular": "",
+    "timeUnitNamePlural": "",
+    "timeUnitNumber": "",
+    "value": "",
+    "state": "None",
+    "stateText": "",
+    "visible": true,
+    "editable": false,
+    "required": true
+  },
+  "timeUnitInfo": {
+    "timeUnitNumber":"",
+    "value": "",
+    "state": "None",
+    "stateText": "",
+    "visible": true,
+    "editable": true,
+    "required": true
+  },
+  "records2": [],
+  "records": [
+    {
+      "abaConsumptionAndMortality_id": 1,
+      "idBreed": "1",
+      "idStage": "1",
+      "code": "1",
+      "name": "Rusas",
+      "timeUnit": "Semanas",
+      "timeUnitType": "2",
+      "timeUnitNumber": "6",
+      "timeUnitInfo": [
+        {
+          "id": "1",
+          "index": "1",
+          "consumption": "10",
+          "mortality": "60"
+        },
+        {
+          "id": "2",
+          "index": "2",
+          "consumption": "110",
+          "mortality": "60"
+        },
+        {
+          "id": "3",
+          "index": "3",
+          "consumption": "101",
+          "mortality": "60"
+        },
+        {
+          "id": "4",
+          "index": "4",
+          "consumption": "110",
+          "mortality": "60"
+        },
+        {
+          "id": "5",
+          "index": "5",
+          "consumption": "101",
+          "mortality": "60"
+        },
+        {
+          "id": "6",
+          "index": "6",
+          "consumption": "110",
+          "mortality": "60"
+        }
+      ]
+    },
+    {
+      "abaConsumptionAndMortality_id": 2,
+      "idBreed": "2",
+      "idStage": "2",
+      "code": "2",
+      "name": "Italianas",
+      "timeUnit": "Dias",
+      "timeUnitType": "1",
+      "timeUnitNumber": "4",
+      "timeUnitInfo": [
+        {
+          "id": "1",
+          "index": "1",
+          "consumption": "10",
+          "mortality": "60"
+        },
+        {
+          "id": "2",
+          "index": "2",
+          "consumption": "110",
+          "mortality": "60"
+        },
+        {
+          "id": "3",
+          "index": "3",
+          "consumption": "101",
+          "mortality": "60"
+        },
+        {
+          "id": "4",
+          "index": "4",
+          "consumption": "110",
+          "mortality": "60"
+        }
+      ]
+    }
+  ],
+  "comboBoxesData": {
+    "breeds": [
+      {
+        "id": 1,
+        "code": "1",
+        "name": "Cobb",
+        "order": "1"
+      },
+      {
+        "id": 2,
+        "code": "2",
+        "name": "H",
+        "order": "2"
+      },
+      {
+        "id": 3,
+        "code": "3",
+        "name": "Ross",
+        "order": "3"
+      }
+    ],
+    "stages": [
+      {
+        "id": 1,
+        "code": "1",
+        "name": "Engorde",
+        "order": "1"
+      },
+      {
+        "id": 2,
+        "code": "2",
+        "name": "Reproduccion",
+        "order": "2"
+      }
+    ]
+  },
+  "selectedRecordPath": "",
+  "create": false,
+  "modify": true,
+  "delete": true,
+  "save": true,
+  "cancel": true
+}

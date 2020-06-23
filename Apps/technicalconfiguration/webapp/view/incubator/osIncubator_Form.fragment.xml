@@ -1,0 +1,82 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.ui.layout.form">
+	<VBox class="sapUiSmallMargin">
+		<f:SimpleForm title="Datos Máquina de Incubadora" editable="true" layout="ResponsiveGridLayout" labelSpanM="4" emptySpanM="2">
+			<f:content>
+				<Label text="Nombre" required="{OSINCUBATOR>/name/required}"/>
+				<Input value="{ path: 'OSINCUBATOR>/name/value', type: 'sap.ui.model.type.String'}"
+					valueState="{OSINCUBATOR>/name/state}"
+					valueStateText="{OSINCUBATOR>/name/stateText}"
+					editable="{OSINCUBATOR>/name/editable/}"
+					liveChange="changeName"/>
+
+				<Label text="Código" required="{OSINCUBATOR>/code/required}"/>
+				<Input value="{ path: 'OSINCUBATOR>/code/value', type: 'sap.ui.model.type.String'}"
+					valueState="{OSINCUBATOR>/code/state}"
+					valueStateText="{OSINCUBATOR>/code/stateText}"
+					editable="{OSINCUBATOR>/code/editable/}"
+					liveChange="changeCode"/>
+
+				<Label text="Descripción" required="{OSINCUBATOR>/description/required}"/>
+				<Input value="{ path: 'OSINCUBATOR>/description/value', type: 'sap.ui.model.type.String'}"
+					valueState="{OSINCUBATOR>/description/state}"
+					valueStateText="{OSINCUBATOR>/description/stateText}"
+					editable="{OSINCUBATOR>/description/editable/}"
+					liveChange="changeDescription"/>
+
+				<Label text="Capacidad" required="{OSINCUBATOR>/capacity/required}"/>
+				<Input value="{ path: 'OSINCUBATOR>/capacity/value', type: 'sap.ui.model.type.String'}"
+					valueState="{OSINCUBATOR>/capacity/state}"
+					valueStateText="{OSINCUBATOR>/capacity/stateText}"
+					editable="{OSINCUBATOR>/capacity/editable/}"
+					liveChange="validateIntInput"/>
+
+				<Label  text="Orden Alojamiento" required="{OSINCUBATOR>/order/required}"/>
+				<Input id="Order_input"
+					valueState="{OSINCUBATOR>/order/state}"
+		 			valueStateText="{OSINCUBATOR>/order/stateText}"
+					value="{ path: 'OSINCUBATOR>/order/value', type: 'sap.ui.model.type.Number'}"
+					editable="{OSINCUBATOR>/order/editable}"
+					liveChange="validateOrderIntInput"/>
+
+
+				<Label text="Dias Laborables" />
+
+				<CheckBox text="Domingo" enabled="{OSINCUBATOR>/sunday/enabled}" selected = "{OSINCUBATOR>/sunday/value}"/>
+				<CheckBox text="Lunes" enabled="{OSINCUBATOR>/monday/enabled}" selected="{OSINCUBATOR>/monday/value}">
+					<layoutData>
+						<l:GridData linebreak="true" indentL="4" indentM="4" />
+					</layoutData>
+				</CheckBox>
+				<CheckBox id="focusMe" text="Martes" enabled="{OSINCUBATOR>/tuesday/enabled}" selected = "{OSINCUBATOR>/tuesday/value}">
+					<layoutData>
+						<l:GridData linebreak="true" indentL="4" indentM="4" />
+					</layoutData>
+				</CheckBox>
+
+				<CheckBox id="focusMe2" text="Miercoles" enabled="{OSINCUBATOR>/wednesday/enabled}" selected = "{OSINCUBATOR>/wednesday/value}">
+					<layoutData>
+						<l:GridData linebreak="true" indentL="4" indentM="4" />
+					</layoutData>
+				</CheckBox>
+
+				<CheckBox id="focusMe3" text="Jueves" enabled="{OSINCUBATOR>/thursday/enabled}" selected = "{OSINCUBATOR>/thursday/value}">
+					<layoutData>
+						<l:GridData linebreak="true" indentL="4" indentM="4" />
+					</layoutData>
+				</CheckBox>
+
+				<CheckBox id="focusMe4" text="Viernes" enabled="{OSINCUBATOR>/friday/enabled}" selected = "{OSINCUBATOR>/friday/value}">
+					<layoutData>
+						<l:GridData linebreak="true" indentL="4" indentM="4" />
+					</layoutData>
+				</CheckBox>
+
+				<CheckBox id="focusMe5" text="Sabado" enabled="{OSINCUBATOR>/saturday/enabled}" selected = "{OSINCUBATOR>/saturday/value}">
+					<layoutData>
+						<l:GridData linebreak="true" indentL="4" indentM="4" />
+					</layoutData>
+				</CheckBox>
+			</f:content>
+		</f:SimpleForm>
+	</VBox>
+</core:FragmentDefinition>

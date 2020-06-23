@@ -1,0 +1,56 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" 
+	xmlns="sap.m" 
+	xmlns:f="sap.ui.layout.form">
+	<VBox class="sapUiSmallMargin">
+		<f:SimpleForm editable="true" layout="ResponsiveGridLayout" width="100%" title="{i18n>posturecurve.data}">
+			<Label text="Raza"/>
+			<Select id="selectBreed"
+				selectedKey='{TXPOSTURECURVE>/breed_id/value}'
+				change='onBreedChanged'
+				items="{TXPOSTURECURVE>/breedRecords}"
+				forceSelection="false"
+				valueState="{TXPOSTURECURVE>/breed_id/state}"
+				valueStateText="{TXPOSTURECURVE>/breed_id/stateText}">
+
+				<items>
+					<core:Item text="{TXPOSTURECURVE>name}" key="{TXPOSTURECURVE>breed_id}" />
+				</items>
+			</Select>
+
+			<Label text="Cantidad de Semanas"/>
+			<Select id="selectRecuDays" 
+				selectedKey='{TXPOSTURECURVE>/selectDay}'
+				change='daysSelect' 
+				items="{TXPOSTURECURVE>/days}" 
+				forceSelection="false"
+				valueState="{TXPOSTURECURVE>/days_state}"
+				valueStateText="{TXPOSTURECURVE>/days_stateText}">
+				<items>
+					<core:Item text="{TXPOSTURECURVE>day}" key="{TXPOSTURECURVE>key}" enabled="{TXPOSTURECURVE>enabled}"/>
+				</items>
+			</Select>
+
+			<Button width="auto" text="Generar" press="saveRecuDates"/>
+		</f:SimpleForm>
+
+		<Table id="list" inset="false" width="100%" items="{TXPOSTURECURVE>/newRecords}">
+			<columns>
+				<Column hAlign="Center" width="12em">
+					<Text text="Semanas"/>
+				</Column>
+				<Column hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+					<Text text="Producción de huevos por gallina por semana"/>
+				</Column>
+			</columns>
+
+			<items>
+				<ColumnListItem>
+					<cells>
+						<Text text="{TXPOSTURECURVE>week}"/>
+						<Input id="txposturecurve_eggs" valueState="{TXPOSTURECURVE>state}" valueStateText="{TXPOSTURECURVE>stateText}" value="{TXPOSTURECURVE>theorical_performance}" editable="true" width="30%" liveChange="validateFloatInput"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</VBox>
+</core:FragmentDefinition>

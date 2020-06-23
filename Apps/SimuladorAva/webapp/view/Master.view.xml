@@ -1,0 +1,18 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:u="sap.ui.unified"
+          controllerName="abaRegressivePlanning.controller.Master">
+    <App>
+        <pages>
+            <Page title="Escenarios">
+               
+                <List id="scenarioList" items="{data>/scenarios}" mode="{data>/listType}"
+                      selectionChange="onSelectionChange">
+                    <items>
+                        <ObjectListItem title="{data>name}" press="onSelectionChange"/>
+                        
+                    </items>
+                </List>
+            </Page>
+        </pages>
+    </App>
+</mvc:View>

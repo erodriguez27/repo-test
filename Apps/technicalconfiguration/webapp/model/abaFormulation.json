@@ -1,0 +1,179 @@
+{
+  "id":{
+      "value":""
+  },
+  "code": {
+      "value": "",
+      "state": "None",
+      "stateText": "",
+      "visible": true,
+      "editable": false,
+      "required": true
+  },
+  "name": {
+      "value": "",
+      "state": "None",
+      "stateText": "",
+      "visible": true,
+      "editable": false,
+      "required": true
+  },
+    "order": {
+        "value": "",
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": false
+    },
+    "abaElements": {
+      "value": [],
+      "state": "None",
+      "stateText": "",
+      "visible": true,
+      "editable": false,
+      "required": false
+    },
+    "abaProperties": {
+      "value": [],
+      "state": "None",
+      "stateText": "",
+      "visible": true,
+      "editable": false,
+      "required": false
+    },
+    "alimentsAndProportions":{
+      "value": [],
+      "state": "None",
+      "stateText": "",
+      "visible": true,
+      "editable": false,
+      "required": false
+    },
+    "alimentsEquivalence":{
+      "value": [],
+      "state": "None",
+      "stateText": "",
+      "visible": true,
+      "editable": false,
+      "required": false
+    },
+    "tableType": "None",
+    "records2": [],
+    "records": [
+      {
+        "abaFormulation_id": 1,
+        "code": "1",
+        "name": "Cachama 28%",
+        "order": "1",
+        "alimentsAndProportions": [
+          {
+            "idAbaElement": "1",
+            "proportion": "60"
+          },
+          {
+            "idAbaElement": "2",
+            "proportion": "30"
+          }
+        ],
+        "alimentsEquivalence": [
+          {
+            "idAbaElement1": "1",
+            "idAbaElement2": "2",
+            "idProperty": "1",
+            "equivalentValue": "2000"
+          },
+          {
+            "idAbaElement1": "2",
+            "idAbaElement2": "1",
+            "idProperty": "2",
+            "equivalentValue": "1000"
+          }
+        ]
+      },
+      {
+        "abaFormulation_id": 2,
+        "code": "2",
+        "name": "Cachama 30000%",
+        "order": "2",
+        "alimentsAndProportions": [
+          {
+            "idAbaElement": "1",
+            "proportion": "60"
+          },
+          {
+            "idAbaElement": "2",
+            "proportion": "30"
+          }
+        ],
+        "alimentsEquivalence": [
+          {
+            "idAbaElement1": "1",
+            "idAbaElement2": "2",
+            "idProperty": "2",
+            "equivalentValue": "2000"
+          },
+          {
+            "idAbaElement1": "2",
+            "idAbaElement2": "1",
+            "idProperty": "2",
+            "equivalentValue": "1000"
+          }
+        ]
+      }
+     ],
+    "comboBoxesData": {
+      "abaElements": [
+        {
+          "id": 1,
+          "code": "1",
+          "name": "Maiz",
+          "order": "1"
+        },
+        {
+          "id": 2,
+          "code": "2",
+          "name": "Soya",
+          "order": "2"
+        },
+        {
+          "id": 3,
+          "code": "3",
+          "name": "Sorgo",
+          "order": "3"
+        },
+        {
+          "id": 4,
+          "code": "4",
+          "name": "Trigo",
+          "order": "4"
+        },
+        {
+          "id": 5,
+          "code": "5",
+          "name": "Cebada",
+          "order": "5"
+        }
+      ],
+      "abaProperties": [
+        {
+          "id": 1,
+          "code": "1",
+          "name": "Kcal",
+          "order": "1"
+        },
+        {
+          "id": 2,
+          "code": "2",
+          "name": "% Proteina",
+          "order": "2"
+        }
+      ]
+    },
+    "selectedRecordPath": "",
+    "create": false,
+  	"modify": true,
+  	"delete": true,
+  	"save": true,
+  	"cancel": true
+}

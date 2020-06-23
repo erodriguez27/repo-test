@@ -1,0 +1,62 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="technicalConfiguration.controller.mdmeasure">
+	<VBox class="sapUiSmallMargin" id="centerFormVBox">
+		<sap.ui.layout.form:SimpleForm
+			xmlns:sap.ui.layout.form="sap.ui.layout.form"
+			title="{i18n>measure.data}"
+			editable="true"
+			layout="ResponsiveGridLayout"
+			id="measureForm"
+			minWidth="1024"
+			maxContainerCols="2"
+			labelSpanL="3"
+			labelSpanM="3"
+			emptySpanL="4"
+			emptySpanM="4"
+			columnsL="1"
+			columnsM="1"
+			class="editableForm">
+
+			<sap.ui.layout.form:content>
+				<Label id="measure_name_label" visible="true" text="{i18n>measure.name}" required="{MDMEASURE>/name/required}"/>
+				<Input id="measure_name_input"
+					valueState="{MDMEASURE>/name/state}"
+					valueStateText="{MDMEASURE>/name/stateText}"
+					value="{ path: 'MDMEASURE>/name/value', type: 'sap.ui.model.type.String'}"
+					editable="{MDMEASURE>/name/editable}"
+					liveChange="changeNameMeasure"/>
+
+				<Label id="measure_abbr_label" text="{i18n>measure.abbr}" required="{MDMEASURE>/abbreviation/required}"/>
+				<Input id="measure_abbr_input"
+					valueState="{MDMEASURE>/abbreviation/state}"
+					valueStateText="{MDMEASURE>/abbreviation/stateText}"
+					value="{path: 'MDMEASURE>/abbreviation/value'}"
+					editable="{MDMEASURE>/abbreviation/editable}"
+					liveChange="changeAbrevMeasure"/>
+
+				<core:Title text="{i18n>stage.conversion}" />
+
+				<Label text="{i18n>measure.isUnit}" id="isUnit"/>
+				<CheckBox 	selected="{path: 'MDMEASURE>/is_unit/value'}" editable="{MDMEASURE>/is_unit/editable}"
+					select="changeIsUnit" required="{MDMEASURE>/is_unit/required}" />
+
+				<Label id="measure_ovalue_label" text="{i18n>measure.measureValue}" required="{MDMEASURE>/originvalue/required}"/>
+				<Input id="measure_ovalue_input"
+					valueState="{MDMEASURE>/originvalue/state}"
+					valueStateText="{MDMEASURE>/originvalue/stateText}"
+					value="{ path: 'MDMEASURE>/originvalue/value'}"
+					editable="{MDMEASURE>/originvalue/editable}"
+					description="{path: 'MDMEASURE>/abbreviation/value'}"
+					liveChange="validateIntInput"/>
+
+			 	<Label id="measure_valuekg_label" text="{i18n>measure.equivalent}" required="{MDMEASURE>/valuekg/required}"/>
+			 	<Input id="measure_valuekg_input"
+					valueState="{MDMEASURE>/valuekg/state}"
+					valueStateText="{MDMEASURE>/valuekg/stateText}"
+					value="{path: 'MDMEASURE>/valuekg/value'}"
+					editable="{MDMEASURE>/valuekg/editable}"
+					description= "{parts: [{path: 'MDMEASURE>/valuekg/value'}, {path: 'MDMEASURE>/abbreviation/value'} ], formatter: '.formatter.onkg2'}"
+					liveChange="validateFloatInput"/>
+			</sap.ui.layout.form:content>
+		</sap.ui.layout.form:SimpleForm>
+	</VBox>
+</mvc:View>

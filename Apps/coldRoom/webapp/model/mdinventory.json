@@ -1,0 +1,50 @@
+{
+    "entry":{
+        "records": [],
+        "selectRecord":{},
+        "objectSearch":{},
+        "viewEntrySave": false,
+        "entryNew":false
+    },
+    "egress":{
+        "records": [],
+        "objectSearch":{},
+        "selectRecord":{},
+        "egressBalance":0,
+        "viewEgressDate": false,
+        "egressNew": false
+    },
+    "adjustment":[{
+        "name": "Plexus"
+    }],
+    "new":[{
+        "name": "Compra"
+    }],
+    "origin":[{
+        "name": "Curva de postura"
+    },
+    {
+        "name": "Compra"
+    },
+    {
+        "name":"Plexus"
+    }],
+    "EgressOpts":[{
+        "name": "Huevos vasija"
+    },
+    {
+        "name": "Huevo comercial"
+    },
+    {
+        "name": "Ventas de huevo fértil"
+    }
+],
+    "curva":true,
+    "compra":false,
+    "name": {
+        "state": "None",
+        "stateText": ""
+    },
+    "confirmBtn": false,
+    "plexus":false
+}

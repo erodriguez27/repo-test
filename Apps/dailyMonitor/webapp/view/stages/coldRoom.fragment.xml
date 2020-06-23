@@ -1,0 +1,44 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+  <FlexBox width="100%" id="fb6" justifyContent="Center">   
+    <items>
+      <DatePicker id="scheduled_date_fb6" valueFormat="dd-MM-yyyy" value="{mdColdRoomMonitor>/date}" placeholder="Desde" change="change" 
+                  class="sapUiSmallMarginBottom"/>
+      <DatePicker id="scheduled_date_fb6_6" valueFormat="dd-MM-yyyy" value="{mdColdRoomMonitor>/date2}" placeholder="Hasta" change="change2" 
+                  class="sapUiSmallMarginBottom"/>
+      <Button text="Buscar" press="onPress"></Button>
+    </items>
+  </FlexBox>
+  
+  <Table id="coldRoomTableId" inset="false" items="{path:'mdColdRoomMonitor>/records'}" selectionChange="onDialogPress" growing="true"
+        						growingScrollToLoad="true">
+    <columns>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Fecha" />
+      </Column>
+      
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Lote" />
+      </Column>
+      
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad (UN)" />
+      </Column>
+      
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Planta incubadora" />
+      </Column>
+      
+    </columns>
+      
+    <items>
+      <ColumnListItem>
+        <cells>
+          <Text text="{mdColdRoomMonitor>scheduled_date}" /> 
+          <Text text="{mdColdRoomMonitor>lot}"/> 
+          <Text text="{path:'mdColdRoomMonitor>scheduled_quantity',formatter: '.formatter.formatMiles' }" />
+          <Text text="{mdColdRoomMonitor>ip}" />
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</core:FragmentDefinition>

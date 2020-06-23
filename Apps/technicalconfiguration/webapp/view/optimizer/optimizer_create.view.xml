@@ -1,0 +1,14 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="technicalConfiguration.controller.optimizer">
+	<sap.m.semantic:DetailPage xmlns:sap.m.semantic="sap.m.semantic" title="{i18n>createTitle}" showNavButton="true" navButtonPress="onNavBack">
+		<sap.m.semantic:content >
+	     <core:Fragment fragmentName="technicalConfiguration.view.optimizer.optimizer_Form" type="XML"/>
+		</sap.m.semantic:content>
+		<sap.m.semantic:customFooterContent>
+			<Button text="{i18n>create}" width="100px" visible="{optimizer>/create}" enabled="{optimizer>/enable}" type="Accept" press="onCreate"/>
+			<Button text="{i18n>modify}" width="100px" id="modifyBtn" type="modify" visible="{optimizer>/modify}" press="onModRecord"/>
+			<Button text="{i18n>delete}" width="100px" id="deleteBtn" type="Reject" visible="{optimizer>/modify}" press="onConfirmDelete"/>
+			<Button text="{i18n>save}" width="100px" visible="{optimizer>/save}" enabled="{optimizer>/enable}" type="Accept" press="onUpdate"/>
+			<Button text="{i18n>cancel}" width="100px" visible="{optimizer>/save}" type="Reject" press="onModRecordFalse"/>
+		</sap.m.semantic:customFooterContent>
+	</sap.m.semantic:DetailPage>
+</mvc:View>

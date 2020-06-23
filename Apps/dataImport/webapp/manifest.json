@@ -1,0 +1,196 @@
+{
+    "_version": "1.1.0",
+    "sap.app": {
+        "_version": "1.1.0",
+        "id": "dataImport",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "sourceTemplate": {
+            "id": "ui5template.basicSAPUI5ApplicationProject",
+            "version": "1.32.0"
+        },
+        "dataSources": {
+            "ZOD_SF_ETDM_0001_SRV": {
+                "uri": "/sap/opu/odata/sap/ZOD_SF_ETDM_0002_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "/sap/opu/odata/sap/ZOD_SF_ETDM_0002_SRV/$metadata"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "_version": "1.1.0",
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        },
+        "supportedThemes": [
+            "sap_hcb",
+            "sap_bluecrystal"
+        ]
+    },
+    "sap.ui5": {
+        "_version": "1.1.0",
+        "rootView": {
+            "viewName": "dataImport.view.App",
+            "type": "XML"
+        },
+        "dependencies": {
+            "minUI5Version": "1.30.0",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.m": {},
+                "sap.ui.layout": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "dataImport.i18n.i18n"
+                }
+            },
+            "data": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "localService/data.json"
+            },
+            "service": {
+                "dataSource": "ZOD_SF_ETDM_0001_SRV",
+                "type": "sap.ui.model.odata.v2.ODataModel"
+            },
+            "structure": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "model/structure.json"
+            },
+            "ui": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "model/ui.json"
+            },
+            "header": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "model/header.json"
+            },
+            "oswarehouse": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "model/headers/oswarehouse.json"
+            },
+            "osshed" : {
+                "type" : "sap.ui.model.json.JSONModel",
+                "uri": "model/headers/osshed.json"
+            },
+            "txposturecurve": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "model/headers/txposturecurve.json"
+            },
+            "osppppartnership": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "model/headers/osppppartnership.json"
+            },
+            "osfarm": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "model/headers/osfarm.json"
+            },
+            "osincubator":{
+                "type" : "sap.ui.model.json.JSONModel",
+                "uri": "model/headers/osincubator.json"
+            },
+            "oscenter":{
+                "type" : "sap.ui.model.json.JSONModel",
+                "uri": "model/headers/oscenter.json"
+            },
+            "osincubatorplant":{
+                "type" : "sap.ui.model.json.JSONModel",
+                "uri": "model/headers/osincubatorplant.json"
+            },
+            "mdparameter":{
+                "type" : "sap.ui.model.json.JSONModel",
+                "uri": "model/headers/mdparameter.json"
+            }
+        },
+        "resources": {
+            "css": [{
+                "uri": "css/style.css"
+            }]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "viewPath": "dataImport.view",
+                "async": true,
+                "clearTarget" : false
+            },
+            "routes": [{
+                    "pattern": "",
+                    "name": "select",
+                    "view": "Sheds",
+                    "targetAggregation": "pages",
+                    "targetControl": "fullscreenId"
+                },
+                {
+                    "pattern": "splitapp",
+                    "name": "splitapp",
+                    "view": "splitApp",
+                    "targetAggregation": "pages",
+                    "targetControl": "fullscreenId",
+                    "subroutes": [{
+                        "pattern": "master",
+                        "name": "master",
+                        "view": "Master",
+                        "targetAggregation": "masterPages",
+                        "targetControl": "splitID",
+                        "subroutes": [{
+                            "pattern": "data/{id}",
+                            "name": "detail",
+                            "view": "Detail",
+                            "targetAggregation": "detailPages"
+                        }]
+                    }]
+                }
+            ],
+            "targets": {
+                "sheds": {
+                    "viewName": "Sheds",
+                    "viewLevel": 0
+                },
+                "splitapp": {
+                    "viewName": "splitApp"
+                },
+                "master": {
+                    "viewName": "Master",
+                    "viewLevel": 1,
+                    "controlAggregation": "masterPages"
+                },
+                "detail": {
+                    "viewName": "Detail",
+                    "viewLevel": 2
+                }
+            }
+        }
+    },
+    "sap.platform.hcp": {
+        "uri": "",
+        "_version": "1.1.0"
+    }
+}

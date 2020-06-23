@@ -1,0 +1,41 @@
+<core:FragmentDefinition
+  xmlns:core="sap.ui.core"
+  xmlns="sap.m"
+>
+
+<Popover
+  placement="HorizontalPreferredRight"
+  showHeader="false"
+  class="sapUiContentPadding"
+  >
+  <Table
+				 inset="false"
+         items="{path:'optimizado>/popover'}"
+    >
+    <columns>
+      <Column hAlign="Center">
+        <Text text="Planta Incubadora"/>
+      </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Máquina"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Código"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad Cargada (UND)"/>
+      </Column>
+
+    </columns>
+      <ColumnListItem>
+        <cells>
+					<Text text="{optimizado>incubatorPlant}" />
+          <Text text="{optimizado>incubator}"/>
+          <Text text="{optimizado>code}"/>
+          <Text text="{path:'optimizado>quantity',formatter: '.formatter.formatMiles' }"/>
+        </cells>
+      </ColumnListItem>
+  </Table>
+</Popover>
+</core:FragmentDefinition>

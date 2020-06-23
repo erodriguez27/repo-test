@@ -1,0 +1,37 @@
+<core:FragmentDefinition
+  xmlns:core="sap.ui.core"
+  xmlns="sap.m"
+>
+<Popover
+  id="popoverCenter"
+  placement="HorizontalPreferredRight"
+  showHeader="false"
+  class="sapUiContentPadding"
+  resizable = "true"
+  contentWidth = "20%"
+  >
+  <Table id="centerTable"
+				 inset="false"
+				 items="{path:'mdreports>/recordCenters'}"
+				 selectionChange="onSelectProgrammedRecord">
+
+    <columns>
+      <Column hAlign="Center">
+        <Text text="Programado"/>
+      </Column>
+      <Column hAlign="Center">
+        <Text text="Ejecutado"/>
+      </Column>
+
+    </columns>
+    <items>
+      <ColumnListItem>
+        <cells>
+          <Text text="{mdreports>center_name}"/>
+          <Text text="{mdreports>executioncenter}"/>
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</Popover>
+</core:FragmentDefinition>

@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+      <ObjectHeader title="{i18n>partnership.entityName}"
+                    id="partnershipHeader"
+                    backgroundDesign="Solid"
+                    responsive="{util>/phone}"/>
+</core:FragmentDefinition>

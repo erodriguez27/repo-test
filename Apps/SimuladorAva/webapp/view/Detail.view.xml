@@ -1,0 +1,165 @@
+<mvc:View
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns="sap.m"
+        xmlns:c="sap.ui.core"
+        xmlns:t="sap.ui.table"
+        xmlns:f="sap.ui.layout.form"
+        xmlns:u="sap.ui.unified"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        id="detailsP"
+        controllerName="abaRegressivePlanning.controller.Detail">
+    <App>
+        <pages>
+            
+            <Page title="" showHeader="true" showFooter="true" showNavButton="false">
+                <headerContent>
+                    <Button icon="sap-icon://undo" tooltip="Ir al launchpad" text="Ir al launchpad" press="goToLaunchpad" />
+                </headerContent>
+                <content>
+                    <ObjectHeader title="Escenario: {data>/idSelected/name}" numberState="None" titleActive="false" backgroundDesign="Translucent" condensed="false" visible="true">
+                        <attributes/>
+                        <statuses/>
+                        <markers/>
+                    </ObjectHeader>
+                    
+                    <HBox justifyContent="Center">
+                        <ComboBox
+                                id="comboAlgoritmo"
+                                enabled="{data>/semaforo}" 
+                                visible="true"
+                                placeholder="Tipo de optimización"
+                                selectionChange="onchangeerror"
+                                items="{
+                                    path: 'data>/algoritmo'
+                                }">
+                                <c:Item key="{data>key}" text="{data>name}" />
+                        </ComboBox>
+                        <ComboBox
+                                id="comboalojamiento"
+                                enabled="{data>/semaforo}" 
+                                visible="true"
+                                placeholder="Alojamiento previo"
+                                selectionChange="onchangeerror"
+                                items="{
+                                    path: 'data>/decision'
+                                }">
+                                <c:Item key="{data>name}" text="{data>name} alojamiento" />
+                        </ComboBox>
+                        <ComboBox
+                                id="comboName"
+                                selectedKey="Generales"
+                                enabled="{data>/semaforo}" 
+                                visible="true"
+                                placeholder="Raza"
+                                selectionChange="onchangeerror"
+                                items="{
+                                    path: 'data>/postureRecords'
+                                }">
+                                <c:Item key="{data>breed_id}" text="{data>name}" />
+                        </ComboBox>
+                        <DatePicker
+
+                            id="DP1"
+                            enabled="{data>/semaforo}" 
+                            displayFormat="dd/MM/yyyy"
+                            valueFormat="dd.MM.yyyy" 
+                            placeholder="Fecha de alojamiento..."
+                            change="onSelectCombo"
+                            minDate="{data>/dateminA}"
+                            class="sapUiSmallMarginBottom"/>
+                        <Button text="Generar" press="generate" type="Emphasized" iconFirst="true" width="auto" enabled="{data>/semaforo}" visible="true" iconDensityAware="false"/>
+                    </HBox>
+                
+                    <Table 
+                        id="TreeTableBasic"
+                        noDataText="Sin datos"
+                        busy="{data>/busy}"
+                        items="{path:'data>/tableInfo'}">
+                        <headerToolbar>
+                            <OverflowToolbar justifyContent="Center" width="auto" height="auto" design="true">
+                                <content>
+                                        <ToolbarSpacer witdh=""/>
+                                        <HBox>
+                                        <ComboBox
+                                                id="comboLote"
+                                                selectedKey="Todos"
+                                                placeholder="Lote"
+                                                visible="{data>/menuGeneral}"
+                                                items="{
+                                                    path: 'data>/lote'
+                                                }">
+                                                <c:Item key="{data>name}" text="{data>name}" />
+                                        </ComboBox>
+                                        <DatePicker
+                                            visible="{data>/menuGeneral}"
+                                            width="auto"
+                                            id="DP2"
+                                            minDate="{data>/datemin}" 
+                                            maxDate="{data>/datemax1}"
+                                            displayFormat="dd/MM/yyyy"
+                                            valueFormat="dd.MM.yyyy" 
+                                            placeholder="Desde..."
+                                            change="onSelectCombo"
+                                            class="sapUiSmallMarginBottom"/>
+                                        <DatePicker
+                                            margin="auto"
+                                            visible="{data>/menuGeneral}"
+                                            width="auto"
+                                            id="DP3"
+                                            minDate="{data>/datemin1}" 
+                                            maxDate="{data>/datemax}"
+                                            displayFormat="dd/MM/yyyy"
+                                            valueFormat="dd.MM.yyyy" 
+                                            placeholder="Hasta..."
+                                            change="onSelectCombo"
+                                            class="sapUiSmallMarginBottom"/>
+                                        <Button text="Filtrar" press="onChangeFilter" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="{data>/menuGeneral}" iconDensityAware="false"/>
+                                        </HBox>
+                                        <ToolbarSpacer witdh=""/>
+                                </content>
+                            </OverflowToolbar>
+                        </headerToolbar>
+                        <columns>    
+                            <Column hAlign="Center" visible="{data>/menuGeneral}">
+                                <Text text="Fecha"/>
+                            </Column>
+                            <Column hAlign="Right" visible="{data>/menuGeneral}">
+                                <Text text="Producción de huevos (UND)"/>
+                            </Column>
+                            <Column hAlign="Right" visible="{data>/menuGeneral}">
+                                <Text text="Demanda de huevos (UND)"/>
+                            </Column>
+                            <Column hAlign="Right" visible="{data>/menuGeneral}">
+                                <Text text="Excedente de huevos (%)" />
+                            </Column>
+                            <Column hAlign="Right" visible="{data>/menuGeneral}">
+                                <Text text="Alojamiento (UND)" />
+                            </Column>                            
+                        </columns>
+                        <items>
+                        <ColumnListItem >
+                            <cells>
+                                <text textAlign="Center" text="{data>dates}"/>
+                                <text textAlign="End" text="{data>production}"/>
+                                <text textAlign="End" text="{data>demand}"/>
+                                <Link textAlign="End" text="{data>difference}" press="handleLinkPress" />
+                                <Link textAlign="End" text="{data>lot_size}" press="handleLinkPress" />
+
+                            </cells>
+                        </ColumnListItem>
+                        </items>
+                    </Table> 
+                </content>
+                <footer>
+                    <OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
+                        <content>
+                            <ToolbarSpacer width=""/>
+                            </content>
+                    </OverflowToolbar>
+                </footer>
+                <headerContent/>
+            
+            </Page>
+        </pages>
+    </App>
+</mvc:View>

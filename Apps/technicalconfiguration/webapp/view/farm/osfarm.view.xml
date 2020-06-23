@@ -1,0 +1,37 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" 
+controllerName="technicalConfiguration.controller.osfarm">
+	<App>
+		<pages>
+			<sap.m.semantic:DetailPage busy="{util>/busy}" xmlns:sap.m.semantic="sap.m.semantic" title="{i18n>OS.entity.details}" 
+			id="farmPage" showNavButton="{util>/phone}" navButtonPress="onNavMaster">
+				<sap.m.semantic:content>
+					<core:Fragment fragmentName="technicalConfiguration.view.farm.osfarm_Header" type="XML"/>
+						<IconTabBar headerMode="Inline"
+							selectedKey="partnershipFilter"
+							select="onSelectChangedTab"
+							id="tabBar"
+							expandable="false"
+							applyContentPadding="false">
+
+							<items>
+								<IconTabFilter text="{i18n>farm.partnerships}" id="partnershipFilter" key="partnershipFilter" >
+									<content>
+										<core:Fragment fragmentName="technicalConfiguration.view.partnership.ospartnership-Table" type="XML"/>
+									</content>
+								</IconTabFilter>
+								<IconTabSeparator icon="sap-icon://open-command-field"/>
+								<IconTabFilter text="{i18n>farm.farms}" id="farmFilter" count="{parts: [{path: 'OSFARM>/records'}], formatter: '.formatter.recordsCount'}" enabled="{OSFARM>/settings/enabledTab}">
+									<content>
+										<core:Fragment fragmentName="technicalConfiguration.view.farm.osfarm-Table" type="XML"/>
+									</content>
+								</IconTabFilter>
+							</items>
+						</IconTabBar>
+				</sap.m.semantic:content>
+				<sap.m.semantic:customFooterContent>
+					<Button text="{i18n>new}" width="100px" id="newBtn" type="Accept" visible="{OSFARM>/new}" press="onNewRecord"/>
+				</sap.m.semantic:customFooterContent>
+			</sap.m.semantic:DetailPage>
+		</pages>
+	</App>
+</mvc:View>

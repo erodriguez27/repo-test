@@ -1,0 +1,42 @@
+{
+    "list" : [
+        {
+            "display" : "Curva de Postura",
+            "key" : "txposturecurve",
+            "method" : "/dataImport/posture_curve"
+        },
+        {
+            "display" : "Empresa",
+            "key" : "osppppartnership",
+            "method" : "/dataImport/partnership"
+        },
+        {
+            "display" : "Granja",
+            "key" : "osfarm",
+            "method" : "/dataImport/farm"
+        },
+        {
+            "display" : "Núcleo",
+            "key" : "oscenter",
+            "method" : "/dataImport/center"  
+        },
+        {
+            "display" : "Galpón",
+            "key" : "osshed",
+            "method" : "/dataImport/shed"
+        },
+        {
+            "display" : "Planta Incubadora",
+            "key" : "osincubatorplant",
+            "method" : "/dataImport/incubator_plant"  
+        },
+        {
+            "display" : "Maquina Incubadora",
+            "key" : "osincubator",
+            "method" : "/dataImport/incubator"
+        }
+    ],
+
+    "selected" : "",
+    "TypeOfSeparator" : ""
+}

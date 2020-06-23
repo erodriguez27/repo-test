@@ -1,0 +1,74 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+  <FlexBox width="100%" id="fb5" justifyContent="Center">   
+    <items>
+      <DatePicker id="scheduled_date_fb5" valueFormat="dd-MM-yyyy" value="{mdBroilerEvictionMonitor>/date}" placeholder="Desde" change="change" 
+                  class="sapUiSmallMarginBottom"/>
+      <DatePicker id="scheduled_date_fb5_5" valueFormat="dd-MM-yyyy" value="{mdBroilerEvictionMonitor>/date2}" placeholder="Hasta" change="change2" 
+                  class="sapUiSmallMarginBottom"/>
+      <Button text="Buscar" press="onPress"></Button>
+    </items>
+  </FlexBox>
+  
+  <Table id="broilerEvictionTableId" inset="false" items="{path:'mdBroilerEvictionMonitor>/records'}" selectionChange="onDialogPress" growing="true"
+        						growingScrollToLoad="true">
+    <columns>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Fecha" />
+      </Column>
+      
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Lote" />
+      </Column>
+      
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad (UN)" />
+      </Column>
+      
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Producto" />
+      </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Granja" />
+      </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Núcleo" />
+      </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Galpón" />
+      </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Planta de beneficio" />
+      </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Ejecutado"/>
+      </Column>
+      
+    </columns>
+      
+    <items>
+      <ColumnListItem>
+        <cells>
+          <Text text="{mdBroilerEvictionMonitor>scheduled_date}" />
+          <Text text="{mdBroilerEvictionMonitor>lot}"/> 
+          <Text text="{path:'mdBroilerEvictionMonitor>scheduled_quantity',formatter: '.formatter.formatMiles' }"/>
+          <Button icon="sap-icon://search" type="Transparent" press="handleLinkPressPD"></Button>
+          <Text text="{mdBroilerEvictionMonitor>farm_name}" /> 
+          <Text text="{mdBroilerEvictionMonitor>center_name}" /> 
+          <Text text="{mdBroilerEvictionMonitor>shed_name}" /> 
+          <Button icon="sap-icon://search" type="Transparent" press="handleLinkPressPBD"></Button>
+          <core:Icon
+          src="{=(${mdBroilerEvictionMonitor>executed})?'sap-icon://accept':'sap-icon://decline'}"
+          color="{=(${mdBroilerEvictionMonitor>executed})?'green':'red'}"
+          press = "pressMessage"
+          noTabStop = "true">
+          </core:Icon>
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</core:FragmentDefinition>

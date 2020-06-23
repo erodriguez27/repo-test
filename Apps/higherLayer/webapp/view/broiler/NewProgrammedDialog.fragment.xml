@@ -1,0 +1,48 @@
+<core:FragmentDefinition xmlns="sap.m" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:f="sap.ui.layout.form" 
+	xmlns:core="sap.ui.core">
+	<Dialog contentWidth="600px" title="Engorde" class="sapUiPopupWithPadding" busy="false" id = "newProgrammedDialog" escapeHandler="CloseDialog">
+
+		<f:SimpleForm editable="true" labelSpanL="5" labelSpanM="4" labelSpanS="4" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsL="2" columnsM="2" maxContainerCols="2" layout="ResponsiveGridLayout" width="100%" busy="false">
+
+			<Label text="Lote"/>
+			<Select id="lotsbroiler" items="{broiler>/lots}"  selectedKey="{broiler>/broilerDialog/slbroiler_id}" forceSelection="false" change="lotselect">
+				<core:Item text="{broiler>lot} - {broiler>date_}" key="{= ${broiler>slbroiler_id} === null ? 'a'+${broiler>slsellspurchase_id} : ${broiler>slbroiler_id} }"/>
+			</Select>
+			<Label text="Saldo"/>
+			 <Text text="{broiler>/selectedLot/quantityS}" />
+			<Label text="Granja"/>
+			<Select items="{broiler>/farms}" id="selectfarmbroiler" selectedKey="{broiler>/broilerDialog/farm_id}" forceSelection="false" change="Loadshet">
+				<core:Item text="{broiler>name}" key="{broiler>farm_id}"/>
+			</Select>
+			<Label text="Galpones"/>
+			<MultiComboBox selectionFinish="Blockselects" id = "sheetsbroiler" items="{broiler>/sheds}" selectedKeys="{broiler>/broilerDialog/sheds}">
+				<core:Item text="{broiler>code}" key="{broiler>shed_id}"/>
+			</MultiComboBox>
+
+			<!-- <Label text="Cantidad Ejecutada"/>
+			<Input id="broilerinpur" value="{broiler>/broilerDialog/housing_quantity}" placeholder="Cantidad Ejecutada" liveChange="validateIntInput" /> -->
+
+			<Label text="Fecha Encasetamiento"/>
+			<DatePicker minDate="{broiler>/SelectedExecuted/s_date}" id="datebroiler" valueFormat="yyyy-MM-dd" value="{broiler>/broilerDialog/housing_date}" change="Blockselects"/>
+
+			<Label text="Cantidad (UN)"/>
+			<Input enabled="false" id="inputbroiler" value="{broiler>/broilerDialog/housing_quantity}" liveChange="validateIntInput" placeholder="Cantidad Ejecutada"  />
+			<Button enabled="false" text="+" id="nutton"  press="onAddResidue"  >
+			</Button>
+			<Label text="" />
+			<List id = "listProgrammedItems" mode="Delete" delete="deleteProgrammedD" items="{broiler>/programmedList}">
+				<StandardListItem title="{broiler>lot}" info="{broiler>quantity}"/>
+			</List>
+
+		</f:SimpleForm>
+		<beginButton>
+			<Button text="Guardar" type="Accept" press="onProjectedSaveDialog" />
+		</beginButton>
+		<endButton>
+			<Button text="Cancelar" type="Reject" press="CloseDialog" />
+		</endButton>
+
+	</Dialog>
+</core:FragmentDefinition>

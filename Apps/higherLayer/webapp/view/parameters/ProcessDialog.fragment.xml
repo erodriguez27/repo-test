@@ -1,0 +1,44 @@
+<core:FragmentDefinition xmlns="sap.m" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:f="sap.ui.layout.form" 
+	xmlns:core="sap.ui.core">
+	<Dialog title="Proceso" class="sapUiPopupWithPadding" busy="false" id="processDialog" escapeHandler="onProyectedCloseDialog">
+
+		<f:SimpleForm editable="true" labelSpanL="5" labelSpanM="4" labelSpanS="4" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsL="2" columnsM="2" maxContainerCols="2" layout="ResponsiveGridLayout" width="100%" busy="false">
+
+			<Label text="Nombre" />
+			<Input maxLength="30" value="{tables>/ProcessDialog/name}" liveChange="validatenoinput" id="inputname" placeholder="Nombre" />
+			<Label text="Etapa"/>
+			<!-- <Select forceSelection="false">
+				<core:Item text="Etapa" key="2"/>
+			</Select> -->
+
+			<Select items="{tables>/Stages}" selectedKey="{tables>/ProcessDialog/stage_id}" id="Stageos" forceSelection="false" change="LoadBreed"  >
+				<core:Item text="{tables>name}" key="{tables>stage_id}"/>
+			</Select>
+			<!-- <DatePicker id="projected_date" valueFormat="dd-MM-yyyy" value="" change="handleChange"/> -->
+
+			<Label text="Raza"/>
+			<Select selectedKey="{tables>/ProcessDialog/breed_id}" items="{tables>/Breeds}" id="breedos" forceSelection="false">
+				<core:Item text="{tables>name}" key="{tables>breed_id}"/>
+			</Select >
+			<Label text="Merma (%)" />
+			<Input value="{tables>/ProcessDialog/decrease}" id="inputdecrease" placeholder="Merma" liveChange="validateFloatInputMerma" />
+			<Label text="Duración(Días)" />
+			<Input value="{tables>/ProcessDialog/duration_process}" id="inputduration" placeholder="Duración" liveChange="validateIntInput" />
+			<!-- <Label text="Aplicar Merma" />
+			<CheckBox visible="{= ${tables>/ProcessDialog/stage_id}==='1'? true : false}" id="checkboxprocess" selected="{tables>/ProcessDialog/sync_considered}"/> -->
+
+
+
+		</f:SimpleForm>
+	
+		<buttons>
+			<Button text="Guardar" visible="{tables>/ButtonsParameter}" type="Accept" press="validateDialog" />
+			<Button text="Guardar" visible="{=!${tables>/ButtonsParameter}}" type="Accept" press="SaveChangeProcess" />
+			<Button text="Cancelar" type="Reject" press="onProyectedCloseDialog" />
+		</buttons>
+		
+
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,55 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" 
+  xmlns="sap.m">
+
+  <FlexBox width="100%" justifyContent="Center">
+    <items>
+      <Select items="{incubator>/selectScenariomains}" id="selectscenariomain" selectedKey="{incubator>/incubatorMain/scenario_id}">
+        <core:Item text="{incubator>name}" key="{incubator>scenario_id}"/>
+      </Select>
+      <DatePicker valueFormat="yyyy-MM-dd" value="{incubator>/incubatorMain/init_date}" />
+      <DatePicker valueFormat="yyyy-MM-dd" value="{incubator>/incubatorMain/end_date}" />
+      <Button text="Buscar" press="LoadIncubator"/>
+
+    </items>
+  </FlexBox>
+
+  <Table id="projectedtable" items="{incubator>/incubatorTable}" growing="true" growingScrollToLoad="true">
+
+    <columns>
+      <Column hAlign="Center">
+        <Text text="Fecha" />
+      </Column>
+      <Column hAlign="Center">
+        <Text text="Cantidad (UN)" />
+      </Column>
+      <Column hAlign="Center">
+        <Text text="Saldo (UN)" />
+      </Column>
+      <Column hAlign="Center">
+        <Text text="Necesidad de Huevos" />
+      </Column>
+      <Column hAlign="End" width="10%">
+        <header>
+
+        </header>
+      </Column>
+
+
+
+    </columns>
+    <items>
+      <ColumnListItem>
+        <cells>
+
+          <Text text="{incubator>scheduled_date}" />
+          <Text text="{path:'incubator>scheduled_quantity',formatter: '.formatter.formatMiles' }" />
+          <!-- <ObjectNumber number="{incubator>amountaja}"/> -->
+          <ObjectNumber number="{parts : [ 'incubator>scheduled_quantity' , 'incubator>residue' ],formatter: '.formatter.formatMilesBalance' }"/>
+          <!-- <ObjectNumber number="{incubator>needd}"/> -->
+          <ObjectNumber number="{path:'incubator>eggsrequired',formatter: '.formatter.formatMiles' }"/>
+          <RadioButton  visible = "{= ${incubator>scheduled_quantity}>0}" select="LoadProgramed" />
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</core:FragmentDefinition>

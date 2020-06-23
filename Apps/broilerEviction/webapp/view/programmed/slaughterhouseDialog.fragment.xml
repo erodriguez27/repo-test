@@ -1,0 +1,37 @@
+<core:FragmentDefinition
+  xmlns:core="sap.ui.core"
+  xmlns="sap.m"
+>
+<Popover
+  id="popoverCapacity2"
+  placement="HorizontalPreferredRight"
+  showHeader="false"
+  class="sapUiContentPadding"
+  >
+  <Table id="inventoryDTable2"
+         inset="false"
+         items="{path:'mdprogrammed>/dataPopover'}"
+         selectionChange="onSelectProgrammedRecord"
+         growing="true"
+        						growingScrollToLoad="true">
+
+    <columns>
+      <Column hAlign="Center">
+        <Text text="Planta de Beneficio"/>
+      </Column>
+
+      
+
+    </columns>
+    <items>
+      <ColumnListItem>
+        <cells>
+
+          <Text text="{mdprogrammed>name}" />
+
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</Popover>
+</core:FragmentDefinition>

@@ -1,0 +1,63 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+          controllerName="technicalConfiguration.controller.abaElements">
+    <VBox class="sapUiSmallMargin" id="centerFormVBox">
+        <sap.ui.layout.form:SimpleForm
+                xmlns:sap.ui.layout.form="sap.ui.layout.form"
+                title="{i18n>abaElements.detail}"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                id="centerForm"
+                minWidth="1024"
+                maxContainerCols="2"
+                labelSpanL="3"
+                labelSpanM="3"
+                emptySpanL="4"
+                emptySpanM="4"
+                columnsL="1"
+                columnsM="1"
+                class="editableForm">
+            <sap.ui.layout.form:content>
+                <Label id="elementsProduct_code_label" visible="true" text="Código"
+                       required="{ABAELEMENTS>/code/required}"/>
+                <Input id="abaElements_code_input"
+                       valueState="{ABAELEMENTS>/code/state}"
+                       valueStateText="{ABAELEMENTS>/code/stateText}"
+                       value="{ path: 'ABAELEMENTS>/code/value', type: 'sap.ui.model.type.String'}"
+                       editable="{ABAELEMENTS>/code/editable}"
+                />
+            </sap.ui.layout.form:content>
+            <sap.ui.layout.form:content>
+                <Label id="elementsProduct_name_label" visible="true" text="Nombre del Macroelemento"
+                       required="{ABAELEMENTS/name/required}"/>
+                <Input id="abaElements_name_input"
+                       valueState="{ABAELEMENTS>/name/state}"
+                       valueStateText="{ABAELEMENTS>/name/stateText}"
+                       value="{ path: 'ABAELEMENTS>/name/value', type: 'sap.ui.model.type.String'}"
+                       editable="{ABAELEMENTS>/name/editable}"/>
+            </sap.ui.layout.form:content>
+            <sap.ui.layout.form:content>
+                <Label visible="true" text="Propiedad" required="{ABAELEMENTS>/id_aba_element_property/required}"/>
+                <Select selectedKey="{ABAELEMENTS>/id_aba_element_property/id}"
+                        enabled="{ABAELEMENTS>/id_aba_element_property/editable}"
+                        items="{ABAELEMENTS>/id_aba_element_property}"
+                        valueState="{ABAELEMENTS>/id_aba_element_property/state}"
+                        valueStateText="{ABAELEMENTS>/id_aba_element_property/stateText}"
+                        forceSelection="false">
+                    <items>
+                        <core:Item key="{ABAELEMENTS>id}" text="{ABAELEMENTS>name}"/>
+                    </items>
+                </Select>
+            </sap.ui.layout.form:content>
+            <sap.ui.layout.form:content>
+                <Label visible="true" text="Cantidad Equivalente" required="{ABAELEMENTS/name/required}"/>
+                <Input
+                        valueState="{ABAELEMENTS>/equivalent_quantity/state}"
+                        valueStateText="{ABAELEMENTS>/equivalent_quantity/stateText}"
+                        value="{ path: 'ABAELEMENTS>/equivalent_quantity/value', type: 'sap.ui.model.type.String'}"
+                        editable="{ABAELEMENTS>/equivalent_quantity/editable}"
+                        liveChange="validateFloatInput"
+                />
+            </sap.ui.layout.form:content>
+        </sap.ui.layout.form:SimpleForm>
+    </VBox>
+</mvc:View>

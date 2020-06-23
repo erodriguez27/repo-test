@@ -1,0 +1,67 @@
+<mvc:View xmlns:core="sap.ui.core"
+	 xmlns:mvc="sap.ui.core.mvc"
+	 xmlns="sap.m"
+	 xmlns:html="http://www.w3.org/1999/xhtml"
+	 controllerName="annualPostureCurve.controller.Detail">
+	<App>
+	<pages>
+	    <sap.m.semantic:DetailPage xmlns:sap.m.semantic="sap.m.semantic" title="Curva de Postura" id="__page1">
+		    <sap.m.semantic:content>
+				<ObjectHeader title="{ospartnership>name}"
+					intro="{ospartnership>address}"
+					titleSelectorPress="handleTitleSelectorPress"
+					iconActive="false"
+					id="__header0"
+					icon="sap-icon://factory"
+					backgroundDesign="Translucent"
+					responsive="true">
+
+					<attributes>
+						<ObjectAttribute text="Escenario Activo:  {mdscenario>/name}" />
+					</attributes>
+
+					<headerContainer>
+						<IconTabBar
+							id="tabBar"
+							headerMode="Inline"
+							selectedKey="farmFilter"
+							expandable="false"
+							applyContentPadding="false"
+							backgroundDesign="Solid"
+							headerBackgroundDesign="Translucent"
+							select="onTabSelection">
+
+							<items>
+								<IconTabFilter id="tabParameter" key="kTabParameter" text="Proyectado">
+									<content>
+										<core:Fragment fragmentName="annualPostureCurve.view.postureCurve.postureCurveTable" type="XML"/>
+									</content>
+								</IconTabFilter>
+								<IconTabSeparator id="__separator1" icon="sap-icon://open-command-field"/>
+
+								<IconTabFilter id="tabProjected" key="kTabProjected" text="Ejecutado" showAll="false" iconDensityAware="true" enabled="{posturecurve>/executed/enabledTab}">
+									<content>
+										<core:Fragment fragmentName="annualPostureCurve.view.postureCurve.PostureCurveTableReal2" type="XML"/> 
+									</content>
+								</IconTabFilter>
+
+								<IconTabSeparator id="__separator00000" icon="sap-icon://open-command-field" />
+
+								<IconTabFilter id="tabReports" key="ktabReports" text="Reportes" showAll="false" >
+									<content>
+										<core:Fragment fragmentName="annualPostureCurve.view.postureCurve.PostureCurveTableReport" type="XML" />
+									</content>
+								</IconTabFilter>
+							</items>
+						</IconTabBar>
+					</headerContainer>
+				</ObjectHeader>
+			</sap.m.semantic:content>
+			<sap.m.semantic:customFooterContent>
+				<Button id="executionSaveBtn" text="Guardar" type="Accept" press="onDialogPressEx" visible="false"/>
+				<Button id="exportBtn" text="Exportar" type="Transparent" icon="sap-icon://excel-attachment" press="generatedCSV" visible="false"/>
+			</sap.m.semantic:customFooterContent>
+	    </sap.m.semantic:DetailPage>
+	</pages>
+	</App>
+</mvc:View>

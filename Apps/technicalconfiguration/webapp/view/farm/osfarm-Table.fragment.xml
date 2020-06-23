@@ -1,0 +1,58 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+	<VBox xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" width="100%" direction="Column" id="broilersFarmVBox">
+		<items>
+			<Toolbar xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" id="broilersFarmToolbar">
+				<content>
+					<SearchField id="farmsearchid" liveChange="onFarmSearch" placeholder="{i18n>OS.searchRecord} por {i18n>farm.name} o {i18n>farm.code}" width="100%"/>
+				</content>
+			</Toolbar>
+      <Table
+        xmlns:core="sap.ui.core"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns:sap.m.semantic="sap.m.semantic"
+        xmlns="sap.m"
+        noDataText="{i18n>noRecords}"
+        id="farmTable"
+        items="{OSFARM>/records/}"
+        mode="{OSFARM>/settings/tableMode}"
+				selectionChange="onSelectFarmRecord"
+        growing="true"
+        growingScrollToLoad="true">
+        <items>
+          <ColumnListItem counter="0" id="farm_list_item" type="{OSFARM>/itemType}" detailPress="onViewFarmRecord">
+            <cells>
+              <Text text="{OSFARM>name}" maxLines="0" id="farm_name_text"/>
+              <Text text="{OSFARM>code}" maxLines="0" id="farm_code_text"/>
+              <Text text="{OSFARM>farm_name}" maxLines="0" id="farm_type_text"/>
+              <Text text="{OSFARM>_order}" maxLines="0" id="farm_order_text"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+        <columns>
+          <Column id="farm_name_column" vAlign="Middle" >
+            <header>
+              <Label text="{i18n>farm.name}" id="farm_table_name_label"/>
+            </header>
+          </Column>
+          <Column id="farm_code_column" vAlign="Middle" >
+            <header>
+              <Label text="{i18n>farm.code}" id="farm_table_code_label"/>
+            </header>
+          </Column>
+
+           <Column id="farm_type_column" vAlign="Middle" >
+            <header>
+              <Label text="{i18n>farm.type}" id="farm_table_type_label"/>
+            </header>
+          </Column>
+           <Column id="farm_order_column" vAlign="Middle" >
+            <header>
+              <Label text="{i18n>farm.order}" id="farm_table_order_label"/>
+            </header>
+          </Column>
+        </columns>
+      </Table>
+		</items>
+	</VBox>
+</core:FragmentDefinition>

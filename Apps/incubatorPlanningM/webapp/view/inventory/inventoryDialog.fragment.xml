@@ -1,0 +1,50 @@
+<core:FragmentDefinition
+  xmlns:core="sap.ui.core"
+  xmlns="sap.m"
+>
+<Popover
+  id="popoverCapacity"
+  placement="HorizontalPreferredRight"
+  showHeader="false"
+  class="sapUiContentPadding"
+  contentWidth="60%"
+  >
+  <Table id="inventoryDTable"
+				 inset="false"
+				 items="{path:'mdinventory>/dataPopover'}"
+				 mode="None"
+				 delete="handleDelete"
+				 selectionChange="onSelectProgrammedRecord"
+         growing="true"
+        growingScrollToLoad="true">
+
+    <columns>
+      <Column hAlign="Center">
+        <Text text="Dias"/>
+      </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad (UND)"/>
+      </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Lote"/>
+      </Column>
+
+    </columns>
+    <items>
+      <ColumnListItem>
+        <cells>
+
+					<ObjectNumber number="{mdinventory>day}" />
+          <ObjectNumber number="{path:'mdinventory>eggs',formatter: '.formatter.formatMiles' }" unit="Huevos"/>
+          <Link
+            text="{mdinventory>num_lot}"
+            press="handleLinkPress2" />
+            
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</Popover>
+</core:FragmentDefinition>

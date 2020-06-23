@@ -1,0 +1,51 @@
+<mvc:View xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m" 
+	xmlns:html="http://www.w3.org/1999/xhtml" controllerName="higherLayer.controller.AppsControllers.broiler">
+	<App>
+		<pages>
+			<sap.m.semantic:DetailPage navButtonPress="jaja" xmlns:sap.m.semantic="sap.m.semantic" title="Engorde" id="__page1" >
+
+				<ObjectHeader title="{ospartnership>name}" intro="{ospartnership>address}" titleSelectorPress="handleTitleSelectorPress" iconActive="false" id="__header0" icon="sap-icon://factory" backgroundDesign="Translucent" responsive="true" showTitleSelector="true">
+
+					<!-- <attributes>
+							<ObjectAttribute text="Escenario Activo:  {mdscenario>/name}" />
+						</attributes> -->
+					<headerContainer>
+
+					</headerContainer>
+				</ObjectHeader>
+				<IconTabBar id="broilerIconTab" headerMode="Inline"  expandable="false" applyContentPadding="false" backgroundDesign="Solid" headerBackgroundDesign="Translucent" select="onTabSelection">
+
+					<items>
+						<IconTabFilter id="projected" key="projected" text="Proyectado">
+							<content>
+								<core:Fragment fragmentName="higherLayer.view.broiler.ProjectedView" type="XML"/>
+							</content>
+						</IconTabFilter>
+
+
+						<IconTabSeparator id="__separator1" icon="sap-icon://open-command-field"/>
+						<IconTabFilter id="programed" key="programed" enabled="false" text="Programado">
+							<content>
+								<core:Fragment fragmentName="higherLayer.view.broiler.ProgrammedView" type="XML"/>
+							</content>
+						</IconTabFilter>
+						<!-- <IconTabSeparator id="__separator1" icon="sap-icon://open-command-field"/> -->
+
+					</items>
+				</IconTabBar>
+
+				<sap.m.semantic:customFooterContent>
+
+					<Button id="NewProductionProgrammed" visible="false" text="Nuevo" type="Accept" press="NewProductionProgrammed" />
+					<Button id="ExecutedProductionProgrammed" press="ExecutedIncubator" visible="false" text="Ejecutar"  />
+				
+
+				</sap.m.semantic:customFooterContent>
+
+
+			</sap.m.semantic:DetailPage>
+		</pages>
+	</App>
+</mvc:View>

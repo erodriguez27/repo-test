@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns="sap.m" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:f="sap.ui.layout.form" 
+	xmlns:core="sap.ui.core">
+	<Dialog title="Incubadora" class="sapUiPopupWithPadding" busy="false" contentWidth="500px" id = "newProgrammedDialog" escapeHandler="CloseDialog">
+
+		<f:SimpleForm editable="true" labelSpanL="5" labelSpanM="4" labelSpanS="4" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsL="2" columnsM="2" maxContainerCols="2" layout="ResponsiveGridLayout" width="100%" busy="false">
+
+			<Label text="Lote Producción"/>
+			<Select items="{incubator>/lots}" change="selectedllot" id="selectlot" selectedKey="{incubator>/incubatorDialog/lot}" forceSelection="false">
+				<core:Item text="{incubator>lot}" key="{= ${incubator>slincubator_curve_id} === null ? ${incubator>slsellspurchase_id} : ${incubator>slincubator_curve_id} }"/>
+			</Select>
+			<Label text="Saldo"/>
+			 <Text text="{incubator>/selectedLot/quantity}" />
+			<Label text="Fecha"/>
+			<DatePicker minDate="{incubator>/SelectedExecuted/s_date}" id="projected_datess" change="findMachineGroupByDayOfWork" valueFormat="yyyy-MM-dd" value="{incubator>/incubatorDialog/programmed_date}" />
+
+			<Label text="Máquina"/>
+			<Select enabled="false" items="{incubator>/machines}" change="MaxChange" id="selectsmachine" selectedKey="{incubator>/incubatorDialog/slmachinegroup_id}" forceSelection="false">
+				<core:Item text="{incubator>name} - Capacidad({incubator>amount_of_charge})" key="{incubator>slmachinegroup_id}"/>
+			</Select>
+			<!-- <Label text="Cantidad (UN)"/>
+			<Input id="inputincubator" enabled="false" placeholder="Cantidad" value="{incubator>/incubatorDialog/programmed_quantity}" liveChange="validateEspecialIntInput" /> -->
+
+			<Label text="Cantidad (UN)"/>
+			<Input enabled="false" id="inputincubator" value="{incubator>/incubatorDialog/programmed_quantity}" liveChange="validateEspecialIntInput"   />
+			<Button enabled="false" text="+" id="nutton"  press="onAddResidue"  >
+			</Button>
+			<Label text="" />
+			<List id = "listProgrammedItems" mode="Delete" delete="deleteProgrammedD" items="{incubator>/programmedList}">
+				<StandardListItem title="{incubator>lot}" info="{incubator>quantity}"/>
+			</List>
+
+		</f:SimpleForm>
+		<beginButton>
+			<Button text="Guardar" id="savebuttondialog" type="Accept" press="onProgrammeddSaveDialog" />
+		</beginButton>
+		<endButton>
+			<Button text="Cancelar" type="Reject" press="CloseDialog" />
+		</endButton>
+
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,281 @@
+{
+	"_version": "1.7.0",
+	"sap.app": {
+		"id": "higherLayer",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "ui5template.basicSAPUI5ApplicationProject",
+			"version": "1.40.12"
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_belize"
+		]
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "higherLayer.view.App",
+			"type": "XML"
+		},
+		"dependencies": {
+			"minUI5Version": "1.30.0",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ui.layout": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "higherLayer.i18n.i18n"
+				}
+			},
+			"prueba": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/prueba.json"
+			},
+			"tables": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/tables.json"
+			},
+			"production": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/production.json"
+			}	,
+			"breedingplanning": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/breedingplanning.json"
+			}	,
+			"posturecurve": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/posturecurve.json"
+			}	,
+			"sales": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/sales.json"
+			}	,
+			"inventary": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/inventary.json"
+			}	,
+			"incubator": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/incubator.json"
+			}	,
+			"broiler": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/broiler.json"
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "higherLayer.view",
+				"controlId": "splitApp",
+				"controlAggregation": "detailPages",
+				"async": "true"
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "master",
+					"target": [
+						"detail",
+						"master"
+					]
+				},
+				{
+					"pattern": "data/{id}",
+					"name": "detail",
+					"target": [
+						"master",
+						"detail"
+					]
+				},
+				{
+					"pattern": "breedingplanning/{id}",
+					"name": "breedingplanning",
+					"target": [
+						"master",
+						"breedingplanning"
+					]
+				},
+				{
+					"pattern": "breedingplanning/{id}/Itembreedingplanning",
+					"name": "Itembreedingplanning",
+					"target": [
+						"master",
+						"Itembreedingplanning"
+					]
+				},
+				{
+					"pattern": "broiler/{id}",
+					"name": "broiler",
+					"target": [
+						"master",
+						"broiler"
+					]
+				},
+				{
+					"pattern": "incubator/{id}",
+					"name": "incubator",
+					"target": [
+						"master",
+						"incubator"
+					]
+				},
+				{
+					"pattern": "inventary/{id}",
+					"name": "inventary",
+					"target": [
+						"master",
+						"inventary"
+					]
+				},
+				{
+					"pattern": "parameters/{id}",
+					"name": "parameters",
+					"target": [
+						"master",
+						"parameter"
+					]
+				},
+				{
+					"pattern": "parameters/{id}/parameters_process",
+					"name": "parameters_process",
+					"target": [
+						"master",
+						"parameters_process"
+					]
+				},
+				{
+					"pattern": "posturecurve/{id}",
+					"name": "posturecurve",
+					"target": [
+						"master",
+						"posturecurve"
+					]
+				},
+				{
+					"pattern": "production/{id}",
+					"name": "production",
+					"target": [
+						"master",
+						"production"
+					]
+				},
+				{
+					"pattern": "sales/{id}",
+					"name": "sales",
+					"target": [
+						"master",
+						"sales"
+					]
+				}
+			],
+			"targets": {
+				"master": {
+					"viewName": "Master",
+					"viewLevel": 1,
+					"viewId": "master",
+					"controlAggregation": "masterPages"
+				},
+				"masterTarget": {
+					"viewName": "Master",
+					"viewLevel": 1
+				},
+				"detail": {
+					"viewName": "Detail",
+					"viewId": "detail",
+					"viewLevel": 2
+				},
+				"breedingplanning": {
+					"viewName": "breedingplanning.breedingplanning",
+					"viewId": "breedingplanning",
+					"viewLevel": 2
+				},
+				"Itembreedingplanning": {
+					"viewName": "breedingplanning.NewItembreedingplanning",
+					"viewId": "newbreedingplanning",
+					"viewLevel": 3
+				},
+				"broiler": {
+					"viewName": "broiler.broiler",
+					"viewId": "broiler",
+					"viewLevel": 2
+				},
+				"incubator": {
+					"viewName": "incubator.incubator",
+					"viewId": "incubator",
+					"viewLevel": 2
+				},
+				"inventary": {
+					"viewName": "inventary.inventary",
+					"viewId": "inventary",
+					"viewLevel": 2
+				},
+				"parameter": {
+					"viewName": "parameters.parameters",
+					"viewId": "parameter",
+					"viewLevel": 2
+				},
+				"parameters_process": {
+					"viewName": "parameters.parametersprocess",
+					"viewId": "parametersprocess",
+					"viewLevel": 3
+				},
+				"posturecurve": {
+					"viewName": "posturecurve.posturecurve",
+					"viewId": "posturecurve",
+					"viewLevel": 2
+				},
+				"production": {
+					"viewName": "production.production",
+					"viewId": "production",
+					"viewLevel": 2
+				},
+				"sales": {
+					"viewName": "sales.sales",
+					"viewId": "sales",
+					"viewLevel": 2
+				}
+			}
+		}
+	}
+}

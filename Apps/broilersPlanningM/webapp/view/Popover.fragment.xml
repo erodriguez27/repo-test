@@ -1,0 +1,17 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Popover
+		title="Granjas de Engorde"
+		placement="Bottom">
+		<content>
+			<List
+				mode="SingleSelectMaster"
+				includeItemInSelection="true"
+				select="handleItemSelect"
+				items="{mdfarms>/records}">
+				<StandardListItem title="{mdfarms>name}" />
+			</List>
+		</content>
+	</Popover>
+</core:FragmentDefinition>

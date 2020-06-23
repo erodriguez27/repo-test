@@ -1,0 +1,95 @@
+<core:FragmentDefinition
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:fb="sap.ui.comp.filterbar">
+	<!--<ToggleButton icon="sap-icon://group-2" press="onPressToggle" />-->
+	
+
+	<l:Grid defaultSpan="L12 M12 S12" class="sapUiSmallMarginTop">
+		<l:content>
+			<StandardListItem
+				info="Proceso"
+				infoState="Success">
+				<layoutData>
+					<l:GridData span="L6 M6 S6" />
+				</layoutData>
+			</StandardListItem>
+
+			<StandardListItem
+				info="Raza"
+				infoState="Success">
+				<layoutData>
+					<l:GridData span="L6 M6 S6" />
+				</layoutData>
+			</StandardListItem>
+
+			<MultiComboBox
+				selectionChange="handleSelectionChangeStage"
+				selectionFinish="handleSelectionFinishStage"
+				width="600px"
+				items="{path:'mdstage>/records'}">
+				<core:Item key="{mdstage>stage_id}" text="{mdstage>name}" />
+				<layoutData>
+					<l:GridData span="L6 M6 S6" />
+				</layoutData>
+			</MultiComboBox>
+
+			<MultiComboBox
+				selectionChange="handleSelectionChangeBreed"
+				selectionFinish="handleSelectionFinishBreed"
+				width="600px"
+				items="{path:'mdbreed>/records'}">
+				<core:Item key="{mdbreed>breed_id}" text="{mdbreed>name}" />
+				<layoutData>
+					<l:GridData span="L6 M6 S6" />
+				</layoutData>
+			</MultiComboBox>
+		</l:content>
+	</l:Grid>
+
+	<Toolbar>
+		<ToolbarSpacer/>
+		<!-- <Button text="Default" press="onPress" /> -->
+		<Button id="btnApplyFilyter" text="Aplicar Filtro" type="Transparent" press="applyFilters" visible="true"/>
+		<!-- <Button icon="sap-icon://action" press="onPress" ariaLabelledBy="actionButtonLabel"/> -->
+		<ToolbarSpacer/>
+	</Toolbar>
+
+	<l:Grid defaultSpan="L12 M12 S12" class="sapUiSmallMarginTop">
+		<l:content>
+			<StandardListItem>
+				<layoutData>
+					<l:GridData span="L12 M12 S12" />
+				</layoutData>
+			</StandardListItem>
+		</l:content>
+	</l:Grid>
+	 
+		
+
+
+  <Table id="goalsTable" columns="{goals>/columns}" items="{goals>/rows}" busy="{util>/busy}" >
+
+		<columns>
+			<Column   >
+				<!--<Text text="{goals>columnid}"/>-->
+				<Label text="{goals>columnid}" design="Bold"/>
+			</Column>
+		</columns>
+    <items>
+			<ColumnListItem id="columnListItemGoal" cells="{path:'goals>values',templateShareable:false}">
+				<cells>
+				<ObjectNumber
+					class="sapUiSmallMarginBottom"
+					textAlign="{goals>textalign}"
+					number="{path:'goals>value',formatter: '.formatter.formatMiles'}"
+					unit="{CurrencyCode}"
+					state="{goals>state}"
+				/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+
+</core:FragmentDefinition>

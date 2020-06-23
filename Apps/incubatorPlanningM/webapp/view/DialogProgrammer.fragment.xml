@@ -1,0 +1,82 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+  <Dialog title="Agregar programación"
+      class="sapUiPopupWithPadding"
+      confirm="onCancelCopy"
+      cancel="onCancelCopy"
+       busy="{util>/busy}"
+      id="dialogprogrammed"
+      escapeHandler="onProyectedCloseDialog"
+      afterClose="closeProgrammedDialog">
+
+      <f:SimpleForm
+            id="formPlanning"
+            editable="true"
+            labelSpanL="5"
+            labelSpanM="4"
+            labelSpanS="4"
+            emptySpanL="0"
+            emptySpanM="0"
+            emptySpanS="0"
+            columnsL="2"
+            columnsM="2"
+            maxContainerCols="2"
+            layout="ResponsiveGridLayout"
+            width="100%"
+            busy="false">
+
+            <Label text="Proyección" />
+            <ComboBox items="{mdprogrammed>/selectedRecords}"
+                id="projection_select"
+                class="sapUiSmallMarginBottom"
+                placeholder = "Lote proyección"
+                change="onChangeProjection">
+				      <core:Item text="{mdprogrammed>lot} - {parts: [{path: 'mdprogrammed>quantity'}, {path: 'mdprogrammed>residue'}, {path: 'mdprogrammed>partial_residue'}], formatter: '.formatter.calculateResidue2'}" key="{mdprogrammed>eggs_movements_id}" />
+			      </ComboBox>
+
+            <Label text="Fecha"/>
+            <DatePicker id="programmed_date" minDate="{mdprogrammed>/minDate}" maxDate="{mdprogrammed>/selectedRecord/maxDate}" valueFormat="yyyy-MM-dd" value="" change="handleChange" enabled="{= ${mdincubator>/assigned/length} === 0}"/>
+
+            <Label text="Máquina"/> 
+                       <Select items="{mdincubator>/list}"
+                         
+                         change="onChangeMachine"
+                         id="selectIncubator"
+                         enabled="false"
+                         forceSelect = "false">
+                         <core:Item text="{mdincubator>name}" key="{mdincubator>incubator_id}"/>
+                       </Select>
+            <Label text="Disponible"/>
+						<Text id="" text="{mdincubator>/available}" enabled="false"/>
+
+            <Label text="Cantidad"/>
+                  <Input id="assigned_quantity" value="" placeholder="Huevos" liveChange="onValidProgrammedQuantity"
+                         valueState="{mdprogrammed>/name/state}"
+                   valueStateText="{mdprogrammed>/name/stateText}"/>
+
+                       <Button
+                          text="+"
+                          press="onAddIncubator"
+                          ariaDescribedBy="acceptButtonDescription genericButtonDescription"
+                           enabled="{mdprogrammed>/confirmMore}">
+                      </Button>
+
+                      <Label text=""/>
+                      <List
+                        mode="Delete"
+                        delete="deleteProgrammedD"
+                        items="{mdincubator>/assigned}">
+                        <StandardListItem
+                          title="{mdincubator>projection/lot}"
+                          info="{mdincubator>quantity_eggs} Huevos"/>
+                      </List>          
+          </f:SimpleForm>
+          <beginButton>
+            <!-- <Button text="Guardar" type="Accept" press="onProgrammedSaveDialog" enabled="{mdprogrammed>/confirmBtn}" /> -->
+            <Button text="Guardar" type="Accept" press="onProgrammedSaveDialog" enabled="{mdprogrammed>/confirmBtn}"/>
+          </beginButton>
+          <endButton>
+            <Button text="Cancelar" type="Reject" press="onProgrammedCloseDialog" />
+          </endButton>
+
+  </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,40 @@
+{
+	"code": {
+		"value": "",
+		"state": "None",
+		"stateText": "",
+		"editable": false
+	},
+	"name": {
+		"value": "",
+		"state": "None",
+		"stateText": "",
+		"editable": false
+	},
+	"disable": {
+		"value": false,
+		"state": "None",
+		"stateText": "",
+		"required": false,
+		"editable": false
+	},
+	"records": [],
+	"old": [],
+	"warehouses": {
+		"records": [],
+		"originalRecords": [],
+		"showRecords": []
+	},
+	"changes": {},
+	"settings": {
+		"enabledTab": false,
+		"tableMode": "None"
+	},
+	"selectedRecordPath": "",
+	"create": false,
+	"modify": true,
+	"delete": true,
+	"save": true,
+	"cancel": true,
+    "itemType" : "DetailAndActive"
+}

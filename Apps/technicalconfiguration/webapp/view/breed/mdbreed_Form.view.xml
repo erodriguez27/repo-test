@@ -1,0 +1,40 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="technicalConfiguration.controller.mdbreed">
+	<VBox class="sapUiSmallMargin" id="centerFormVBox">
+		<sap.ui.layout.form:SimpleForm
+				xmlns:sap.ui.layout.form="sap.ui.layout.form"
+				title="{i18n>breed.data}"
+				editable="true"
+				layout="ResponsiveGridLayout"
+				id="centerForm"
+				minWidth="1024"
+				maxContainerCols="2"
+				labelSpanL="3"
+				labelSpanM="3"
+				emptySpanL="4"
+				emptySpanM="4"
+				columnsL="1"
+				columnsM="1"
+				class="editableForm">
+
+			<sap.ui.layout.form:content>
+				<Label id="breed_code_label" visible="true" text="{i18n>breed.code}" required="{MDBREED>/code/required}"/>
+				<Input id="breed_code_input"
+							 valueState="{MDBREED>/code/state}"
+		 					 valueStateText="{MDBREED>/code/stateText}"
+							 value="{ path: 'MDBREED>/code/value', type: 'sap.ui.model.type.String'}"
+							 editable="{MDBREED>/code/editable}"
+							 liveChange="changeCode"/>
+
+				<Label id="breed_name_label" visible="true" text="{i18n>breed.name}" required="{MDBREED>/name/required}"/>
+ 				<Input id="breed_name_input"
+ 							 valueState="{MDBREED>/name/state}"
+ 		 					 valueStateText="{MDBREED>/name/stateText}"
+ 							 value="{ path: 'MDBREED>/name/value', type: 'sap.ui.model.type.String'}"
+ 							 editable="{MDBREED>/name/editable}"
+ 							 liveChange="changeName"/>
+
+
+			</sap.ui.layout.form:content>
+		</sap.ui.layout.form:SimpleForm>
+	</VBox>
+</mvc:View>

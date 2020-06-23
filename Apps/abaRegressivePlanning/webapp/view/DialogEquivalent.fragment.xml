@@ -1,0 +1,34 @@
+<core:FragmentDefinition
+        controllerName="sap.m.sample.TableSelectDialog.C"
+        xmlns="sap.m"
+        xmlns:core="sap.ui.core">
+        <Popover title="Equivalentes" id="DialogE" contentWidth="50%" 
+        placement="Auto" resizable="false">
+        <content>
+                <Table
+                        id="TableBasic"
+                        growing="true"
+                        items="{path:'data>/tableEquiv'}"
+                        growingThreshold="20"
+                        width="auto">
+                        <columns>    
+                        
+                                <Column hAlign="Center">
+                                        <Text text="Macro elemento" />
+                                </Column>
+                                <Column hAlign="Center">
+                                        <Text text="Cantidad (TONS)" />
+                                </Column>                             
+                        </columns>
+                        <items>
+                                <ColumnListItem >
+                                        <cells>
+                                                <text textAlign="Center" text="{data>name}"/>
+                                                <text textAlign="Center" text="{data>quantity}"/>
+                                        </cells>
+                                </ColumnListItem>
+                        </items>
+                </Table>
+        </content>
+        </Popover>
+</core:FragmentDefinition>

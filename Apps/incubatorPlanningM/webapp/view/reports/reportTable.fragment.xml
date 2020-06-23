@@ -1,0 +1,111 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+
+	<FlexBox width="100%" id="b228888" justifyContent="Center">
+		<items>
+			<ComboBox items="{path:'mdbreed>/records'}"
+				id="breedSelect2"
+				class="sapUiSmallMarginBottom"
+				placeholder="Raza"
+				change="findParentLot"
+				selectedKey="{mdbreed>/selectedBreed}">
+				<core:Item text="{mdbreed>name}" key="{mdbreed>breed_id}"/>
+			</ComboBox>
+			<DatePicker id="sd" valueFormat="dd-MM-yyyy" placeholder="Desde" change="onInitDateChange" class="sapUiSmallMarginBottom"/>
+			<DatePicker id="sd2" valueFormat="dd-MM-yyyy" placeholder="Hasta" change="onEndDateChange" class="sapUiSmallMarginBottom"/>
+			<Button text="Buscar" press="reports"></Button>
+		</items>
+	</FlexBox>
+
+	<Table  headerText="Products" id="reportTable" inset="false" items="{path:'mdreports>/records'}" selectionChange="onDialogPress" growing="true"
+										growingScrollToLoad="true">
+		<headerToolbar>
+			<OverflowToolbar>
+				<Title text="Desde: {mdreports>/desde}" level="H2" visible="{mdreports>/visible}"/>
+				<Title text="Hasta: {mdreports>/hasta}" level="H2" visible="{mdreports>/visible}"/>
+				<ToolbarSpacer/>
+				
+			</OverflowToolbar>
+		</headerToolbar>
+	
+		<columns>
+		<!--
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Text text="Fecha Programada"/>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Text text="Fecha Ejecutada"/>
+			</Column>
+
+
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Text text="Granja Programada"/>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Text text="Granja Ejecutada"/>
+			</Column>
+
+
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Text text="Galpón Programado"/>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Text text="Galpón Ejecutado"/>
+			</Column>
+
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Text text="Cantidad Programada"/>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Text text="Cantidad Ejecutada"/>
+			</Column> -->
+			
+			
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Text text="Fecha"/>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Text text="Lote de Incubadora"/>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Text text="Máquina"/>
+			</Column>
+			<!-- <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Text text="Cantidad Asignada (UN)"/>
+			</Column> -->
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Text text="Cantidad Ejecutada (UN)"/>
+			</Column>
+			<!-- <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Text text="Variación Cantidad (UN)"/>
+			</Column> -->
+		</columns>
+
+		<!--
+		<columns>
+			<Column width="11rem" sortProperty="supplier" filterProperty="supplier">
+				<multiLabels>
+					<Text text="Cantidad"/>
+				</multiLabels>
+
+				
+			</Column>
+
+		
+		</columns>
+		-->
+
+		<items>
+			<ColumnListItem>
+				<cells>
+					<Text text="{mdreports>_date}"/>
+					<!-- <Text text="{mdreports>lot_breed}"/> -->
+					<Link text="{mdreports>lot_breed}" press="showProgrammedLotsReports"/>
+					<Text text="{mdreports>incubator}"/>
+					<!-- <Text text="{mdreports>eggs}"/> -->
+					<Text text="{path:'mdreports>execution_quantity',formatter: '.formatter.formatMiles' }"/>
+					<!-- <Text text="{mdreports>diferentquantity} "/> -->
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

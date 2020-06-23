@@ -1,0 +1,12 @@
+{
+  "serviceUrl" : "",
+  "service": "local",
+  "local": {
+    "addbroilersPlanningM": "/broilersPlanningM",
+    "truncatebroilersPlanningM": "/broilersPlanningM/truncatebroilersPlanningM"
+    },
+  "remote": {
+    "addbroilersPlanningM": "/broilersPlanningM",
+    "truncatebroilersPlanningM": "/broilersPlanningM/truncatebroilersPlanningM"
+  }
+}

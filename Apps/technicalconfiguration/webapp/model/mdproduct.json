@@ -1,0 +1,44 @@
+{
+    "_ID":{
+        "value":""
+    },
+    "product_id":{
+        "value": ""
+    },
+    "name": {
+        "value": "",
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true,
+        "excepcion": "",
+        "ok": false
+    },
+    "code": {
+        "value": "",
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true,
+        "excepcion": "",
+        "ok": false
+    },
+    "breed": {
+        "value": "",
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true
+    },
+    "stage": [],
+    "records": [],
+    "selectedRecordPath": "",
+    "create": false,
+  	"modify": true,
+  	"delete": true,
+  	"save": true,
+  	"cancel": true
+}

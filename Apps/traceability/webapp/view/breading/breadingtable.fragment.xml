@@ -1,0 +1,98 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" 	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form">
+
+  <FlexBox width="100%" id="__box22"
+
+          justifyContent="Center">
+    <items>
+      <Select 
+        id="SelectType"
+        visible="false">
+        <core:Item text="Lote ARP" key="ARP"/>
+        <core:Item text="Lote SAP" key="SAP"/>
+      </Select>
+     <Select 
+        change="OnChangeStage"
+        id="SelectStage"
+        visible="{traceability>/isVisible}">
+        
+        <core:Item text="C- Cría y levante" key="C"/>
+        <core:Item text="P- Producción" key="P"/>
+        <core:Item text="H- Huevos" key="H"/>
+        <core:Item text="I- Incubadora" key="I"/>
+        <core:Item text="E- Engorde" key="E"/>
+        <!-- <core:Item text="D- Engorde Pesado" key="D"/> -->
+        <core:Item text="X- Plexus" key="X"/>
+        <core:Item text="A- Compra" key="A"/>
+      </Select>
+
+      <Input placeholder="Lote" liveChange="validateIntInput" id="numberL">
+      </Input>
+      <Select 
+        change="OnChangeFace"
+        id="SelectPR"
+        enabled="{mdprojected>/available}">
+        <core:Item text="Trazabilidad hacia adelante" key="progresiva"/>
+        <core:Item text="Trazabilidad hacia atras" key="regresiva"/>
+      </Select>
+       <Button id="GoFind" text="Buscar"  press="findLot" />
+
+
+    </items>
+  </FlexBox>
+
+  <Table id="projectedTable"
+				 inset="false"
+				 items="{path:'mdprojected>/records'}"
+				 mode=""
+				 delete="handleDelete"
+				 selectionChange="onSelectProgrammedRecord"
+         visible= "{mdprojected>/visibleTable}"
+         growing="true"
+        growingScrollToLoad="true">
+
+    <columns>
+      
+      <Column hAlign="Center" visible= "{mdprojected>/visibleC}">
+        <Text text="Cría y Levante"/>
+      </Column>
+
+      <Column hAlign="Center" visible= "{mdprojected>/visibleP}">
+        <Text text="Producción"/>
+      </Column>
+
+      <Column hAlign="Center" visible= "{mdprojected>/visibleH}">
+        <Text text="Curva de Postura"/>
+      </Column>
+
+      <Column hAlign="Center" visible= "{mdprojected>/visibleI}">
+        <Text text="Almacén de Huevo Fértil"/>
+      </Column>
+
+      <Column hAlign="Center" visible= "{mdprojected>/visibleI}">
+        <Text text="Incubadora"/>
+      </Column>
+      <Column hAlign="Center" visible= "{mdprojected>/visibleE}">
+        <Text text="Engorde"/>
+      </Column>
+
+      <!-- <Column hAlign="Center" visible= "{mdprojected>/visibleEH}">
+        <Text text="Engorde Pesado
+        "/>
+      </Column> -->
+    </columns>
+    <items>
+      <ColumnListItem>
+        <cells>
+          <Link text="{mdprojected>liftbreading}" press="showLotLocationLiftBreading"/>
+          <Link text="{mdprojected>production}" press="showLotLocationProduction"/>
+          <Text text="{mdprojected>eggs}"/>
+          <Text text="{mdprojected>eggs}"/>
+          <Link text="{mdprojected>incubation}" press="showLotLocationIncubation"/>
+          <Link text="{mdprojected>broiler}" press="showLotLocationBroiler"/>
+          <!-- <Link text="{mdprojected>broilerHeavy}" press="showLotLocationBroilerHeavy"/> -->
+      </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</core:FragmentDefinition>

@@ -1,0 +1,79 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+
+  <FlexBox width="100%" justifyContent="Center">
+    <items>
+      <Select change="Loadlots" items="{posturecurve>/scenarios}" id="selectscenario" selectedKey="{posturecurve>/PosturecurveMain/scenario_id}" >
+        <core:Item text="{posturecurve>name}" key="{posturecurve>scenario_id}"/>
+      </Select>
+      <Select change="Loadlots" items="{posturecurve>/farms}" id="selectfarm" selectedKey="{posturecurve>/PosturecurveMain/farm_id}" >
+        <core:Item text="{posturecurve>name}" key="{posturecurve>farm_id}"/>
+      </Select>
+      <Select change="Loadlots" items="{posturecurve>/breeds}" id="selectbreed" selectedKey="{posturecurve>/PosturecurveMain/breed_id}" >
+        <core:Item text="{posturecurve>name}" key="{posturecurve>breed_id}"/>
+      </Select>
+      <Select change="minmaxdate" items="{posturecurve>/lots}" id="selectlot" selectedKey="{posturecurve>/PosturecurveMain/lot}" >
+        <core:Item text="{posturecurve>lot}" key="{posturecurve>lot}"/>
+      </Select>
+      <DatePicker minDate="{posturecurve>/datesminmax/min_date}" maxDate="{posturecurve>/datesminmax/max_date}" valueFormat="yyyy-MM-dd"  value="{posturecurve>/PosturecurveMain/date1}" />
+      <DatePicker minDate="{posturecurve>/datesminmax/min_date}" maxDate="{posturecurve>/datesminmax/max_date}" valueFormat="yyyy-MM-dd" value="{posturecurve>/PosturecurveMain/date2}" />
+      <Button text="Buscar" press="LoadProduction"/>
+    </items>
+  </FlexBox>
+
+
+  <Table
+      inset="false"
+      items="{posturecurve>/PosturecurveTable}"
+      selectionChange="onSelectProgrammedRecords"
+      growing="true"
+      growingScrollToLoad="true">
+
+      <columns>
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Fecha Proyectada" />
+        </Column>
+       
+        <Column
+        visible="{= (${posturecurve>/postureMainCopy/farm_id}===null) ? true : false }"
+          hAlign="Center">
+          <Text text="Granja" />
+        </Column>
+        <Column
+        visible="{= (${posturecurve>/postureMainCopy/breed_id}===null) ? true : false }"
+          hAlign="Center">
+          <Text text="Raza" />
+        </Column>
+        <Column
+       visible="{= (${posturecurve>/postureMainCopy/lot}===null)  ? true : false }"
+          hAlign="Center">
+          <Text text="Lote" />
+        </Column>
+         
+         <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Cantidad Proyectada (UN)" />
+        </Column>
+        
+
+
+      </columns>
+      <items>
+        <ColumnListItem>
+          <cells>
+
+             <Text text="{posturecurve>posture_date}" />
+             <Text visible="{= (${posturecurve>/postureMainCopy/farm_id}===null) ? true : false }" text="{posturecurve>farm}"/>
+             <Text visible="{= (${posturecurve>/postureMainCopy/breed_id}===null) ? true : false }" text="{posturecurve>breed}"/>
+             <Text visible="{= (${posturecurve>/postureMainCopy/lot}===null) ? true : false }" text="{posturecurve>lot}"/>
+             <Label text="{posturecurve>thatnumber}" />
+            
+          </cells>
+        </ColumnListItem>
+      </items>
+    </Table>
+</core:FragmentDefinition>

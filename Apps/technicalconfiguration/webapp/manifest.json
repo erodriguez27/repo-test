@@ -1,0 +1,1023 @@
+{
+	"_version": "1.1.0",
+	"sap.app": {
+		"_version": "1.1.0",
+		"id": "technicalConfiguration",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "ui5template.basicSAPUI5ApplicationProject",
+			"version": "1.32.0"
+		}
+	},
+	"sap.ui": {
+		"_version": "1.1.0",
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_bluecrystal"
+		]
+	},
+	"sap.ui5": {
+		"_version": "1.1.0",
+		"rootView": {
+			"viewName": "technicalConfiguration.view.App",
+			"type": "XML"
+		},
+		"dependencies": {
+			"minUI5Version": "1.30.0",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ui.layout": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "technicalConfiguration.i18n.i18n"
+				}
+			},
+			"util": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/util.json"
+			},
+			"MDMEASURE":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/mdmeasure.json"
+			},
+			"MDBREED":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/mdbreed.json"
+			},
+			"TXPOSTURECURVE":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/txposturecurve.json"
+			},
+			"MDPRODUCT": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/mdproduct.json"
+			},
+			"MDBROILERPRODUCT":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/mdbroilerProduct.json"
+			},
+			"MDSTAGE": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/mdstage.json"
+			},
+			"MDPROCESS":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/mdprocess.json"
+			},
+			"MDPARAMETER":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/mdparameter.json"
+			},
+			"OSPARTNERSHIP":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/ospartnership.json"
+			},
+			"OSFARM":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/osfarm.json"
+			},
+			"OSCENTER":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/oscenter.json"
+			},
+			"OSSHED":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/osshed.json"
+			},
+			"OSINCUBATORPLANT":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/osIncubatorPlant.json"
+			},
+			"OSINCUBATOR":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/osIncubator.json"
+			},
+			"OSSLAUGHTERHOUSE":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/osslaughterhouse.json"
+			},
+			"optimizer":{
+			"type": "sap.ui.model.json.JSONModel",
+			"uri": "model/optimizer.json"
+			},
+			"ABACONSUMPTIONANDMORTALITY":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/abaConsumptionAndMortality.json"
+			},
+			"ABAELEMENTS":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/abaElements.json"
+			},
+			"ABAFORMULATION":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/abaFormulation.json"
+			},
+			"ABABREEDSANDSTAGES":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/abaBreedsAndStages.json"
+			}
+		},
+		"resources": {
+			"css": [{
+				"uri": "css/style.css"
+			}]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "technicalConfiguration.view",
+				"controlId": "appControl",
+				"controlAggregation": "pages",
+				"bypassed": {
+					"target": "notFoundTarget"
+				},
+				"async": true
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "master",
+					"target": [
+						"masterTarget"
+					]
+				},
+				{
+					"pattern": "notFound",
+					"name": "notFoundTarget",
+					"target": "notFoundTarget"
+				},
+				{
+					"pattern": "entity/mdmeasure",
+					"name": "mdmeasure",
+					"target": [
+						"masterTarget",
+						"mdmeasureTarget"
+					]
+				},
+				{
+					"pattern": "entity/mdmeasure/record",
+					"name": "mdmeasure_Record",
+					"target": [
+						"masterTarget",
+						"mdmeasure_RecordTarget"
+					]
+				},
+				{
+					"pattern": "entity/mdmeasure/create",
+					"name": "mdmeasure_Create",
+					"target": [
+						"masterTarget",
+						"mdmeasure_CreateTarget"
+					]
+				},
+				{
+					"pattern": "entity/mdbreed",
+					"name": "mdbreed",
+					"target": [
+						"masterTarget",
+						"mdbreedTarget"
+					]
+				},
+				{
+					"pattern": "entity/mdbreed/create",
+					"name": "mdbreed_Create",
+					"target": [
+						"masterTarget",
+						"mdbreed_CreateTarget"
+					]
+				},
+				{
+					"pattern": "entity/mdbreed/record",
+					"name": "mdbreed_Record",
+					"target": [
+						"masterTarget",
+						"mdbreed_RecordTarget"
+					]
+				},
+				{
+					"pattern": "entity/posturecurve",
+					"name": "txposturecurve",
+					"target": [
+						"masterTarget",
+						"txposturecurveTarget"
+					]
+				},
+				{
+					"pattern": "entity/posturecurve/create",
+					"name": "txposturecurve_Create",
+					"target": [
+						"masterTarget",
+						"txposturecurve_CreateTarget"
+					]
+				},
+				{
+					"pattern": "entity/mdproduct",
+					"name": "mdproduct",
+					"target": [
+						"masterTarget",
+						"mdproductTarget"
+					]
+				},
+				{
+					"pattern": "entity/mdproduct/create",
+					"name": "mdproduct_Create",
+					"target": [
+						"masterTarget",
+						"mdproduct_CreateTarget"
+					]
+				},
+				{
+					"pattern": "entity/mdproduct/record",
+					"name": "mdproduct_Record",
+					"target": [
+						"masterTarget",
+						"mdproduct_RecordTarget"
+					]
+				},
+				{
+					"pattern": "entity/mdbroilerProduct",
+					"name": "mdbroilerProduct",
+					"target": [
+						"masterTarget",
+						"mdbroilerProductTarget"
+					]
+				},
+				{
+					"pattern": "entity/mdbroilerProduct/create",
+					"name": "mdbroilerProduct_Create",
+					"target": [
+						"masterTarget",
+						"mdbroilerProduct_CreateTarget"
+					]
+				},
+				{
+					"pattern": "entity/mdbroilerProduct/record",
+					"name": "mdbroilerProduct_Record",
+					"target": [
+						"masterTarget",
+						"mdbroilerProduct_RecordTarget"
+					]
+				},
+				{
+					"pattern": "entity/mdprocess",
+					"name": "mdprocess",
+					"target": [
+						"masterTarget",
+						"mdprocessTarget"
+					]
+				},
+				{
+					"pattern": "entity/mdprocess/create",
+					"name": "mdprocess_Create",
+					"target": [
+						"masterTarget",
+						"mdprocess_CreateTarget"
+					]
+				},
+				{
+					"pattern": "entity/mdprocess/record",
+					"name": "mdprocess_Record",
+					"target": [
+						"masterTarget",
+						"mdprocess_RecordTarget"
+					]
+				},
+				{
+					"pattern": "entity/mdparameter",
+					"name": "mdparameter",
+					"target": [
+						"masterTarget",
+						"mdparameterTarget"
+					]
+				},
+				{
+					"pattern": "entity/mdparameter/create",
+					"name": "mdparameter_Create",
+					"target": [
+						"masterTarget",
+						"mdparameter_CreateTarget"
+					]
+				},
+				{
+					"pattern": "entity/mdparameter/record",
+					"name": "mdparameter_Record",
+					"target": [
+						"masterTarget",
+						"mdparameter_RecordTarget"
+					]
+				},
+				{
+					"pattern": "entity/ospartnership",
+					"name": "ospartnership",
+					"target": [
+						"masterTarget",
+						"ospartnershipTarget"
+					]
+				},
+				{
+					"pattern": "entity/ospartnership/create",
+					"name": "ospartnership_Create",
+					"target": [
+						"masterTarget",
+						"ospartnership_CreateTarget"
+					]
+				},
+				{
+					"pattern": "entity/ospartnership/record",
+					"name": "ospartnership_Record",
+					"target": [
+						"masterTarget",
+						"ospartnership_RecordTarget"
+					]
+				},
+				{
+					"pattern": "entity/osfarm",
+					"name": "osfarm",
+					"target": [
+						"masterTarget",
+						"osfarmTarget"
+					]
+				},
+				{
+					"pattern": "entity/osfarm/create",
+					"name": "osfarm_Create",
+					"target": [
+						"masterTarget",
+						"osfarm_CreateTarget"
+					]
+				},
+				{
+					"pattern": "entity/osfarm/record",
+					"name": "osfarm_Record",
+					"target": [
+						"masterTarget",
+						"osfarm_RecordTarget"
+					]
+				},
+				{
+					"pattern": "entity/oscenter",
+					"name": "oscenter",
+					"target": [
+						"masterTarget",
+						"oscenterTarget"
+					]
+				},
+				{
+					"pattern": "entity/oscenter/create",
+					"name": "oscenter_Create",
+					"target": [
+						"masterTarget",
+						"oscenter_CreateTarget"
+					]
+				},
+				{
+					"pattern": "entity/oscenter/record",
+					"name": "oscenter_Record",
+					"target": [
+						"masterTarget",
+						"oscenter_RecordTarget"
+					]
+				},
+				{
+					"pattern": "entity/osshed",
+					"name": "osshed",
+					"target": [
+						"masterTarget",
+						"osshedTarget"
+					]
+				},
+				{
+					"pattern": "entity/osshed/create",
+					"name": "osshed_Create",
+					"target": [
+						"masterTarget",
+						"osshed_CreateTarget"
+					]
+				},
+				{
+					"pattern": "entity/osshed/record",
+					"name": "osshed_Record",
+					"target": [
+						"masterTarget",
+						"osshed_RecordTarget"
+					]
+				},
+				{
+					"pattern": "entity/osIncubatorPlant",
+					"name": "osIncubatorPlant",
+					"target": [
+						"masterTarget",
+						"osIncubatorPlantTarget"
+					]
+				},
+				{
+					"pattern": "entity/osIncubatorPlant/create",
+					"name": "osIncubatorPlant_Create",
+					"target": [
+						"masterTarget",
+						"osIncubatorPlant_CreateTarget"
+					]
+				},
+				{
+					"pattern": "entity/osIncubatorPlant/record",
+					"name": "osIncubatorPlant_Record",
+					"target": [
+						"masterTarget",
+						"osIncubatorPlant_RecordTarget"
+					]
+				},
+				{
+					"pattern": "entity/osIncubator",
+					"name": "osIncubator",
+					"target": [
+						"masterTarget",
+						"osIncubatorTarget"
+					]
+				},
+				{
+					"pattern": "entity/osIncubator/create",
+					"name": "osIncubator_Create",
+					"target": [
+						"masterTarget",
+						"osIncubator_CreateTarget"
+					]
+				},
+				{
+					"pattern": "entity/osIncubator/record",
+					"name": "osIncubator_Record",
+					"target": [
+						"masterTarget",
+						"osIncubator_RecordTarget"
+					]
+				},
+				{
+					"pattern": "entity/osslaughterhouse",
+					"name": "osslaughterhouse",
+					"target": [
+						"masterTarget",
+						"osslaughterhouseTarget"
+					]
+				},
+				{
+					"pattern": "entity/osslaughterhouse/create",
+					"name": "osslaughterhouse_Create",
+					"target": [
+						"masterTarget",
+						"osslaughterhouse_CreateTarget"
+					]
+				},
+				{
+					"pattern": "entity/osslaughterhouse/record",
+					"name": "osslaughterhouse_Record",
+					"target": [
+						"masterTarget",
+						"osslaughterhouse_RecordTarget"
+					]
+				},
+				{
+					"pattern": "entity/optimizer",
+					"name": "optimizer",
+					"target": [
+						"masterTarget",
+						"optimizerTarget"
+					]
+				},
+				{
+					"pattern": "entity/optimizer/create",
+					"name": "optimizer_Create",
+					"target": [
+						"masterTarget",
+						"optimizer_CreateTarget"
+					]
+				},
+				{
+					"pattern": "entity/abaConsumptionAndMortality",
+					"name": "abaConsumptionAndMortality",
+					"target": [
+						"masterTarget",
+						"abaConsumptionAndMortalityTarget"
+					]
+				},
+				{
+					"pattern": "entity/abaConsumptionAndMortality/create",
+					"name": "abaConsumptionAndMortality_Create",
+					"target": [
+						"masterTarget",
+						"abaConsumptionAndMortality_CreateTarget"
+					]
+				},
+				{
+					"pattern": "entity/abaConsumptionAndMortality/record",
+					"name": "abaConsumptionAndMortality_Record",
+					"target": [
+						"masterTarget",
+						"abaConsumptionAndMortality_RecordTarget"
+					]
+				},
+				{
+					"pattern": "entity/abaElements",
+					"name": "abaElements",
+					"target": [
+						"masterTarget",
+						"abaElementsTarget"
+					]
+				},
+				{
+					"pattern": "entity/abaElements/create",
+					"name": "abaElements_Create",
+					"target": [
+						"masterTarget",
+						"abaElements_CreateTarget"
+					]
+				},
+				{
+					"pattern": "entity/abaElements/record",
+					"name": "abaElements_Record",
+					"target": [
+						"masterTarget",
+						"abaElements_RecordTarget"
+					]
+				},
+				{
+					"pattern": "entity/abaFormulation",
+					"name": "abaFormulation",
+					"target": [
+						"masterTarget",
+						"abaFormulationTarget"
+					]
+				},
+				{
+					"pattern": "entity/abaFormulation/create",
+					"name": "abaFormulation_Create",
+					"target": [
+						"masterTarget",
+						"abaFormulation_CreateTarget"
+					]
+				},
+				{
+					"pattern": "entity/abaFormulation/record",
+					"name": "abaFormulation_Record",
+					"target": [
+						"masterTarget",
+						"abaFormulation_RecordTarget"
+					]
+				},
+				{
+					"pattern": "entity/abaStages",
+					"name": "abaStages",
+					"target": [
+						"masterTarget",
+						"abaStagesTarget"
+					]
+				},
+				{
+					"pattern": "entity/abaStages/create",
+					"name": "abaStages_Create",
+					"target": [
+						"masterTarget",
+						"abaStages_CreateTarget"
+					]
+				},
+				{
+					"pattern": "entity/abaStages/record",
+					"name": "abaStages_Record",
+					"target": [
+						"masterTarget",
+						"abaStages_RecordTarget"
+					]
+				}
+			],
+			"targets": {
+				"splitViewTarget": {
+					"viewName": "SplitView"
+				},
+				"masterTarget": {
+					"viewName": "Master",
+					"viewLevel": 1,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "masterPages"
+				},
+				"mdmeasureTarget": {
+					"viewName": "measure.mdmeasure",
+					"viewLevel": 2,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"mdmeasure_RecordTarget": {
+					"viewName": "measure.mdmeasure_Record",
+					"viewLevel": 4,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"mdmeasure_CreateTarget": {
+					"viewName": "measure.mdmeasure_Create",
+					"viewLevel": 3,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"mdbreedTarget": {
+					"viewName": "breed.mdbreed",
+					"viewLevel": 2,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"mdbreed_CreateTarget": {
+					"viewName": "breed.mdbreed_Create",
+					"viewLevel": 3,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"mdbreed_RecordTarget": {
+					"viewName": "breed.mdbreed_Record",
+					"viewLevel": 4,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"txposturecurveTarget": {
+					"viewName": "postureCurve.txposturecurve",
+					"viewLevel": 2,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"txposturecurve_CreateTarget": {
+					"viewName": "postureCurve.txposturecurve_Create",
+					"viewLevel": 3,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"mdproductTarget": {
+					"viewName": "product.mdproduct",
+					"viewLevel": 2,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"mdproduct_CreateTarget": {
+					"viewName": "product.mdproduct_Create",
+					"viewLevel": 3,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"mdproduct_RecordTarget": {
+					"viewName": "product.mdproduct_Record",
+					"viewLevel": 4,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"mdbroilerProductTarget": {
+					"viewName": "broilerProduct.mdbroilerProduct",
+					"viewLevel": 2,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"mdbroilerProduct_CreateTarget": {
+					"viewName": "broilerProduct.mdbroilerProduct_Create",
+					"viewLevel": 3,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"mdbroilerProduct_RecordTarget": {
+					"viewName": "broilerProduct.mdbroilerProduct_Record",
+					"viewLevel": 4,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"mdprocessTarget": {
+					"viewName": "process.mdprocess",
+					"viewLevel": 2,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"mdprocess_CreateTarget": {
+					"viewName": "process.mdprocess_Create",
+					"viewLevel": 3,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"mdprocess_RecordTarget": {
+					"viewName": "process.mdprocess_Record",
+					"viewLevel": 4,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"mdparameterTarget": {
+					"viewName": "parameter.mdparameter",
+					"viewLevel": 2,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"mdparameter_CreateTarget": {
+					"viewName": "parameter.mdparameter_Create",
+					"viewLevel": 3,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"mdparameter_RecordTarget": {
+					"viewName": "parameter.mdparameter_Record",
+					"viewLevel": 4,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"ospartnershipTarget": {
+					"viewName": "partnership.ospartnership",
+					"viewLevel": 2,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"ospartnership_CreateTarget": {
+					"viewName": "partnership.ospartnership_Create",
+					"viewLevel": 3,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"ospartnership_RecordTarget": {
+					"viewName": "partnership.ospartnership_Record",
+					"viewLevel": 4,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"osfarmTarget": {
+					"viewName": "farm.osfarm",
+					"viewLevel": 2,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"osfarm_CreateTarget": {
+					"viewName": "farm.osfarm_Create",
+					"viewLevel": 3,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"osfarm_RecordTarget": {
+					"viewName": "farm.osfarm_Record",
+					"viewLevel": 4,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"oscenterTarget": {
+					"viewName": "center.oscenter",
+					"viewLevel": 2,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"oscenter_CreateTarget": {
+					"viewName": "center.oscenter_Create",
+					"viewLevel": 3,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"oscenter_RecordTarget": {
+					"viewName": "center.oscenter_Record",
+					"viewLevel": 4,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"osshedTarget": {
+					"viewName": "shed.osshed",
+					"viewLevel": 2,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"osshed_CreateTarget": {
+					"viewName": "shed.osshed_Create",
+					"viewLevel": 3,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"osshed_RecordTarget": {
+					"viewName": "shed.osshed_Record",
+					"viewLevel": 4,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"osIncubatorPlantTarget": {
+					"viewName": "incubatorPlant.osIncubatorPlant",
+					"viewLevel": 2,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"osIncubatorPlant_CreateTarget": {
+					"viewName": "incubatorPlant.osIncubatorPlant_Create",
+					"viewLevel": 3,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"osIncubatorPlant_RecordTarget": {
+					"viewName": "incubatorPlant.osIncubatorPlant_Record",
+					"viewLevel": 4,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"osIncubatorTarget": {
+					"viewName": "incubator.osIncubator",
+					"viewLevel": 2,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"osIncubator_CreateTarget": {
+					"viewName": "incubator.osIncubator_Create",
+					"viewLevel": 3,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"osIncubator_RecordTarget": {
+					"viewName": "incubator.osIncubator_Record",
+					"viewLevel": 4,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"osslaughterhouseTarget": {
+					"viewName": "slaughterhouse.osslaughterhouse",
+					"viewLevel": 2,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"osslaughterhouse_CreateTarget": {
+					"viewName": "slaughterhouse.osslaughterhouse_Create",
+					"viewLevel": 3,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"osslaughterhouse_RecordTarget": {
+					"viewName": "slaughterhouse.osslaughterhouse_Record",
+					"viewLevel": 4,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"optimizerTarget": {
+				"viewName": "optimizer.optimizer",
+				"viewLevel": 2,
+				"parent": "splitViewTarget",
+				"controlId": "splitContainerControl",
+				"controlAggregation": "detailPages"
+				},
+				"optimizer_CreateTarget": {
+					"viewName": "optimizer.optimizer_create",
+					"viewLevel": 3,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"abaConsumptionAndMortalityTarget": {
+					"viewName": "abaConsumptionAndMortality.abaConsumptionAndMortality",
+					"viewLevel": 2,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"abaConsumptionAndMortality_CreateTarget": {
+					"viewName": "abaConsumptionAndMortality.abaConsumptionAndMortality_Create",
+					"viewLevel": 3,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"abaConsumptionAndMortality_RecordTarget": {
+					"viewName": "abaConsumptionAndMortality.abaConsumptionAndMortality_Record",
+					"viewLevel": 4,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"abaElementsTarget": {
+					"viewName": "abaElements.abaElements",
+					"viewLevel": 2,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"abaElements_CreateTarget": {
+					"viewName": "abaElements.abaElements_Create",
+					"viewLevel": 3,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"abaElements_RecordTarget": {
+					"viewName": "abaElements.abaElements_Record",
+					"viewLevel": 4,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"abaFormulationTarget": {
+					"viewName": "abaFormulation.abaFormulation",
+					"viewLevel": 2,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"abaFormulation_CreateTarget": {
+					"viewName": "abaFormulation.abaFormulation_Create",
+					"viewLevel": 3,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"abaFormulation_RecordTarget": {
+					"viewName": "abaFormulation.abaFormulation_Record",
+					"viewLevel": 4,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"abaStagesTarget": {
+					"viewName": "abaStages.abaStages",
+					"viewLevel": 2,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"abaStages_CreateTarget": {
+					"viewName": "abaStages.abaStages_Create",
+					"viewLevel": 3,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"abaStages_RecordTarget": {
+					"viewName": "abaStages.abaStages_Record",
+					"viewLevel": 4,
+					"parent": "splitViewTarget",
+					"controlId": "splitContainerControl",
+					"controlAggregation": "detailPages"
+				},
+				"notFoundTarget": {
+					"viewName": "NotFound",
+					"transition": "show"
+				}
+			}
+		}
+	}
+}

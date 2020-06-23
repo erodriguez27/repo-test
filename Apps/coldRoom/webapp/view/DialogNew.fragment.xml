@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog id ="dialogNew" title="Agregar Ajuste" class="sapUiPopupWithPadding" confirm="onCancelCopy" cancel="onCancelCopy" busy="false" escapeHandler="onProyectedCloseDialog">
+		<f:SimpleForm id="formNew" editable="true" labelSpanL="5" labelSpanM="4" labelSpanS="4" emptySpanL="0" emptySpanM="0"
+			emptySpanS="0" columnsL="2" columnsM="2" maxContainerCols="2" layout="ResponsiveGridLayout" width="100%" busy="false">
+
+			<Label text="Fecha"/>
+			<DatePicker id="date_new" valueFormat="MM-dd-yyyy" change="handleChange"/>
+
+			<Label text="Cantidad"/>
+			<Input id="new_quantity" value="{Nose>x}" placeholder="UND" liveChange="validateIntInput"/>
+
+			<Label text="Raza"/>
+			<Select id="breedNewSelect" items="{path:'mdbreed>/records'}" selectedKey="{mdbreed>/selectedKey}">
+				<core:Item text="{mdbreed>name}" key="{mdbreed>breed_id}"/>
+			</Select>
+
+			<Label text="Descripción"/>
+			<Select id="descriptionNewSelect" items="{path:'mdinventory>/new'}" selectedKey="{Nose>/x}">
+				<core:Item text="{mdinventory>name}" key="{mdinventory>name}"/>
+			</Select>
+		</f:SimpleForm>
+		<beginButton>
+			<Button text="Guardar" type="Accept" press="onSaveNewIngress" />
+		</beginButton>
+		<endButton>
+			<Button text="Cancelar" type="Reject" press="onCloseDialogNew" />
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

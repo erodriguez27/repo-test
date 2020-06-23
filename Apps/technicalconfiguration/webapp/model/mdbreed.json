@@ -1,0 +1,41 @@
+{
+    "breed_id":{
+        "value":""
+    },
+    "code": {
+        "value": "",
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": true,
+        "excepcion": "",
+        "ok": false
+    },
+  "name": {
+      "value": "",
+      "state": "None",
+      "stateText": "",
+      "visible": true,
+      "editable": false,
+      "required": true,
+      "excepcion": "",
+      "ok": false
+  },
+    "type": {
+        "value": "",
+        "state": "None",
+        "stateText": "",
+        "visible": true,
+        "editable": false,
+        "required": false
+    },
+    "records": [],
+    "selectedRecordPath": "",
+    "create": false,
+  	"modify": true,
+  	"delete": true,
+  	"save": true,
+    "cancel": true,
+    "selectedKey":""
+}

@@ -1,0 +1,33 @@
+<mvc:View 	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" 
+			controllerName="dailyMonitor.controller.Master">
+	<App>
+		<pages>
+		    <sap.m.semantic:MasterPage xmlns:sap.m.semantic="sap.m.semantic" title="{ospartnership>/title}" id="__page1">
+				<sap.m.semantic:customHeaderContent>
+					<Button icon="sap-icon://undo" tooltip="Ir al launchpad" press="goToLaunchpad" />
+				</sap.m.semantic:customHeaderContent>
+				<sap.m.semantic:subHeader>
+					<Bar id="headerBar">
+						<contentMiddle>
+							<SearchField id="searchField" width="100%" liveChange="onSearch"/>
+						</contentMiddle>
+					</Bar>
+				</sap.m.semantic:subHeader>
+
+				<sap.m.semantic:content>
+		            <List 	id="__list0" items="{ospartnership>/records}" noDataText="Drop list items here" selectionChange="onSelectionChange" 
+		            		updateFinished="onUpdateFinished">
+		                <items>
+		                    <ObjectListItem press="onSelectionChange" type="Active" counter="0" title="{ospartnership>name}" markFavorite="false"
+		                    				markFlagged="false" showMarkers="false" id="__item0">
+			                	<attributes>
+			                    	<ObjectAttribute text="{name}" active="false" id="__attribute0"/>
+			                	</attributes>
+		                	</ObjectListItem>
+		                </items>
+		            </List>
+		        </sap.m.semantic:content>
+		    </sap.m.semantic:MasterPage>
+		</pages>
+	</App>
+</mvc:View>

@@ -1,0 +1,50 @@
+{
+  "compareButton": {
+    "text": "Comparar",
+    "type": "Emphasized"
+  },
+  "calculateButton": {
+    "text": "Calcular",
+    "type": "Emphasized",
+    "visible": false
+  },
+  "listType": "SingleSelectMaster",
+  "scenarios": [],
+  "idSelected": "",
+  "dates": [],
+  "selectedDates": [],
+  "scenariosAndDates": [],
+  "stats": [],
+  "popOverData": {
+    "scenarioName": "",
+    "criaYLevante": "",
+    "engorde": ""
+  },
+  "columns": [],
+  
+  "items": [
+    {
+      "key": 1,
+      "text": "Prueba 1"
+    },
+    {
+      "key": 2,
+      "text": "Prueba 2"
+    },
+    {
+      "key": 3,
+      "text": "Prueba 3"
+    },
+    {
+      "key": 4,
+      "text": "Prueba 4"
+    }
+  ],
+  "selectedItem": {},
+  "tableInfo": {},
+  "menuDetails": false,
+  "menuGeneral":false,
+  "busy": false,
+  "selectedmes":[]
+
+}

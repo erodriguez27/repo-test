@@ -1,0 +1,87 @@
+<core:FragmentDefinition
+		xmlns="sap.m"
+		xmlns:core="sap.ui.core">
+	<ViewSettingsDialog id="myFilter"
+		confirm="handleConfirm">
+
+		<filterItems >
+			<ViewSettingsFilterItem
+				id="filterProcess"
+				text="Proceso"
+				key="process"
+				multiSelect="true"
+				items="{path:'mdstage>/records'}">
+				<items>
+					<ViewSettingsItem text="{mdstage>name}" key="process___{mdstage>process_id}" />
+				</items>
+			</ViewSettingsFilterItem>
+			<!-- <ViewSettingsFilterItem
+				text="Weight"
+				key="WeightMeasure"
+				multiSelect="true">
+				<items>
+					<ViewSettingsItem text="Less than 1000" key="WeightMeasure___LE___1000___X" />
+					<ViewSettingsItem text="Between 1000 and 2000" key="WeightMeasure___BT___1000___2000" />
+					<ViewSettingsItem text="More Than 2000" key="WeightMeasure___GT___2000___X" />
+				</items>
+			</ViewSettingsFilterItem> -->
+			<ViewSettingsFilterItem
+				id="filterBreed"
+				text="Raza"
+				key="breed"
+				multiSelect="true"
+				items="{path:'mdbreed>/records'}">
+				<items>
+					<ViewSettingsItem text="{mdbreed>name}" key="breed___{mdbreed>breed_id}" />
+				</items>
+			</ViewSettingsFilterItem>
+		</filterItems>
+
+		<customTabs>
+
+			<ViewSettingsCustomTab id="app-settings" icon="sap-icon://action-settings" title="Settings"
+									tooltip="Parametrizar Indicadores">
+				<content>
+					<Panel height="338px">
+						<content>
+						<Toolbar>
+							<Label text="Indicadores de capacidad" design="Bold"/>
+							<ToolbarSpacer/>
+							<Button tooltip="Reiniciar Indicadores" icon="sap-icon://reset"
+								press="resetParameterColors" type="Transparent" />
+						</Toolbar>
+						<!-- <SegmentedButton
+								class="vsdSetting"
+								selectedButton="VSDsap_bluecrystal"
+								id="VSDThemeButtons"
+								width="100%" >
+							<Button text="High Contrast Black" id="VSDsap_hcb" />
+							<Button text="Blue Crystal" id="VSDsap_bluecrystal" />
+						</SegmentedButton> -->
+						
+
+						
+
+						<RangeSlider id="RangeSliderError" range="{parameterColors>/errorValue}"
+								width="100%" min="0" max="100"
+								liveChange="liveParameterError" class="sapUiMediumMarginBottom RangeError" 
+								showAdvancedTooltip="false" showHandleTooltip="false" />
+
+						<RangeSlider id="RangeSliderWarning" range="{parameterColors>/warningValue}" 
+									min="0" max="100" width="100%"
+									class="sapUiMediumMarginBottom RangeWarning" liveChange="liveParameterWarning"
+									showAdvancedTooltip="true" showHandleTooltip="false"/>
+
+						<RangeSlider id="RangeSliderSuccess" range="{parameterColors>/successValue}"
+									min="0" max="100" width="100%"
+									class="sapUiMediumMarginBottom RangeSuccess" liveChange="liveParameterSuccess"
+									showAdvancedTooltip="false" showHandleTooltip="false"/>
+						
+						</content>
+					</Panel>
+				</content>
+			</ViewSettingsCustomTab>
+
+		</customTabs>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,55 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+
+  <Table id="executedTable"
+          inset="false"
+          items="{path:'mdexecuted>/records'}"
+          busy="{util>/busy}"
+          selectionChange="onDialogPress"
+          growing="true"
+        growingScrollToLoad="true">
+
+  <columns>
+    <Column hAlign="Center">
+      <Text text="Máquina"/>
+    </Column>
+
+    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+      <Text text="Capacidad (UN)"/>
+    </Column>
+
+    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+      <Text text="Lote Incubadora"/>
+    </Column>
+
+    <Column
+        minScreenWidth="Tablet"
+        demandPopin="true"
+        hAlign="Center">
+        <Text text="Fecha Ejecución" />
+      </Column>
+
+    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"  visible = "{mdexecuted>/executed}">
+      <Text text="Cantidad Ejecución (UN)"/>
+    </Column>
+    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" visible = "{mdexecuted>/notexecuted}">
+      <Text text="Cantidad Ejecución (UN)"/>
+    </Column>
+
+  </columns>
+  <items>
+    <ColumnListItem>
+      <cells>
+        <Text text="{mdexecuted>name}"/>
+        <Text text="{path:'mdexecuted>capacity',formatter: '.formatter.formatMiles' }"/>
+        <Link text="{mdexecuted>lot_incubator}" press="showProgrammedLots"/>
+        <Text text="{path:'mdexecuted>use_date',formatter: '.formatter.formatDate3' }"/>
+        <Text text="{path:'mdexecuted>/execution_quantity',formatter: '.formatter.formatMiles' }" visible = "{mdexecuted>/executed}"/>
+        <Input id="execution_quantityE" textAlign="Center" visible = "{mdexecuted>/notexecuted}" valueState="{mdexecuted>/name/state}" valueStateText="{mdexecuted>/name/stateText}" value="{mdexecuted>/execution_quantity}" liveChange="onValidExecutedQuantity" width="60%"/> <!--cantidad-->
+       
+      </cells>
+    </ColumnListItem>
+  </items>
+</Table>
+
+
+</core:FragmentDefinition>

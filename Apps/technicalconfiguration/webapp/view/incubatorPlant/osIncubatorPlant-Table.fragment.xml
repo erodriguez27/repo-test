@@ -1,0 +1,62 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+	<VBox xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" width="100%" direction="Column" id="incubatorPlantVBox">
+		<items>
+			<Toolbar xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" id="incubatorPlantToolbar">
+				<content>
+					<SearchField id="searchIncPlantId" liveChange="onIncubatorPlantSearch" placeholder="{i18n>OS.searchRecord} por {i18n>incubatorPlant.code} o {i18n>incubatorPlant.name}" width="100%"/>
+				</content>
+			</Toolbar>
+      <Table
+        xmlns:core="sap.ui.core"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns:sap.m.semantic="sap.m.semantic"
+        xmlns="sap.m"
+        noDataText="{i18n>noRecords}"
+        id="incubatorPlantTable"
+        items="{OSINCUBATORPLANT>/records/}"
+        mode="{OSINCUBATORPLANT>/settings/tableMode}"
+				selectionChange="onSelectIncubatorPlantRecord"
+        growing="true"
+        growingScrollToLoad="true">
+        <items>
+          <ColumnListItem counter="0" id="incubatorPlant_list_item" type="{OSINCUBATORPLANT>/itemType}" detailPress="onViewIncubatorPlantRecord">
+            <cells>
+              <Text text="{OSINCUBATORPLANT>name}" maxLines="0" id="incubatorPlant_name_text"/>
+              <Text text="{OSINCUBATORPLANT>code}" maxLines="0" id="incubatorPlant_code_text"/>
+							<ObjectNumber
+								number="{OSINCUBATORPLANT>max_storage}"
+								unit="Dias"/>
+							<ObjectNumber
+								number="{OSINCUBATORPLANT>min_storage}"
+								unit="Dias"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+        <columns>
+
+          <Column id="incubatorPlant_name_column" vAlign="Middle" >
+            <header>
+              <Label text="{i18n>incubatorPlant.name}" id="incubatorPlant_table_name_label"/>
+            </header>
+          </Column>
+          <Column id="incubatorPlant_code_column" vAlign="Middle" >
+            <header>
+              <Label text="{i18n>incubatorPlant.code}" id="incubatorPlant_table_code_label"/>
+            </header>
+          </Column>
+					<Column id="incubatorPlant_max_column" vAlign="Middle" >
+						<header>
+							<Label text="{i18n>incubatorPlant.max}" id="incubatorPlant_table_max_label"/>
+						</header>
+					</Column>
+					<Column id="incubatorPlant_min_column" vAlign="Middle" >
+						<header>
+							<Label text="{i18n>incubatorPlant.min}" id="incubatorPlant_table_min_label"/>
+						</header>
+					</Column>
+        </columns>
+      </Table>
+		</items>
+	</VBox>
+</core:FragmentDefinition>

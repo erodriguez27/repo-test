@@ -1,0 +1,66 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+	<FlexBox id="__box22"
+		width="100%"
+		justifyContent="Center">
+
+		<items>
+			<ComboBox id="breedSelect"
+				items="{path:'mdbreed>/records'}"
+				selectedKey="{mdbreed>/value}"
+				placeholder="Raza"
+				forceSelection="false">
+				<core:Item text="{mdbreed>name}" key="{mdbreed>breed_id}"/>
+			</ComboBox>
+
+			<DatePicker id="scheduled_date" valueFormat="dd-MM-yyyy" placeholder="Desde" change="handleChange" class="sapUiSmallMarginBottom"/>
+			<DatePicker id="scheduled_date2" valueFormat="dd-MM-yyyy" placeholder="Hasta" change="handleChange" class="sapUiSmallMarginBottom"/>
+			<Button id="bProj" text="Buscar" press="onPress"></Button>
+		</items>
+	</FlexBox>
+
+	<Table id="projectedTable"
+		inset="false"
+		items="{path:'mdprojected>/records'}"
+		mode="MultiSelect"
+		selectionChange="onSelectProgrammedRecords"
+		growing="true"
+		growingScrollToLoad="true">
+
+		<columns>
+			<Column
+				hAlign="Center">
+				<Text text="Fecha"/>
+			</Column>
+			<Column
+				minScreenWidth="Tablet"
+				demandPopin="true"
+				hAlign="Center">
+				<Text text="Lote incubadora"/>
+			</Column>
+			<Column
+				minScreenWidth="Tablet"
+				demandPopin="true"
+				hAlign="Center">
+				<Text text="Cantidad (UN)"/>
+			</Column>
+			<Column
+				minScreenWidth="Tablet"
+				demandPopin="true"
+				hAlign="Center">
+				<Text text="Saldo (UN)"/>
+			</Column>
+		</columns>
+
+		<items>
+			<ColumnListItem>
+				<cells>
+					<Text text="{path:'mdprojected>fProjected',formatter: '.formatter.formatDate' }" />
+					<!-- <Text text="{mdprojected>lot_incubator}" /> -->
+					<Link text="{mdprojected>lot_incubator}" press="showProgrammedIcubatorLots"/>
+					<ObjectNumber number="{path:'mdprojected>projected_quantity',formatter: '.formatter.formatMiles' }"/>
+					<ObjectNumber number="{parts: [{path:'mdprojected>projected_quantity'}, {path:'mdprojected>residue'}],formatter: '.formatter.calculateResidue'} "/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

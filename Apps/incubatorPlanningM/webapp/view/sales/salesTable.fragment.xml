@@ -1,0 +1,94 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+	<FlexBox width="100%" id="__box22sales" justifyContent="Center">
+		<items>
+			<ComboBox items="{mdincubatorplant>/records}"
+				id="selectIncubatorPlantSale"
+				class="sapUiSmallMarginBottom"
+				placeholder="Planta Incubadora"
+				change="validateIncPlant"
+				selectedKey="{mdincubatorplant>/selectedIncPlant}">
+				<core:Item text="{mdincubatorplant>name}" key="{mdincubatorplant>incubator_plant_id}" />
+			</ComboBox>
+
+			<ComboBox items="{mdbreed>/recordsSales}"
+				id="breedSelectSale"
+				class="sapUiSmallMarginBottom"
+				placeholder="Raza"
+				change="validateBreed"
+				selectedKey="{mdbreed>/selectedBreed}">
+				<core:Item text="{mdbreed>name}" key="{mdbreed>breed_id}" />
+			</ComboBox>
+
+			<DatePicker id="sales_date" valueFormat="dd-MM-yyyy" placeholder="Desde" change="onInitDateChange" class="sapUiSmallMarginBottom"/>
+			<DatePicker id="sales_date2" valueFormat="dd-MM-yyyy" placeholder="Hasta" change="onEndDateChange" class="sapUiSmallMarginBottom"/>
+
+			<Button text="Buscar" press="onPressSales"></Button>
+		</items>
+	</FlexBox>
+
+	<Table id="salesTable"
+		inset="false"
+		items="{path:'mdprojected>/recordsSales'}"
+		selectionChange="onSelectProgrammedRecords"
+		growing="true"
+		growingScrollToLoad="true">
+
+		<columns>
+			<Column hAlign="Center">
+				<Text text="Fecha"/>
+			</Column>
+			<Column hAlign="Center">
+				<Text text="Sexo"/>
+			</Column>
+			<Column hAlign="Center">
+				<Text text="Raza"/>
+			</Column>
+			<Column hAlign="Center">
+				<Text text="Cantidad (UN)"/>
+			</Column>
+			<Column
+				hAlign="Right"
+				enabled ="{mdprojected>/enabDelet}">
+			</Column>
+			<!--
+			<Column hAlign="Center">
+				<Text text="Lote almacén"/>
+			</Column>
+			<Column hAlign="Center" visible = "{mdprojected>/raza}">
+				<Text text="Raza"/>
+			</Column>
+			<Column hAlign="Center">
+				<Text text="Antigüedad (Días)"/>
+			</Column>
+			<Column hAlign="Center">
+				<Text text="Cantidad (UN)"/>
+			</Column>
+			<Column hAlign="Center">
+				<Text text="Saldo (UN)"/>
+			</Column>
+			-->
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<Text text="{mdprojected>date_sale}"/>
+					<Text text="{path:'mdprojected>gender',formatter: '.formatter.formatGender'}"/>
+					<Text text="{path:'mdprojected>breed'}"/>
+					<Text text="{path:'mdprojected>quantity',formatter: '.formatter.formatMiles' }"/>
+					<Button id="button1" type="Transparent" icon="sap-icon://sys-cancel" press="onDialogPressDet" enabled ="true"/>
+					<!--
+					<Text text="{path:'mdprojected>pdate',formatter: '.formatter.formatDate' }"/>
+					<ObjectNumber number="{path:'mdprojected>eggs',formatter: '.formatter.formatMiles' }"/>
+					<ObjectNumber number="{path:'mdprojected>goal',formatter: '.formatter.formatMiles' }" />
+					<ObjectNumber number="{path:'mdprojected>available',formatter: '.formatter.formatMiles' }" />
+					<Text text="{mdprojected>incubator}"/>
+					<Text text="{path:'mdprojected>incubatorCapacity',formatter: '.formatter.formatMiles'}"/>
+					<ObjectNumber number="{path:'mdprojected>proyected',formatter: '.formatter.formatMiles'}" />
+					<ObjectNumber number="{path:'mdprojected>storage_quantity',formatter: '.formatter.formatMiles'}" />
+					<ObjectNumber number=""/>
+					-->
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

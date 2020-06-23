@@ -1,0 +1,73 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" 	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form">
+
+  <FlexBox width="100%" id="__box"
+
+          justifyContent="Center">
+    <items>
+     <Select 
+        change="OnChangeStage"
+        visible="{traceability>/isVisible}"
+        selectedKey = "{mdprojected>/selectedStage}"
+        forceSelection="true">
+        
+        <core:Item text="C- Cría y levante" key="C"/>
+        <core:Item text="P- Producción" key="P"/>
+        <core:Item text="H- Almacén de Huevo Fértil" key="H"/>
+        <core:Item text="E- Engorde" key="E"/>
+      </Select>
+
+      <Input placeholder="Lote" liveChange="validateInputLot" value = "{mdprojected>/val_lot}" valueState="{mdprojected>/stateLot}" valueStateText="{mdprojected>/stateTextLot}">
+      </Input>
+
+       <Button id="GoFindd" text="Buscar"  press="onFindLot" />
+
+
+    </items>
+  </FlexBox>
+
+  <Table id="adjustmentTable"
+				 inset="false"
+				 items="{path:'mdprojected>/records'}"
+				 mode=""
+				 delete="handleDelete"
+				 selectionChange="onSelectProgrammedRecord"
+         visible= "{mdprojected>/visibleTable}"
+         growing="true"
+        growingScrollToLoad="true">
+      
+
+    <columns>
+      
+      <Column hAlign="Center">
+        <Text text="Fecha"/>
+      </Column>
+
+      <Column hAlign="Center">
+        <Text text="Lote"/>
+      </Column>
+
+      <Column hAlign="Center">
+        <Text text="Usuario"/>
+      </Column>
+
+    </columns>
+    <items>
+      <ColumnListItem  type= "{mdprojected>/editable}" detailPress="detail">
+        <cells>
+          <Text text="{path:'mdprojected>adjustment_date',formatter: '.formatter.formatDate3' }" visible= "{mdprojected>/visible}"/>
+          <Text text="{mdprojected>lot_arp}"/>
+          <Text text="{mdprojected>username}"/>
+      </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+  
+  
+
+</core:FragmentDefinition>
+
+
+
+
+

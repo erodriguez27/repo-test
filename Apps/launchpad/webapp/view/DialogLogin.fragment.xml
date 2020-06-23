@@ -1,0 +1,28 @@
+<core:FragmentDefinition xmlns="sap.m" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:f="sap.ui.layout.form" 
+	xmlns:core="sap.ui.core">
+	<Dialog id="passDialog" title="{i18n>PassChange}" icon="sap-icon://employee-pane" escapeHandler="onCloseDialog" afterClose="onCloseDialog">
+
+		<content>
+			<VBox alignItems="Center">
+				<Label text="{i18n>CurrentPass}:" class="sapUiSmallMarginTop" design="Bold" required = "true"/>
+				<Input type="Password" placeholder="{i18n>CurrentPassIn}" id="old" submit="onSaveDialog" liveChange = "validateInputsDialog">
+				</Input>
+				<Label text="{i18n>NewPass}:" class="sapUiSmallMarginTop" design="Bold" required = "true"/>
+				<Input type="Password" placeholder="{i18n>NewPassIn}" id="pass" submit="onSaveDialog" liveChange = "validateInputsDialog">
+				</Input>
+				<Label text="{i18n>PassAgain}:" class="sapUiSmallMarginTop" design="Bold" required = "true"/>
+				<Input type="Password" placeholder="{i18n>ConfirmPass}" id="pafss" submit="onSaveDialog" liveChange = "validateInputsDialog">
+				</Input>
+				<Label text="" class="sapUiSmallMarginTop" design="Bold"/>
+			</VBox>
+		</content>
+		<beginButton>
+			<Button id = "AcceptButton" text="{i18n>Accept}" type="Accept" press="onSaveDialog" enabled = "false"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>Reject}" type="Reject" press="onCloseDialog"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,31 @@
+<mvc:View xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m" 
+	xmlns:html="http://www.w3.org/1999/xhtml" controllerName="liftBreedingPlanningM.controller.Detail">
+	<App>
+		<pages>
+			<sap.m.semantic:DetailPage xmlns:sap.m.semantic="sap.m.semantic" title="Programación Automatizada" id="__page1">
+				<sap.m.semantic:content>
+					<ObjectHeader title="{ospartnership>name}" intro="{ospartnership>address}" titleSelectorPress="handleTitleSelectorPress" iconActive="false" id="__header0" icon="sap-icon://factory" backgroundDesign="Translucent" responsive="true">
+						<attributes>
+							<ObjectAttribute text="Escenario Activo:  {mdscenario>/name}" />
+						</attributes>
+						<headerContainer>
+							<IconTabBar id="tabBar" headerMode="Inline" selectedKey="farmFilter" expandable="false" applyContentPadding="false" backgroundDesign="Solid" headerBackgroundDesign="Translucent" select="onTabSelection">
+								<items>
+									<IconTabFilter id="tabParameter" key="kTabParameter" text="{i18n>tabReports}">
+										<content>
+											<core:Fragment fragmentName="liftBreedingPlanningM.view.parameter.ParameterForm" type="XML"/>
+										</content>
+									</IconTabFilter>
+								</items>
+							</IconTabBar>
+						</headerContainer>
+					</ObjectHeader>
+				</sap.m.semantic:content>
+				<sap.m.semantic:customFooterContent>
+				</sap.m.semantic:customFooterContent>
+			</sap.m.semantic:DetailPage>
+		</pages>
+	</App>
+</mvc:View>

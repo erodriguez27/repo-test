@@ -1,0 +1,45 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="technicalConfiguration.controller.txposturecurve">
+	<App>
+		<pages>
+			<sap.m.semantic:DetailPage busy="{util>/busy}" xmlns:sap.m.semantic="sap.m.semantic" title="{i18n>OS.entity.details}" id="parameterPage" showNavButton="{util>/phone}" navButtonPress="onNavMaster">
+				<sap.m.semantic:content>
+					<ObjectHeader title="{i18n>posturecurve.entityName}"
+						numberUnit="{i18n>records}"
+						id="pprocesspHeader"
+						responsive="{util>/phone}">
+						<attributes>
+							<ObjectAttribute text="Raza seleccionada: { path: 'MDBREED>/selectedRecord/name'}" />
+						</attributes>
+					</ObjectHeader>
+
+					<IconTabBar
+						headerMode="Inline"
+						selectedKey="partnershipFilter"
+						id="tabBar"
+						expandable="false"
+						applyContentPadding="false"
+						select="onTabSelection">
+						<items>
+							<IconTabFilter text="{i18n>register}" id="registerCurveFilter" key="kregisterCurveFilter">
+								<content>
+									<core:Fragment fragmentName="technicalConfiguration.view.postureCurve.curveRegister" type="XML"/>
+								</content>
+							</IconTabFilter>
+							<IconTabSeparator icon="sap-icon://open-command-field"/>
+							<IconTabFilter text="{i18n>pCurve}" id="postureCurveFilter" key="kpostureCurveFilter" enabled="{TXPOSTURECURVE>/settings/enabledTab}">
+								<content>
+									<core:Fragment fragmentName="technicalConfiguration.view.postureCurve.curveGraphic" type="XML"/>
+								</content>
+							</IconTabFilter>
+						</items>
+					</IconTabBar>
+				</sap.m.semantic:content>
+
+				<sap.m.semantic:customFooterContent>
+					<Button text="{i18n>new}" width="100px" id="newBtn" type="Accept" visible="{TXPOSTURECURVE>/create}" press="onNewRecord"/>
+					<Button text="{i18n>delete}" width="100px" id="deleteBtn" type="Reject" visible="{TXPOSTURECURVE>/delete}" press="onConfirmDelete"/>
+				</sap.m.semantic:customFooterContent>
+			</sap.m.semantic:DetailPage>
+		</pages>
+	</App>
+</mvc:View>

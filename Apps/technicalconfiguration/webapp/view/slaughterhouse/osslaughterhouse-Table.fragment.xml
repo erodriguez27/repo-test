@@ -1,0 +1,60 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+	<VBox xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" width="100%" direction="Column" id="slaughterhouseVBox">
+		<items>
+      <Toolbar xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" id="processToolbar">
+        <content>
+          <SearchField id="slaughterhouseSearchField" liveChange="onSlaughterhouseSearch" placeholder="{i18n>OS.searchRecord} por {i18n>slaughterhouse.code} o {i18n>slaughterhouse.name}" width="100%"/>
+        </content>
+      </Toolbar>
+
+      <Table
+        xmlns:core="sap.ui.core"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns:sap.m.semantic="sap.m.semantic"
+        xmlns="sap.m"
+        noDataText="{i18n>noRecords}"
+        id="slaughterhouseTable"
+        items="{OSSLAUGHTERHOUSE>/records/}"
+				mode="{OSSLAUGHTERHOUSE>/settings/tableMode}"
+				selectionChange="onSelectSlaughterhouseRecord"
+        growing="true"
+        growingScrollToLoad="true">
+
+        <items>
+          <ColumnListItem counter="0" id="slaughterhouse_list_item" type="DetailAndActive" detailPress="onViewSlaughterhouseRecord">
+            <cells>
+							<Text text="{OSSLAUGHTERHOUSE>code}" maxLines="0" id="osslaughterhouse_code_text"/>
+              <Text text="{OSSLAUGHTERHOUSE>name}" maxLines="0" id="osslaughterhouse_name_text"/>
+              <Text text="{OSSLAUGHTERHOUSE>capacity}" maxLines="0" id="osslaughterhouse_capacity_text"/>
+              <Text text="{OSSLAUGHTERHOUSE>description}" maxLines="0" id="osslaughterhouse_description_text"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+        <columns>
+					<Column id="osslaughterhouse_code_column" width="20%">
+						<header>
+							<Label text="{i18n>slaughterhouse.code}" id="osslaughterhouse_code_name_label"/>
+						</header>
+					</Column>
+          <Column id="osslaughterhouse_name_column" vAlign="Middle" width="20%">
+            <header>
+              <Label text="{i18n>slaughterhouse.name}" id="osslaughterhouse_table_name_label"/>
+            </header>
+          </Column>
+          <Column id="osslaughterhouse_capacity_column" vAlign="Middle" width="20%">
+            <header>
+              <Label text="{i18n>slaughterhouse.capacity}" id="osslaughterhouse_table_capacity_label"/>
+            </header>
+          </Column>
+          <Column id="osslaughterhouse_description_column" vAlign="Middle" width="30%">
+            <header>
+              <Label text="{i18n>slaughterhouse.description}" id="slaughterhouse_table_description_label"/>
+            </header>
+          </Column>
+        </columns>
+      </Table>
+
+		</items>
+	</VBox>
+</core:FragmentDefinition>

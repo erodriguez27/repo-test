@@ -1,0 +1,36 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+	<VBox xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" width="100%" direction="Column">
+		<items>
+			<Toolbar xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+				
+<DatePicker id="galpon" enabled="{= ${mdprogrammed>/assigned/length} === 0}" minDate="{mdprogrammed>/selectedRecord/minDate}" maxDate="{mdprogrammed>/selectedRecord/maxDate}" valueFormat="dd-MM-yyyy" value="{OSSHED>/propiedad}" change="handleChange"/>
+			<Button type="Accept" text="Buscar" press="consult"/>
+			</Toolbar>
+		       <Table id="plantTable"
+				 inset="false"
+				 items="{path:'OSSHED>/asd'}"
+				 selectionChange="onSelectProgrammedRec">
+				 <Text text="{path:'OSSHED>'}"/>
+
+    <columns>
+      <Column vAlign="Middle">
+        <Text text="Código"/>
+      </Column>
+      <Column vAlign="Middle">
+        <Text text="Estatus"/>
+      </Column>
+      
+   
+    </columns>
+    <items>
+      <ColumnListItem>
+        <cells>
+          <Text text="{OSSHED>code}"/>
+          <Text text="{OSSHED>statusshed_id}"/>
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+		</items>
+	</VBox>
+</core:FragmentDefinition>

@@ -1,0 +1,38 @@
+<core:FragmentDefinition xmlns="sap.m" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:f="sap.ui.layout.form" 
+	xmlns:core="sap.ui.core">
+	<Dialog id="productiondialogposture" title="Curva de Postura" contentWidth="300px" class="sapUiPopupWithPadding" busy="false">
+
+
+
+		<Table   inset="false" items="{path:'production>/PostureCurveDialog', key: 'no_quiten_esto'}" selectionChange="onSelectProgrammedRecords" growing="true" growingScrollToLoad="true">
+
+			<columns>
+				<Column  hAlign="Center" >
+					<Text text="Semana" />
+				</Column>
+				<Column hAlign="Center" >
+					<Text text="Cantidad" />
+				</Column>
+
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<label text="{production>weekly_curve}"/>
+						<input maxLength="6"  width="60%" value="{production>posture_quantity}" valueState="{= ${production>posture_quantity} === '' ? 'Error' : ${production>posture_quantity} === '.' ? 'Error' : 'None'}" liveChange="validateFloatInput"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+
+		<beginButton>
+			<Button text="Guardar" type="Accept" press="SavePostureCurve" />
+		</beginButton>
+		<endButton>
+			<Button text="Cancelar" type="Reject" press="CloseDialogssss" />
+		</endButton>
+
+	</Dialog>
+</core:FragmentDefinition>

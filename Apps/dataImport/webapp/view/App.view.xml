@@ -1,0 +1,5 @@
+<mvc:View controllerName="dataImport.controller.App" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+	<App id="fullscreenId">
+	</App>
+</mvc:View>

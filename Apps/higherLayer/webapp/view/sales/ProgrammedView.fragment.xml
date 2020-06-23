@@ -1,0 +1,87 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" 
+  xmlns="sap.m">
+
+  <FlexBox width="100%" justifyContent="Center">
+    <items>
+    <Select items="{sales>/scenariosall}" selectedKey="{sales>/salesMain/scenario_id}">
+        <core:Item text="{sales>name}" key="{sales>scenario_id}"/>
+      </Select>
+      <Select selectedKey="{sales>/salesMain/concept}" >
+        <core:Item text="Concepto" key="{null}"/>
+        <core:Item text="Venta" key="Venta"/>
+        <core:Item text="Compra" key="Compra"/>
+      </Select>
+      <Select selectedKey="{sales>/salesMain/type}">
+        <core:Item text="Tipo" key="{null}" />
+        <core:Item text="Huevo Fértil" key="Huevo Fértil"/>
+        <core:Item text="Pollito" key="Pollito de un día"/>
+        <core:Item text="Pollo Vivo" key="Pollo Vivo"/>
+      </Select>
+      <Select items="{sales>/breeds}" selectedKey="{sales>/salesMain/breed_id}">
+        <core:Item text="{sales>name}" key="{sales>breed_id}"/>
+      </Select>
+      <DatePicker valueFormat="yyyy-MM-dd" value="{sales>/salesMain/date1}" />
+      <DatePicker valueFormat="yyyy-MM-dd" value="{sales>/salesMain/date2}" />
+      <Button text="Buscar" press="LoadProduction"/>
+
+    </items>
+  </FlexBox>
+
+
+  <Table id="projectedTable" inset="false" items="{sales>/salesTable}" selectionChange="onSelectProgrammedRecords" growing="true" growingScrollToLoad="true">
+
+    <columns>
+      <!-- <Column hAlign="Center">
+        <Text text="Escenario" />
+      </Column> -->
+      <Column hAlign="Center">
+        <Text text="Fecha" />
+      </Column>
+      <Column visible="{= ${sales>/salesMainCopy/concept} !== null ? false : true }" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Concepto" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Lote" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad (UND)" />
+      </Column>
+      <Column visible="{= ${sales>/salesMainCopy/type} !== null ? false : true }" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Tipo" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Descripción" />
+      </Column>
+      <Column visible="{= ${sales>/salesMainCopy/breed_id} !== null ? false : true }" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Raza" />
+      </Column>
+      <Column hAlign="End" width="10%">
+        <header>
+
+        </header>
+      </Column>
+
+
+    </columns>
+    <items>
+      <ColumnListItem>
+        <cells>
+          <!-- <Text text="{sales>escenario_name}" /> -->
+          <Text text="{sales>programmed_date}" />
+          <Text text="{sales>concept}" />
+          <Text text="{sales>lot}" />
+          <Text text="{path:'sales>quantity',formatter: '.formatter.formatMiles' }" />
+          <Text text="{sales>type}" />
+          <!-- <Link press="PopOverSales" text="Descripción" /> -->
+          <Button press="PopOverSales" icon="sap-icon://search" type="Transparent" />
+          <Text text="{sales>name_breed}" />
+          <Button type="Transparent" press="DeleteSexDialog" icon="sap-icon://sys-cancel" />
+          <!-- <Text text="{tables>amount}" />
+          <input />
+          <DatePicker change="" />
+          <Text text="10" /> -->
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</core:FragmentDefinition>

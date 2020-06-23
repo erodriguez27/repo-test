@@ -1,0 +1,48 @@
+{
+  "CÓDIGO DE LA EMPRESA": {
+    "default" : "",
+    "type" : "Input",
+    "validate" : {
+        "required" : true,
+        "errorEmpty" : "Código de la empresa no puede estar vacio",
+        "pattern" : "^([A-Za-z0-9]{1,9}-{1}[A-Za-z0-9]{1,10}|[A-Za-z0-9]{1,20}){1}$",
+        "errorPattern" : "Los códigos deben ser alfanuméricos sin espacios en blanco y máximo de 20 digitos"
+    },
+    "binding" : "partnershipCode"
+  },
+  "CÓDIGO DE LA GRANJA": {
+    "default" : "",
+    "type" : "Input",
+    "validate" : {
+      "required" : true,
+      "errorEmpty" : "Código de la granja no puede estar vacio",
+      "pattern" : "^([A-Za-z0-9]{1,9}-{1}[A-Za-z0-9]{1,10}|[A-Za-z0-9]{1,20}){1}$",
+      "errorPattern" : "Los códigos deben ser alfanuméricos sin espacios en blanco y máximo de 20 digitos"
+    },
+    "binding" : "farmCode"
+  },
+  "NOMBRE DEL NÚCLEO": {
+    "default" : "",
+    "type" : "Input",
+    "validate" : {
+      "required" : true,
+      "errorEmpty" : "Nombre no puede estar vacio",
+      "pattern" : "^.{1,45}$",
+      "errorPattern" : "El nombre del núcleo máximo debe tener 45 caracteres"
+    },
+    "binding" : "name"
+  },
+  "CÓDIGO DEL NÚCLEO": {
+    "default" : "",
+    "type" : "Input",
+    "validate" : {
+      "required" : true,
+      "errorEmpty" : "Código del Núcleo no puede estar vacío",
+      "pattern" : "^([A-Za-z0-9]{1,9}-{1}[A-Za-z0-9]{1,10}|[A-Za-z0-9]{1,20}){1}$",
+      "errorPattern" : "Los códigos deben ser alfanuméricos sin espacios en blanco y máximo de 20 digitos",
+      "uniqueGroup" : ["partnershipCode", "farmCode", "code"],
+      "errorUnique": "Codigó duplicado"
+    },
+    "binding" : "code"
+  }
+}

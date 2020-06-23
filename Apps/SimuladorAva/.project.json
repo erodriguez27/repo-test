@@ -1,0 +1,10 @@
+{
+    "dataBinding": {
+        "/webapp/view/MasterPage1.view.xml": {
+            "entitySet": ""
+        }, 
+        "/webapp/view/DetailPage1.view.xml": {
+            "entitySet": ""
+        } 
+    }
+}

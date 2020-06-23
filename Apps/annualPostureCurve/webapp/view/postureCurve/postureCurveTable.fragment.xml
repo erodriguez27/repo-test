@@ -1,0 +1,77 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+	<FlexBox width="100%" id="__boxS22" justifyContent="Center">
+		<items>
+			<ComboBox items="{path:'posturecurve>/years'}" id="Selectyears"
+				placeholder="Año" change="onRead" forceSelection="false">
+				<core:Item text="{posturecurve>year}" key="{posturecurve>year}"/>
+			</ComboBox>
+			<ComboBox items="{path:'mdbreed>/records'}" id="breedSelect"
+				placeholder="Raza" selectionChange="onRead">
+				<core:Item text="{mdbreed>name}" key="{mdbreed>breed_id}"/>
+			</ComboBox>
+			<ComboBox items="{path:'posturecurve>/dad_lot'}" id="selectLoteFatherprojected" forceSelection="false"
+				placeholder = "Lote Padre" class="sapUiSmallMarginBottom" selectionChange="onReadChild2" enabled="false">
+				<core:Item text="{posturecurve>}" key="{posturecurve>}"/>
+			</ComboBox>
+			<ComboBox items="{path:'posturecurve>/lot_init'}" id="selectLote" enabled="false"
+				placeholder = "Lote" forceSelection = "false" class="sapUiSmallMarginBottom">
+				<core:Item text="{posturecurve>lot}" key="{posturecurve>lot}"/>
+			</ComboBox>
+			<Button id="GoFind" text="Buscar" press="LoadingDays" />
+		</items>
+	</FlexBox>
+
+	<Table id="idProductsTable" growing="true" items="{posturecurve>/week}" growingThreshold="20" mode="{posturecurve>/table}" selectionChange="loadDays">
+		<!-- mode="SingleSelectMaster" SingleSelectMaster="onViewCurve" selectionChange="onViewCurve" -->
+		<columns>
+			<Column hAlign="Center">
+				<Text text="Semana" />
+			</Column>
+			<Column hAlign="Center" visible="{posturecurve>/lookenabled}">
+				<Text text="Fecha" />
+			</Column>
+			<Column hAlign="Center" visible="{posturecurve>/weekenabled}">
+				<Text text="Fecha" />
+			</Column>
+			<Column hAlign="Center" visible="{posturecurve>/weekenabled}">
+				<Text text="Lote" />
+			</Column>
+			<Column hAlign="Center" visible="{posturecurve>/lookenabled}">
+				<Text text="Lote" />
+			</Column>
+			<Column hAlign="Center">
+				<Text text="Huevos Totales (UND)" />
+			</Column>
+			<Column hAlign="Center">
+				<Text text="{posturecurve>/egglots}" />
+			</Column>
+			<Column hAlign="Center">
+				<Text text="{posturecurve>/proportion}" />
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Text  />
+			</Column>
+			<!-- <Column hAlign="Center">
+				<Text text="Venta " />
+			</Column> -->
+			<!-- <Column hAlign="Center">
+			</Column> -->
+		</columns>
+		<items>
+			<ColumnListItem >
+				<cells>
+					<Text link="" textAlign="Left" text="{posturecurve>num_week}" enabled="false"/>
+					<Link textAlign="Left" text="{posturecurve>week}" press="handleLinkPress" enabled="{posturecurve>/enabledLinkdate}" subtle="{posturecurve>/weekenabled}"/>
+					<Text textAlign="Left" text="{posturecurve>week}"/>
+					<core:Icon src="sap-icon://search" press="LotsView" color="Default"/>
+					<!-- <Link textAlign="Left" text="{posturecurve>lot}" press="LotsView" enabled="{posturecurve>/enabledLink}" subtle="{posturecurve>/lookenabled}" /> -->
+					<Text textAlign="Left" text="{posturecurve>lot}"/>
+					<ObjectNumber number="{path:'posturecurve>eggs',formatter: '.formatter.formatMiles'}"/>
+					<ObjectNumber number="{path:'posturecurve>lot_eggs',formatter: '.formatter.formatMiles'}"/>
+					<Text textAlign="Left" text="{posturecurve>percen}"/>
+					<core:Icon press="onMessageWarningDialogPress" visible="{posturecurve>evictionprojected}" color="#E69A17" src="sap-icon://message-warning"/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

@@ -1,0 +1,61 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="technicalConfiguration.controller.abaStages">
+	<App>
+		<pages>
+			<sap.m.semantic:DetailPage busy="{util>/busy}" xmlns:sap.m.semantic="sap.m.semantic" title="{i18n>OS.entity.details}" id="breedPage" showNavButton="{util>/phone}" navButtonPress="onNavMaster">
+				<sap.m.semantic:content>
+					<!--<ObjectHeader title="{i18n>broilerProduct.entityName}" numberUnit="{i18n>records}" id="broilerProductHeader" backgroundDesign="Solid" responsive="true"/>-->
+					<ObjectHeader title="Razas y Fases para ABA" numberUnit="{i18n>records}" id="stagesProductHeader" backgroundDesign="Solid" responsive="true"/>
+					<VBox xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" width="100%" direction="Column" id="breedVBox">
+						<items>
+							<Toolbar xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" id="breedToolbar">
+								<content>
+									<SearchField id="stagesProductSearchField" liveChange="onstagesProductSearch" placeholder="{i18n>OS.searchRecord}" width="100%"/>
+								</content>
+							</Toolbar>
+							<Table
+								xmlns:core="sap.ui.core"
+								xmlns:mvc="sap.ui.core.mvc"
+								xmlns:html="http://www.w3.org/1999/xhtml"
+								xmlns:sap.m.semantic="sap.m.semantic"
+								xmlns="sap.m"
+								noDataText="{i18n>noRecords}"
+								id="stagesProductTable"
+								items="{ABABREEDSANDSTAGES>/records/}"
+								mode="None"
+								growing="true"
+        						growingScrollToLoad="true">
+								<items>
+									<ColumnListItem counter="0" id="breed_list_item" type="DetailAndActive" detailPress="onViewStagesRecord">
+										<cells>
+											<!--todo cambiar-->
+											<!--<Text text="{MDBROILERPRODUCT>name}" maxLines="0" id="breed_name_text"/>-->
+											<Text text="{ABABREEDSANDSTAGES>name/}" maxLines="0" id="breed_name_text"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+								<columns>
+
+									<Column id="stagesProduct_name_column" vAlign="Middle" width="30%">
+										<header>
+											<!--todo cambiar-->
+											<!--<Label text="{i18n>broilerProduct.name}" id="broilerProduct_table_name_label"/>-->
+											<Label text="Nombre" id="stagesProduct_table_name_label"/>
+										</header>
+									</Column>
+
+								</columns>
+							</Table>
+						</items>
+					</VBox>
+				</sap.m.semantic:content>
+				<sap.m.semantic:customFooterContent>
+					<Button text="{i18n>new}" width="100px" id="newBtn" type="Accept" visible="{ABABREEDSANDSTAGES>/new}" press="onNewRecord"/>
+				</sap.m.semantic:customFooterContent>
+			</sap.m.semantic:DetailPage>
+		</pages>
+	</App>
+</mvc:View>
+
+
+
+

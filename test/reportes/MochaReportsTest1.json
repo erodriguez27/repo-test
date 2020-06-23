@@ -1,0 +1,909 @@
+{
+  "stats": {
+    "suites": 9,
+    "tests": 31,
+    "passes": 13,
+    "pending": 0,
+    "failures": 18,
+    "start": "2020-06-08T20:35:28.152Z",
+    "end": "2020-06-08T20:35:33.135Z",
+    "duration": 4983,
+    "testsRegistered": 31,
+    "passPercent": 41.935483870967744,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "b761a9b7-8e41-4b9a-8f55-fbd65797e5ea",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "4988c7e1-e4bd-4d5f-8583-c209c7d1d4df",
+          "title": "Back Levante y cria",
+          "fullFile": "C:\\repositorytest\\testj\\test\\test.js",
+          "file": "\\test\\test.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "630f705a-a2c6-4050-9882-36ee513dc5db",
+              "title": "HousingWay",
+              "fullFile": "C:\\repositorytest\\testj\\test\\test.js",
+              "file": "\\test\\test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Probaré el metodo GET de housingWay",
+                  "fullTitle": "Back Levante y cria HousingWay Probaré el metodo GET de housingWay",
+                  "timedOut": false,
+                  "duration": 148,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "chai.request(server)\n\t.get('/housingWay/')\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tres.body.data.should.be.a('array');\n\t\tdone();\n\t});",
+                  "err": {
+                    "message": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500",
+                    "estack": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500\n    at C:\\repositorytest\\testj\\test\\test.js:56:22\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at C:\\repositorytest\\testj\\node_modules\\superagent\\lib\\node\\index.js:916:18\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\parsers\\json.js:19:7)\n    at endReadableNT (_stream_readable.js:1221:12)\n    at processTicksAndRejections (internal/process/task_queues.js:84:21)",
+                    "diff": "- 500\n+ 200\n"
+                  },
+                  "uuid": "da9d24b4-5560-4d00-96db-1634dceb06e4",
+                  "parentUUID": "630f705a-a2c6-4050-9882-36ee513dc5db",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [
+                {
+                  "uuid": "080e3528-b725-4f46-9e15-4b2254405f6b",
+                  "title": "Pruebo el metodo POST para agregar nuevos registros",
+                  "fullFile": "C:\\repositorytest\\testj\\test\\test.js",
+                  "file": "\\test\\test.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "Ingreso id's validos",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST para agregar nuevos registros Ingreso id's validos",
+                      "timedOut": false,
+                      "duration": 59,
+                      "state": "failed",
+                      "speed": null,
+                      "pass": false,
+                      "fail": true,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/')\n\t.send({\n\t\tprojected_quantity: 200,\n\t\tprojected_date: '20-01-2019',\n\t\tstage_id: 5,\n\t\tpartnership_id: 1,\n\t\tscenario_id: 1,\n\t\tbreed_id: 1,\n\t\tpredecessor_id: 0\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data);\n\t\tdone();\n\t});",
+                      "err": {
+                        "message": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500",
+                        "estack": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500\n    at C:\\repositorytest\\testj\\test\\test.js:78:23\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at C:\\repositorytest\\testj\\node_modules\\superagent\\lib\\node\\index.js:916:18\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\parsers\\json.js:19:7)\n    at endReadableNT (_stream_readable.js:1221:12)\n    at processTicksAndRejections (internal/process/task_queues.js:84:21)",
+                        "diff": "- 500\n+ 200\n"
+                      },
+                      "uuid": "64802498-a473-441c-afbc-8fda667a3dee",
+                      "parentUUID": "080e3528-b725-4f46-9e15-4b2254405f6b",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Ingreso id de compañia no valido",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST para agregar nuevos registros Ingreso id de compañia no valido",
+                      "timedOut": false,
+                      "duration": 10,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n.post('/housingWay/')\n.send({\n\tprojected_quantity: 200,\n\tprojected_date: '20-01-2019',\n\tstage_id: 5,\n\tpartnership_id: 2,\n\tscenario_id: 1,\n\tbreed_id: 1,\n\tpredecessor_id: 0\n})\n.end(function(err, res){\n\tres.should.be.json;\n\tres.should.have.status(500);\n\tshould.not.exist(res.body.data);\n\tdone();\n});",
+                      "err": {},
+                      "uuid": "9a9360b4-cc74-4e45-b0bf-08d7265c81db",
+                      "parentUUID": "080e3528-b725-4f46-9e15-4b2254405f6b",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Ingreso stage_id no valido",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST para agregar nuevos registros Ingreso stage_id no valido",
+                      "timedOut": false,
+                      "duration": 9,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n.post('/housingWay/')\n.send({\n\t\tprojected_quantity: 200,\n\t\tprojected_date: '20-01-2019',\n\t\tstage_id: 230,\n\t\tpartnership_id: 1,\n\t\tscenario_id: 1,\n\t\tbreed_id: 1,\n\t\tpredecessor_id: 0\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(500);\n\t\tshould.not.exist(res.body.data);\n\t\tdone();\n\t});",
+                      "err": {},
+                      "uuid": "1308d877-167e-481d-989c-0d5ebc12663c",
+                      "parentUUID": "080e3528-b725-4f46-9e15-4b2254405f6b",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Ingreso scenario_id no valido",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST para agregar nuevos registros Ingreso scenario_id no valido",
+                      "timedOut": false,
+                      "duration": 12,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/')\n\t.send({\n\t\tprojected_quantity: 200,\n\t\tprojected_date: '20-01-2019',\n\t\tstage_id: 230,\n\t\tpartnership_id: 1,\n\t\tscenario_id: 100,\n\t\tbreed_id: 1,\n\t\tpredecessor_id: 0\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(500);\n\t\tshould.not.exist(res.body.data);\n\t\tdone();\n\t});",
+                      "err": {},
+                      "uuid": "cafc04e2-daf5-42b7-9563-b02f2d756373",
+                      "parentUUID": "080e3528-b725-4f46-9e15-4b2254405f6b",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Ingreso breed_id no valido",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST para agregar nuevos registros Ingreso breed_id no valido",
+                      "timedOut": false,
+                      "duration": 10,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n.post('/housingWay/')\n.send({\n\tprojected_quantity: 200,\n\tprojected_date: '20-01-2019',\n\tstage_id: 230,\n\tpartnership_id: 1,\n\tscenario_id: 100,\n\tbreed_id: 1,\n\tpredecessor_id: 0\n})\n.end(function(err, res){\n\tres.should.be.json;\n\tres.should.have.status(500);\n\tshould.not.exist(res.body.data);\n\tdone();\n});",
+                      "err": {},
+                      "uuid": "b1f64d71-9731-434c-81d0-8ee20833166c",
+                      "parentUUID": "080e3528-b725-4f46-9e15-4b2254405f6b",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Ingreso fecha 20/01/2019",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST para agregar nuevos registros Ingreso fecha 20/01/2019",
+                      "timedOut": false,
+                      "duration": 24,
+                      "state": "failed",
+                      "speed": null,
+                      "pass": false,
+                      "fail": true,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/')\n\t.send({\n\t\tprojected_quantity: 200,\n\t\tprojected_date: '20/01/2019',\n\t\tstage_id: 5,\n\t\tpartnership_id: 1,\n\t\tscenario_id: 1,\n\t\tbreed_id: 1,\n\t\tpredecessor_id: 0\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data);\n\t\tdone();\n\t});",
+                      "err": {
+                        "message": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500",
+                        "estack": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500\n    at C:\\repositorytest\\testj\\test\\test.js:178:23\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at C:\\repositorytest\\testj\\node_modules\\superagent\\lib\\node\\index.js:916:18\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\parsers\\json.js:19:7)\n    at endReadableNT (_stream_readable.js:1221:12)\n    at processTicksAndRejections (internal/process/task_queues.js:84:21)",
+                        "diff": "- 500\n+ 200\n"
+                      },
+                      "uuid": "0dd05b23-9331-4beb-b138-1890a8bc88f7",
+                      "parentUUID": "080e3528-b725-4f46-9e15-4b2254405f6b",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Ingreso fecha 01/20/2019",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST para agregar nuevos registros Ingreso fecha 01/20/2019",
+                      "timedOut": false,
+                      "duration": 24,
+                      "state": "failed",
+                      "speed": null,
+                      "pass": false,
+                      "fail": true,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/')\n\t.send({\n\t\tprojected_quantity: 200,\n\t\tprojected_date: '01/20/2019',\n\t\tstage_id: 5,\n\t\tpartnership_id: 1,\n\t\tscenario_id: 1,\n\t\tbreed_id: 1,\n\t\tpredecessor_id: 0\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data);\n\t\tdone();\n\t});",
+                      "err": {
+                        "message": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500",
+                        "estack": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500\n    at C:\\repositorytest\\testj\\test\\test.js:198:23\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at C:\\repositorytest\\testj\\node_modules\\superagent\\lib\\node\\index.js:916:18\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\parsers\\json.js:19:7)\n    at endReadableNT (_stream_readable.js:1221:12)\n    at processTicksAndRejections (internal/process/task_queues.js:84:21)",
+                        "diff": "- 500\n+ 200\n"
+                      },
+                      "uuid": "a080e992-278f-4ba4-ac08-97efa34b867d",
+                      "parentUUID": "080e3528-b725-4f46-9e15-4b2254405f6b",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Ingreso fecha 2019/01/20",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST para agregar nuevos registros Ingreso fecha 2019/01/20",
+                      "timedOut": false,
+                      "duration": 27,
+                      "state": "failed",
+                      "speed": null,
+                      "pass": false,
+                      "fail": true,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/')\n\t.send({\n\t\tprojected_quantity: 200,\n\t\tprojected_date: '2019/01/20',\n\t\tstage_id: 5,\n\t\tpartnership_id: 1,\n\t\tscenario_id: 1,\n\t\tbreed_id: 1,\n\t\tpredecessor_id: 0\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data);\n\t\tdone();\n\t});",
+                      "err": {
+                        "message": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500",
+                        "estack": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500\n    at C:\\repositorytest\\testj\\test\\test.js:218:23\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at C:\\repositorytest\\testj\\node_modules\\superagent\\lib\\node\\index.js:916:18\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\parsers\\json.js:19:7)\n    at endReadableNT (_stream_readable.js:1221:12)\n    at processTicksAndRejections (internal/process/task_queues.js:84:21)",
+                        "diff": "- 500\n+ 200\n"
+                      },
+                      "uuid": "fdc10731-8fac-4f20-bb32-8fce6ed23ee3",
+                      "parentUUID": "080e3528-b725-4f46-9e15-4b2254405f6b",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Ingreso fecha 2019-01-20",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST para agregar nuevos registros Ingreso fecha 2019-01-20",
+                      "timedOut": false,
+                      "duration": 20,
+                      "state": "failed",
+                      "speed": null,
+                      "pass": false,
+                      "fail": true,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/')\n\t.send({\n\t\tprojected_quantity: 200,\n\t\tprojected_date: '2019-01-20',\n\t\tstage_id: 5,\n\t\tpartnership_id: 1,\n\t\tscenario_id: 1,\n\t\tbreed_id: 1,\n\t\tpredecessor_id: 0\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data);\n\t\tdone();\n\t});",
+                      "err": {
+                        "message": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500",
+                        "estack": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500\n    at C:\\repositorytest\\testj\\test\\test.js:238:23\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at C:\\repositorytest\\testj\\node_modules\\superagent\\lib\\node\\index.js:916:18\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\parsers\\json.js:19:7)\n    at endReadableNT (_stream_readable.js:1221:12)\n    at processTicksAndRejections (internal/process/task_queues.js:84:21)",
+                        "diff": "- 500\n+ 200\n"
+                      },
+                      "uuid": "22ee8556-3d5a-413e-ade6-7d06922db36b",
+                      "parentUUID": "080e3528-b725-4f46-9e15-4b2254405f6b",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Ingreso fecha 01-20-2019",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST para agregar nuevos registros Ingreso fecha 01-20-2019",
+                      "timedOut": false,
+                      "duration": 16,
+                      "state": "failed",
+                      "speed": null,
+                      "pass": false,
+                      "fail": true,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/')\n\t.send({\n\t\tprojected_quantity: 200,\n\t\tprojected_date: '01-20-2019',\n\t\tstage_id: 5,\n\t\tpartnership_id: 1,\n\t\tscenario_id: 1,\n\t\tbreed_id: 1,\n\t\tpredecessor_id: 0\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data);\n\t\tdone();\n\t});",
+                      "err": {
+                        "message": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500",
+                        "estack": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500\n    at C:\\repositorytest\\testj\\test\\test.js:258:23\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at C:\\repositorytest\\testj\\node_modules\\superagent\\lib\\node\\index.js:916:18\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\parsers\\json.js:19:7)\n    at endReadableNT (_stream_readable.js:1221:12)\n    at processTicksAndRejections (internal/process/task_queues.js:84:21)",
+                        "diff": "- 500\n+ 200\n"
+                      },
+                      "uuid": "ecbd1dbd-3782-4e88-9d29-fcd68cfae14a",
+                      "parentUUID": "080e3528-b725-4f46-9e15-4b2254405f6b",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Ingreso fecha '20 de enero de 2019'",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST para agregar nuevos registros Ingreso fecha '20 de enero de 2019'",
+                      "timedOut": false,
+                      "duration": 15,
+                      "state": "failed",
+                      "speed": null,
+                      "pass": false,
+                      "fail": true,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/')\n\t.send({\n\t\tprojected_quantity: 200,\n\t\tprojected_date: '20 de enero de 2019',\n\t\tstage_id: 5,\n\t\tpartnership_id: 1,\n\t\tscenario_id: 1,\n\t\tbreed_id: 1,\n\t\tpredecessor_id: 0\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data);\n\t\tdone();\n\t});",
+                      "err": {
+                        "message": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500",
+                        "estack": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500\n    at C:\\repositorytest\\testj\\test\\test.js:278:23\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at C:\\repositorytest\\testj\\node_modules\\superagent\\lib\\node\\index.js:916:18\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\parsers\\json.js:19:7)\n    at endReadableNT (_stream_readable.js:1221:12)\n    at processTicksAndRejections (internal/process/task_queues.js:84:21)",
+                        "diff": "- 500\n+ 200\n"
+                      },
+                      "uuid": "81870a3b-a311-4c43-a446-c55d788148a5",
+                      "parentUUID": "080e3528-b725-4f46-9e15-4b2254405f6b",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Ingreso fecha '20012019'",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST para agregar nuevos registros Ingreso fecha '20012019'",
+                      "timedOut": false,
+                      "duration": 13,
+                      "state": "failed",
+                      "speed": null,
+                      "pass": false,
+                      "fail": true,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/')\n\t.send({\n\t\tprojected_quantity: 200,\n\t\tprojected_date: '20012019',\n\t\tstage_id: 5,\n\t\tpartnership_id: 1,\n\t\tscenario_id: 1,\n\t\tbreed_id: 1,\n\t\tpredecessor_id: 0\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data);\n\t\tdone();\n\t});",
+                      "err": {
+                        "message": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500",
+                        "estack": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500\n    at C:\\repositorytest\\testj\\test\\test.js:298:23\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at C:\\repositorytest\\testj\\node_modules\\superagent\\lib\\node\\index.js:916:18\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\parsers\\json.js:19:7)\n    at endReadableNT (_stream_readable.js:1221:12)\n    at processTicksAndRejections (internal/process/task_queues.js:84:21)",
+                        "diff": "- 500\n+ 200\n"
+                      },
+                      "uuid": "750aa252-a5ce-4951-b21b-2e4856321926",
+                      "parentUUID": "080e3528-b725-4f46-9e15-4b2254405f6b",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Ingreso fecha 20-01-2019",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST para agregar nuevos registros Ingreso fecha 20-01-2019",
+                      "timedOut": false,
+                      "duration": 21,
+                      "state": "failed",
+                      "speed": null,
+                      "pass": false,
+                      "fail": true,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/')\n\t.send({\n\t\tprojected_quantity: 200,\n\t\tprojected_date: '20-01-2019',\n\t\tstage_id: 5,\n\t\tpartnership_id: 1,\n\t\tscenario_id: 1,\n\t\tbreed_id: 1,\n\t\tpredecessor_id: 0\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data);\n\t\tdone();\n\t});",
+                      "err": {
+                        "message": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500",
+                        "estack": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500\n    at C:\\repositorytest\\testj\\test\\test.js:318:23\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at C:\\repositorytest\\testj\\node_modules\\superagent\\lib\\node\\index.js:916:18\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\parsers\\json.js:19:7)\n    at endReadableNT (_stream_readable.js:1221:12)\n    at processTicksAndRejections (internal/process/task_queues.js:84:21)",
+                        "diff": "- 500\n+ 200\n"
+                      },
+                      "uuid": "d54a414d-d53a-46ac-8981-fde1b7891db3",
+                      "parentUUID": "080e3528-b725-4f46-9e15-4b2254405f6b",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "9a9360b4-cc74-4e45-b0bf-08d7265c81db",
+                    "1308d877-167e-481d-989c-0d5ebc12663c",
+                    "cafc04e2-daf5-42b7-9563-b02f2d756373",
+                    "b1f64d71-9731-434c-81d0-8ee20833166c"
+                  ],
+                  "failures": [
+                    "64802498-a473-441c-afbc-8fda667a3dee",
+                    "0dd05b23-9331-4beb-b138-1890a8bc88f7",
+                    "a080e992-278f-4ba4-ac08-97efa34b867d",
+                    "fdc10731-8fac-4f20-bb32-8fce6ed23ee3",
+                    "22ee8556-3d5a-413e-ade6-7d06922db36b",
+                    "ecbd1dbd-3782-4e88-9d29-fcd68cfae14a",
+                    "81870a3b-a311-4c43-a446-c55d788148a5",
+                    "750aa252-a5ce-4951-b21b-2e4856321926",
+                    "d54a414d-d53a-46ac-8981-fde1b7891db3"
+                  ],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 260,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 2000
+                },
+                {
+                  "uuid": "ca5da54b-6a9f-420d-a6d0-950e4a4e23a7",
+                  "title": "Pruebo el metodo POST de HousingWay asociado a la ruta housingWay/findGroupByPartnership",
+                  "fullFile": "C:\\repositorytest\\testj\\test\\test.js",
+                  "file": "\\test\\test.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "Busco con partnership_id valido",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST de HousingWay asociado a la ruta housingWay/findGroupByPartnership Busco con partnership_id valido",
+                      "timedOut": false,
+                      "duration": 14,
+                      "state": "failed",
+                      "speed": null,
+                      "pass": false,
+                      "fail": true,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/findGroupByPartnership/')\n\t.send({\n\t\tpartnership_id: 1\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tres.body.data.should.be.a('array');\n\t\tdone();\n\t});",
+                      "err": {
+                        "message": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500",
+                        "estack": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500\n    at C:\\repositorytest\\testj\\test\\test.js:336:23\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at C:\\repositorytest\\testj\\node_modules\\superagent\\lib\\node\\index.js:916:18\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\parsers\\json.js:19:7)\n    at endReadableNT (_stream_readable.js:1221:12)\n    at processTicksAndRejections (internal/process/task_queues.js:84:21)",
+                        "diff": "- 500\n+ 200\n"
+                      },
+                      "uuid": "ec24757a-d3a3-41e5-960a-278c765a99a1",
+                      "parentUUID": "ca5da54b-6a9f-420d-a6d0-950e4a4e23a7",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Busco con partnership_id no valido",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST de HousingWay asociado a la ruta housingWay/findGroupByPartnership Busco con partnership_id no valido",
+                      "timedOut": false,
+                      "duration": 13,
+                      "state": "failed",
+                      "speed": null,
+                      "pass": false,
+                      "fail": true,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/findGroupByPartnership/')\n\t.send({\n\t\tpartnership_id: 3\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tres.body.data.should.be.a('array');\n\t\tdone();\n\t});",
+                      "err": {
+                        "message": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500",
+                        "estack": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500\n    at C:\\repositorytest\\testj\\test\\test.js:350:23\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at C:\\repositorytest\\testj\\node_modules\\superagent\\lib\\node\\index.js:916:18\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\parsers\\json.js:19:7)\n    at endReadableNT (_stream_readable.js:1221:12)\n    at processTicksAndRejections (internal/process/task_queues.js:84:21)",
+                        "diff": "- 500\n+ 200\n"
+                      },
+                      "uuid": "a58619a3-a84c-4c51-9982-877829e01e6c",
+                      "parentUUID": "ca5da54b-6a9f-420d-a6d0-950e4a4e23a7",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [],
+                  "failures": [
+                    "ec24757a-d3a3-41e5-960a-278c765a99a1",
+                    "a58619a3-a84c-4c51-9982-877829e01e6c"
+                  ],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 27,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 2000
+                },
+                {
+                  "uuid": "8eed9fc9-f16b-4155-b496-fedf8319723d",
+                  "title": "Pruebo el metodo POST de HousingWay con la ruta housingWay/findHousingWByPartnership",
+                  "fullFile": "C:\\repositorytest\\testj\\test\\test.js",
+                  "file": "\\test\\test.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "Pruebo con partnership_id valido",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST de HousingWay con la ruta housingWay/findHousingWByPartnership Pruebo con partnership_id valido",
+                      "timedOut": false,
+                      "duration": 19,
+                      "state": "failed",
+                      "speed": null,
+                      "pass": false,
+                      "fail": true,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/findHousingWByPartnership/')\n\t.send({\n\t\tpartnership_id: 1\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data);\n\t\tres.body.data.should.be.a('array');\n\t\tassert.isAbove(res.body.data.length,0)\n\t\tdone();\n\t});",
+                      "err": {
+                        "message": "AssertionError: expected 0 to be above 0",
+                        "estack": "AssertionError: expected 0 to be above 0\n    at C:\\repositorytest\\testj\\test\\test.js:370:14\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at C:\\repositorytest\\testj\\node_modules\\superagent\\lib\\node\\index.js:916:18\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\parsers\\json.js:19:7)\n    at endReadableNT (_stream_readable.js:1221:12)\n    at processTicksAndRejections (internal/process/task_queues.js:84:21)",
+                        "diff": ""
+                      },
+                      "uuid": "7d36077c-a054-402c-8956-bbc682b32a29",
+                      "parentUUID": "8eed9fc9-f16b-4155-b496-fedf8319723d",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Pruebo con partnership_id invalido",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST de HousingWay con la ruta housingWay/findHousingWByPartnership Pruebo con partnership_id invalido",
+                      "timedOut": false,
+                      "duration": 9,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/findHousingWByPartnership/')\n\t.send({\n\t\tpartnership_id: 23\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data);\n\t\tres.body.data.should.have.lengthOf(0)\n\t\t// res.body.data.should.be.a('array');\n\t\tdone();\n\t});",
+                      "err": {},
+                      "uuid": "d87235f9-c6fa-4849-938f-233beedad805",
+                      "parentUUID": "8eed9fc9-f16b-4155-b496-fedf8319723d",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "d87235f9-c6fa-4849-938f-233beedad805"
+                  ],
+                  "failures": [
+                    "7d36077c-a054-402c-8956-bbc682b32a29"
+                  ],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 28,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 2000
+                },
+                {
+                  "uuid": "0d4d8206-f969-4527-9e9a-d3be67efb9c9",
+                  "title": "Pruebo el metodo POST de HousingWay con la ruta housingWay/findHousingByStage",
+                  "fullFile": "C:\\repositorytest\\testj\\test\\test.js",
+                  "file": "\\test\\test.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "Pruebo con stage_id valido",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST de HousingWay con la ruta housingWay/findHousingByStage Pruebo con stage_id valido",
+                      "timedOut": false,
+                      "duration": 21,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/findHousingByStage/')\n\t.send({\n\t\tpartnership_id: 1,\n\t\tstage_id: 5, \n\t\tscenario_id: 1\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data);\n\t\tres.body.data.should.be.a('array');\n\t\t\n\t\tdone();\n\t});",
+                      "err": {},
+                      "uuid": "81a2c05e-db40-4c7e-9381-038a7d5d5989",
+                      "parentUUID": "0d4d8206-f969-4527-9e9a-d3be67efb9c9",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Pruebo con stage_id invalido",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST de HousingWay con la ruta housingWay/findHousingByStage Pruebo con stage_id invalido",
+                      "timedOut": false,
+                      "duration": 14,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/findHousingByStage/')\n\t.send({\n\t\tpartnership_id: 1,\n\t\tstage_id: 56, \n\t\tscenario_id: 1\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data)\n\t\tres.body.data.should.have.lengthOf(0);\n\t\tres.body.data.should.be.a('array');\n\t\t\n\t\tdone();\n\t});",
+                      "err": {},
+                      "uuid": "551f2d7a-0213-488e-874b-910efc50e543",
+                      "parentUUID": "0d4d8206-f969-4527-9e9a-d3be67efb9c9",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Pruebo con scenario_id invalido",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST de HousingWay con la ruta housingWay/findHousingByStage Pruebo con scenario_id invalido",
+                      "timedOut": false,
+                      "duration": 13,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/findHousingByStage/')\n\t.send({\n\t\tpartnership_id: 1,\n\t\tstage_id: 1, \n\t\tscenario_id: 15\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data)\n\t\tres.body.data.should.have.lengthOf(0);\n\t\tres.body.data.should.be.a('array');\n\t\t\n\t\tdone();\n\t});",
+                      "err": {},
+                      "uuid": "72bca2e2-060a-4bc1-847a-bd1e4291fb73",
+                      "parentUUID": "0d4d8206-f969-4527-9e9a-d3be67efb9c9",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Pruebo con partnership_id invalido",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST de HousingWay con la ruta housingWay/findHousingByStage Pruebo con partnership_id invalido",
+                      "timedOut": false,
+                      "duration": 13,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/findHousingByStage/')\n\t.send({\n\t\tpartnership_id: 15,\n\t\tstage_id: 1, \n\t\tscenario_id: 1\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data)\n\t\tres.body.data.should.have.lengthOf(0);\n\t\tres.body.data.should.be.a('array');\n\t\t\n\t\tdone();\n\t});",
+                      "err": {},
+                      "uuid": "269d52e8-c983-4688-862c-396936c567c9",
+                      "parentUUID": "0d4d8206-f969-4527-9e9a-d3be67efb9c9",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "81a2c05e-db40-4c7e-9381-038a7d5d5989",
+                    "551f2d7a-0213-488e-874b-910efc50e543",
+                    "72bca2e2-060a-4bc1-847a-bd1e4291fb73",
+                    "269d52e8-c983-4688-862c-396936c567c9"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 61,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 2000
+                },
+                {
+                  "uuid": "d3cde443-24ef-490a-b4b2-12094141861a",
+                  "title": "Pruebo el metodo POST de HousingWay con la ruta housingWay/findHousingByFilters",
+                  "fullFile": "C:\\repositorytest\\testj\\test\\test.js",
+                  "file": "\\test\\test.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "Pruebo con lote nulo y programmed: true",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST de HousingWay con la ruta housingWay/findHousingByFilters Pruebo con lote nulo y programmed: true",
+                      "timedOut": false,
+                      "duration": 30,
+                      "state": "failed",
+                      "speed": null,
+                      "pass": false,
+                      "fail": true,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/findHousingByFilters/')\n\t.send({\n\t\tpartnership_id: 1,\n\t\tstage_id: 5, \n\t\tscenario_id: 1,\n\t\tprogrammed: true,   /*{true, false} */\n\t\tlot: null\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data);\n\t\tres.body.data.should.be.a('array');\n\t\texpect(res.body.data.length).to.not.equal(0)\n\t\t// .should.notEqual(0);\n\t\tdone();\n\t});",
+                      "err": {
+                        "message": "AssertionError: expected 0 to not equal 0",
+                        "estack": "AssertionError: expected 0 to not equal 0\n    at C:\\repositorytest\\testj\\test\\test.js:492:43\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at C:\\repositorytest\\testj\\node_modules\\superagent\\lib\\node\\index.js:916:18\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\parsers\\json.js:19:7)\n    at endReadableNT (_stream_readable.js:1221:12)\n    at processTicksAndRejections (internal/process/task_queues.js:84:21)",
+                        "diff": ""
+                      },
+                      "uuid": "72de8e2b-2c4d-42c5-91cf-cf236b01e9eb",
+                      "parentUUID": "d3cde443-24ef-490a-b4b2-12094141861a",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Pruebo con lote nulo y programmed: false",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST de HousingWay con la ruta housingWay/findHousingByFilters Pruebo con lote nulo y programmed: false",
+                      "timedOut": false,
+                      "duration": 23,
+                      "state": "failed",
+                      "speed": null,
+                      "pass": false,
+                      "fail": true,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/findHousingByFilters/')\n\t.send({\n\t\tpartnership_id: 1,\n\t\tstage_id: 5, \n\t\tscenario_id: 1,\n\t\tprogrammed: false,   /*{true, false} */\n\t\tlot: null\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data);\n\t\tres.body.data.should.be.a('array');\n\t\texpect(res.body.data.length).to.not.equal(0)\n\t\t// .should.notEqual(0);\n\t\tdone();\n\t});",
+                      "err": {
+                        "message": "AssertionError: expected 0 to not equal 0",
+                        "estack": "AssertionError: expected 0 to not equal 0\n    at C:\\repositorytest\\testj\\test\\test.js:514:43\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at C:\\repositorytest\\testj\\node_modules\\superagent\\lib\\node\\index.js:916:18\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\parsers\\json.js:19:7)\n    at endReadableNT (_stream_readable.js:1221:12)\n    at processTicksAndRejections (internal/process/task_queues.js:84:21)",
+                        "diff": ""
+                      },
+                      "uuid": "1ed789d1-d42c-40fd-aead-ac04f6ee3eac",
+                      "parentUUID": "d3cde443-24ef-490a-b4b2-12094141861a",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Pruebo con lote de caracteres: 'nulo'",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST de HousingWay con la ruta housingWay/findHousingByFilters Pruebo con lote de caracteres: 'nulo'",
+                      "timedOut": false,
+                      "duration": 30,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/findHousingByFilters/')\n\t.send({\n\t\tpartnership_id: 1,\n\t\tstage_id: 5, \n\t\tscenario_id: 1,\n\t\tprogrammed: false,   /*{true, false} */\n\t\tlot: \"null\"\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data);\n\t\tres.body.data.should.be.a('array');\n\t\texpect(res.body.data.length).equal(0)\n\t\t// .should.notEqual(0);\n\t\tdone();\n\t});",
+                      "err": {},
+                      "uuid": "7e6b6277-2b5f-4319-a49f-1d5923b452a0",
+                      "parentUUID": "d3cde443-24ef-490a-b4b2-12094141861a",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Pruebo con lote de valor: 1",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST de HousingWay con la ruta housingWay/findHousingByFilters Pruebo con lote de valor: 1",
+                      "timedOut": false,
+                      "duration": 28,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/findHousingByFilters/')\n\t.send({\n\t\tpartnership_id: 1,\n\t\tstage_id: 5, \n\t\tscenario_id: 1,\n\t\tprogrammed: false,   /*{true, false} */\n\t\tlot: 1\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(500);\n\t\tshould.not.exist(res.body.data);\n\t\t// res.body.data.should.be.a('array');\n\t\t// expect(res.body.data.length).equal(0)\n\t\t// .should.notEqual(0);\n\t\tdone();\n\t});",
+                      "err": {},
+                      "uuid": "c1d67d58-1006-4489-a79c-89835f413125",
+                      "parentUUID": "d3cde443-24ef-490a-b4b2-12094141861a",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Pruebo con lote de valor: C1",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST de HousingWay con la ruta housingWay/findHousingByFilters Pruebo con lote de valor: C1",
+                      "timedOut": false,
+                      "duration": 29,
+                      "state": "failed",
+                      "speed": null,
+                      "pass": false,
+                      "fail": true,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/findHousingByFilters/')\n\t.send({\n\t\tpartnership_id: 1,\n\t\tstage_id: 5, \n\t\tscenario_id: 1,\n\t\tprogrammed: false,   /*{true, false} */\n\t\tlot: \"C1\"\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data);\n\t\tres.body.data.should.be.a('array');\n\t\texpect(res.body.data.length).not.equal(0)\n\t\tdone();\n\t});",
+                      "err": {
+                        "message": "AssertionError: expected 0 to not equal 0",
+                        "estack": "AssertionError: expected 0 to not equal 0\n    at C:\\repositorytest\\testj\\test\\test.js:580:40\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at C:\\repositorytest\\testj\\node_modules\\superagent\\lib\\node\\index.js:916:18\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\parsers\\json.js:19:7)\n    at endReadableNT (_stream_readable.js:1221:12)\n    at processTicksAndRejections (internal/process/task_queues.js:84:21)",
+                        "diff": ""
+                      },
+                      "uuid": "5d6d5138-108f-4540-8d42-5dc2a749df31",
+                      "parentUUID": "d3cde443-24ef-490a-b4b2-12094141861a",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "7e6b6277-2b5f-4319-a49f-1d5923b452a0",
+                    "c1d67d58-1006-4489-a79c-89835f413125"
+                  ],
+                  "failures": [
+                    "72de8e2b-2c4d-42c5-91cf-cf236b01e9eb",
+                    "1ed789d1-d42c-40fd-aead-ac04f6ee3eac",
+                    "5d6d5138-108f-4540-8d42-5dc2a749df31"
+                  ],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 140,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 2000
+                },
+                {
+                  "uuid": "06bd455b-47c2-4660-b780-1ff7919fe51a",
+                  "title": "Pruebo el metodo POST de HousingWay con la ruta housingWay/deleteHousingWayById",
+                  "fullFile": "C:\\repositorytest\\testj\\test\\test.js",
+                  "file": "\\test\\test.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "Ingreso un id valido",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST de HousingWay con la ruta housingWay/deleteHousingWayById Ingreso un id valido",
+                      "timedOut": true,
+                      "duration": 2001,
+                      "state": "failed",
+                      "speed": null,
+                      "pass": false,
+                      "fail": true,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.post('/housingWay/deleteHousingWayById/')\n\t.send({\n\t\thousing_way_id: 1203,\n\t\tstage_id: 5, \n\t\tpartnership_id: 1, \n\t\tscenario_id:1\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tshould.exist(res.body.data);\n\t\tres.body.data.should.be.a('array');\n\t\tdone();\n\t\t\n\t});",
+                      "err": {
+                        "message": "Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure \"done()\" is called; if returning a Promise, ensure it resolves. (C:\\repositorytest\\testj\\test\\test.js)",
+                        "estack": "Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure \"done()\" is called; if returning a Promise, ensure it resolves. (C:\\repositorytest\\testj\\test\\test.js)\n    at listOnTimeout (internal/timers.js:549:17)\n    at processTimers (internal/timers.js:492:7)",
+                        "diff": null
+                      },
+                      "uuid": "173b9527-eeee-4277-9933-2459a3f9961b",
+                      "parentUUID": "06bd455b-47c2-4660-b780-1ff7919fe51a",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Pruebo el metodo POST de HousingWay con la ruta housingWay/deleteHousingWayById usando un id invalido",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo POST de HousingWay con la ruta housingWay/deleteHousingWayById Pruebo el metodo POST de HousingWay con la ruta housingWay/deleteHousingWayById usando un id invalido",
+                      "timedOut": true,
+                      "duration": 2000,
+                      "state": "failed",
+                      "speed": null,
+                      "pass": false,
+                      "fail": true,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n.post('/housingWay/deleteHousingWayById/')\n.send({\n\thousing_way_id: 20000,\n\tstage_id: 5, \n\tpartnership_id: 1, \n\tscenario_id:1\n})\n.end(function(err, res){\n\tres.should.be.json;\n\tres.should.have.status(500);\n\tshould.not.exist(res.body.data);\n\t// res.body.data.should.be.a('array');\n\tdone();\n});",
+                      "err": {
+                        "message": "Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure \"done()\" is called; if returning a Promise, ensure it resolves. (C:\\repositorytest\\testj\\test\\test.js)",
+                        "estack": "Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure \"done()\" is called; if returning a Promise, ensure it resolves. (C:\\repositorytest\\testj\\test\\test.js)\n    at listOnTimeout (internal/timers.js:549:17)\n    at processTimers (internal/timers.js:492:7)",
+                        "diff": null
+                      },
+                      "uuid": "2c887641-9ec8-4501-8f20-08bc29234d38",
+                      "parentUUID": "06bd455b-47c2-4660-b780-1ff7919fe51a",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [],
+                  "failures": [
+                    "173b9527-eeee-4277-9933-2459a3f9961b",
+                    "2c887641-9ec8-4501-8f20-08bc29234d38"
+                  ],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 4001,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 2000
+                },
+                {
+                  "uuid": "5ab7acf6-9b6c-4050-bec8-d83e2c69fe3b",
+                  "title": "Pruebo el metodo DELETE de HousingWay/",
+                  "fullFile": "C:\\repositorytest\\testj\\test\\test.js",
+                  "file": "\\test\\test.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "Pruebo con partnership_id invalido",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo DELETE de HousingWay/ Pruebo con partnership_id invalido",
+                      "timedOut": false,
+                      "duration": 93,
+                      "state": "passed",
+                      "speed": "slow",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n.delete('/housingWay/')\n.send({\n\tpartnership_id: 3\n})\n.end(function(err, res){\n\tres.should.be.json;\n\t// res.should.have.status(500);\n\t// should.not.exist(res.body.data);\n\tres.should.have.status(200);\n\t/*Nada de esto deberia pasar, pero pasa */\n\tres.body.msg.should.be.a(\"string\");\n\texpect(res.body.msg).to.equal(\"Grupos elimandos con exito\")\n\tdone();\n});",
+                      "err": {},
+                      "uuid": "d7249fb2-b32f-499f-b36c-556ab01811c7",
+                      "parentUUID": "5ab7acf6-9b6c-4050-bec8-d83e2c69fe3b",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "Pruebo con partnership_id valido",
+                      "fullTitle": "Back Levante y cria HousingWay Pruebo el metodo DELETE de HousingWay/ Pruebo con partnership_id valido",
+                      "timedOut": false,
+                      "duration": 89,
+                      "state": "passed",
+                      "speed": "slow",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n\t.delete('/housingWay/')\n\t.send({\n\t\tpartnership_id: 1\n\t})\n\t.end(function(err, res){\n\t\tres.should.be.json;\n\t\tres.should.have.status(200);\n\t\tres.body.msg.should.be.a(\"string\");\n\t\texpect(res.body.msg).to.equal(\"Grupos elimandos con exito\")\n\t\tdone();\n\t});",
+                      "err": {},
+                      "uuid": "ae0efb3b-d945-4547-ab6f-cf7d1e0d026c",
+                      "parentUUID": "5ab7acf6-9b6c-4050-bec8-d83e2c69fe3b",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "d7249fb2-b32f-499f-b36c-556ab01811c7",
+                    "ae0efb3b-d945-4547-ab6f-cf7d1e0d026c"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 182,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 2000
+                }
+              ],
+              "passes": [],
+              "failures": [
+                "da9d24b4-5560-4d00-96db-1634dceb06e4"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 148,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "MochaReportsTest1",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.1.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "./test/reportes",
+        "reportFilename": "MochaReportsTest1",
+        "overwrite": "true"
+      },
+      "version": "5.1.0"
+    }
+  }
+}

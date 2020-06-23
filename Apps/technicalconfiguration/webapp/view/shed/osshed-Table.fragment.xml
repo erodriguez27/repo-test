@@ -1,0 +1,48 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+	<VBox xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" width="100%" direction="Column">
+		<items>
+			<Toolbar xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+				<content>
+					<SearchField liveChange="onShedSearch" placeholder="{i18n>OS.searchRecord} por {OSSHED>code}" width="100%" id="search"/>
+					<Button text="{i18n>statusbtn}" width="100px" id="newBtn" type="Accept" visible="{MDSTAGE>/new}" press="onNewShow"/>
+	 
+				</content>
+			</Toolbar>
+			<Table xmlns:core="sap.ui.core"
+             xmlns:mvc="sap.ui.core.mvc"
+             xmlns:html="http://www.w3.org/1999/xhtml"
+             xmlns:sap.m.semantic="sap.m.semantic"
+             xmlns="sap.m"
+             noDataText="{i18n>noRecords}"
+             id="shedTable"
+             items="{OSSHED>/records/}"
+             mode="None"
+			 growing="true"
+        	growingScrollToLoad="true">
+
+				<items>
+					<ColumnListItem type="DetailAndActive" detailPress="onViewShedRecord">
+						<cells>
+							<Text text="{OSSHED>code}"/>
+						</cells>
+						<cells>
+							<Text text="{OSSHED>_order}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+				<columns>
+					<Column vAlign="Middle">
+						<header>
+							<Label text="Codigo"/>
+						</header>
+					</Column>
+					<Column vAlign="Middle">
+						<header>
+							<Label text="Orden de Alojamiento"/>
+						</header>
+					</Column>
+				</columns>
+			</Table>
+		</items>
+	</VBox>
+</core:FragmentDefinition>

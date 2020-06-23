@@ -1,0 +1,51 @@
+<core:FragmentDefinition 
+	    xmlns:core="sap.ui.core" xmlns="sap.m" 
+	    controllerName="userManagement.controller.View1" 
+		xmlns:html="http://www.w3.org/1999/xhtml"
+		xmlns:mvc="sap.ui.core.mvc" 
+		displayBlock="true" >
+			
+                  	<VBox xmlns:html="http://www.w3.org/1999/xhtml" 
+						xmlns:mvc="sap.ui.core.mvc" 
+						xmlns="sap.m" 
+						width="100%" 
+						direction="Column" >
+						<items>
+							<Toolbar xmlns:html="http://www.w3.org/1999/xhtml" 
+								xmlns:mvc="sap.ui.core.mvc" 
+								xmlns="sap.m">
+								<content>
+									<SearchField id="usersSearchField" liveChange="onChange" search="onSearch" placeholder="{i18n>searchU}" width="100%"/>
+								</content>
+							</Toolbar>
+							<Table
+								xmlns:core="sap.ui.core"
+								xmlns:mvc="sap.ui.core.mvc"
+								xmlns:html="http://www.w3.org/1999/xhtml"
+								xmlns:sap.m.semantic="sap.m.semantic"
+								xmlns="sap.m"
+								noDataText="{i18n>no_users}"
+								id="Table"
+								items="{data>/users/}">
+								<items>
+									<ColumnListItem counter="0" id="list_item" type="DetailAndActive" detailPress="onEdit" title="item">
+										<cells>
+											<Text text="{data>username}" maxLines="0" id="breed_name_text"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+								<columns>
+									<Column id="username_column" vAlign="Middle" width="30%">
+										<!-- <header>
+											<Label text="{i18n>username}" id="breed_table_name_label"/>
+										</header> -->
+									</Column>
+									
+								</columns>
+							</Table>
+						</items>
+					</VBox>
+									
+    	
+			
+</core:FragmentDefinition>

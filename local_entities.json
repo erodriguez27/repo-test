@@ -1,0 +1,81 @@
+{
+    "entities": [
+        {
+            "name": "mdmeasure",
+            "displayName": "Unidad de Medida"
+        },
+        {
+            "name": "mdbreed",
+            "displayName": "Raza"
+        },
+        {
+            "name":"txposturecurve",
+            "displayName": "Curva de Postura"
+        },
+        {
+            "name": "mdproduct",
+            "displayName": "Producto"
+        },
+        {
+            "name":"mdbroilerProduct",
+            "displayName": "Producto de Engorde"
+        },
+        {
+            "name": "mdprocess",
+            "displayName": "Proceso"
+        },
+        {
+            "name": "mdparameter",
+            "displayName": "Parámetro"
+        },
+        {
+            "name": "ospartnership",
+            "displayName": "Empresa"
+        },
+        {
+            "name": "osfarm",
+            "displayName": "Granja"
+        },
+        {
+            "name": "oscenter",
+            "displayName": "Núcleo"
+        },
+        {
+            "name": "osshed",
+            "displayName": "Galpón"
+        },
+        {
+            "name":"osIncubatorPlant",
+            "displayName": "Planta Incubadora"
+        },
+        {
+            "name":"osIncubator",
+            "displayName": "Máquinas de Incubación"
+        },
+        {
+            "name":"osslaughterhouse",
+            "displayName": "Planta de Beneficio"
+        },
+        {
+            "name":"optimizer",
+            "displayName": "Optimizador"
+        },
+        {
+            "name":"abaConsumptionAndMortality",
+            "displayName": "Consumo y Mortalidad ABA"
+        },
+        {
+            "name":"abaElements",
+            "displayName": "Macroelementos para ABA"
+        },
+        {
+            "name":"abaFormulation",
+            "displayName": "Formulación de Alimentos para ABA"
+        },
+        {
+            "name":"abaStages",
+            "displayName": "Razas y Fases para ABA"
+        }
+
+    ]
+}

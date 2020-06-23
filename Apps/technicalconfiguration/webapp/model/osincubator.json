@@ -1,0 +1,78 @@
+{
+	"records": [],
+	"name": {
+		"value": "",
+		"state": "None",
+		"stateText": "",
+		"editable": false
+	},
+	"code": {
+		"value": "",
+		"state": "None",
+		"stateText": "",
+		"editable": false
+	},
+	"description":{
+    "value": "",
+		"state": "None",
+		"stateText": "",
+		"editable": false
+	},
+	"order":{
+    	"value": "",
+		"state": "None",
+		"stateText": "",
+		"editable": false
+	},
+  "capacity":{
+    "value": "",
+    "state": "None",
+    "stateText": "",
+    "editable": false
+  },
+  "sunday":{
+    "value": false,
+		"enabled": false
+  },
+  "monday":{
+    "value": false,
+		"enabled": false
+  },
+  "tuesday":{
+    "value": false,
+		"enabled": false
+  },
+  "wednesday":{
+    "value": false,
+		"enabled": false
+  },
+  "thursday":{
+    "value": false,
+		"enabled": false
+  },
+  "friday":{
+    "value": false,
+		"enabled": false
+  },
+  "saturday":{
+    "value": false,
+		"enabled": false
+	},
+	"available":{
+    "value": "",
+    "state": "None",
+    "stateText": "",
+    "editable": false
+  },
+	"settings": {
+		"enabledTab": false,
+		"tableMode": "None"
+	},
+	"selectedRecordPath": "",
+	"create": false,
+	"modify": true,
+	"delete": true,
+	"save": true,
+	"cancel": true,
+	"new": false
+}

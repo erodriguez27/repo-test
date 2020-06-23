@@ -1,0 +1,97 @@
+<core:FragmentDefinition
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m">
+
+<VBox class="sapUiSmallMargin" id="centerssFormVBox">
+		<sap.ui.layout.form:SimpleForm
+				xmlns:sap.ui.layout.form="sap.ui.layout.form"
+				editable="true"
+									layout="ResponsiveGridLayout"
+									id="__forms2"
+									columnsM="2"
+									labelSpanXL="-1"
+									labelSpanS="5"
+									breakpointL="1024"
+									breakpointM="600"
+									breakpointXL="1440"
+									columnsL="2"
+									width="100%"
+									emptySpanL="0"
+									emptySpanM="0"
+									emptySpanS="0"
+									emptySpanXL="-1"
+									labelMinWidth="192"
+									labelSpanL="4"
+									labelSpanM="2"
+									maxContainerCols="2"
+									minWidth="-1">
+			<sap.ui.layout.form:content>
+
+
+			<Label id="year_labesls" text="A�o"/>
+			<ActionSelect id="yearSelesct"
+										class="sapUiSmallMarginBottom"
+										selectedKey="2018"
+										change="onRead"
+										width="80%">
+				<items>
+					<core:Item key="2018" text="2018"/>
+					<core:Item key="2019" text="2019"/>
+					<core:Item key="2020" text="2020"/>
+					<core:Item key="2021" text="2021"/>
+					<core:Item key="2022" text="2022"/>
+					<core:Item key="2023" text="2023"/>
+					<core:Item key="2024" text="2024"/>
+					<core:Item key="2025" text="2025"/>
+				</items>
+			</ActionSelect>
+			<Label text="Raza"/>
+			<Select items="{path:'mdbreed>/records'}"
+					width="80%"
+					change="onRead"
+					id="breedSelect2">
+				<core:Item text="{mdbreed>name}" key="{mdbreed>breed_id}"/>
+			</Select>
+
+
+			</sap.ui.layout.form:content>
+		</sap.ui.layout.form:SimpleForm>
+	</VBox>
+
+  <Table id="idProducstsTables"
+         growing="true"
+         items="{posturecurve>/weekExecuted}"
+         growingThreshold="20"
+				 mode="SingleSelectMaster"
+				 SingleSelectMaster="onViewCurve2"
+			selectionChange="onViewCurve2">
+
+    <columns>
+      <Column hAlign="Center"
+							width="20em">
+        <Text text="Semanas" />
+      </Column>
+			<Column hAlign="Center"
+							width="20em">
+				<Text text="Lotes" />
+			</Column>
+      <Column hAlign="Center">
+        <Text text="Huevos Ejecutados" />
+      </Column>
+			 
+    </columns>
+    <items>
+      <ColumnListItem >
+        <cells>
+          <Text textAlign="Center" text="{posturecurve>week}" key="{posturecurve>week_id}"/>
+					<Text textAlign="Center" text="{posturecurve>lot}"/>
+					<ObjectNumber
+							class="sapUiSmallMarginBottom"
+							number="{path:'posturecurve>eggs',formatter: '.formatter.formatMiles' }"/>
+					<Text textAlign="Center" text="{posturecurve>week_id}"/>
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+	
+</core:FragmentDefinition>

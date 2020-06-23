@@ -1,0 +1,39 @@
+<core:FragmentDefinition
+  xmlns:core="sap.ui.core"
+  xmlns="sap.m"
+>
+
+<Popover
+  placement="HorizontalPreferredRight"
+  showHeader="false"
+  class="sapUiContentPadding"
+  >
+  <Table
+				 inset="false"
+         items="{mdIncubatorMonitor>/popover}"
+         growing="true"
+        growingScrollToLoad="true">
+
+    <columns>
+      <Column hAlign="Center">
+        <Text text="Lote Huevos"/>
+      </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad (UN)"/>
+      </Column>
+
+    </columns>
+    <items>
+      <ColumnListItem>
+        <cells>
+
+					<ObjectNumber number="{mdIncubatorMonitor>lot}" />
+          <ObjectNumber number="{path:'mdIncubatorMonitor>quantity',formatter: '.formatter.formatMiles' }"/>
+
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</Popover>
+</core:FragmentDefinition>

@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns="sap.m" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:f="sap.ui.layout.form" 
+	xmlns:core="sap.ui.core">
+	<Dialog  title="Proyectar" class="sapUiPopupWithPadding"  busy="false" id = "decreaseDialog" escapeHandler="CloseDialog">
+
+		<f:SimpleForm editable="true" labelSpanL="5" labelSpanM="4" labelSpanS="4" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsL="2" columnsM="2" maxContainerCols="2" layout="ResponsiveGridLayout" width="100%" busy="false">
+
+			
+		
+			<Label text="Merma(%)"/>
+			<input maxLength="9" id="incubatordecrease" value="{incubator>/DecreaseDialog/decrease}"/>
+			<Label text="Duración(Días)"/>
+			<input maxLength="4" id="incubatorduration_process" value="{incubator>/DecreaseDialog/duration_process}"/>
+
+		</f:SimpleForm>
+		<beginButton>
+			<Button text="Guardar" type="Accept" press="SaveDecrease"  />
+		</beginButton>
+		<endButton>
+			<Button text="Cancelar" type="Reject" press="CloseDialog" />
+		</endButton>
+
+	</Dialog>
+</core:FragmentDefinition>

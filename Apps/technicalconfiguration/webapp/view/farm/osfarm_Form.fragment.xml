@@ -1,0 +1,48 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:f="sap.ui.layout.form">
+	<VBox class="sapUiSmallMargin">
+		<f:SimpleForm title="Datos de la granja" editable="true" layout="ResponsiveGridLayout" labelSpanM="4" emptySpanM="2">
+			<f:content>
+				<Label text="{i18n>shed.disabled}" id="disable_label"/>
+       			<CheckBox selected="{path: 'OSFARM>/disable/value'}" editable="{OSFARM>/disable/editable/}" />
+				<Label text="Código" required="{OSFARM>/code/required}"/>
+				<Input value="{ path: 'OSFARM>/code/value', type: 'sap.ui.model.type.String'}"
+					valueState="{OSFARM>/code/state}"
+					valueStateText="{OSFARM>/code/stateText}"
+					editable="{OSFARM>/code/editable/}"
+					liveChange="changeCode"/>
+
+				<Label text="Nombre" required="{OSFARM>/name/required}"/>
+				<Input value="{ path: 'OSFARM>/name/value', type: 'sap.ui.model.type.String'}"
+					valueState="{OSFARM>/name/state}"
+					valueStateText="{OSFARM>/name/stateText}"
+					editable="{OSFARM>/name/editable/}"
+					liveChange="changeName"/>
+				
+
+				<Label text="{i18n>parameter.stage}" id="__label1"/>
+	 			<ActionSelect id="farm_type_model"
+					class="sapUiSmallMarginBottom"
+					items="{path: 'OSFARM>/farm_type/record'}"
+					forceSelection="false"
+					selectedKey="{path: 'OSFARM>/type_id/value'}"
+					change="updateFarmTypeModel"
+					enabled="{OSFARM>/farm_type/editable}"
+					valueState="{OSFARM>/farm_type/state}"
+					valueStateText="{OSFARM>/farm_type/stateText}">
+
+	 				<items>
+	 					<core:Item key="{OSFARM>farm_type_id}" text="{OSFARM>name}"/>
+	 				</items>
+	 			</ActionSelect>
+
+				<Label  text="Orden Alojamiento" required="{OSFARM>/order/required}"/>
+				<Input id="Order_input"
+					valueState="{OSFARM>/order/state}"
+		 			valueStateText="{OSFARM>/order/stateText}"
+					value="{ path: 'OSFARM>/order/value', type: 'sap.ui.model.type.Number'}"
+					editable="{OSFARM>/order/editable}"
+					liveChange="validateIntInput"/>
+			</f:content>
+		</f:SimpleForm>
+	</VBox>
+</core:FragmentDefinition>

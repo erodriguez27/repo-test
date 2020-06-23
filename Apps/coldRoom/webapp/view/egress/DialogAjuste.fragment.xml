@@ -1,0 +1,30 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog id ="dialogAjusteEgress" title="Agregar Egreso" class="sapUiPopupWithPadding" confirm="onCancelCopy" cancel="onCancelCopy" busy="false" escapeHandler="onProyectedCloseDialog">
+		<f:SimpleForm id="formAjusteE" editable="true" labelSpanL="5" labelSpanM="4" labelSpanS="4" emptySpanL="0" emptySpanM="0"
+			emptySpanS="0" columnsL="2" columnsM="2" maxContainerCols="2" layout="ResponsiveGridLayout" width="100%" busy="false">
+
+			<Label text="Fecha"/>
+			<DatePicker id="date_ajusteE" valueFormat="dd-MM-yyyy" value="{mdinventory>/egressDate}"
+				minDate="{path:'mdinventory>/minE',formatter: '.formatter.formatDateE'}"
+				valueState="{mdinventory>/stateFecha_movements}" change="changeDate"
+				valueStateText="{mdinventory>/stateTextFecha_movements}"/>
+
+			<Label text="Cantidad"/>
+			<Input id="ajuste_quantityE" value="{mdinventory>/egressQuantity}"
+				valueState="{mdinventory>/name/state}" placeholder="UND"
+				valueStateText="{mdinventory>/name/stateText}" liveChange="onValidEgressQuantity"/>
+
+			<Label text="Descripción"/>
+			<Select id="descriptionSelectE" items="{path:'mdinventory>/EgressOpts'}"
+				forceSelection="false" change="changeDescription">
+				<core:Item text="{mdinventory>name}" key="{mdinventory>name}"/>
+			</Select>
+		</f:SimpleForm>
+		<beginButton>
+			<Button text="Guardar" type="Accept" press="onSaveDialogAjusteEgress" enabled="{mdinventory>/confirmBtn}"/>
+		</beginButton>
+		<endButton>
+			<Button text="Cancelar" type="Reject" press="onCloseDialogAjusteEgress" />
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

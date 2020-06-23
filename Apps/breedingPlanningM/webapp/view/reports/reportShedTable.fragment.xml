@@ -1,0 +1,64 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+
+  <Table  headerText="Products" id="reportShedTable" inset="false" items="{path:'mdreports>/records'}" selectionChange="onDialogPress">
+    <headerToolbar>
+      <OverflowToolbar>
+        
+      </OverflowToolbar>
+    </headerToolbar>
+  
+    <columns>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Fecha Programada"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad Programada (UND)"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Fecha Ejecutada"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad Ejecutada (UND)"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Granja Ejecutada"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Núcleo Ejecutado"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Galpón Ejecutado"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Variación Cantidad (UND)"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Variación Dias"/>
+      </Column>
+    </columns>
+ 
+    <items>
+      <ColumnListItem>
+        <cells>
+          <Text text="{mdreports>scheduled_date}"/>
+          <Text text="{mdreports>scheduled_quantity}"/>
+          <Text text="{mdreports>execution_date}"/>
+          <Text text="{mdreports>execution_quantity}"/>
+          <Text text="{mdreports>executionfarm}"/>
+          <Text text="{mdreports>executioncenter}"/>
+          <Text text="{mdreports>executionshed} "/>
+          <ObjectNumber
+						textAlign="Center"
+						number="{path:'mdreports>diferentquantity'}"
+						state= "{path:'mdreports>diferentquantity', formatter: '.formatter.formatStatus'}"
+					/>
+          <ObjectNumber
+						textAlign="Center"
+						number="{path:'mdreports>diferentday'}"
+						state= "{path:'mdreports>diferentday', formatter: '.formatter.formatStatus'}"
+					/>
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</core:FragmentDefinition>

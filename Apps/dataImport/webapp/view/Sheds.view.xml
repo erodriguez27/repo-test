@@ -1,0 +1,51 @@
+<mvc:View
+  xmlns:core="sap.ui.core"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:l="sap.ui.layout"
+  xmlns:f="sap.ui.layout.form"
+  xmlns="sap.m"
+  controllerName="dataImport.controller.Sheds"
+  xmlns:html="http://www.w3.org/1999/xhtml">
+  <App>
+    <pages>
+      <Page title="{i18n>title}">
+        <headerContent>
+          <Button icon="sap-icon://undo" tooltip="Ir al launchpad" press="goToLaunchpad" />
+        </headerContent>
+        <VBox class="sapUiSmallMargin">
+          <f:SimpleForm id="SimpleFormDatosEntrada"
+              editable="true"
+              layout="ResponsiveGridLayout"
+              labelSpanXL="4"
+              labelSpanL="4"
+              labelSpanM="12"
+              labelSpanS="12"
+              adjustLabelSpan="false"
+              emptySpanXL="4"
+              emptySpanL="4"
+              emptySpanM="0"
+              emptySpanS="0"
+              columnsXL="1"
+              columnsL="1"
+              columnsM="1"
+              singleContainerFullSize="true"
+              width= "100%"
+              >
+              <f:content id="contenedor">
+                <Label text="{i18n>Structures}"/>
+                <Select items="{structure>/list}" selectedKey="{structure>/selected}" forceSelection="false">
+                    <core:Item text="{structure>display}" key="{structure>key}"/>
+                </Select>
+              </f:content>
+            </f:SimpleForm>
+        </VBox>
+        <footer>
+          <OverflowToolbar id="otbFooter">
+            <ToolbarSpacer/>
+            <Button type="Default" id="nextButton" icon="sap-icon://arrow-right" text="{i18n>continuar}" press="onPressMasterDetail"/>
+          </OverflowToolbar>
+        </footer>
+      </Page>
+    </pages>
+  </App>
+</mvc:View>

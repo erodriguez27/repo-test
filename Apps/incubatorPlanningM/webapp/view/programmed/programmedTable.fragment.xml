@@ -1,0 +1,118 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+
+ <!--  <Panel width="auto" visible="{mdprogrammed>/selectedRecord/showIcon}" class="sapUiResponsiveMargin">
+		<content>
+      <MessageStrip
+        text="No se puede hacer programacion de huevo, no hay maquina funcionando"
+        type="Warning"
+        showIcon="true"
+        showCloseButton="false"
+        class="sapUiMediumMarginBottom">
+      </MessageStrip>
+    </content>
+	</Panel> -->
+
+
+  <Table id="programmedTable"
+          inset="false"
+          items="{path:'mdprogrammed>/records'}"
+          busy="{util>/busy}"
+          mode="SingleSelect"
+          selectionChange="getExecutedRecord"
+          growing="true"
+        	growingScrollToLoad="true">
+
+    <!-- <headerToolbar>
+      <OverflowToolbar> -->
+        <!-- <Title text="Fecha {path:'mdprogrammed>/selectedRecord/fecha_movements',formatter: '.formatter.formatDate3' }" level="H2"/> -->
+        <!-- "Fecha {path:'md\programmed>/selectedRecord/fecha_movements',formatter: '.formatter.formatDate3' }" -->
+        <!-- <ToolbarSpacer/> -->
+        <!-- <Label text="Saldo (UN): " /> -->
+       <!--  <ObjectNumber
+          number="{path:'mdprogrammed>/selectedRecords', formatter: '.formatter.sumResidues'}"/> -->
+        
+        
+        <!-- Eliminado por falta de sincronizaciones -->
+        <!-- <Button text="fromSAP" icon="sap-icon://synchronize" enabled="true" press="onPress" /> -->
+        <!-- <Button text="toSAP" icon="sap-icon://synchronize" enabled="true" press="toSap" /> -->
+    <!-- </OverflowToolbar>
+  </headerToolbar> -->
+  <columns>
+    <Column hAlign="Center">
+      <Text text="Máquina"/>
+    </Column>
+
+    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+      <Text text="Capacidad (UN)"/>
+    </Column>
+
+    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+      <Text text="Lote Incubadora"/>
+    </Column>
+
+  <!--   <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+      <Text text="Lote de Almacén"/>
+    </Column> -->
+
+    <!-- <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+      <Text text="Asignado (UN)"/>
+    </Column> -->
+
+    <!-- <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+      <Text text="Libre"/>
+    </Column> -->
+
+    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+      <Text text="Cantidad Programada (UN)"/>
+    </Column>
+
+    <Column
+        minScreenWidth="Tablet"
+        demandPopin="true"
+        hAlign="Center">
+        <Text text="Fecha Programada" />
+      </Column>
+    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Ejecutado"/>
+      </Column>
+    <Column
+        minScreenWidth="Tablet"
+        demandPopin="true"
+        hAlign="Center">
+        <Text text="" />
+      </Column>
+    <!-- <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+      <Text text="Sinc"/>
+    </Column> -->
+
+  </columns>
+  <items>
+    <ColumnListItem>
+      <cells>
+        <Text text="{mdprogrammed>name}"/>
+        <Text text="{path:'mdprogrammed>capacity',formatter: '.formatter.formatMiles' }"/>
+        <Link text="{mdprogrammed>lot_incubator}" press="showProgrammedLots"/>
+        <!-- <Text text="{mdprogrammed>lot_breed} "/> -->
+        <Text text="{path:'mdprogrammed>eggs',formatter: '.formatter.formatMiles' }"/>
+        <Text text="{path:'mdprogrammed>execution_date',formatter: '.formatter.formatDate3' }"/>
+        <core:Icon
+          src="{path: 'mdprogrammed>isexecuted', formatter: '.formatter.formaticon'}"
+          color="{path: 'mdprogrammed>isexecuted', formatter: '.formatter.formatcolor'}">
+        </core:Icon>
+        <Button id="buttonProg" type="Transparent" icon="sap-icon://sys-cancel" visible = "{=(!${mdprogrammed>executed})?true:false}" press="onPressDetProg"/>
+        <!-- Eliminado por falta de sincronizaciones -->
+        <!-- <core:Icon
+          src="{path: 'mdprogrammed>synchronized', formatter: '.formatter.formaticon'}"
+          color="{path: 'mdprogrammed>synchronized', formatter: '.formatter.formatcolor'}" 
+          >
+        </core:Icon> -->
+        <!-- <Text text="{mdprogrammed>diff}"/> -->
+       <!--  <Input id="execution_quantity" valueState="{mdprogrammed>state_quantity}" valueStateText="{mdprogrammed>state_text_quantity}" value="{mdprogrammed>execution_quantity}" textAlign="End" enabled="{mdprogrammed>available}" liveChange="validateIntInput"/> -->
+       <!--  <DatePicker id="execution_date" valueFormat="dd-MM-yyyy" value="{mdprogrammed>execution_date}" valueState="{mdprogrammed>state_date}" valueStateText="{mdprogrammed>state_text_date}" change="handleChange" enabled="{mdprogrammed>available}"/> -->
+      </cells>
+    </ColumnListItem>
+  </items>
+</Table>
+
+
+</core:FragmentDefinition>

@@ -1,0 +1,39 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+<Table id="RecordAjustesTable"
+          inset="false"
+          items="{path:'mdegresoIngresoAjustes>/RecordAjustes'}"
+          growing="true"
+        	growingScrollToLoad="true">
+
+ <columns>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>lot}"/>
+      </Column> 
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>date}"/>
+      </Column>
+       <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>type_movements}"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>quantityEggs}"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>description}"/>
+      </Column>
+</columns>       
+
+<items>
+      <ColumnListItem>
+        <cells>
+            <Text text="{mdegresoIngresoAjustes>lot}"/>
+            <Text text="{mdegresoIngresoAjustes>fecha_movements}"/>
+            <Text text="{parts: [{path: 'mdegresoIngresoAjustes>type_movements'}], formatter: '.formatter.formatAjuste'}"/>
+            <Text text="{mdegresoIngresoAjustes>quantity}"/>
+            <Text text="{mdegresoIngresoAjustes>description_adjustment}"/>
+        </cells>
+      </ColumnListItem>
+</items>
+
+</Table>
+</core:FragmentDefinition>

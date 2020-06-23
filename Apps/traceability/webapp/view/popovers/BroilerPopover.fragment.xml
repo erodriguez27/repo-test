@@ -1,0 +1,33 @@
+<core:FragmentDefinition
+  xmlns:core="sap.ui.core"
+  xmlns="sap.m"
+>
+
+<Popover
+  placement="HorizontalPreferredRight"
+  showHeader="false"
+  class="sapUiContentPadding"
+  >
+  <Table
+				 inset="false"
+    >
+    <columns>
+      <Column hAlign="Center">
+        <Text text="Granja"/>
+      </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Galpón"/>
+      </Column>
+
+    </columns>
+      <ColumnListItem>
+        <cells>
+		<ObjectNumber number="{mdprojected>/popover/farm}" />
+          <ObjectNumber number="{mdprojected>/popover/shed}"/>
+
+        </cells>
+      </ColumnListItem>
+  </Table>
+</Popover>
+</core:FragmentDefinition>

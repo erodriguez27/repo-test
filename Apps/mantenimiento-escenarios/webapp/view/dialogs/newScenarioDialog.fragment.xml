@@ -1,0 +1,116 @@
+<core:FragmentDefinition 
+	xmlns="sap.m" 
+	xmlns:core="sap.ui.core" 
+	xmlns:l="sap.ui.layout">
+
+	<Dialog id="dialogoReporte" type="Standard" title="{budget>/textDialog}">
+		<!-- <content> -->
+
+		<IconTabBar id="idIconTabBarNoIcons" expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding">
+	      	<items>
+	        	<IconTabFilter text="Escenario">
+					<sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" editable="true" layout="ResponsiveGridLayout" id="__form0" labelSpanL="5" labelSpanM="3" adjustLabelSpan="false">
+				        <sap.ui.layout.form:content>
+				        	<l:VerticalLayout class="sapUiContentPadding" width="100%">
+					        	<l:content>
+						          	<Label text="Nombre" design="Bold" required="true" />
+						            <Input id="name2" width="100%" type="Text" change="changeNameScenario"
+						            		valueState="{budget>/nameInput/valueState}"
+						            		valueStateText="{budget>/nameInput/valueStateText}"
+						            		value= "{scenarios>/setScenario/name}"/>
+
+						            <Label text="Descripción" design="Bold" required="false"/>
+						            <Input id="descripcion2" width="100%" type="Text"
+						            		value="{scenarios>/setScenario/description}"
+						            		/>
+
+
+			                  		<Label text="Inicio" design="Bold" required="true"/>
+									<HBox width="100%">
+										<Select
+												id="initMonth2"
+												forceSelection="true"
+												items="{date>/months}"
+												selectedKey="{scenarios>/setScenario/monthBegin}"
+												liveChange="changeOn">
+												<core:Item
+													key="{date>key}"
+													text="{date>name}"
+												/>
+										</Select>
+										<Input
+												id="initYear2"
+												value="{scenarios>/setScenario/yearBegin}"
+												liveChange="changeOn"
+												>
+												
+										</Input>
+									</HBox>
+									<Label text="Fin" design="Bold" required="true"/>
+									<HBox width="100%">
+										<Select
+												id="endMonth2"
+												forceSelection="true"
+												items="{date>/months}"
+												selectedKey="{scenarios>/setScenario/monthEnd}"
+												liveChange="changeOn">
+												<core:Item
+													key="{date>key}"
+													text="{date>name}"
+												/>
+										</Select>
+										<Input
+												id="endYear2" 
+												value="{scenarios>/setScenario/yearEnd}"
+												liveChange="changeOn"
+												>
+												
+										</Input>
+									</HBox>
+					        	</l:content>
+				            </l:VerticalLayout>
+				        </sap.ui.layout.form:content>
+				    </sap.ui.layout.form:SimpleForm>
+
+				</IconTabFilter>
+
+				<!-- <IconTabFilter text="Procesos">
+					<sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" editable="true" layout="ResponsiveGridLayout" id="__form1" labelSpanL="5" labelSpanM="3" adjustLabelSpan="false">
+				        <sap.ui.layout.form:content>
+							<l:VerticalLayout class="sapUiContentPadding" width="100%">
+				        		<l:content>
+
+									<SelectList	items="{date>/months}">
+										<core:Item key="{date>key}" text="{date>name}" />
+									</SelectList>
+
+								</l:content>
+							</l:VerticalLayout>
+				        </sap.ui.layout.form:content>
+				    </sap.ui.layout.form:SimpleForm>
+				</IconTabFilter> -->
+			</items>
+		</IconTabBar>
+
+
+	        	
+
+		<!-- </content>
+
+		visible="{budget>/viewUpdateBtn}" -->
+		<beginButton>
+			<!-- <Button id="updateBtn" type="Accept" width="auto" text="Actualizar" press="updateScenario"
+					visible="{budget>/viewUpdateBtn}" enabled="{budget>/enabledUpdateBtn}"/>
+
+			<Button id="createBtn" type="Accept" width="auto" text="Crear" press="createScenario"
+					visible="{budget>/viewCreateBtn}" enabled="{budget>/enabledCreateBtn}" /> -->
+
+			<Button id="btnK" type="Accept" width="auto" text="{budget>/textBtnK}" press="pressBtnk"
+			visible="true" enabled="{budget>/enabledBtnK}" />
+		</beginButton>
+		<endButton>
+      		<Button id="cancelBtn" type="Reject" width="auto" text="Cancelar"/>
+		</endButton>
+
+	</Dialog>
+</core:FragmentDefinition>

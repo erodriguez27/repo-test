@@ -1,0 +1,63 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="technicalConfiguration.controller.mdparameter">
+	<App>
+		<pages>
+			<sap.m.semantic:DetailPage busy="{util>/busy}" xmlns:sap.m.semantic="sap.m.semantic" title="{i18n>OS.entity.details}" id="parameterPage" showNavButton="{util>/phone}" navButtonPress="onNavMaster">
+				<sap.m.semantic:content>
+					<ObjectHeader title="{i18n>parameter.entityName}" numberUnit="{i18n>records}" id="parameterpHeader" backgroundDesign="Solid" responsive="true"/>
+					<VBox xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" width="100%" direction="Column" id="parameterVBox">
+						<items>
+							<Toolbar xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" id="parameterToolbar">
+								<content>
+									<SearchField id="parameterSearchField" liveChange="onParameterSearch" placeholder="{i18n>OS.searchRecord} por {i18n>parameter.name}, {i18n>parameter.description} o {i18n>parameter.nameProcess}" width="100%"/>
+								</content>
+							</Toolbar>
+							<Table
+								xmlns:core="sap.ui.core"
+								xmlns:mvc="sap.ui.core.mvc"
+								xmlns:html="http://www.w3.org/1999/xhtml"
+								xmlns:sap.m.semantic="sap.m.semantic"
+								xmlns="sap.m"
+								noDataText="{i18n>noRecords}"
+								id="parameterTable"
+								items="{MDPARAMETER>/records/}"
+								mode="None"
+								growing="true"
+        						growingScrollToLoad="true">
+
+								<items>
+									<ColumnListItem counter="0" id="parameter_list_item" type="DetailAndActive" detailPress="onViewParameterRecord">
+										<cells>
+											<Text text="{MDPARAMETER>name}" maxLines="0" id="parameter_name_text"/>
+											<Text text="{MDPARAMETER>description}" maxLines="0" id="parameter_description_text"/>
+											<Text text="{MDPARAMETER>name_process}" maxLines="0" id="parameter_nameProcess_text"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+								<columns>
+									<Column id="parameter_name_column" vAlign="Middle" width="20%">
+										<header>
+											<Label text="{i18n>parameter.name}" id="parameter_table_name_label"/>
+										</header>
+									</Column>
+									<Column id="parameter_description_column" vAlign="Middle" width="30%">
+										<header>
+											<Label text="{i18n>parameter.description}" id="parameter_table_description_label"/>
+										</header>
+									</Column>
+									<Column id="parameter_nameProcess_column2" vAlign="Middle" width="30%">
+										<header>
+											<Label text="{i18n>parameter.nameProcess}" id="parameter_table_nameProcess_label"/>
+										</header>
+									</Column>
+								</columns>
+							</Table>
+						</items>
+					</VBox>
+				</sap.m.semantic:content>
+				<sap.m.semantic:customFooterContent>
+					<Button text="{i18n>new}" width="100px" id="newBtn" type="Accept" visible="{MDPARAMETER>/new}" press="onNewRecord"/>
+				</sap.m.semantic:customFooterContent>
+			</sap.m.semantic:DetailPage>
+		</pages>
+	</App>
+</mvc:View>

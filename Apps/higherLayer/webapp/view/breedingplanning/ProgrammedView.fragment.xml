@@ -1,0 +1,86 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" 
+  xmlns="sap.m">
+
+  <FlexBox width="100%" justifyContent="Center">
+    <items>
+      <Select items="{breedingplanning>/scenarios}" id="selectscenaio" selectedKey="{breedingplanning>/breedingMain/scenario_id}">
+        <core:Item text="{breedingplanning>name}" key="{breedingplanning>scenario_id}"/>
+      </Select>
+      <Select items="{breedingplanning>/farms}" id="selectfarm" selectedKey="{breedingplanning>/breedingMain/farm_id}">
+        <core:Item text="{breedingplanning>name}" key="{breedingplanning>farm_id}"/>
+      </Select>
+      <Select items="{breedingplanning>/breeds}" id="selectbreed" selectedKey="{breedingplanning>/breedingMain/breed_id}">
+        <core:Item text="{breedingplanning>name}" key="{breedingplanning>breed_id}"/>
+      </Select>
+      <DatePicker id="date1" valueFormat="yyyy-MM-dd" value="{breedingplanning>/breedingMain/datestart}" />
+      <DatePicker id="date2" valueFormat="yyyy-MM-dd" value="{breedingplanning>/breedingMain/dateend}" />
+      <Button text="Buscar" press="LoadProduction"/>
+
+    </items>
+  </FlexBox>
+
+
+  <Table id="projectedTable" inset="false" items="{path:'breedingplanning>/breedingTable', key: 'no_quiten_esto'}" selectionChange="onSelectProgrammedRecords" growing="true" growingScrollToLoad="true">
+
+    <columns>
+      <Column hAlign="Center" visible="{= ${breedingplanning>/breedingMainCopy/breed_id} !== null ? false : true }">
+        <Text text="Raza" />
+      </Column>
+      <Column minScreenWidth="Tablet" visible="{= ${breedingplanning>/breedingMainCopy/farm_id} !== null ? false : true }" demandPopin="true" hAlign="Center">
+        <Text text="Granja" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Galpones" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Fecha Calculada" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Fecha Ejecutada" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Aves Pedidas (UN)" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Aves Recibidas (UN)" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Proyectar" />
+      </Column>
+
+
+    </columns>
+    <items>
+      <ColumnListItem>
+        <cells>
+
+          <Text text="{breedingplanning>breed_name}" />
+          <Text text="{breedingplanning>farm_name}" />
+          <Button press="PopOverProduction" icon="sap-icon://search" type="Transparent" />
+          <FlexBox justifyContent="Center">
+            <DatePicker enabled="{=!${breedingplanning>executed}}" visible="{=!${breedingplanning>executed}}" value="{breedingplanning>showdate}" valueFormat="yyyy-MM-dd"  change = "changeDate"/>
+            <Text text="{breedingplanning>showdate}" visible="{=${breedingplanning>executed}}" />
+          </FlexBox>
+          <FlexBox justifyContent="Center">
+            <DatePicker initialFocusedDateValue="{breedingplanning>helpdate}" valueState="{breedingplanning>stateDate}" valueStateText="{breedingplanning>stateTextDate}" enabled="{=!${breedingplanning>executed}}" visible="{=!${breedingplanning>executed}}" value="{breedingplanning>execution_date}" valueFormat="yyyy-MM-dd" change = "changeDate"/>
+            <Text text="{breedingplanning>execution_date}" visible="{=${breedingplanning>executed}}"/>
+          </FlexBox>
+          <FlexBox justifyContent="Center">
+            <input valueState="{breedingplanning>statebird}" valueStateText="{breedingplanning>stateTextBird}" liveChange="validateIntInput" enabled="{=!${breedingplanning>executed}}" visible="{=!${breedingplanning>executed}}" value="{breedingplanning>demand_birds}" />
+            <Text text="{path:'breedingplanning>demand_birds',formatter: '.formatter.formatMiles'} " visible="{=${breedingplanning>executed}}" />
+          </FlexBox>
+          <FlexBox justifyContent="Center">
+            <Input valueState="{breedingplanning>state}" valueStateText="{breedingplanning>stateText}" liveChange="validateIntInputRec" enabled="{=!${breedingplanning>executed}}" visible="{=!${breedingplanning>executed}}" value="{breedingplanning>received_birds}" />
+            <Text text="{path:'breedingplanning>received_birds',formatter: '.formatter.formatMiles' }" visible="{=${breedingplanning>executed}}" />
+          </FlexBox>
+
+          <FlexBox justifyContent="Center">
+            <Button visible="{=!${breedingplanning>projected}}" enabled="{breedingplanning>executed}" press="ChangeDecreaseButton" icon="sap-icon://filter-analytics" />
+            <Button visible="{breedingplanning>projected}" press="PopOverProductionProjected" icon="sap-icon://search" type="Transparent" />
+          </FlexBox>
+          
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</core:FragmentDefinition>

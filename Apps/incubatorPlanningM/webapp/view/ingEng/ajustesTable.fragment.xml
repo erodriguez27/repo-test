@@ -1,0 +1,94 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+
+
+<FlexBox width="100%" id="FlexBoxAjustes" justifyContent="Center">
+<items> 
+    <OverflowToolbar>
+        <ToolbarSpacer/>
+        <Title text="{i18n>from}: " level="H2"/>
+    </OverflowToolbar>
+    <DatePicker id="dayparam5" valueFormat="MM-dd-yyyy" placeholder="Desde" change="handleChange" class="sapUiSmallMarginBottom"/>
+    <OverflowToolbar>
+        <ToolbarSpacer/>
+        <Title text="{i18n>until}: " level="H2"/>
+    </OverflowToolbar>   
+    <DatePicker id="dayparam6" valueFormat="MM-dd-yyyy" placeholder="Hasta" change="handleChange" class="sapUiSmallMarginBottom"/>
+    <Button id="AjustesButton" text="{i18n>search}" press="onPress"></Button>
+</items>
+</FlexBox>
+
+<Table id="AjustesTable"
+          inset="false"
+          items="{path:'mdegresoIngresoAjustes>/Ajustes'}"
+          mode="Delete"
+          delete="handleDelete"
+          selectionChange="onDialogPress"
+          growing="true"
+        	growingScrollToLoad="true">
+
+  <!-- <headerToolbar> -->
+      <!-- <OverflowToolbar>
+        <Title text="Desde: {mdegresoIngresoAjustes>/desdeAjuste}" level="H2"/>
+        <Title text="Hasta: {mdegresoIngresoAjustes>/hastaAjuste}" level="H2"/>
+        <ToolbarSpacer/>
+        
+      </OverflowToolbar> -->
+    <!-- </headerToolbar> -->
+
+   <columns>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>lot}"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>date}"/>
+      </Column>    
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>type_movements}"/>
+      </Column>
+       <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>quantityEggsAjusToday}"/>
+      </Column>
+        <!-- <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>dateEjecution}"/>
+      </Column> -->
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>quantityEggs}"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="{i18n>description}"/>
+      </Column>
+   </columns>
+
+   <items>
+      <ColumnListItem>
+        <cells>
+          <Text text="{mdegresoIngresoAjustes>lot}"/>
+           <Text text="{mdegresoIngresoAjustes>fecha_movements}"/>
+   
+
+          <Text text="{mdegresoIngresoAjustes>type_movements}"/>
+          <Text text="{mdegresoIngresoAjustes>quantity}"/>
+
+                 <!-- <DatePicker id="NewDayAjustes"  valueFormat="yyyy-MM-dd"  value="{mdegresoIngresoAjustes>newDate}"
+           change="handleChange" class="sapUiSmallMarginBottom"
+           width="150px"/> -->
+         
+          <Input id="eggsAjustes" valueState="" valueStateText="" 
+          value="{mdegresoIngresoAjustes>newEggs}" editable="true"
+           width="50%" liveChange="validateIntInput"/>
+           
+          <Select items="{mdegresoIngresoAjustes>/TypeAjustes}"
+              forceSelection="false"
+              selectedKey="{mdegresoIngresoAjustes>description_adjustment}">
+              <items>
+                  <core:Item key="{mdegresoIngresoAjustes>name}" text="{mdegresoIngresoAjustes>name}"/>
+              </items>
+          </Select>
+        
+        </cells>
+      </ColumnListItem>
+    </items>
+
+</Table>
+
+</core:FragmentDefinition>

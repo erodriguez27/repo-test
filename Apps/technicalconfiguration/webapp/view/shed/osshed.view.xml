@@ -1,0 +1,44 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="technicalConfiguration.controller.osshed">
+	<sap.m.semantic:DetailPage busy="{dummy>/busy}" xmlns:sap.m.semantic="sap.m.semantic" title="{i18n>OS.entity.details}">
+		<sap.m.semantic:content>
+			<core:Fragment fragmentName="technicalConfiguration.view.shed.osshed_Header" type="XML"/>
+			<IconTabBar headerMode="Inline" selectedKey="partnershipFilter" select="onSelectChangedTab" id="tabBar" expandable="false" applyContentPadding="false">
+				<items>
+					<IconTabFilter text="{i18n>partnerships}" id="partnershipFilter">
+						<content>
+							<core:Fragment fragmentName="technicalConfiguration.view.partnership.ospartnership-Table" type="XML"/>
+						</content>
+					</IconTabFilter>
+					<IconTabSeparator icon="sap-icon://open-command-field"/>
+					<IconTabFilter text="{i18n>farms}" id="farmFilter" enabled="{OSFARM>/settings/enabledTab}">
+						<content>
+							<core:Fragment fragmentName="technicalConfiguration.view.farm.osfarm-Table" type="XML"/>
+						</content>
+					</IconTabFilter>
+					<IconTabSeparator icon="sap-icon://open-command-field"/>
+					<IconTabFilter text="{i18n>centers}" enabled="{OSCENTER>/settings/enabledTab}" id="centerFilter">
+						<content>
+							<core:Fragment fragmentName="technicalConfiguration.view.center.oscenter-Table" type="XML"/>
+						</content>
+					</IconTabFilter>
+					<IconTabSeparator icon="sap-icon://open-command-field"/>
+					<IconTabFilter text="{i18n>sheds}" enabled="{OSSHED>/settings/enabledTab}" id="shedFilter" count="{parts: [{path: 'OSSHED>/records'}], formatter: '.formatter.recordsCount'}">
+						<content>
+							<core:Fragment fragmentName="technicalConfiguration.view.shed.osshed-Table" type="XML"/>
+						</content>
+					</IconTabFilter>
+					 <IconTabSeparator icon="sap-icon://open-command-field"/>
+					 <IconTabFilter text="{i18n>status}" enabled="{OSSHED>/settings2/enabledTab}" id="newShow" key="edu" count="{parts: [{path: 'OSSHED>/records'}], formatter: '.formatter.recordsCount'}">
+						<content>
+							<core:Fragment fragmentName="technicalConfiguration.view.shed.osshed_Show" type="XML"/>
+						</content>
+					</IconTabFilter>
+					
+				</items>
+			</IconTabBar>
+		</sap.m.semantic:content>
+		<sap.m.semantic:customFooterContent>
+			<Button text="{i18n>new}" width="100px" type="Accept" visible="{OSSHED>/new}" press="onNewRecord"/>
+		</sap.m.semantic:customFooterContent>
+	</sap.m.semantic:DetailPage>
+</mvc:View>

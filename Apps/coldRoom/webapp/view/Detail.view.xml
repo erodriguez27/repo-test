@@ -1,0 +1,73 @@
+<mvc:View xmlns:core="sap.ui.core"
+	 xmlns:mvc="sap.ui.core.mvc"
+	 xmlns="sap.m"
+	 xmlns:html="http://www.w3.org/1999/xhtml"
+	 controllerName="coldRoom.controller.Detail">
+	<App>
+	<pages>
+	    <sap.m.semantic:DetailPage xmlns:sap.m.semantic="sap.m.semantic" title="Almacén de huevo fértil" id="__page1">
+
+	    <sap.m.semantic:content>
+			<ObjectHeader 	title="{ospartnership>/name}"
+							intro="{ospartnership>/address}"
+							
+							titleSelectorPress="handleTitleSelectorPress"
+							iconActive="false"
+							id="__header0"
+							icon="sap-icon://factory"
+							backgroundDesign="Translucent"
+							responsive="true">
+
+				<attributes>
+					<ObjectAttribute text="Escenario Activo:  {mdscenario>/name}" />
+				</attributes>
+
+				<headerContainer>
+          			<IconTabBar
+            			id="tabBar"
+						headerMode="Inline"
+						selectedKey="farmFilter"
+						expandable="false"
+						applyContentPadding="false"
+						backgroundDesign="Solid"
+						headerBackgroundDesign="Translucent"
+						select="onTabSelection">
+
+             			<items>
+							<IconTabFilter id="projectTab" key="projectTab" text="{i18n>inventory}">
+								<content>
+									<core:Fragment fragmentName="coldRoom.view.projected.projectedTable" type="XML"/>
+								</content>
+							</IconTabFilter>
+
+							<IconTabSeparator id="__separator2" icon="sap-icon://open-command-field"/>
+							<IconTabFilter id="tabIngreso" key="tabIngreso" text="{i18n>Ingress}">
+								<content>
+									<core:Fragment fragmentName="coldRoom.view.entry.entryTable" type="XML"/>
+								</content>
+							</IconTabFilter>
+
+							<IconTabSeparator id="__separator3" icon="sap-icon://open-command-field"/>
+							<IconTabFilter id="tabEgreso" key="tabEgreso" text="{i18n>Egress}">
+								<content>
+									<core:Fragment fragmentName="coldRoom.view.egress.egressTable" type="XML"/>
+								</content>
+							</IconTabFilter>
+              			</items>
+
+          			</IconTabBar>
+				</headerContainer>
+			</ObjectHeader>
+
+		</sap.m.semantic:content>
+			<sap.m.semantic:customFooterContent>
+
+				<Button id="executionSaveBtn" text="Guardar" type="Accept" press="onDialogPressEx"
+						visible="{path:'mdinventory>/entry/viewEntrySave'}"/>
+				<Button id="newSaveBtn" text="Nuevo" type="Accept" visible = "{path:'mdinventory>/entry/entryNew'}" press="onSavePress"/>
+				<Button id="EgressNewBtn" text="Nuevo" type="Accept" visible = "{path:'mdinventory>/egress/egressNew'}" press="onDialogAjusteEgress"/>
+				</sap.m.semantic:customFooterContent>
+			</sap.m.semantic:DetailPage>
+		</pages>
+	</App>
+</mvc:View>

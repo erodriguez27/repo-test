@@ -1,0 +1,45 @@
+<core:FragmentDefinition xmlns="sap.m" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:f="sap.ui.layout.form" 
+	xmlns:core="sap.ui.core">
+	<Dialog title="Grupo de Máquinas" class="sapUiPopupWithPadding" busy="false" contentWidth="500px" id = "machineDialog" escapeHandler="onProyectedCloseDialog">
+
+		<f:SimpleForm editable="true" labelSpanL="5" labelSpanM="4" labelSpanS="4" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsL="2" columnsM="2" maxContainerCols="2" layout="ResponsiveGridLayout" width="100%" busy="false">
+
+			<Label text="Planta Incubadora"/>
+			<Select items="{tables>/IncubatorPlants}" id="SelectPlantInc" forceSelection="false">
+				<core:Item text="{tables>name}" key="{tables>incubator_plant_id}"/>
+			</Select>
+			<Label text="Nombre"/>
+			<Input maxLength="30" value="{tables>/MachineDialog/name}" liveChange="validatenoinput" id="inputname" placeholder="Nombre" />
+			<Label text="Cantidad de Cargas" />
+			<Input value="{tables>/MachineDialog/charges}" id="inputcharges"  placeholder="Cantidad de Cargas" liveChange="validateIntInput" />
+			<Label text="Cantidad por Carga"/>
+			<Input value="{tables>/MachineDialog/amount_of_charge}" id="inputamount"  placeholder="Cantidad por Carga" liveChange="validateIntInput" />
+			<Label text="Total de carga"/>
+						<Text enabled="false" text="{= ${tables>/MachineDialog/amount_of_charge}*${tables>/MachineDialog/charges}}" />
+			<Label text="Días de trabajo" />
+			<MultiComboBox id = "MultiDay" items="{
+									path: 'prueba>/Days'
+								}">
+				<core:Item key="{prueba>key}" text="{prueba>day}"/>
+			</MultiComboBox>
+			<Label text="Descripción"/>
+			<TextArea value="{tables>/MachineDialog/description}" liveChange="validatenoinput" placeholder="Descripción" />
+			<!-- <DatePicker id="projected_date" valueFormat="dd-MM-yyyy" value="" change="handleChange"/> -->
+
+
+		</f:SimpleForm>
+		<!-- <beginButton>
+			<Button text="Guardar" type="Accept" press="SaveMachine"/>
+		</beginButton> -->
+
+
+		<buttons>
+			<Button text="Guardar" visible="{tables>/ButtonsParameter}" type="Accept" press="validateDialog"/>
+			<Button text="Guardar" visible="{=!${tables>/ButtonsParameter}}" type="Accept" press="SaveChangeMachine" />
+			<Button text="Cancelar" type="Reject" press="onProyectedCloseDialog" />
+		</buttons>
+
+	</Dialog>
+</core:FragmentDefinition>

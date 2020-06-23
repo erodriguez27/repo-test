@@ -1,0 +1,53 @@
+{
+	"name": {
+		"value": "",
+		"state": "None",
+		"stateText": "",
+		"editable": false
+	},
+	"code": {
+		"value": "",
+		"state": "None",
+		"stateText": "",
+		"editable": false
+	},
+	"order": {
+		"value": "",
+		"state": "None",
+		"stateText": "",
+		"editable": false
+	},
+	"type_id":{
+		"value": ""
+	},
+	"records": [],
+	"old": [],
+	"farmtypes": [],
+	"farm_type": {
+		"record":[],
+		"editable":false
+	},
+	"incubator_plant": {
+		"record":[],
+		"value": 0,
+		"editable":false
+	},
+	"disable": {
+		"value": false,
+		"state": "None",
+		"stateText": "",
+		"required": false,
+		"editable": false
+	},
+	"settings": {
+		"enabledTab": false,
+		"tableMode": "None"
+	},
+	"selectedRecordPath": "",
+	"create": false,
+	"modify": true,
+	"delete": true,
+	"save": true,
+	"cancel": true,
+    "itemType" : "DetailAndActive"
+}

@@ -1,0 +1,52 @@
+{
+	"ProcessTable": [],
+	"dialogcopy": {},
+	"dialogpath": {},
+	"ProcessDialog": {
+		"name": "",
+		"stage_id": "",
+		"breed_id": "",
+		"decrease": "",
+		"duration_process": "",
+		"sync_considered": false
+	},
+	"MachineTable": [],
+	"MachineDialog": {
+		"incubatorplant_id": "",
+		"charges": "",
+		"amount_of_charge": "",
+		"description": "",
+		"monday": false,
+		"tuesday": false,
+		"wednesday": false,
+		"thursday": false,
+		"friday": false,
+		"saturday": false,
+		"sunday": false
+	},
+	"SexTable": [],
+	"SexDialog": {
+		"name": "",
+		"gender": "",
+		"breed_id": "",
+		"weight_gain": "",
+		"age": "",
+		"mortality": ""
+	},
+	"EvictionTable": [],
+	"EvictionDialog": {
+		"slevictionpartition_id": "",
+		"name": "",
+		"youngmale": "",
+		"oldmale": "",
+		"peasantmale": "",
+		"youngfemale": "",
+		"oldfemale": "",
+		"active": false
+	},
+	"Stages": [],
+	"Breeds": [],
+	"IncubatorPlants": [],
+	"ButtonsParameter": false,
+	"CurrentObject": {}
+}

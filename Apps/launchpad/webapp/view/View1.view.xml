@@ -1,0 +1,221 @@
+<mvc:View controllerName="Launchpad.controller.View1" 
+	xmlns:html="http://www.w3.org/1999/xhtml" 
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true" 
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m">
+
+	<Page title="{i18n>appTitle}">
+		<headerContent>
+		<MenuButton icon="sap-icon://person-placeholder" text="{data>/name}" >
+			<menu>
+				<Menu>
+					<MenuItem icon="sap-icon://user-edit" text = "{i18n>PassChange}" press="onChangePass"/>
+					<MenuItem icon="sap-icon://employee-rejections" text = "{i18n>SessionClose}" press="pressLogout" />
+				</Menu>
+			</menu>
+		</MenuButton>
+		</headerContent>
+		<content>
+
+			<Bar id="conf">
+				<contentMiddle>
+					<Label text="{i18n>Conf}" />
+				</contentMiddle>
+			</Bar>
+			<GenericTile id="tile0" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>ConfTech}" visible="false" scope="false" press="press">
+				<tileContent >
+					<TileContent disabled="true">
+						<content>
+							<ImageContent src="sap-icon://action-settings"/>
+						</content>
+					</TileContent>
+				</tileContent>
+
+			</GenericTile>
+
+			<GenericTile id="tile9" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>UserMng}" press="press" visible="false" disabled="true">
+				<tileContent>
+					<TileContent>
+						<content>
+							<ImageContent src="sap-icon://citizen-connect"/>
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+
+			<GenericTile id="tile12" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>MasvChrg}" press="press" visible="false" disabled="true">
+				<tileContent>
+					<TileContent>
+						<content>
+							<ImageContent src="sap-icon://sys-first-page"/>
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+
+			<Bar id="reg">
+				<contentMiddle>
+					<Label text="{i18n>Reg}" />
+				</contentMiddle>
+			</Bar>
+
+			<GenericTile id="tile2" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>ScenaryMaint}" press="press" visible="false" disabled="true">
+				<tileContent>
+					<TileContent>
+						<content>
+							<ImageContent src="sap-icon://customize" />
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+
+			<GenericTile   id="tile21" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Optimizador de Alojamientos	"
+              press="press" visible="false" disabled="true">
+		        <tileContent>
+		          <TileContent>
+		            <content>
+		              <ImageContent src="sap-icon://tools-opportunity" />
+		            </content>
+		          </TileContent>
+		        </tileContent>
+		    </GenericTile>
+
+			<GenericTile id="tile22" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>Recalculation}" press="press" visible="false" disabled="true">
+				<tileContent>
+					<TileContent>
+						<content>
+							<ImageContent src="sap-icon://customize" />
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+
+			<GenericTile id="tile23" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>automatedScheduling}" press="press" visible="false" disabled="true">
+				<tileContent>
+					<TileContent>
+						<content>
+							<ImageContent src="sap-icon://customize" />
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+
+			<GenericTile   id="tile20" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Necesidades de ABA"
+              press="press" visible="false" disabled="true">
+		        <tileContent>
+		          <TileContent>
+		            <content>
+		              <ImageContent src="sap-icon://vds-file" />
+		            </content>
+		          </TileContent>
+		        </tileContent>
+		      </GenericTile>
+
+			<Bar id="prog">
+				<contentMiddle>
+					<Label text="{i18n>Prog}" />
+				</contentMiddle>
+			</Bar>
+
+			<GenericTile id="tile3" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>LiftBread}" press="press" visible="false" disabled="true">
+				<tileContent>
+					<TileContent>
+						<content>
+							<ImageContent src="sap-icon://sort-descending" />
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+
+			<GenericTile id="tile4" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>Prod}" press="press" visible="false" disabled="true">
+				<tileContent>
+					<TileContent>
+						<content>
+							<ImageContent src="sap-icon://add-activity" />
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+
+			<GenericTile id="tile5" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>AnnualCurve}" press="press" visible="false" disabled="true">
+				<tileContent>
+					<TileContent>
+						<content>
+							<ImageContent src="sap-icon://line-chart" />
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+
+			<GenericTile id="tile13" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>ColdRoom}" press="press" visible="false" disabled="true">
+				<tileContent>
+					<TileContent>
+						<content>
+							<ImageContent src="sap-icon://database" />
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+
+			<GenericTile id="tile6" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>Incubator}" press="press" visible="false" disabled="true">
+				<tileContent>
+					<TileContent>
+						<content>
+							<ImageContent src="sap-icon://dishwasher" />
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+
+			<GenericTile id="tile7" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>Broiler}" press="press" visible="false" disabled="true">
+				<tileContent>
+					<TileContent>
+						<content>
+							<ImageContent src="sap-icon://opportunity" />
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+
+			<GenericTile id="tile8" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>Eviction}" press="press" visible="false" disabled="true">
+				<tileContent>
+					<TileContent>
+						<content>
+							<ImageContent src="sap-icon://offsite-work" />
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+
+			<GenericTile id="tile10" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>Monitor}" press="press" visible="false" disabled="true">
+				<tileContent>
+					<TileContent>
+						<content>
+							<ImageContent src="sap-icon://projector" />
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+
+			<GenericTile id="tile14" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>Lot}" press="press" visible="false" disabled="true">
+				<tileContent>
+					<TileContent>
+						<content>
+							<ImageContent src="sap-icon://journey-change" />
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+			<GenericTile	id="tile19" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>SuperiorLayer}"
+							press="press" visible="false" disabled="true">
+				<tileContent>
+					<TileContent>
+						<content>
+							<ImageContent src="sap-icon://dimension"/>
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+		</content>
+	</Page>
+</mvc:View>

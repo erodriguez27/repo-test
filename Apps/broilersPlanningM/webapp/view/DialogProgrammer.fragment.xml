@@ -1,0 +1,97 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+  <Dialog id="dialogprogrammed" escapeHandler="onProgrammedCloseDialog" title="Agregar Programación" class="sapUiPopupWithPadding" confirm="onCancelCopy" cancel="onCancelCopy" busy="false">
+
+      <f:SimpleForm id="formPlanning" editable="true" labelSpanL="5" labelSpanM="4" labelSpanS="4" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsL="2" columnsM="2" maxContainerCols="2" layout="ResponsiveGridLayout" width="100%" busy="false">
+      			
+            <Label text="Lote"/>
+            <Select items="{mdprogrammed>/selectedRecords}"
+               selectedKey="{mdprogrammed>/selectedKey}"
+               id="selectLot"
+               change="lotSelected"
+               forceSelection="false">
+              <core:Item text="{mdprogrammed>lot_incubator} - {parts: [{path: 'mdprogrammed>projected_quantity'}, {path: 'mdprogrammed>residue'}, {path: 'mdprogrammed>partial_residue'}], formatter: '.formatter.calculateResidue2'} Pollitos" key="{mdprogrammed>broiler_id}"/>
+            </Select>
+
+            <Label text="Fecha"/>
+            <DatePicker id="programmed_date" 
+              valueFormat="dd-MM-yyyy"
+              value="" 
+              initialFocusedDateValue="{mdprogrammed>/lotselected/date}" 
+              change="changeProgrammedDate" 
+              enabled="{= ${mdprogrammed>/assigned/length} === 0}"/>
+            
+            <Label text="Granja"/>
+            <Select items="{mdfarms>/records}" 
+              selectedKey="{mdfarms>/selectedKey}" 
+              change="onChangeFarm" id="selectFarm" 
+              enabled="{= ${mdprogrammed>/assigned/length} === 0}"
+              forceSelection="false">
+              <core:Item text="{mdfarms>name}" key="{mdfarms>farm_id}"/>
+            </Select>
+
+            <Label text="Núcleo"/>
+						<Select items="{mdcores>/records}"
+								selectedKey="{mdcores>/selectedKey}"
+								change="onChangeCore"
+								id="selectCore"
+                enabled="{= ${mdprogrammed>/assigned/length} === 0 &amp;&amp; ${mdcores>/editable} === true}"
+                forceSelection="false">
+									<core:Item text="{mdcores>name}" key="{mdcores>center_id}"/>
+						</Select>
+
+            <Label text="Galpón"/>
+            <Select items="{mdshed>/records}" 
+              selectedKey="{mdshed>/selectedKey}" 
+              change="onChangeShed" id="selectShed" 
+              enabled="{= ${mdprogrammed>/assigned/length} === 0 &amp;&amp; ${mdshed>/editable} === true}"
+              forceSelection="false">
+              <core:Item text="{mdshed>code}" key="{mdshed>shed_id}"/>
+            </Select>
+
+            <Label text="Cap. min/max" />
+						<Text id="" text="{mdprogrammed>/capmin2}  / {mdprogrammed>/capmax2}" enabled="false" width = "100%"/>
+                 
+            <Label text="Producto"/>
+            <Select items="{mdprogrammed>/product/records}"
+              selectedKey="{mdprogrammed>/product/selectedKey}"
+              id="selecProduct"
+              enabled="{= ${mdprogrammed>/assigned/length} === 0}"
+              forceSelection="false">
+              <core:Item text="{mdprogrammed>name}" key="{mdprogrammed>broiler_product_id}"/>
+            </Select>
+
+            <Label text="Cantidad (UND)"/>
+            <Input id="assigned_quantity" value="" placeholder="Pollitos" liveChange="onValidProgrammedQuantity"
+              valueState="{mdprogrammed>/name/state}"
+              valueStateText="{mdprogrammed>/name/stateText}"
+              />
+
+            <Button
+              text="+"
+              press="onAddBroiler"
+              ariaDescribedBy="acceptButtonDescription genericButtonDescription"
+              enabled="{mdprogrammed>/addBtn}">
+          </Button>
+
+          <Label text=""/>
+          <List
+            mode="Delete"
+            delete="handleDelete" 
+            items="{mdprogrammed>/assigned}" >
+            <StandardListItem
+              title="{mdprogrammed>name}"
+              description="{mdprogrammed>description}"
+              info="{mdprogrammed>quantity_chicken} Pollitos"/>
+          </List>
+
+      </f:SimpleForm>
+    <beginButton>
+      <Button text="Guardar" type="Accept" press="onProgrammedSaveDialog" 
+              enabled="{mdprogrammed>/confirmBtn}"/>
+    </beginButton>
+    <endButton>
+      <Button text="Cancelar" type="Reject" press="onProgrammedCloseDialog"/>
+    </endButton>
+
+  </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,9 @@
+{
+    "reporterEnabled": "nyan, mochawesome",
+    "mochawesomeReporterOptions": {
+        "reportDir":"./test/reportes",
+        "reportFilename":"MochaReportsTest1",
+        "overwrite":true,
+        "saveJson": true
+    }
+}

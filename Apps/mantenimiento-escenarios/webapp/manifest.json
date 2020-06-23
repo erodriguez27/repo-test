@@ -1,0 +1,103 @@
+{
+	"_version": "1.5.0",
+	"sap.app": {
+		"id": "Mantenimiento-escenarios",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "ui5template.basicSAPUI5ApplicationProject",
+			"version": "1.40.12"
+		}
+	},
+
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_belize"
+
+		]
+	},
+
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "Mantenimiento-escenarios.view.App",
+			"type": "XML"
+		},
+		"dependencies": {
+			"minUI5Version": "1.30.0",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ui.layout": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "Mantenimiento-escenarios.i18n.i18n"
+				}
+			},
+			"budget": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/budget.json"
+			},
+			"dummy": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/dummy.json"
+			}
+		},
+		"resources": {
+			"css": [{
+				"uri": "css/style.css"
+			}]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "Mantenimiento-escenarios.view",
+				"controlId": "appControl",
+				"controlAggregation": "pages",
+				"async": "true"
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "home",
+					"target": "main"
+				}
+			],
+			"targets": {
+				"main": {
+					"viewName": "Main",
+					"viewLevel": 1,
+					"viewId": "mainView"
+				}
+			}
+		}
+	}
+}

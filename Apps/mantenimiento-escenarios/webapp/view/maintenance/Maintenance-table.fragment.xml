@@ -1,0 +1,80 @@
+<core:FragmentDefinition
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m">
+	<Table
+		id="maintenanceTable"
+		noDataText="Sin datos"
+		growing="true"
+		growingThreshold="10"
+		items="{scenarios>/records/}"
+		mode="None"
+		selectionChange="onselectScenario"
+
+		busy="{util>/busy}">
+		<headerToolbar>
+			<Toolbar>
+				<Title text="" level="H2"/>
+				<ToolbarSpacer></ToolbarSpacer>
+						
+			</Toolbar>
+		</headerToolbar>
+		<infoToolbar>
+			<Toolbar id="vsdFilterBarMaintenance" visible="false">
+				<Text id="vsdFilterLabelMaintenance"  />
+			</Toolbar>
+		</infoToolbar>
+		<items>
+			<ColumnListItem type="DetailAndActive" detailPress="onUpdateScenario">
+				<cells>
+					<Text text="{scenarios>name}"/>
+					<Text text="{scenarios>description}"/>
+					<Text text="{path:'scenarios>date_start', formatter: '.formatter.formatDate'}"/>
+					<Text text="{path:'scenarios>date_end', formatter: '.formatter.formatDate'}"/>
+					<!--<Text text="{path:'scenarios>status', formatter: '.formatter.formatStatus'}"/>-->
+					<Switch change="onDialogScenarioActivate" type="AcceptReject" state="{path:'scenarios>status', formatter: '.formatter.formatStatus'}" customTextOn="Activo" customTextOff="Inactivo">
+						<layoutData>
+							<FlexItemData growFactor="1" />
+						</layoutData>
+					</Switch>
+
+					<FlexBox justifyContent="Center">
+						<Button id="deleteButton" type="Transparent" icon="sap-icon://sys-cancel" press="onScenarioDelete"/>
+					</FlexBox>
+				</cells>
+			</ColumnListItem>
+		</items>
+		<columns>
+			<Column vAlign="Middle">
+				<header>
+					<Label text="Nombre"/>
+				</header>
+			</Column>
+			<Column vAlign="Middle">
+
+				<header>
+					<Label text="Descripción"/>
+				</header>
+			</Column>
+			<Column vAlign="Middle">
+				<header>
+					<Label text="Inicio"/>
+				</header>
+			</Column>
+			<Column vAlign="Middle">
+				<header>
+					<Label text="Fin"/>
+				</header>
+			</Column>
+			<Column vAlign="Middle">
+				<header>
+					<Label text="Estatus"/>
+				</header>
+			</Column>
+			<Column vAlign="Middle">
+				<header>
+					<Label text=""/>
+				</header>
+			</Column>
+		</columns>
+	</Table>
+</core:FragmentDefinition>

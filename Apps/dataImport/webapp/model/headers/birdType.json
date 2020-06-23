@@ -1,0 +1,61 @@
+{
+  "CÓDIGO DE LA EMPRESA": {
+    "default" : "",
+    "type" : "Input",
+    "validate" : {
+      "required" : true,
+      "errorEmpty" : "Código de la Empresa no puede estar vacio",
+      "pattern" : "^.{2,40}$",
+      "errorPattern" : "Longitud debe estar entre los 2 y 40 caracteres",
+      "unique" : true,
+      "errorUnique" : "Duplicado"
+    },
+    "binding" : "Typebirdname"
+  },
+  "CÓDIGO DE LA GRANJA": {
+    "default" : "",
+    "type" : "Input",
+    "validate" : {
+      "required" : true,
+      "errorEmpty" : "Código no puede estar vacio",
+      "pattern" : "^[0-9]{8}$",
+      "errorPattern" : "Código de 8 caracteres numéricos.",
+      "unique" : true,
+      "errorUnique" : "Duplicado"
+    },
+    "binding" : "Typebirdcode"
+  },
+  "NOMBRE DEL ALMACÉN": {
+    "default" : "",
+    "type" : "Input",
+    "validate" : {
+      "required" : true,
+      "errorEmpty" : "Género no puede ser vacío",
+      "pattern" : "^MACHO|HEMBRA|MIXTO$",
+      "errorPattern" : "Valores válidos (MACHO, HEMBRA o MIXTO)"
+    },
+    "binding" : "Gendername"
+  },
+  "CÓDIGO DEL CLIENTE": {
+    "default" : "",
+    "type" : "Input",
+    "validate" : {
+      "required" : true,
+      "errorEmpty" : "Unidad de Medida no puede ser vacio",
+      "pattern" : "^[A-Z0-9]{2,3}$",
+      "errorPattern" : "Código de max. 3 caracteres alfanuméricos en mayúsculas."
+    },
+    "binding" : "Unit"
+  },
+  "CÓDIGO DEL ALMACÉN": {
+    "default" : "",
+    "type" : "Input",
+    "validate" : {
+      "required" : false,
+      "errorEmpty" : "",
+      "pattern" : "^HEMBRA NORMAL|HEMBRA PIGMENTADA|MACHO NORMAL|MACHO PIGMENTADO|MIXTO NORMAL|MIXTO PIGMENTADO$",
+      "errorPattern" : "Valores válidos (HEMBRA NORMAL, HEMBRA PIGMENTADA, MACHO NORMAL, MACHO PIGMENTADO, MIXTO NORMAL, MIXTO PIGMENTADO)"
+    },
+    "binding" : "Birdcolorname"
+  }
+}

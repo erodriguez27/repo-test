@@ -1,0 +1,24 @@
+Revisar validaciones de cadenas alfanumericas en:
+oswarehouse.json
+ospartnership.json
+osshed.json
+
+Revisar validación de campo "código de galpon", el cual debe aceptar guiones y espacios tambien:
+osshed.json
+
+revisar validaciones de códigos numéricos enteros en:
+oswarehouse.json
+ospartnership.json
+osshed.json
+
+meses de 30 dias
+(11|(0(4|6|9)))-((([0-2][1-9])|([1-3]0)))
+
+meses de 31 dias
+(1(0|2)|(0(1|3|5|7|8)))-((([0-2][1-9])|31|([1-3]0)))
+
+febrero
+02-(([0-1][1-9])|(2[0-8])|([1-2]0))
+
+fechas en formado aaaa-mm-dd:
+^[0-9]{4}-(((11|(0(4|6|9)))-((([0-2][1-9])|([1-3]0))))|((1(0|2)|(0(1|3|5|7|8)))-((([0-2][1-9])|31|([1-3]0))))|(02-(([0-1][1-9])|(2[0-8])|([1-2]0))))$

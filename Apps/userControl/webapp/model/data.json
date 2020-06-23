@@ -1,0 +1,82 @@
+{
+    "companieslist":[
+    ],
+  
+    "Typematerial":[
+      {
+        "Typematerialname":"Insumo"
+      }
+    ],
+  
+    "farmsSelected":[
+  
+    ],
+  
+    "farm":{
+  
+    },
+  
+    "wharehouseSelected": {
+  
+    },
+  
+    "materiales":[
+  
+    ],
+  
+    "lotes":[
+      {
+        "Hatcherylotcode": "Lote 1"
+      },
+      {
+        "Hatcherylotcode": "Lote 2"
+      },
+      {
+        "Hatcherylotcode": "Lote 3"
+      }
+    ],
+  
+    "allfood":[
+  
+    ],
+  
+    "allinsumos":[
+  
+    ],
+  
+    "DocDeCompra":[
+      {
+        "WAREHOUSEID" : 49,
+        "MATERIALCODE" : 11000001,
+        "DATESTOCK" : "04.03.2018",
+        "UNIT" : "KG",
+        "QUANTITY" : 1000
+      },
+      {
+        "WAREHOUSEID" : 49,
+        "MATERIALCODE" : 25000975,
+        "DATESTOCK" : "04.03.2018",
+        "UNIT" : "KG",
+        "QUANTITY" : 20000
+      },
+      {
+        "WAREHOUSEID" : 49,
+        "MATERIALCODE" : 25000406,
+        "DATESTOCK" : "04.03.2018",
+        "UNIT" : "KG",
+        "QUANTITY" : 3699
+      }
+    ],
+    "minDate":[],
+    "silos":[
+        {
+            "Siloname":"Silo",
+            "Capacity":7777,
+            "Foodquantity":555,
+            "Materialname":"Food",
+            "Reportdate":"04.03.2018"
+        }
+    ]
+  
+  }
+  

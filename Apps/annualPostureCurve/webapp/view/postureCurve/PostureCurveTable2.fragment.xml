@@ -1,0 +1,43 @@
+<core:FragmentDefinition
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m">
+  <Popover
+  placement="HorizontalPreferredRight"
+  showHeader="false"
+  class="sapUiContentPadding"
+  contentWidth="60%"
+  >
+  <Table 
+         growing="true"
+         items="{path:'posturecurve>/datapopover'}"
+         growingThreshold="20">
+    <columns>
+     
+      <Column hAlign="Center">
+      <Text text="Dia"/>
+       
+      </Column>
+      <Column hAlign="Center">
+      <Text text="Fecha"/>
+       
+      </Column>
+			<Column hAlign="Center">
+				<Text text="Lote" />
+			</Column>
+      <Column hAlign="Center">
+        <Text text="Huevos(UND)" />
+      </Column>
+    </columns>
+    <items>
+      <ColumnListItem >
+        <cells>
+          <Text textAlign="Center" text="{posturecurve>formatDate}"/> 
+					<Text textAlign="Center" text="{posturecurve>dia}"/>
+          <Text textAlign="Center" text="{posturecurve>lot}"/>
+        	<Text textAlign="Center" text="{posturecurve>sum}"/>
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+  </Popover>
+</core:FragmentDefinition>

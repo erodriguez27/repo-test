@@ -1,0 +1,63 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" 
+  xmlns="sap.m">
+
+  <!-- <FlexBox width="100%" id="__box22" justifyContent="Center">
+    <items>
+      <Select items="{path:'mdbreed>/records'}" selectedKey="{mdbreed>/value}" id="breedSelect">
+        <core:Item text="{mdbreed>name}" key="{mdbreed>breed_id}"/>
+      </Select>
+ 
+      <DatePicker id="scheduled_date" valueFormat="dd-MM-yyyy" placeholder="Fecha" change="handleChange" class="sapUiSmallMarginBottom"/>
+      <Button id = "bProj" text="Buscar" press="onPress"></Button>
+
+    </items>
+  </FlexBox> -->
+
+
+  <Table id="projectedTable" mode="Delete" delete="DeleteIncubation" inset="false" items="{incubator>/incubatorProgrammedTable}" selectionChange="onSelectProgrammedRecords" growing="true" growingScrollToLoad="true">
+
+    <columns>
+      <Column hAlign="Center">
+        <Text text="ID" />
+      </Column>
+
+      <Column hAlign="Center">
+        <Text text="Fecha" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Máquina" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Cantidad (UN)" />
+      </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Incubabilidad Real (%)" />
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Proyectar" />
+      </Column>
+
+
+    </columns>
+    <items>
+      <ColumnListItem>
+        <cells>
+          <Text text="{incubator>identifier}" />
+          <Text text="{incubator>prog_date}" />
+          <Text text="{incubator>incubator_name}" />
+
+          <Text text="{path:'incubator>programmed_quantity',formatter: '.formatter.formatMiles' }" />
+          <FlexBox justifyContent="Center">
+            <Text visible="{= ${incubator>executed}===true ? true : false}" text="{incubator>real_decrease}" />
+            <input maxLength="3" type="Number" visible="{= ${incubator>executed}===true ? false : true}" enabled="{= ${incubator>projected}===true ? true : false}" value="{incubator>real_decrease}" width="50%" />
+          </FlexBox>
+           <FlexBox justifyContent="Center">
+          <Button visible="{= ${incubator>projected}===false ? true : false}" press="ChangeDecreaseButton" icon="sap-icon://filter-analytics" />
+           <Button visible="{= ${incubator>projected}===true ? true : false}" press="PopOverProductionProjected" icon="sap-icon://search" type="Transparent" />
+            </FlexBox>
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</core:FragmentDefinition>

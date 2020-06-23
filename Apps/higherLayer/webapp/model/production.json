@@ -1,0 +1,18 @@
+{
+    "ProductionTable":[],
+    "scenarios":[],
+    "breeds":[],
+    "farms":[],
+    "sheds":[],
+    "ProductionDialog":{
+        "programmed_quantity":"",
+        "housing_date":""
+    },
+    "ProductionMain":{},
+    "ProductionMainCopy":{},
+    "sheedpopovers":"",
+    "DecreaseDialog":{},
+    "PostureCurveDialog":{},
+    "popoverscenario":""
+
+}

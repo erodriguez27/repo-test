@@ -1,0 +1,84 @@
+/* Enter your custom styles here */
+
+/* Muestra el contenido de los diálogos de forma centrada */
+
+.sapMDialog>.sapMDialogSection {
+  display: flex;
+  align-items: center;
+}
+
+.inputColorParameter {
+  background-color: yellow !important;
+}
+
+.openSapMBtn {
+  vertical-align: inherit !important;
+  padding: 1px 0px !important;
+}
+
+/* ///////////////////////////////////////////////////// */
+
+.test1 {
+  background: white !important;
+}
+
+.toolbarWarning {
+  background: orange !important;
+}
+
+.toolbarSuccess {
+  background: green !important;
+}
+
+.toolbarError {
+  background: red !important;
+}
+
+.bgGrey {
+  background: #e5e5e5 !important;
+}
+
+.RangeWarning .sapMSliderProgress {
+  background: orange !important;
+}
+
+.RangeWarning .sapMSliderProgress:focus {
+  background: orange !important;
+  outline: 0px !important;
+}
+
+.RangeError .sapMSliderProgress {
+  background: red !important;
+}
+
+.RangeError .sapMSliderProgress:focus {
+  background: red !important;
+  outline: 0px !important;
+}
+
+.RangeSuccess .sapMSliderProgress {
+  background: green !important;
+}
+
+.RangeSuccess .sapMSliderProgress:focus {
+  background: green !important;
+  outline: 0px !important;
+}
+
+.myTable {
+  overflow-x: scroll;
+}
+
+.yellow {
+  color: gold
+}
+
+.red {
+  color: darkred
+}
+
+.green {
+  color: forestgreen
+}
+
+.normal {}

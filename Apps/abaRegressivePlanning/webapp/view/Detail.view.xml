@@ -1,0 +1,158 @@
+<mvc:View
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns="sap.m"
+        xmlns:c="sap.ui.core"
+        xmlns:t="sap.ui.table"
+        xmlns:f="sap.ui.layout.form"
+        xmlns:u="sap.ui.unified"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        id="detailsP"
+        controllerName="abaRegressivePlanning.controller.Detail">
+    <App>
+        <pages>
+            <Page enableScrolling="true" title="ABA">
+			    <headerContent>
+                    <Button icon="sap-icon://undo" tooltip="Ir al launchpad" text="Ir al launchpad" press="goToLaunchpad" />
+                </headerContent>
+                <content>
+                    <VBox fitContainer="true">
+                        <ObjectHeader
+                                id="oh1"
+                                responsive="false"
+                                fullScreenOptimized="false"
+                                icon="{ProductPicUrl}"
+                                iconAlt="{Name}"
+                              
+                                title="Escenario"
+                                titleActive="false"
+                                titlePress="handleTitlePress"
+                                numberState="Success"
+                                backgroundDesign="Translucent"
+                        >
+                            <attributes>
+                            <ObjectAttribute
+                                    text="{data>/atrNombre}"
+                                    active="true"
+                                    press="showPopOver"/>
+                                	<!-- <Link
+                                    text="Open message box"
+                                    press="handleLinkPress" /> -->
+                            </attributes>
+                            <headerContainer>
+                            </headerContainer>
+                        </ObjectHeader>
+                        <HBox alignItems="Center" justifyContent="Center">
+                            <ComboBox
+                                id="comboName"
+                                width="150px"
+                                selectedKey="General"
+                                visible="{data>/menuGeneral}"
+                                selectionChange="onChangeMenu"
+                                items="{
+                                    path: 'data>/selectedDetails'
+                                }">
+                                <c:Item key="{data>name}" text="{data>name}" />
+                            </ComboBox>
+                            <MultiComboBox
+                                id="comboAnio"
+                                visible="{data>/menuDetails}"
+                                placeholder="Año"
+                                selectionChange="handleSelectionChange"
+			                    selectionFinish=""
+                                
+                              
+                                change="onSelectCombo"
+                                width="150px"
+                                items="{
+                                    path: 'data>/selectedAnios'
+                                }">
+                                <c:Item key="{data>name}" text="{data>name}" />
+                            </MultiComboBox>
+                            <MultiComboBox
+                                id="comboMes"
+                                width="150px"
+                                enabled="false"
+                                selectionFinish=""
+                                change="onSelectCombo"
+                                placeholder="Mes"
+                                visible="{data>/menuDetails}"
+                                items="{
+                                    path: 'data>/selectedmes1'
+                                }">
+                                
+                                <c:Item key="{data>name}" text="{data>name}" />
+                            </MultiComboBox>
+                            <MultiComboBox
+                                id="comboSem"
+                                width="150px"
+                                visible="{data>/menuDetails}"
+                                change="onSelectCombo"
+                                selectionFinish=""
+                                enabled="false"
+                                placeholder="Semana"
+                                items="{
+                                    path: 'data>/selectedsemana'
+                                }">
+                                <c:Item key="{data>name}" text="{data>name}" />
+                            </MultiComboBox>
+                            <MultiComboBox
+                                id="comboMacroElement"
+                                width="150px"
+                                visible="{data>/menuGeneral}"
+                                selectionFinish=""
+                                change="onSelectCombo"
+                                
+                                placeholder="Macro elemento"
+                                items="{
+                                    path: 'data>/selectedMacroelemento'
+                                }">
+                                
+                                <c:Item key="{data>name}" text="{data>name}" />
+                            </MultiComboBox>
+                            <Button text="Filtrar" press="onChangefilter" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="{data>/menuGeneral}" iconDensityAware="false"/>
+                        </HBox>     
+                        <Table 
+                            id="TreeTableBasic"
+                           
+                            busy="{data>/busy}"
+                            items="{path:'data>/tableInfo'}">
+                            <columns>    
+                                <Column hAlign="Center" visible="{data>/menuDetails}">
+                                    <Text text="Año"/>
+                                </Column>
+                                <Column hAlign="Center" visible="{data>/menuDetails}">
+                                    <Text text="Mes"/>
+                                </Column>
+                                <Column hAlign="Center" visible="{data>/menuDetails}">
+                                    <Text text="Semana"/>
+                                </Column>
+                                <Column hAlign="Center" visible="{data>/menuGeneral}">
+                                    <Text text="Macro elemento" />
+                                </Column>
+                                <Column hAlign="Center" visible="{data>/menuGeneral}">
+                                    <Text text="Cantidad (TONS)" />
+                                </Column>
+                                <Column hAlign="Center" visible="{data>/menuGeneral}">
+                                    <Text text="Equivalentes" />
+                                </Column>
+                              
+                            </columns>
+                            <items>
+                            <ColumnListItem >
+                                <cells>
+                                    <text textAlign="Center" text="{data>anio}"/>
+                                    <text textAlign="Center" text="{data>mes}"/>
+                                    <text textAlign="Center" text="{data>semana}"/>
+                                    <text textAlign="Center" text="{data>name}"/>
+                                    <text textAlign="Center" text="{data>cant}"/>
+                                    <c:Icon src="sap-icon://search" press="openTablepop" color="blue" height="20px" width="20px" size="20px"/>
+                                </cells>
+                            </ColumnListItem>
+                            </items>
+                        </Table>
+                    </VBox>
+                </content>
+            </Page>
+        </pages>
+    </App>
+</mvc:View>

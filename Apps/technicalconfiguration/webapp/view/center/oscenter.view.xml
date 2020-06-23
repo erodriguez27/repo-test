@@ -1,0 +1,39 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" 
+			controllerName="technicalConfiguration.controller.oscenter">
+	<sap.m.semantic:DetailPage busy="{dummy>/busy}" xmlns:sap.m.semantic="sap.m.semantic" title="{i18n>OS.entity.details}" id="centerPage">
+		<sap.m.semantic:content>
+
+			<core:Fragment fragmentName="technicalConfiguration.view.center.oscenter_Header" type="XML"/>
+
+			<IconTabBar headerMode="Inline"
+									selectedKey="partnershipFilter"
+									id="tabBar"
+									expandable="false"
+									applyContentPadding="false"
+									select="onSelectChangedTab">
+				<items>
+					<IconTabFilter text="{i18n>partnerships}" id="partnershipFilter">
+						<content>
+							<core:Fragment fragmentName="technicalConfiguration.view.partnership.ospartnership-Table" type="XML"/>
+						</content>
+					</IconTabFilter>
+					<IconTabSeparator icon="sap-icon://open-command-field"/>
+					<IconTabFilter text="{i18n>farms}" id="broilersFarmFilter" enabled="{OSFARM>/settings/enabledTab}">
+						<content>
+							<core:Fragment fragmentName="technicalConfiguration.view.farm.osfarm-Table" type="XML"/>
+						</content>
+					</IconTabFilter>
+					<IconTabSeparator icon="sap-icon://open-command-field"/>
+					<IconTabFilter text="{i18n>centers}" id="centerFilter" count="{parts: [{path: 'OSCENTER>/records'}], formatter: '.formatter.recordsCount'}" enabled="{OSCENTER>/settings/enabledTab}">
+						<content>
+							<core:Fragment fragmentName="technicalConfiguration.view.center.oscenter-Table" type="XML"/>
+						</content>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+		</sap.m.semantic:content>
+		<sap.m.semantic:customFooterContent>
+			<Button text="{i18n>new}" width="100px" type="Accept" visible="{OSCENTER>/new}" press="onNewRecord"/>
+		</sap.m.semantic:customFooterContent>
+	</sap.m.semantic:DetailPage>
+</mvc:View>

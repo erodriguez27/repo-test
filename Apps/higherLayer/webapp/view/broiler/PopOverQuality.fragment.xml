@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" 
+    xmlns:core="sap.ui.core">
+    <Popover title="Referencial"  contentWidth="200px">
+        <List >
+            <StandardListItem visible="{= ${broiler>/PopOverChicks/gender} === 'H' ? true : false}" title="Hembra Joven" counter="{broiler>/PopOverChicks/youngfemale}"/>
+            <StandardListItem visible="{= ${broiler>/PopOverChicks/gender} === 'H' ? true : false}" title="Hembra Vieja" counter="{broiler>/PopOverChicks/oldfemale}"/>
+            <StandardListItem visible="{= ${broiler>/PopOverChicks/gender} === 'M' ? true : false}" title="Macho Joven" counter="{broiler>/PopOverChicks/youngmale}"/>
+            <StandardListItem visible="{= ${broiler>/PopOverChicks/gender} === 'M' ? true : false}" title="Macho Viejo" counter="{broiler>/PopOverChicks/oldmale}"/>
+            <StandardListItem visible="{= ${broiler>/PopOverChicks/gender} === 'M' ? true : false}" title="Macho Campesino" counter="{broiler>/PopOverChicks/peasantmale}"/>
+        </List>
+
+    </Popover>
+</core:FragmentDefinition>

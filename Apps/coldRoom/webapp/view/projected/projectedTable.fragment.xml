@@ -1,0 +1,46 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" 	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form">
+
+
+  <Table id="projectTable"
+				 inset="false"
+				 items="{path:'mdprojected>/records'}"
+				 mode="SingleSelect"
+         enableBusyIndicator="true"
+				 selectionChange="onSelectProject"
+         growing="true"
+        growingScrollToLoad="true">
+        <columns>
+          <Column hAlign="Center">
+            <Text text="{i18n>incubatorPlanning}"/>
+          </Column>
+          <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+            <Text text="{i18n>Acc} (UND)"/>
+          </Column>
+          <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+            <Text text="{i18n>App} (UND)"/>
+          </Column>
+          <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+            <Text text="{i18n>Exp} (UND)"/>
+          </Column>
+          <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+            <Text text="{i18n>disp} (UND)"/>
+          </Column>
+          <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+            <Text text="{i18n>weighted_days}"/>
+          </Column>
+        </columns>
+        <items>
+          <ColumnListItem >
+            <cells>
+              <Text text="{mdprojected>name}"/>
+              <ObjectNumber number="{path:'mdprojected>aclimatized',formatter: '.formatter.formatMiles' }"/>
+              <ObjectNumber number="{path:'mdprojected>suitable',formatter: '.formatter.formatMiles' }" />
+              <ObjectNumber number="{path:'mdprojected>expired',formatter: '.formatter.formatMiles' }" />
+              <ObjectNumber number="{path:'mdprojected>available',formatter: '.formatter.formatMiles' }" />
+              <ObjectNumber number="{path:'mdprojected>weighted_days',formatter: '.formatter.formatMiles' }" />
+      </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</core:FragmentDefinition>

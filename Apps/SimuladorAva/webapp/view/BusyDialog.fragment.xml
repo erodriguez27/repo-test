@@ -1,0 +1,8 @@
+<core:FragmentDefinition
+        xmlns="sap.m"
+        xmlns:core="sap.ui.core">
+    <BusyDialog
+            title="Cargando..."
+            text="Cargando por favor espere..."
+                        close="onDialogClosed"/>
+</core:FragmentDefinition>

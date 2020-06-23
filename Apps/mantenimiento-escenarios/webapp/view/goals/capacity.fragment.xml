@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Popover
+
+    placement="HorizontalPreferredRight"
+		showHeader="false"
+		class="sapUiContentPadding"
+    >
+		<List
+			items="{dummy>/dataPopover}" >
+			<StandardListItem
+				title="{dummy>init} {path:'dummy>text',formatter: '.formatter.formatMiles'}"
+				info="{dummy>value}"
+				infoState="{dummy>state}"
+				/>
+		</List>
+	</Popover>
+</core:FragmentDefinition>

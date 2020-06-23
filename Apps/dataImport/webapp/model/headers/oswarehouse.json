@@ -1,0 +1,46 @@
+{
+  "CÓDIGO DE LA EMPRESA": {
+    "default" : "",
+    "type" : "Input",
+    "validate" : {
+      "required" : true,
+      "errorEmpty" : "Código de la empresa no puede estar vacío",
+      "pattern" : "^[A-Za-z0-9]{1,9}$",
+      "errorPattern" : "Los códigos deben ser alfanuméricos"
+    },
+    "binding" : "partnershipCode"
+  },
+  "CÓDIGO DE LA GRANJA": {
+    "default" : "",
+    "type" : "Input",
+    "validate" : {
+      "required" : true,
+      "errorEmpty" : "Código de la granja no puede estar vacío",
+      "pattern" : "^[A-Za-z0-9]{1,9}$",
+      "errorPattern" : "Los códigos deben ser alfanuméricos"
+    },
+    "binding" : "farmCode"
+  },
+  "NOMBRE DEL ALMACÉN": {
+    "default" : "",
+    "type" : "Input",
+    "validate" : {
+      "required" : true,
+      "errorEmpty" : "Nombre del almacén no puede estar vacío",
+      "pattern" : "^[A-Za-z0-9]{1,45}$",
+      "errorPattern" : "Los nombres de almacén no pueden contener caracteres especiales"
+    },
+    "binding" : "name"
+  },
+  "CÓDIGO DEL ALMACÉN": {
+    "default" : "",
+    "type" : "Input",
+    "validate" : {
+      "required" : true,
+      "errorEmpty" : "Código del almacen no puede estar vacío",
+      "pattern" : "^[A-Za-z0-9]{1,9}$",
+      "errorPattern" : "Los códigos deben ser numéricos"
+    },
+    "binding" : "code"
+  }
+}

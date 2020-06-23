@@ -1,0 +1,79 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+
+<FlexBox width="100%" justifyContent="Center">
+    <items>
+       <Select items="{broiler>/selectScenariomains}" id="selectscenaio" selectedKey="{broiler>/broilerMain/scenario_id}">
+        <core:Item text="{broiler>name}" key="{broiler>scenario_id}"/>
+      </Select>
+    
+      <DatePicker valueFormat="yyyy-MM-dd"  value="{broiler>/broilerMain/beginning}" />
+      <DatePicker valueFormat="yyyy-MM-dd" value="{broiler>/broilerMain/ending}" />
+      <Button text="Buscar" press="LoadProjectedBroiler"/>
+
+    </items>
+  </FlexBox>
+
+
+  <Table 
+  id="broilerprojectedtable"
+      inset="false"
+      items="{broiler>/broilerProjectedTable}"
+     
+      growing="true"
+      growingScrollToLoad="true">
+
+      <columns>
+        <Column
+          hAlign="Center">
+          <Text text="Fecha" />
+        </Column>
+         <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Sexo" />
+        </Column>
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Cantidad (UN)" />
+        </Column>
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Cantidad Real (UN)" />
+        </Column>
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Saldo (UN)" />
+        </Column>
+        <Column hAlign="End" width="10%">
+									<header>
+
+									</header>
+								</Column>
+        
+        
+
+
+      </columns>
+      <items>
+        <ColumnListItem>
+          <cells>
+
+             <Text text="{broiler>week}" />
+             <Text text="{broiler>gender}" />
+             <Text text="{path:'broiler>scheduled_quantity',formatter: '.formatter.formatMiles' }" />
+             <Text text="{path:'broiler>real_quantity',formatter: '.formatter.formatMiles' }" />
+             <Text text="{parts : [ 'broiler>balance_quantity' , 'broiler>residue' ],formatter: '.formatter.formatMilesBalance' }" />
+             	<RadioButton select="LoadProgramedBroiler" visible="{= ${broiler>scheduled_quantity}>0}" groupName="GroupA"  />
+            
+          </cells>
+        </ColumnListItem>
+      </items>
+    </Table>
+</core:FragmentDefinition>

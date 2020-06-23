@@ -1,0 +1,65 @@
+<mvc:View xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m" 
+	xmlns:html="http://www.w3.org/1999/xhtml" controllerName="higherLayer.controller.AppsControllers.posturecurve">
+	<App>
+		<pages>
+			<sap.m.semantic:DetailPage xmlns:sap.m.semantic="sap.m.semantic" title="Curva de Postura" id="__page1">
+
+				<ObjectHeader title="{ospartnership>name}" intro="{ospartnership>address}" titleSelectorPress="handleTitleSelectorPress" iconActive="false" id="__header0" icon="sap-icon://factory" backgroundDesign="Translucent" responsive="true" showTitleSelector="true">
+
+					<!-- <attributes>
+							<ObjectAttribute text="Escenario Activo:  {mdscenario>/name}" />
+						</attributes> -->
+					<headerContainer>
+
+					</headerContainer>
+				</ObjectHeader>
+
+				<IconTabBar headerMode="Inline" selectedKey="farmFilter" expandable="false" applyContentPadding="false" backgroundDesign="Solid" headerBackgroundDesign="Translucent" select="onTabSelection">
+
+					<items>
+
+						<IconTabFilter text="Proyectado">
+							<content>
+								<core:Fragment fragmentName="higherLayer.view.posturecurve.ProjectedView" type="XML"/>
+							</content>
+						</IconTabFilter>
+						
+					
+
+						<!-- <IconTabSeparator id="__separator1" icon="sap-icon://open-command-field"/> -->
+
+					</items>
+				</IconTabBar>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<!-- <core:Fragment fragmentName="higherLayer.view.breading.breadingtable" type="XML"/> -->
+
+				<!-- <sap.m.semantic:customFooterContent>
+
+					<Button id="confirmSync" text="Confirmar" type="Accept" press="onConfirmSyncronization" enabled="{higherLayer>/buttonsSync}" visible="{higherLayer>/visibleButtonsSync}"/>
+					<Button id="rejectSync" text="Cancelar" type="Reject" press="onCancelSyncronization" enabled="{higherLayer>/buttonsSync}" visible="{higherLayer>/visibleButtonsSync}"/>
+
+				</sap.m.semantic:customFooterContent> -->
+			</sap.m.semantic:DetailPage>
+		</pages>
+	</App>
+</mvc:View>

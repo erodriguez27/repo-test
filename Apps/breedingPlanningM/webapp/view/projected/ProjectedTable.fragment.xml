@@ -1,0 +1,90 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+
+	<FlexBox width="100%"
+           id="__boxS22"
+           justifyContent="Center">
+    <items>
+      <Input value="{mdprojected>/lotFilter}" change="changeLotFilter" placeholder="Lote Producción (Px)"/>
+			<Select
+							selectedKey="{mdprojected>/programmedFilter}"
+              change="changeProgrammedFilter"
+							>
+				<core:Item text="Todos" key="all"/>
+				<core:Item text="Programados" key="programmed"/>
+        <core:Item text="No Programados" key="notProgrammed"/>
+			</Select>
+      <Button text="Buscar" press="applyProjectedTableFilters"/>
+
+    </items>
+  </FlexBox>
+
+  <Table id="idTableProjected"
+      inset="false"
+      items="{path:'mdprojected>/records'}"
+      mode="MultiSelect"
+      enableBusyIndicator="true"
+      selectionChange="onSelectProgrammedRecords"
+      growing="true"
+        						growingScrollToLoad="true">
+
+      <columns>
+        <Column
+          hAlign="Center">
+          <Text text="Fecha" />
+        </Column>
+
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Lote cría y levante" />
+        </Column>
+
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Cantidad (UND)" />
+        </Column>
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Saldo (UND)" />
+        </Column>
+
+        <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text text="Raza" />
+        </Column>
+         <Column
+          minScreenWidth="Tablet"
+          demandPopin="true"
+          hAlign="Center">
+          <Text  />
+        </Column>
+
+       
+
+      </columns>
+      <items>
+        <ColumnListItem type="{parts : [{path: 'mdprogrammed>/selectedRecords'}, {path: 'mdprojected>'}], formatter: '.formatter.selectableRow'}">
+          <cells>
+             <Text text="{mdprojected>projected_date}" />
+             <Link text="{mdprojected>lot}" press="showProjectedLots"/>
+             <ObjectNumber
+             number="{path:'mdprojected>projected_quantity',formatter: '.formatter.formatMiles' }"/>
+             <ObjectNumber
+             number="{parts: [{path:'mdprojected>projected_quantity'}, {path:'mdprojected>residue'}],formatter: '.formatter.calculateResidue'} "/>
+            <Text text="{mdprojected>breed_name}" />
+            
+            <core:Icon press="onMessageWarningDialogPress"  visible="{mdprojected>evictionprojected}" color="#E69A17" src="sap-icon://message-warning"/>
+           
+           
+          </cells>
+        </ColumnListItem>
+      </items>
+    </Table>
+</core:FragmentDefinition>

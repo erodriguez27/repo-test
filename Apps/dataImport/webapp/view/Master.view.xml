@@ -1,0 +1,67 @@
+<mvc:View
+  xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:u="sap.ui.unified"
+  controllerName="dataImport.controller.Master">
+  <App>
+    <pages>
+        <sap.m.semantic:MasterPage xmlns:sap.m.semantic="sap.m.semantic" id="__page1" title="{i18n>masterPageTitle}">
+            <sap.m.semantic:content>
+              <Toolbar >
+                <Button type="Back" press="onPressBack" />
+                <SearchField
+                  id="searchField"
+                  tooltip="{i18n>masterSearchTooltip}"
+                  width="80%"
+                  search="onSearch">
+                </SearchField>
+                <u:FileUploader
+                  id="fileUploader"
+                  buttonOnly="true"
+                  icon="sap-icon://sys-add"
+                  tooltip="Nueva carga"
+                  iconOnly="true"
+                  change="handleFiles"
+                  fileType="csv"
+                  sameFilenameAllowed="true"
+                  typeMissmatch="handleTypeMissmatch"
+                  uploadComplete="handleUploadComplete"/>
+              </Toolbar>
+                <List
+                  id="__list0"
+                  items="{
+                    path : 'data>/REPORT',
+                    sorter : [{
+                      path : 'status',
+                      descending: false
+                    }]
+                  }"
+                  selectionChange="onSelectionChange"
+                  includeItemInSelection="true"
+                  noDataText="No hay Datos para mostrar" >
+                    <items>
+                        <ObjectListItem
+                          press="onSelectionChange"
+                          type="Active"
+                          counter="0"
+                          title="{data>name}"
+                          markFavorite="false"
+                          markFlagged="false"
+                          showMarkers="false"
+                          id="__item0">
+                          <firstStatus>
+                            <ObjectStatus
+                              id="objectStatusMaster"
+                              text="{parts: [{path: 'data>status'}], formatter: '.formatter.status'}"
+                              state="{parts: [{path: 'data>status'}], formatter: '.formatter.infoStatus'}"
+                            />
+                          </firstStatus>
+                      </ObjectListItem>
+                    </items>
+                </List>
+            </sap.m.semantic:content>
+        </sap.m.semantic:MasterPage>
+    </pages>
+  </App>
+</mvc:View>

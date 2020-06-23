@@ -1,0 +1,79 @@
+<core:FragmentDefinition
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m">
+	<Table
+		id="processesTable"
+		noDataText="Sin datos"
+		growing="true"
+		growingThreshold="10"
+		items="{processes>/data}"
+		busy="{util>/busy}"
+	>
+		<!--
+		<headerToolbar>
+			<OverflowToolbar>
+				<Title text="Período 2017" level="H2"/>
+			</OverflowToolbar>
+		</headerToolbar>
+	-->
+		<columns>
+			<Column hAlign="Left">
+			<header>
+				<Label text="Proceso"/>
+			</header>
+			</Column>
+			<Column hAlign="Left">
+				<header>
+					<Label text="Producto salida"/>
+				</header>
+			</Column>
+			<Column hAlign="Center">
+				<header>
+					<Label text="Peso(Kg)"/>
+				</header>
+			</Column>
+			<Column hAlign="Center">
+				<header>
+					<Label text="Merma(%)"/>
+				</header>
+			</Column>
+			<Column hAlign="Center">
+				<header>
+					<Label text="Duración(Días)"/>
+				</header>
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<ObjectIdentifier title="{processes>name}"/>
+					<Text text="{processes>product_name}"/>
+					<HBox>
+						<Button icon="sap-icon://detail-view" press="onWeightDetailsDialog" />
+						<Input textAlign="End" value="{processes>weight_goal}"
+								editable="{processes>/editable}"
+								type="Number"
+								valueState="{processes>input_weight_state}"
+								valueStateText="{processes>input_weight_state_text}"/>
+					</HBox>
+					<HBox>
+						<Button icon="sap-icon://detail-view" press="onMermaDetailsDialog" />
+						<Input textAlign="End" value="{processes>decrease_goal}"
+								editable="{processes>/editable}"
+								type="Number"
+								valueState="{processes>input_decrease_state}"
+								valueStateText="{processes>input_decrease_state_text}"/>
+					</HBox>
+					<HBox>
+						<Button icon="sap-icon://detail-view" press="onDurationDetailsDialog" />
+						<Input textAlign="End" value="{processes>duration_goal}"
+								editable="{processes>/editable}"
+								type="Number"
+								valueState="{processes>input_duration_state}"
+								valueStateText="{processes>input_duration_state_text}"/>
+					</HBox>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

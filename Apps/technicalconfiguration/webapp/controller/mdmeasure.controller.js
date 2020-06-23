@@ -1,0 +1,766 @@
+sap.ui.define([
+    "technicalConfiguration/controller/BaseController",
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/model/Filter",
+    "sap/m/Dialog",
+    "sap/m/Button"
+], function(BaseController, JSONModel, Filter, Dialog, Button) {
+    "use strict";
+
+    return BaseController.extend("technicalConfiguration.controller.mdmeasure", {
+
+        /**
+         * Se llama a la inicialización de la Vista
+         */
+        onInit: function() {
+            //ruta para la vista principal
+            this.getOwnerComponent().getRouter().getRoute("mdmeasure").attachPatternMatched(this._onRouteMatched, this);
+            //ruta para la vista de detalles de un registroattachPatternMatched
+            this.getOwnerComponent().getRouter().getRoute("mdmeasure_Record").attachPatternMatched(this._onRecordMatched, this);
+            //ruta para la vista de creación de un registro
+            this.getOwnerComponent().getRouter().getRoute("mdmeasure_Create").attachPatternMatched(this._onCreateMatched, this);
+        },
+
+        /**
+         * Coincidencia de ruta para acceder a la vista principal
+         * @param  {Event} oEvent Evento que llamó esta función
+         */
+        _onRouteMatched: function(oEvent) {
+            /**
+             * @type {Controller} that         Referencia a este controlador
+             * @type {JSONModel} util         Referencia al modelo "util"
+             * @type {JSONModel} OS            Referencia al modelo "OS"
+             * @type {JSONModel} mdmeasure        Referencia al modelo "mdmeasure"
+             */
+
+            var that = this,
+                util = this.getView().getModel("util"),
+                mdmeasure = this.getView().getModel("MDMEASURE");
+
+            //dependiendo del dispositivo, establece la propiedad "phone"
+            this.getView().getModel("util").setProperty("/phone/",
+                this.getOwnerComponent().getContentDensityClass() === "sapUiSizeCozy");
+
+            //establece mdmeasure como la entidad seleccionada
+            util.setProperty("/selectedEntity/", "mdmeasure");
+
+
+            //obtiene los registros de mdmeasure
+            this.onRead(that, util, mdmeasure);
+        },
+        /**
+         * Obtiene todos los registros de mdmeasure
+         * @param  {Controller} that         Referencia al controlador que llama esta función
+         * @param  {JSONModel} util         Referencia al modelo "util"
+         * @param  {JSONModel} mdmeasure Referencia al modelo "mdmeasure"
+         */
+        onRead: function(that, util, mdmeasure) {
+            /** @type {Object} settings opciones de la llamada a la función ajax */
+            var serviceUrl = util.getProperty("/serviceUrl");
+            var settings = {
+                url: serviceUrl+"/measure",
+                method: "GET",
+                success: function(res) {
+                    var abbreviation;
+                    for(var i = 0; i<res.length; i++){
+
+                        abbreviation= res[i].abbreviation;
+
+                        if(abbreviation==="UN"){
+                            abbreviation="22";
+                            mdmeasure.setProperty("/records/unid/",  abbreviation);
+
+
+                        }
+                    }
+
+
+                    util.setProperty("/busy/", false);
+                    mdmeasure.setProperty("/records/", res.data);
+
+                },
+                error: function(err) {
+                    util.setProperty("/error/status", err.status);
+                    util.setProperty("/error/statusText", err.statusText);
+                }
+            };
+            util.setProperty("/busy/", true);
+            //borra los registros OSPARTNERSHIP que estén almacenados actualmente
+            mdmeasure.setProperty("/records/", []);
+            //realiza la llamada ajax
+            $.ajax(settings);
+        },
+        /**
+         * Coincidencia de ruta para acceder a la creación de un registro
+         * @param  {Event} oEvent Evento que llamó esta función
+         */
+        _onCreateMatched: function (oEvent) {
+            this._resetRecordValues();
+            this._editRecordValues(true);
+            this._editRecordRequired(true);
+        },
+        /**
+         * Resetea todos los valores existentes en el formulario del registro
+         */
+        _resetRecordValues: function() {
+            /**
+             * @type {JSONModel} MDMEASURE Referencia al modelo "MDMEASURE"
+             */
+            var mdmeasure = this.getView().getModel("MDMEASURE");
+
+            mdmeasure.setProperty("/measure_id/value", "");
+
+            mdmeasure.setProperty("/name/editable", true);
+            mdmeasure.setProperty("/name/value", "");
+            mdmeasure.setProperty("/name/state", "None");
+            mdmeasure.setProperty("/name/stateText", "");
+            mdmeasure.setProperty("/name/excepcion", "");
+
+            mdmeasure.setProperty("/abbreviation/editable", true);
+            mdmeasure.setProperty("/abbreviation/value", "");
+            mdmeasure.setProperty("/abbreviation/state", "None");
+            mdmeasure.setProperty("/abbreviation/stateText", "");
+            mdmeasure.setProperty("/abbreviation/excepcion", "");
+
+            mdmeasure.setProperty("/originvalue/editable", true);
+            mdmeasure.setProperty("/originvalue/value", "");
+            mdmeasure.setProperty("/originvalue/state", "None");
+            mdmeasure.setProperty("/originvalue/stateText", "");
+
+            mdmeasure.setProperty("/valuekg/editable", true);
+            mdmeasure.setProperty("/valuekg/value", "");
+            mdmeasure.setProperty("/valuekg/state", "None");
+            mdmeasure.setProperty("/valuekg/stateText", "");
+
+            mdmeasure.setProperty("/is_unit/editable", true);
+            mdmeasure.setProperty("/is_unit/value", false);
+            mdmeasure.setProperty("/name/ok", false);
+            mdmeasure.setProperty("/abbreviation/ok", false);
+        },
+
+        /**
+         * Habilita/deshabilita la edición de los datos de un registro MDMEASURE
+         * @param  {Boolean} edit "true" si habilita la edición, "false" si la deshabilita
+         */
+        _editRecordValues: function (edit, f) {
+            let mdmeasure = this.getView().getModel("MDMEASURE");
+
+            if (f === "cancelEdit") {
+                mdmeasure.setProperty("/name/value", mdmeasure.getProperty(mdmeasure.getProperty("/selectedRecordPath/")+"/name"));
+                mdmeasure.setProperty("/abbreviation/value", mdmeasure.getProperty(mdmeasure.getProperty("/selectedRecordPath/")+"/abbreviation"));
+                mdmeasure.setProperty("/originvalue/value", mdmeasure.getProperty(mdmeasure.getProperty("/selectedRecordPath/")+"/originvalue"));
+                mdmeasure.setProperty("/valuekg/value", mdmeasure.getProperty(mdmeasure.getProperty("/selectedRecordPath/")+"/valuekg"));
+                mdmeasure.setProperty("/is_unit/value", mdmeasure.getProperty(mdmeasure.getProperty("/selectedRecordPath/")+"/is_unit"));
+            }
+
+            mdmeasure.setProperty("/name/editable", edit);
+            mdmeasure.setProperty("/abbreviation/editable", edit);
+
+            mdmeasure.setProperty("/originvalue/editable", edit);
+            mdmeasure.setProperty("/valuekg/editable", edit);
+            mdmeasure.setProperty("/is_unit/editable", edit);
+        },
+
+        /**
+         * Se define un campo como obligatorio o no, de un registro MDMEASURE
+         * @param  {Boolean} edit "true" si es campo obligatorio, "false" si no es obligatorio
+         */
+        _editRecordRequired: function(edit) {
+            var mdmeasure = this.getView().getModel("MDMEASURE");
+            mdmeasure.setProperty("/name/required", edit);
+            mdmeasure.setProperty("/abbreviation/required", edit);
+
+            mdmeasure.setProperty("/originvalue/required", edit);
+            mdmeasure.setProperty("/valuekg/required", edit);
+            mdmeasure.setProperty("/is_unit/required", edit);
+        },
+
+        /**
+         * Navega a la vista para crear un nuevo registro
+         * @param  {Event} oEvent Evento que llamó esta función
+         */
+        onNewRecord: function (oEvent) {
+            let measure = this.getModel("MDMEASURE");
+            measure.setProperty("/btnCreate", false);
+            this.getView().byId("stageSearchField").setValue("");
+            this.onstageSearch();
+            this.getRouter().navTo("mdmeasure_Create", {}, false /*create history*/ );
+        },
+        /**
+         * Cancela la creación de un registro MDMEASURE, y regresa a la vista principal
+         * @param  {Event} oEvent Evento que llamó esta función
+         */
+        onCancelCreate: function(oEvent) {
+            this._resetRecordValues();
+            this.onNavBack(oEvent);
+        },
+        /**
+         * Regresa a la vista principal de la entidad seleccionada actualmente
+         * @param  {Event} oEvent Evento que llamó esta función
+         */
+        onNavBack: function(oEvent) {
+            /** @type {JSONModel} OS Referencia al modelo "OS" */
+            var util = this.getView().getModel("util");
+
+            this.getRouter().navTo(util.getProperty("/selectedEntity"), {}, false /*create history*/ );
+        },
+        /**
+         * Solicita al servicio correspondiente crear un registro MDMEASURE
+         * @param  {Event} oEvent Evento que llamó esta función
+         */
+        onCreate: function(oEvent) {
+            //Si el registro que se desea crear es válido
+            if (this._validRecord()) {
+                var that = this;
+                var util = this.getView().getModel("util");
+                var mdmeasure = this.getView().getModel("MDMEASURE");
+                var serviceUrl = util.getProperty("/serviceUrl");
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "name": mdmeasure.getProperty("/name/value"),
+                        "abbreviation": mdmeasure.getProperty("/abbreviation/value"),
+                        "originvalue": mdmeasure.getProperty("/originvalue/value"),
+                        "valuekg": mdmeasure.getProperty("/valuekg/value"),
+                        "is_unit": mdmeasure.getProperty("/is_unit/value")
+                    }),
+                    url: serviceUrl+"/measure/",
+                    dataType: "json",
+                    async: true,
+                    success: function(data) {
+                        util.setProperty("/busy/", false);
+                        that._resetRecordValues();
+                        that.onToast(that.getI18n().getText("OS.recordCreated"));
+                        that.getRouter().navTo("mdmeasure", {}, true /*no history*/ );
+
+                    },
+                    error: function(error) {
+                        that.onToast("Ha ocurrido un error");
+                        console.log("Read failed ",error.responseText);
+                    }
+                });
+
+            }
+        },
+        /**
+         * Valida la correctitud de los datos existentes en el formulario del registro
+         * @return {Boolean} Devuelve "true" si los datos son correctos, y "false" si son incorrectos
+         */
+        _validRecord: function() {
+            /**
+             * @type {JSONModel} MDMEASURE Referencia al modelo "MDMEASURE"
+             * @type {Boolean} flag "true" si los datos son válidos, "false" si no lo son
+             */
+            var mdmeasure = this.getView().getModel("MDMEASURE"),
+                flag = true,
+                that = this,
+                onlyDecimals = /^[0-9]*\.?[0-9]*$/;
+
+
+            if (mdmeasure.getProperty("/name/value") === "") {
+                flag = false;
+                mdmeasure.setProperty("/name/state", "Error");
+                mdmeasure.setProperty("/name/stateText", this.getI18n().getText("enter.FIELD"));
+            } else { 
+                mdmeasure.setProperty("/name/state", "None");
+                mdmeasure.setProperty("/name/stateText", "");
+            }
+
+            if (mdmeasure.getProperty("/abbreviation/value") === "") {
+                flag = false;
+                mdmeasure.setProperty("/abbreviation/state", "Error");
+                mdmeasure.setProperty("/abbreviation/stateText", this.getI18n().getText("enter.FIELD"));
+            } else { 
+                mdmeasure.setProperty("/abbreviation/state", "None");
+                mdmeasure.setProperty("/abbreviation/stateText", "");
+            }
+
+            if (mdmeasure.getProperty("/originvalue/value") === "") {
+                flag = false;
+                mdmeasure.setProperty("/originvalue/state", "Error");
+                mdmeasure.setProperty("/originvalue/stateText", this.getI18n().getText("enter.FIELD"));
+            } else if (!onlyDecimals.test(mdmeasure.getProperty("/originvalue/value"))) {
+                flag = false;
+                mdmeasure.setProperty("/originvalue/state", "Error");
+                mdmeasure.setProperty("/originvalue/stateText", this.getI18n().getText("enter.FIELD.SENE"));
+            } else {
+                mdmeasure.setProperty("/originvalue/state", "None");
+                mdmeasure.setProperty("/originvalue/stateText", "");
+            }
+
+            if (mdmeasure.getProperty("/valuekg/value") === "") {
+                flag = false;
+                mdmeasure.setProperty("/valuekg/state", "Error");
+                mdmeasure.setProperty("/valuekg/stateText", this.getI18n().getText("enter.FIELD"));
+            } else if (!onlyDecimals.test(mdmeasure.getProperty("/valuekg/value"))) {
+                flag = false;
+                mdmeasure.setProperty("/valuekg/state", "Error");
+                mdmeasure.setProperty("/valuekg/stateText", this.getI18n().getText("enter.FIELD.SENE"));
+            } else {
+                mdmeasure.setProperty("/valuekg/state", "None");
+                mdmeasure.setProperty("/valuekg/stateText", "");
+            }
+            return flag;
+        },
+
+        /**
+         * Visualiza los detalles de un registro MDMEASURE
+         * @param  {Event} oEvent Evento que llamó esta función
+         */
+        onViewMeasureRecord: function (oEvent) {
+            this.getView().byId("stageSearchField").setValue("");
+            this.onstageSearch();
+            this._resetRecordValues();
+            var mdmeasure = this.getView().getModel("MDMEASURE");
+            var abbr = oEvent.getSource().getBindingContext("MDMEASURE").getObject().abbreviation;
+            mdmeasure.setProperty("/save/", false);
+            mdmeasure.setProperty("/cancel/", false);
+            mdmeasure.setProperty("/selectedRecordPath/", oEvent.getSource().getBindingContext("MDMEASURE"));
+            mdmeasure.setProperty("/measure_id/value", oEvent.getSource().getBindingContext("MDMEASURE").getObject().measure_id);
+            mdmeasure.setProperty("/name/value", oEvent.getSource().getBindingContext("MDMEASURE").getObject().name);
+            mdmeasure.setProperty("/name/excepcion", oEvent.getSource().getBindingContext("MDMEASURE").getObject().name);
+            mdmeasure.setProperty("/abbreviation/value", oEvent.getSource().getBindingContext("MDMEASURE").getObject().abbreviation);
+            mdmeasure.setProperty("/abbreviation/excepcion", oEvent.getSource().getBindingContext("MDMEASURE").getObject().abbreviation);
+            mdmeasure.setProperty("/originvalue/value", oEvent.getSource().getBindingContext("MDMEASURE").getObject().originvalue);
+            mdmeasure.setProperty("/is_unit/value", oEvent.getSource().getBindingContext("MDMEASURE").getObject().is_unit);
+            mdmeasure.setProperty("/name/ok", true);
+            mdmeasure.setProperty("/abbreviation/ok", true);
+
+            if (abbr === "UN"){
+                mdmeasure.setProperty("/valuekg/value","");
+            } else {
+                mdmeasure.setProperty("/valuekg/value", oEvent.getSource().getBindingContext("MDMEASURE").getObject().valuekg);
+            }
+
+            this.getRouter().navTo("mdmeasure_Record", {}, false /*create history*/ );
+        },
+        /**
+         * Coincidencia de ruta para acceder a los detalles de un registro
+         * @param  {Event} oEvent Evento que llamó esta función
+         */
+        _onRecordMatched: function (oEvent) {
+            this._viewOptions();
+        },
+        /**
+         * Cambia las opciones de visualización disponibles en la vista de detalles de un registro
+         */
+        _viewOptions: function(f) {
+            var mdmeasure = this.getView().getModel("MDMEASURE");
+            mdmeasure.setProperty("/save/", false);
+            mdmeasure.setProperty("/cancel/", false);
+            mdmeasure.setProperty("/modify/", true);
+            mdmeasure.setProperty("/delete/", true);
+
+            this._editRecordValues(false, f);
+            this._editRecordRequired(false);
+        },
+        /**
+         * Ajusta la vista para editar los datos de un registro
+         * @param  {Event} oEvent Evento que llamó esta función
+         */
+        onEdit: function (oEvent) {
+            var mdmeasure = this.getView().getModel("MDMEASURE");
+            mdmeasure.setProperty("/save/", true);
+            mdmeasure.setProperty("/cancel/", true);
+            mdmeasure.setProperty("/modify/", false);
+            mdmeasure.setProperty("/delete/", false);
+            this._editRecordRequired(true);
+            this._editRecordValues(true);
+            // mdmeasure.setProperty("/btnCreate", false);
+        },
+
+        /**
+         * Cancela la edición de un registro mdmeasure
+         * @param  {Event} oEvent Evento que llamó esta función
+         */
+        onCancelEdit: function (oEvent) {
+            /** @type {JSONModel} mdmeasure  Referencia al modelo mdmeasure */
+
+            this.onView("cancelEdit");
+        },
+
+        /**
+         * Ajusta la vista para visualizar los datos de un registro
+         */
+        onView: function (f) {
+            this._viewOptions(f);
+        },
+
+        /**
+         * Solicita al servicio correspondiente actualizar un registro mdmeasure
+         * @param  {Event} oEvent Evento que llamó esta función
+         */
+        onUpdate: function(oEvent) {
+            /**
+             * Si el registro que se quiere actualizar es válido y hubo algún cambio
+             * con respecto a sus datos originales
+             */
+            if (this._validRecord() && this._recordChanged()) {
+                /**
+                 * @type {JSONModel} MDMEASURE       Referencia al modelo "MDMEASURE"
+                 * @type {JSONModel} util         Referencia al modelo "util"
+                 * @type {Controller} that         Referencia a este controlador
+                 */
+                var mdmeasure = this.getView().getModel("MDMEASURE");
+                var util = this.getView().getModel("util");
+                var that = this;
+                var serviceUrl= util.getProperty("/serviceUrl");
+
+                $.ajax({
+                    type: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "name": mdmeasure.getProperty("/name/value"),
+                        "abbreviation": mdmeasure.getProperty("/abbreviation/value"),
+                        "originvalue": mdmeasure.getProperty("/originvalue/value"),
+                        "valuekg": mdmeasure.getProperty("/valuekg/value"),
+                        "measure_id": mdmeasure.getProperty("/measure_id/value"),
+                        "is_unit": mdmeasure.getProperty("/is_unit/value")
+                    }),
+                    url: serviceUrl+"/measure/",
+                    dataType: "json",
+                    async: true,
+                    success: function (data) {
+                        util.setProperty("/busy/", false);
+                        that._resetRecordValues();
+                        that._viewOptions();
+                        that.onToast(that.getI18n().getText("OS.recordUpdated"));
+                        that.getRouter().navTo("mdmeasure", {}, true /*no history*/ );
+                    },
+                    error: function (request, status, error) {
+                        that.onToast("Error de comunicación");
+                        console.log("Read failed");
+                    }
+                });
+            }
+        },
+
+        /**
+         * Verifica si el registro seleccionado tiene algún cambio con respecto a sus valores originales
+         * @return {Boolean} Devuelve "true" el registro cambió, y "false" si no cambió
+         */
+        _recordChanged: function() {
+            /**
+             * @type {JSONModel} mdmeasure         Referencia al modelo "mdmeasure"
+             * @type {Boolean} flag            "true" si el registro cambió, "false" si no cambió
+             */
+            var mdmeasure = this.getView().getModel("MDMEASURE"),
+                flag = false;
+
+            if (mdmeasure.getProperty("/name/value") !== mdmeasure.getProperty(mdmeasure.getProperty("/selectedRecordPath/") + "/name")) {
+                flag = true;
+            }
+
+            if (mdmeasure.getProperty("/abbreviation/value") !== mdmeasure.getProperty(mdmeasure.getProperty("/selectedRecordPath/") + "/abbreviation")) {
+                flag = true;
+            }
+
+            if (mdmeasure.getProperty("/originvalue/value") !== mdmeasure.getProperty(mdmeasure.getProperty("/selectedRecordPath/") + "/originvalue")) {
+                flag = true;
+            }
+
+            if (mdmeasure.getProperty("/valuekg/value") !== mdmeasure.getProperty(mdmeasure.getProperty("/selectedRecordPath/") + "/valuekg")) {
+                flag = true;
+            }
+
+
+            if(!flag) this.onToast("No se detectaron cambios");
+
+            return flag;
+        },
+
+        /**
+         * Este evento se activa cuando el usuario cambia el valor del campo de búsqueda. se actualiza el binding de la lista
+         * @param {Event} oEvent Evento que llamó esta función
+         */
+        onstageSearch: function (oEvent){
+            let aFilters = [];
+            let sQuery = this.getView().byId("stageSearchField").getValue().toString();
+            let binding = this.getView().byId("stageTable").getBinding("items");
+
+            if (sQuery && sQuery.length > 0) {
+                /** @type {Object} filter1 Primer filtro de la búsqueda */
+                var filter1 = new Filter("name", sap.ui.model.FilterOperator.Contains, sQuery);
+                aFilters = new Filter([filter1]);
+            }
+
+            //se actualiza el binding de la lista
+            binding.filter(aFilters);
+        },
+        /**
+         * Cambia a uno los campos valor y su equivalente en kg
+         * @param {Event} oEvent Evento que llamó esta función
+         */
+        changeIsUnit: function(oEvent){
+            let input = oEvent.getSource();
+            let mdmeasure= this.getModel("MDMEASURE");
+            
+            if (input.mProperties.selected) {
+                mdmeasure.setProperty("/originvalue/value", 1);
+                mdmeasure.setProperty("/originvalue/editable", false);
+                mdmeasure.setProperty("/valuekg/value", 1);
+                mdmeasure.setProperty("/valuekg/editable", false);
+            } else {
+                mdmeasure.setProperty("/originvalue/value", "");
+                mdmeasure.setProperty("/originvalue/editable", true);
+                mdmeasure.setProperty("/valuekg/value", "");
+                mdmeasure.setProperty("/valuekg/editable", true);
+            }
+        },
+
+        /**
+         * Toma el valor de la entrada por la interacción del usuario: cada pulsación de tecla, eliminar, pegar, etc.
+         * @param {Event} oEvent Evento que llamó esta función
+         */
+        changeNameMeasure: function (oEvent) {
+            let input = oEvent.getSource();
+            let nwName = input.getValue().trim();
+            let mdmeasure = this.getModel("MDMEASURE");
+            input.setValue(input.getValue().trim());
+
+            if (nwName.length > 10) {
+                mdmeasure.setProperty("/name/state", "Error");
+                mdmeasure.setProperty("/name/stateText", "Excede el límite de caracteres permitido (10)");
+                mdmeasure.setProperty("/name/ok", false);
+            } else {
+                let mdmeasure= this.getModel("MDMEASURE");
+                let excepcion= mdmeasure.getProperty("/name/excepcion");
+                this.checkChangeNameMeasure(input.getValue().toString(), excepcion.toString(), "/name", "changeName");
+            }
+        },
+
+        /**
+         * Toma el valor de la entrada por la interacción del usuario: cada pulsación de tecla, eliminar, pegar, etc.
+         * @param {Event} oEvent Evento que llamó esta función
+         */
+        changeAbrevMeasure: function(oEvent){
+            let input= oEvent.getSource();
+            let nwName = input.getValue().trim();
+
+            input.setValue(input.getValue().trim());
+            let mdmeasure= this.getModel("MDMEASURE");
+            if (nwName.length > 5) {
+                mdmeasure.setProperty("/abbreviation/state", "Error");
+                mdmeasure.setProperty("/abbreviation/stateText", "Excede el límite de caracteres permitido (5)");
+                mdmeasure.setProperty("/abbreviation/ok", false);
+            } else {
+                let excepcion= mdmeasure.getProperty("/abbreviation/excepcion");
+                this.checkChangeNameMeasure(input.getValue().toString(), excepcion.toString(), "/abbreviation", "changeAbrev");
+            }
+        },
+        /**
+         * Valida si el registro de entrada es unico 
+         * @param {String} name valor de entrada
+         * @param {String} excepcion excepcion del modelo 
+         * @param {String} field campo donde se encuentra el focus
+         * @param {String} funct funcion a validar
+         */
+        checkChangeNameMeasure: function(name, excepcion, field, funct) {
+            let mdmeasure = this.getModel("MDMEASURE");
+            let serverName = "/measure/" + funct;
+            if (name == "" || name === null) {
+                mdmeasure.setProperty(field + "/state", "None");
+                mdmeasure.setProperty(field + "/stateText", "");
+                mdmeasure.setProperty(field + "/ok", false);
+            } else {
+                fetch(serverName, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        name: name,
+                        diff: excepcion
+                    })
+                }).then(function (response) {
+                    if (response.status !== 200) {
+                        console.log("Looks like there was a problem. status code: " + response.status);
+                        return;
+                    }
+
+                    response.json().then(function (res) {
+                        if (res.data.length > 0) {
+                            mdmeasure.setProperty(field + "/state", "Error");
+                            mdmeasure.setProperty(field + "/stateText", (funct==="changeAbrev") ? "abreviatura ya existente" : "nombre ya existente");
+                            mdmeasure.setProperty(field + "/ok", false);
+                        } else {
+                            mdmeasure.setProperty(field + "/state", "Success");
+                            mdmeasure.setProperty(field + "/stateText", "");
+                            mdmeasure.setProperty(field + "/ok", true);
+                        }
+                    });
+                }).catch(function (err) {
+                    console.log("Fetch Error: ", err);
+                });
+            }
+        },
+
+        /**
+         * Levanta el Dialogo que muestra la confirmacion del Eliminar un registro y ejecuta la peticion de ser aceptado el borrado
+         * @param  {Event} oEvent Evento que llamó esta función
+         */
+        onConfirmDelete: function(oEvent){
+
+            var oBundle = this.getView().getModel("i18n").getResourceBundle();
+            var confirmation = oBundle.getText("confirmation");
+            var util = this.getView().getModel("util");
+
+            var that = this;
+            var dialog = new Dialog({
+                title: confirmation,
+                type: "Message",
+                content: new sap.m.Text({
+                    text: "¿Desea eliminar esta unidad de medida?"
+                }),
+
+                beginButton: new Button({
+                    text: "Si",
+                    press: function() {
+                        util.setProperty("/busy/", true);
+                        var mdmeasure = that.getView().getModel("MDMEASURE");
+                        var serviceUrl = util.getProperty("/serviceUrl");
+                        $.ajax({
+                            type: "DELETE",
+                            contentType: "application/json",
+                            data: JSON.stringify({
+                                "measure_id": mdmeasure.getProperty("/measure_id/value")
+                            }),
+                            url: serviceUrl+"/measure/",
+                            dataType: "json",
+                            async: true,
+                            success: function(data) {
+
+                                util.setProperty("/busy/", false);
+                                that.getRouter().navTo("mdmeasure", {}, true);
+                                dialog.close();
+                                dialog.destroy();
+
+                            },
+                            error: function(request, status, error) {
+                                that.onToast("Error de comunicación");
+                                console.log("Read failed");
+                            }
+                        });
+
+                    }
+                }),
+                endButton: new Button({
+                    text: "No",
+                    press: function() {
+                        dialog.close();
+                        dialog.destroy();
+                    }
+                })
+            });
+
+            dialog.open();
+
+        },
+
+
+        /**
+         * verificar si una entrada de campo contiene un número utilizando una expresión regular que 
+         * permite el formato decimal
+         * @param {char} o numero
+         */
+        validateFloatInput: function (o) {
+            let input= o.getSource();
+            let floatLength=2,
+                intLength = 10;
+            let value = input.getValue();
+            let regex = new RegExp(`/^([0-9]{1,${intLength}})([.][0-9]{0,${floatLength}})?$/`);
+            if (regex.test(value)) {
+                input.setValueState("None");
+                input.setValueStateText("");
+                return true;
+            }
+            else {
+                let pNumber = 0;
+                let aux = value
+                    .split("")
+                    .filter(char => {
+                        if (/^[0-9.]$/.test(char)) {
+                            if (char !== ".") {
+                                return true;
+                            }
+                            else {
+                                if (pNumber === 0) {
+                                    pNumber++;
+                                    return true;
+                                }
+                            }
+                        }
+                    })
+                    .join("")
+                    .split(".");
+                value = aux[0].substring(0, intLength);
+
+                if (aux[1] !== undefined) {
+                    value += "." + aux[1].substring(0, floatLength);
+                }
+
+                if (value > 0) {
+                    input.setValue(value);
+                } else {
+                    input.setValue("");
+                }
+
+                let origin = input.sId.split("--")[1];
+
+                this.detectFailure(origin);
+
+                return false;
+            }
+        },
+
+        /**
+         * verificar si una entrada de campo contiene un número utilizando una expresión regular que 
+         * permite el formato Entero
+         * @param {char} o numero
+         */
+        validateIntInput: function (o) {
+            let input = o.getSource();
+            let length = 10;
+            let value = input.getValue();
+            let regex = new RegExp(`/^[0-9]{1,${length}}$/`);
+
+            if (regex.test(value)) {
+                return true;
+            } else {
+                let aux = value.split("").filter(char => {
+                    if (/^[0-9]$/.test(char)) {
+                        if (char !== ".") {
+                            return true;
+                        }
+                    }
+                }).join("");
+
+                value = aux.substring(0, length);
+
+                if (value > 0) {
+                    input.setValue(value);
+                } else {
+                    input.setValue("");
+                }
+                let origin = input.sId.split("--")[1];
+                
+                this.detectFailure(origin, value)
+
+                return false;
+            }
+        },
+
+        /**
+         *
+         * @param {*} origin
+         */
+        detectFailure: function (origin) {
+            let propertyTarget = (origin === "measure_ovalue_input") ? "/originvalue" : "/valuekg";
+            let mdbroilerproduct = this.getView().getModel("MDMEASURE");
+            let state = "None";
+            let stateText = "";
+
+            mdbroilerproduct.setProperty(propertyTarget + "/state", state);
+            mdbroilerproduct.setProperty(propertyTarget + "/stateText", stateText);
+        }
+    });
+});

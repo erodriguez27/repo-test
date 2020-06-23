@@ -1,0 +1,115 @@
+{
+  "id": {
+    "value": ""
+  },
+  "code": {
+    "value": "",
+    "state": "None",
+    "stateText": "",
+    "visible": true,
+    "editable": false,
+    "required": true
+  },
+  "name": {
+    "value": "",
+    "state": "None",
+    "stateText": "",
+    "visible": true,
+    "editable": false,
+    "required": true
+  },
+  "abaConsumptionAndMortality": {
+    "id": "",
+    "value": [],
+    "state": "None",
+    "stateText": "",
+    "visible": true,
+    "editable": false,
+    "required": true
+  },
+  "abaProcesses": {
+    "id": "",
+    "value": [],
+    "state": "None",
+    "stateText": "",
+    "visible": true,
+    "editable": false,
+    "required": true
+  },
+  "abaFormulation": {
+    "value": [],
+    "state": "None",
+    "stateText": "",
+    "visible": true,
+    "editable": false,
+    "required": false
+  },
+  "stages": {
+    "value": [],
+    "state": "None",
+    "stateText": "",
+    "visible": true,
+    "editable": false,
+    "required": false
+  },
+  "records2":[],
+  "records": [
+    {
+      "abaBreedAndStage_id": 1,
+      "code": "1",
+      "name": "Cobb Engorde Rusas",
+      "order": "1",
+      "idAbaConsumptionAndMortality": "1",
+      "stages": [
+        {
+          "AbaStagesOfBreedsAndStages_id": "1",
+          "name": "Fase 1",
+          "duration": "60"
+        },
+        {
+          "AbaStagesOfBreedsAndStages_id": "2",
+          "name": "Fase 2",
+          "duration": "30"
+        }
+      ]
+    },
+    {
+      "abaBreedAndStage_id": 2,
+      "code": "2",
+      "name": "Ross Reproductoras Italianas",
+      "order": "2",
+      "idAbaConsumptionAndMortality": "2",
+      "stages": [
+        {
+          "AbaStagesOfBreedsAndStages_id": "1",
+          "name": "Fase Primaria",
+          "duration": "20"
+        },
+        {
+          "AbaStagesOfBreedsAndStages_id": "2",
+          "name": "Fase Secundaria",
+          "duration": "50"
+        }
+      ]
+    }
+  ],
+  "comboBoxesData": {
+    "abaConsumptionAndMortality": [
+      {
+        "id": "1",
+        "name": "Cobb Engorde Rusas"
+      },
+      {
+        "id": "2",
+        "name": "Ross Reproductoras Italianas"
+      }
+    ]
+  },
+  "selectedRecordPath": "",
+  "create": false,
+  "modify": true,
+  "delete": true,
+  "save": true,
+  "cancel": true,
+  "handleType": "Delete"
+}

@@ -1,0 +1,21 @@
+<core:FragmentDefinition 
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:f="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core">
+    <Dialog title="¿Desea eliminar la proyección seleccionada?."
+            class="sapUiPopupWithPadding"
+            confirm="onCancelCopy"
+            cancel="onCancelCopy"
+            busy="false"
+            >
+
+      <beginButton>
+        <Button text="Si" type="Accept" press="onDeleteProjected"/>
+      </beginButton>
+      <endButton>
+        <Button text="No" type="Reject"/>
+      </endButton>
+
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog type="Standard" state="Error" icon="sap-icon://error" title="Error de conexión">
+		<content>
+			<FlexBox justifyContent="Center">
+				<items>
+					<Text maxLines="0" text="{util>/connectionError/status} - {util>/connectionError/message}"/>
+				</items>
+			</FlexBox>
+		</content>
+		<beginButton>
+			<Button width="100px" text="OK" press="onCloseConnectionErrorDialog"/>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,88 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="technicalConfiguration.controller.mdbroilerProduct">
+	<VBox class="sapUiSmallMargin" id="centerFormVBox">
+		<sap.ui.layout.form:SimpleForm
+			xmlns:sap.ui.layout.form="sap.ui.layout.form"
+			title="{i18n>broilerProduct.data}"
+			editable="true"
+			layout="ResponsiveGridLayout"
+			minWidth="1024"
+			maxContainerCols="2"
+			labelSpanL="3"
+			labelSpanM="3"
+			emptySpanL="4"
+			emptySpanM="4"
+			columnsL="1"
+			columnsM="1"
+			class="editableForm">
+
+			<sap.ui.layout.form:content>
+				<Label id="broilerProduct_code_label" visible="true" text="{i18n>stage.code}" required="{MDBROILERPRODUCT>/code/required}" />
+				<Input id="broilerProduct_code_input"
+					valueState="{MDBROILERPRODUCT>/code/state}"
+					valueStateText="{MDBROILERPRODUCT>/code/stateText}"
+					value="{ path: 'MDBROILERPRODUCT>/code/value', type: 'sap.ui.model.type.String'}"
+					editable="{MDBROILERPRODUCT>/code/editable}"
+					liveChange="changeCode"/>
+
+				<Label id="broilerProduct_breed_label" visible="true" text="{i18n>broilerProduct.breedBroilerProduct}"  required="{MDBROILERPRODUCT>/breedRequired}"/>
+ 				<Select items="{MDBREED>/records}"
+					selectedKey="{MDBREED>/selectedKey}"
+					change="onBreed"
+					forceSelection="false"
+					id="breedSelect"
+					enabled="{MDBROILERPRODUCT>/breed/enabled}"
+					valueState="{MDBROILERPRODUCT>/breed/state}"
+ 		 			valueStateText="{MDBROILERPRODUCT>/breed/stateText}">
+					
+					<core:Item text="{MDBREED>name}" key="{MDBREED>breed_id}"/>
+				</Select>
+
+				<Label id="broilerProduct_gender_label" visible="true" text="{i18n>broilerProduct.genderBroilerProduct}"  required="{MDBROILERPRODUCT>/gender/required}"/>
+ 				<Select 
+					change="onGenderChange"
+					id="genderSelect"
+					selectedKey="{MDBROILERPRODUCT>/gender/selectedKey}"
+					enabled="{MDBROILERPRODUCT>/gender/enabled}"
+					valueState="{MDBROILERPRODUCT>/gender/state}"
+ 		 			valueStateText="{MDBROILERPRODUCT>/gender/stateText}"
+					forceSelection="false">
+
+					<core:Item text="Hembra" key="H"/>
+					<core:Item text="Macho" key="M"/>
+				</Select>
+
+				<Label id="broilerProduct_name_label" visible="true" text="{i18n>breed.name}" required="{MDBROILERPRODUCT>/name/required}"/>
+ 				<Input id="broilerProduct_name_input"
+					valueState="{MDBROILERPRODUCT>/name/state}"
+					valueStateText="{MDBROILERPRODUCT>/name/stateText}"
+					value="{ path: 'MDBROILERPRODUCT>/name/value', type: 'sap.ui.model.type.String'}"
+					editable="{MDBROILERPRODUCT>/name/editable}"
+					liveChange="changeName"/>
+						
+ 				<Label id="broilerProduct_days_label" visible="true" text="{i18n>broilerProduct.MINdaysEviction}"  required="{MDBROILERPRODUCT>/days_eviction/required}"/>
+ 				<Input id="broilerProduct_name_input22"
+					valueState="{MDBROILERPRODUCT>/min_days/state}"
+					valueStateText="{MDBROILERPRODUCT>/min_days/stateText}"
+					value="{ path: 'MDBROILERPRODUCT>/min_days/value', type: 'sap.ui.model.type.String'}"
+					editable="{MDBROILERPRODUCT>/min_days/editable}"
+					liveChange="validateIntInput"/>
+
+ 				<Label id="max" visible="true" text="{i18n>broilerProduct.daysEviction}"  required="{MDBROILERPRODUCT>/days_eviction/required}"/>
+ 				<Input id="broilerProduct_days_input_max"
+					valueState="{MDBROILERPRODUCT>/days_eviction/state}"
+					valueStateText="{MDBROILERPRODUCT>/days_eviction/stateText}"
+					value="{ path: 'MDBROILERPRODUCT>/days_eviction/value', type: 'sap.ui.model.type.String'}"
+					editable="{MDBROILERPRODUCT>/days_eviction/editable}"
+					liveChange="validateIntInput"/>
+
+ 				<Label id="broilerProduct_weight_label"  visible="true" text="{i18n>stage.weight_kg}" required="{MDBROILERPRODUCT>/weight/required}"/>
+ 				<Input id="broilerProduct_weight_input"
+					valueState="{MDBROILERPRODUCT>/weight/state}"
+					valueStateText="{MDBROILERPRODUCT>/weight/stateText}"
+					value="{ path: 'MDBROILERPRODUCT>/weight/value', type: 'sap.ui.model.type.String'}"
+					editable="{MDBROILERPRODUCT>/weight/editable}"
+					liveChange="validateFloatInput"/>
+			</sap.ui.layout.form:content>
+		</sap.ui.layout.form:SimpleForm>
+	</VBox>
+</mvc:View>

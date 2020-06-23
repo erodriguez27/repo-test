@@ -1,0 +1,73 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+  <FlexBox width="100%" id="fb3" justifyContent="Center">   
+    <items>
+      <DatePicker id="scheduled_date_fb3" valueFormat="dd-MM-yyyy" value="{mdIncubatorMonitor>/date}" placeholder="Desde" change="change" 
+                  class="sapUiSmallMarginBottom"/>
+      <DatePicker id="scheduled_date_fb3_3" valueFormat="dd-MM-yyyy" value="{mdIncubatorMonitor>/date2}" placeholder="Hasta" change="change2" 
+                  class="sapUiSmallMarginBottom"/>
+      <Button text="Buscar" press="onPress"></Button>
+    </items>
+  </FlexBox>
+
+  <Table id="incubatorTableId" inset="false" items="{path:'mdIncubatorMonitor>/records'}" selectionChange="onDialogPress" growing="true"
+        						growingScrollToLoad="true">
+    <columns>
+      <Column hAlign="Center">
+        <Text text="Fecha"/>
+      </Column>
+      
+      <Column hAlign="Center">
+        <Text text="Fecha de nacimientos (est)"/>
+      </Column>
+      
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Lote de incubadora"/>
+      </Column>
+
+      <!-- <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Lote de reproducción"/>
+      </Column> -->
+
+      <Column hAlign="Center">
+        <Text text="Máquina"/>
+      </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Capacidad (UN)"/>
+      </Column>
+      
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Asignado (UN)"/>
+      </Column>
+
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Libre (UN)"/>
+      </Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+        <Text text="Ejecutado"/> 
+      </Column>
+    </columns>
+  
+    <items>
+      <ColumnListItem>
+        <cells>
+          <Text text="{mdIncubatorMonitor>scheduled_date}"/>
+          <Text text="{mdIncubatorMonitor>birth_date}"/>
+          <Link text="{mdIncubatorMonitor>lot_incubator}" press="showProgrammedLots"/> 
+          <!-- <Text text="{mdIncubatorMonitor>lot_incubator} "/> -->
+          <!-- <Text text="{mdIncubatorMonitor>lot_breed} "/> -->
+          <Text text="{mdIncubatorMonitor>name}"/>
+          <Text text="{path:'mdIncubatorMonitor>capacity',formatter: '.formatter.formatMiles' }"/>
+          <Text text="{path:'mdIncubatorMonitor>eggs',formatter: '.formatter.formatMiles' }"/>
+          <Text text="{path:'mdIncubatorMonitor>diferencia',formatter: '.formatter.formatMiles' }"/>
+          <core:Icon
+          src="{=(${mdIncubatorMonitor>executed})?'sap-icon://accept':'sap-icon://decline'}"
+          color="{=(${mdIncubatorMonitor>executed})?'green':'red'}"
+          press = "pressMessage"
+          noTabStop = "true" >
+          </core:Icon>
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</core:FragmentDefinition>

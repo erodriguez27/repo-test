@@ -1,0 +1,78 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:f="sap.ui.layout.form">
+	<VBox class="sapUiSmallMargin">
+		<f:SimpleForm title="Datos de Planta de Incubadora" editable="true" layout="ResponsiveGridLayout" labelSpanM="4" emptySpanM="2">
+			<f:content>
+
+				<Label text="Nombre" required="{OSINCUBATORPLANT>/name/required}"/>
+				<Input value="{ path: 'OSINCUBATORPLANT>/name/value', type: 'sap.ui.model.type.String'}"
+							 valueState="{OSINCUBATORPLANT>/name/state}"
+							 valueStateText="{OSINCUBATORPLANT>/name/stateText}"
+							 editable="{OSINCUBATORPLANT>/name/editable/}"
+							 liveChange="changeName"/>
+
+
+				<Label text="Código" required="{OSINCUBATORPLANT>/code/required}"/>
+				<Input value="{ path: 'OSINCUBATORPLANT>/code/value', type: 'sap.ui.model.type.String'}"
+											valueState="{OSINCUBATORPLANT>/code/state}"
+											valueStateText="{OSINCUBATORPLANT>/code/stateText}"
+											editable="{OSINCUBATORPLANT>/code/editable/}"
+											liveChange="changeCode"/>
+
+
+				<Label text="Descripción" required="{OSINCUBATORPLANT>/description/required}"/>
+				<Input value="{ path: 'OSINCUBATORPLANT>/description/value', type: 'sap.ui.model.type.String'}"
+											valueState="{OSINCUBATORPLANT>/description/state}"
+											valueStateText="{OSINCUBATORPLANT>/description/stateText}"
+											editable="{OSINCUBATORPLANT>/description/editable/}"
+							 liveChange="changeDescription"/>
+
+				<Label text="Máximo almacenamiento" required="{OSINCUBATORPLANT>/max_storage/required}"/>
+				<Input id = "inputMaxStorage" 
+						value="{ path: 'OSINCUBATORPLANT>/max_storage/value', type: 'sap.ui.model.type.String'}"
+						description="Días"
+						valueState="{OSINCUBATORPLANT>/max_storage/state}"
+						valueStateText="{OSINCUBATORPLANT>/max_storage/stateText}"
+						editable="{OSINCUBATORPLANT>/max_storage/editable/}"
+						liveChange="validateIntInput"/>
+
+				<Label text="Mínimo almacenamiento" required="{OSINCUBATORPLANT>/min_storage/required}"/>
+				<Input id = "inputMinStorage" 
+						value="{ path: 'OSINCUBATORPLANT>/min_storage/value', type: 'sap.ui.model.type.String'}"
+						description="Días"
+						valueState="{OSINCUBATORPLANT>/min_storage/state}"
+						valueStateText="{OSINCUBATORPLANT>/min_storage/stateText}"
+						editable="{OSINCUBATORPLANT>/min_storage/editable/}"
+						liveChange="validateIntInput"/>
+
+			</f:content>
+		</f:SimpleForm>
+	
+		<f:SimpleForm title="{i18n>incubatorPlant.SettingDisp}" editable="true" 
+					  layout="ResponsiveGridLayout" labelSpanM="4" emptySpanM="2">
+		<f:content>
+			<Label text="{i18n>incubatorPlant.Acc}"/>
+			<Switch type="AcceptReject" state="{OSINCUBATORPLANT>/acclimatized/value}" id="switch_active1"
+					enabled="{OSINCUBATORPLANT>/acclimatized/editable/}">
+				<layoutData>
+					<FlexItemData growFactor="1" />
+				</layoutData>
+			</Switch>
+		<Label text="{i18n>incubatorPlant.App}"/>
+			<Switch type="AcceptReject" state="{OSINCUBATORPLANT>/suitable/value}" id="switch_active2"
+					enabled="{OSINCUBATORPLANT>/suitable/editable/}">
+				<layoutData>
+					<FlexItemData growFactor="1" />
+				</layoutData>
+			</Switch>
+
+		<Label text="{i18n>incubatorPlant.Exp}"/>
+			<Switch type="AcceptReject" state="{OSINCUBATORPLANT>/expired/value}" id="switch_active3"
+					enabled="{OSINCUBATORPLANT>/expired/editable/}">
+				<layoutData>
+					<FlexItemData growFactor="1" />
+				</layoutData>
+			</Switch>
+		</f:content>
+		</f:SimpleForm>
+	</VBox>
+</core:FragmentDefinition>

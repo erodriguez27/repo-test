@@ -1,0 +1,58 @@
+{
+    "NOMBRE DEL PARAMETRO": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "El nombre del parámetro no puede estar vacío",
+            "pattern" : "^.{0,45}$",
+            "errorPattern" : "Nombre del parámetro debe tener máximo 45 caracteres"
+        },
+        "binding" : "name"
+    },
+    "DESCRIPCIÓN": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "La descripción del parámetro no puede estar vacío",
+            "pattern" : "^.{0,250}$",
+            "errorPattern" : "La descripción del parámetro debe tener máximo 250 caracteres"
+        },
+        "binding" : "description"
+    },
+    "TIPO DE PARAMETRO": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "El tipo de parámetro no puede estar vacío",
+            "pattern" : "^.{0,10}$",
+            "errorPattern" : "El tipo de parámetro debe tener máximo 10 caracteres"
+        },
+        "binding" : "type"
+    },
+    "NOMBRE DEL PROCESO": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "El nombre del proceso no puede estar vacío",
+            "pattern" : "^.{0,20}$",
+            "errorPattern" : "El nombre del proceso debe tener máximo 20 caracteres"
+        },
+        "binding" : "process_id"
+    },
+    "MEDIDA": {
+        "default" : "",
+        "type" : "Input",
+        "validate" : {
+            "required" : true,
+            "errorEmpty" : "La medida no puede estar vacía",
+            "pattern" : "^.{0,20}$",
+            "errorPattern" : "La medida debe tener máximo 20 caracteres"
+        },
+        "binding" : "measure_id"
+    }
+
+}
