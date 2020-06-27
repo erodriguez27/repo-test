@@ -135,7 +135,7 @@ const appManagement = __dirname + '/ARP_FRONTEND/mantenimiento-escenarios/webapp
 const appUsers = '/ARP_FRONTEND/userControl/webapp';
 
 // console.log(appLaunchpad);
-console.log("hola, entra a esto y prueba:::::: http://127.0.0.1:"+config.port+"/Apps/launchpad/webapp/");
+console.log("hola, entra a:::::: http://127.0.0.1:"+config.port+"/Apps/launchpad/webapp/");
 
 //Alex Prueba --------------------------------------------------------------------
 require('./passport.js')(passport);
