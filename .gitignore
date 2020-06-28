@@ -3,4 +3,3 @@ UI/*
 Apps/sdk/*
 .idea/*
 \.vscode/launch\.json
-config\.js
