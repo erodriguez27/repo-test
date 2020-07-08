@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon index.js --ignore Apps/",
     "lint": "eslint --fix",
-    "test": "mocha ./test/test.js --reporter mochawesome --reporter-options reportDir=./test/reportes,reportFilename=MochaReportsTest1,overwrite=true"
+    "test": "mocha ./test/test.js"
   },
   "repository": {
     "type": "git",
