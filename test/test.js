@@ -401,7 +401,7 @@ describe("Back Levante y cria", function(){
 						scenario_id: 1
 					})
 					.end(function(err, res){
-						err.should.be.null
+						should.not.exist(err);
 						// res.should.be.json;
 						// res.should.have.status(500);
 						// should.not.exist(res.body.data);
@@ -421,7 +421,7 @@ describe("Back Levante y cria", function(){
 						scenario_id: 1
 					})
 					.end(function(err, res){
-						err.should.be.null
+						should.not.exist(err);
 						// res.should.be.json;
 						// res.should.have.status(500);
 						// should.not.exist(res.body.data)
@@ -441,7 +441,7 @@ describe("Back Levante y cria", function(){
 						scenario_id: 15
 					})
 					.end(function(err, res){
-						err.should.be.null
+						should.not.exist(err);
 						// res.should.be.json;
 						// res.should.have.status(500);
 						// should.not.exist(res.body.data)
@@ -461,7 +461,7 @@ describe("Back Levante y cria", function(){
 						scenario_id: 1
 					})
 					.end(function(err, res){
-						err.should.be.null
+						should.not.exist(err);
 						// res.should.be.json;
 						// res.should.have.status(500);
 						// should.not.exist(res.body.data)
