@@ -59,269 +59,269 @@ describe("Back Levante y cria", function(){
 		// 		});
 		// });
 
-		describe("Pruebo el metodo POST para agregar nuevos registros", function(done){
+		// describe("Pruebo el metodo POST para agregar nuevos registros", function(done){
 
-			// it("Ingreso id's validos", function(done){
-			// 	chai.request(server)
-			// 		.post('/housingWay/')
-			// 		.send({
-			// 			projected_quantity: 200,
-			// 			projected_date: '20-01-2019',
-			// 			stage_id: 5,
-			// 			partnership_id: 1,
-			// 			scenario_id: 1,
-			// 			breed_id: 1,
-			// 			predecessor_id: 0
-			// 		})
-			// 		.end(function(err, res){
-			// 			res.should.be.json;
-			// 			res.should.have.status(200);
-			// 			should.exist(res.body.data);
-			// 			done();
-			// 		});
-			// });
+		// 	// it("Ingreso id's validos", function(done){
+		// 	// 	chai.request(server)
+		// 	// 		.post('/housingWay/')
+		// 	// 		.send({
+		// 	// 			projected_quantity: 200,
+		// 	// 			projected_date: '20-01-2019',
+		// 	// 			stage_id: 5,
+		// 	// 			partnership_id: 1,
+		// 	// 			scenario_id: 1,
+		// 	// 			breed_id: 1,
+		// 	// 			predecessor_id: 0
+		// 	// 		})
+		// 	// 		.end(function(err, res){
+		// 	// 			res.should.be.json;
+		// 	// 			res.should.have.status(200);
+		// 	// 			should.exist(res.body.data);
+		// 	// 			done();
+		// 	// 		});
+		// 	// });
 
-			it("Ingreso id de compañia no valido", function(done){
-				chai.request(server)
-				.post('/housingWay/')
-				.send({
-					projected_quantity: 200,
-					projected_date: '20-01-2019',
-					stage_id: 5,
-					partnership_id: 2,
-					scenario_id: 1,
-					breed_id: 1,
-					predecessor_id: 0
-				})
-				.end(function(err, res){
-					res.should.be.json;
-					res.should.have.status(500);
-					should.not.exist(res.body.data);
-					done();
-				});
-			});
+		// 	it("Ingreso id de compañia no valido", function(done){
+		// 		chai.request(server)
+		// 		.post('/housingWay/')
+		// 		.send({
+		// 			projected_quantity: 200,
+		// 			projected_date: '20-01-2019',
+		// 			stage_id: 5,
+		// 			partnership_id: 2,
+		// 			scenario_id: 1,
+		// 			breed_id: 1,
+		// 			predecessor_id: 0
+		// 		})
+		// 		.end(function(err, res){
+		// 			res.should.be.json;
+		// 			res.should.have.status(500);
+		// 			should.not.exist(res.body.data);
+		// 			done();
+		// 		});
+		// 	});
 			
-			it("Ingreso stage_id no valido", function(done){
-				chai.request(server)
-				.post('/housingWay/')
-				.send({
-						projected_quantity: 200,
-						projected_date: '20-01-2019',
-						stage_id: 230,
-						partnership_id: 1,
-						scenario_id: 1,
-						breed_id: 1,
-						predecessor_id: 0
-					})
-					.end(function(err, res){
-						res.should.be.json;
-						res.should.have.status(500);
-						should.not.exist(res.body.data);
-						done();
-					});
-			});
+		// 	it("Ingreso stage_id no valido", function(done){
+		// 		chai.request(server)
+		// 		.post('/housingWay/')
+		// 		.send({
+		// 				projected_quantity: 200,
+		// 				projected_date: '20-01-2019',
+		// 				stage_id: 230,
+		// 				partnership_id: 1,
+		// 				scenario_id: 1,
+		// 				breed_id: 1,
+		// 				predecessor_id: 0
+		// 			})
+		// 			.end(function(err, res){
+		// 				res.should.be.json;
+		// 				res.should.have.status(500);
+		// 				should.not.exist(res.body.data);
+		// 				done();
+		// 			});
+		// 	});
 				
-			it("Ingreso scenario_id no valido", function(done){
-				chai.request(server)
-					.post('/housingWay/')
-					.send({
-						projected_quantity: 200,
-						projected_date: '20-01-2019',
-						stage_id: 230,
-						partnership_id: 1,
-						scenario_id: 100,
-						breed_id: 1,
-						predecessor_id: 0
-					})
-					.end(function(err, res){
-						res.should.be.json;
-						res.should.have.status(500);
-						should.not.exist(res.body.data);
-						done();
-					});
-			});
+		// 	it("Ingreso scenario_id no valido", function(done){
+		// 		chai.request(server)
+		// 			.post('/housingWay/')
+		// 			.send({
+		// 				projected_quantity: 200,
+		// 				projected_date: '20-01-2019',
+		// 				stage_id: 230,
+		// 				partnership_id: 1,
+		// 				scenario_id: 100,
+		// 				breed_id: 1,
+		// 				predecessor_id: 0
+		// 			})
+		// 			.end(function(err, res){
+		// 				res.should.be.json;
+		// 				res.should.have.status(500);
+		// 				should.not.exist(res.body.data);
+		// 				done();
+		// 			});
+		// 	});
 				
-			it("Ingreso breed_id no valido", function(done){
-				chai.request(server)
-				.post('/housingWay/')
-				.send({
-					projected_quantity: 200,
-					projected_date: '20-01-2019',
-					stage_id: 230,
-					partnership_id: 1,
-					scenario_id: 100,
-					breed_id: 1,
-					predecessor_id: 0
-				})
-				.end(function(err, res){
-					res.should.be.json;
-					res.should.have.status(500);
-					should.not.exist(res.body.data);
-					done();
-				});
-			});
+		// 	it("Ingreso breed_id no valido", function(done){
+		// 		chai.request(server)
+		// 		.post('/housingWay/')
+		// 		.send({
+		// 			projected_quantity: 200,
+		// 			projected_date: '20-01-2019',
+		// 			stage_id: 230,
+		// 			partnership_id: 1,
+		// 			scenario_id: 100,
+		// 			breed_id: 1,
+		// 			predecessor_id: 0
+		// 		})
+		// 		.end(function(err, res){
+		// 			res.should.be.json;
+		// 			res.should.have.status(500);
+		// 			should.not.exist(res.body.data);
+		// 			done();
+		// 		});
+		// 	});
 
-			// it("Ingreso fecha 20/01/2019", function(done){
-			// 	chai.request(server)
-			// 		.post('/housingWay/')
-			// 		.send({
-			// 			projected_quantity: 200,
-			// 			projected_date: '20/01/2019',
-			// 			stage_id: 5,
-			// 			partnership_id: 1,
-			// 			scenario_id: 1,
-			// 			breed_id: 1,
-			// 			predecessor_id: 0
-			// 		})
-			// 		.end(function(err, res){
-			// 			res.should.be.json;
-			// 			res.should.have.status(200);
-			// 			should.exist(res.body.data);
-			// 			done();
-			// 		});
-			// });
+		// 	// it("Ingreso fecha 20/01/2019", function(done){
+		// 	// 	chai.request(server)
+		// 	// 		.post('/housingWay/')
+		// 	// 		.send({
+		// 	// 			projected_quantity: 200,
+		// 	// 			projected_date: '20/01/2019',
+		// 	// 			stage_id: 5,
+		// 	// 			partnership_id: 1,
+		// 	// 			scenario_id: 1,
+		// 	// 			breed_id: 1,
+		// 	// 			predecessor_id: 0
+		// 	// 		})
+		// 	// 		.end(function(err, res){
+		// 	// 			res.should.be.json;
+		// 	// 			res.should.have.status(200);
+		// 	// 			should.exist(res.body.data);
+		// 	// 			done();
+		// 	// 		});
+		// 	// });
 				
-			// it("Ingreso fecha 01/20/2019", function(done){
-			// 	chai.request(server)
-			// 		.post('/housingWay/')
-			// 		.send({
-			// 			projected_quantity: 200,
-			// 			projected_date: '01/20/2019',
-			// 			stage_id: 5,
-			// 			partnership_id: 1,
-			// 			scenario_id: 1,
-			// 			breed_id: 1,
-			// 			predecessor_id: 0
-			// 		})
-			// 		.end(function(err, res){
-			// 			res.should.be.json;
-			// 			res.should.have.status(200);
-			// 			should.exist(res.body.data);
-			// 			done();
-			// 		});
-			// });
+		// 	// it("Ingreso fecha 01/20/2019", function(done){
+		// 	// 	chai.request(server)
+		// 	// 		.post('/housingWay/')
+		// 	// 		.send({
+		// 	// 			projected_quantity: 200,
+		// 	// 			projected_date: '01/20/2019',
+		// 	// 			stage_id: 5,
+		// 	// 			partnership_id: 1,
+		// 	// 			scenario_id: 1,
+		// 	// 			breed_id: 1,
+		// 	// 			predecessor_id: 0
+		// 	// 		})
+		// 	// 		.end(function(err, res){
+		// 	// 			res.should.be.json;
+		// 	// 			res.should.have.status(200);
+		// 	// 			should.exist(res.body.data);
+		// 	// 			done();
+		// 	// 		});
+		// 	// });
 				
-			// it("Ingreso fecha 2019/01/20", function(done){
-			// 	chai.request(server)
-			// 		.post('/housingWay/')
-			// 		.send({
-			// 			projected_quantity: 200,
-			// 			projected_date: '2019/01/20',
-			// 			stage_id: 5,
-			// 			partnership_id: 1,
-			// 			scenario_id: 1,
-			// 			breed_id: 1,
-			// 			predecessor_id: 0
-			// 		})
-			// 		.end(function(err, res){
-			// 			res.should.be.json;
-			// 			res.should.have.status(200);
-			// 			should.exist(res.body.data);
-			// 			done();
-			// 		});
-			// });
+		// 	// it("Ingreso fecha 2019/01/20", function(done){
+		// 	// 	chai.request(server)
+		// 	// 		.post('/housingWay/')
+		// 	// 		.send({
+		// 	// 			projected_quantity: 200,
+		// 	// 			projected_date: '2019/01/20',
+		// 	// 			stage_id: 5,
+		// 	// 			partnership_id: 1,
+		// 	// 			scenario_id: 1,
+		// 	// 			breed_id: 1,
+		// 	// 			predecessor_id: 0
+		// 	// 		})
+		// 	// 		.end(function(err, res){
+		// 	// 			res.should.be.json;
+		// 	// 			res.should.have.status(200);
+		// 	// 			should.exist(res.body.data);
+		// 	// 			done();
+		// 	// 		});
+		// 	// });
 				
-			// it("Ingreso fecha 2019-01-20", function(done){
-			// 	chai.request(server)
-			// 		.post('/housingWay/')
-			// 		.send({
-			// 			projected_quantity: 200,
-			// 			projected_date: '2019-01-20',
-			// 			stage_id: 5,
-			// 			partnership_id: 1,
-			// 			scenario_id: 1,
-			// 			breed_id: 1,
-			// 			predecessor_id: 0
-			// 		})
-			// 		.end(function(err, res){
-			// 			res.should.be.json;
-			// 			res.should.have.status(200);
-			// 			should.exist(res.body.data);
-			// 			done();
-			// 		});
-			// });
+		// 	// it("Ingreso fecha 2019-01-20", function(done){
+		// 	// 	chai.request(server)
+		// 	// 		.post('/housingWay/')
+		// 	// 		.send({
+		// 	// 			projected_quantity: 200,
+		// 	// 			projected_date: '2019-01-20',
+		// 	// 			stage_id: 5,
+		// 	// 			partnership_id: 1,
+		// 	// 			scenario_id: 1,
+		// 	// 			breed_id: 1,
+		// 	// 			predecessor_id: 0
+		// 	// 		})
+		// 	// 		.end(function(err, res){
+		// 	// 			res.should.be.json;
+		// 	// 			res.should.have.status(200);
+		// 	// 			should.exist(res.body.data);
+		// 	// 			done();
+		// 	// 		});
+		// 	// });
 				
-			// it("Ingreso fecha 01-20-2019", function(done){
-			// 	chai.request(server)
-			// 		.post('/housingWay/')
-			// 		.send({
-			// 			projected_quantity: 200,
-			// 			projected_date: '01-20-2019',
-			// 			stage_id: 5,
-			// 			partnership_id: 1,
-			// 			scenario_id: 1,
-			// 			breed_id: 1,
-			// 			predecessor_id: 0
-			// 		})
-			// 		.end(function(err, res){
-			// 			res.should.be.json;
-			// 			res.should.have.status(200);
-			// 			should.exist(res.body.data);
-			// 			done();
-			// 		});
-			// });
+		// 	// it("Ingreso fecha 01-20-2019", function(done){
+		// 	// 	chai.request(server)
+		// 	// 		.post('/housingWay/')
+		// 	// 		.send({
+		// 	// 			projected_quantity: 200,
+		// 	// 			projected_date: '01-20-2019',
+		// 	// 			stage_id: 5,
+		// 	// 			partnership_id: 1,
+		// 	// 			scenario_id: 1,
+		// 	// 			breed_id: 1,
+		// 	// 			predecessor_id: 0
+		// 	// 		})
+		// 	// 		.end(function(err, res){
+		// 	// 			res.should.be.json;
+		// 	// 			res.should.have.status(200);
+		// 	// 			should.exist(res.body.data);
+		// 	// 			done();
+		// 	// 		});
+		// 	// });
 				
-			// it("Ingreso fecha '20 de enero de 2019'", function(done){
-			// 	chai.request(server)
-			// 		.post('/housingWay/')
-			// 		.send({
-			// 			projected_quantity: 200,
-			// 			projected_date: '20 de enero de 2019',
-			// 			stage_id: 5,
-			// 			partnership_id: 1,
-			// 			scenario_id: 1,
-			// 			breed_id: 1,
-			// 			predecessor_id: 0
-			// 		})
-			// 		.end(function(err, res){
-			// 			res.should.be.json;
-			// 			res.should.have.status(200);
-			// 			should.exist(res.body.data);
-			// 			done();
-			// 		});
-			// });
+		// 	// it("Ingreso fecha '20 de enero de 2019'", function(done){
+		// 	// 	chai.request(server)
+		// 	// 		.post('/housingWay/')
+		// 	// 		.send({
+		// 	// 			projected_quantity: 200,
+		// 	// 			projected_date: '20 de enero de 2019',
+		// 	// 			stage_id: 5,
+		// 	// 			partnership_id: 1,
+		// 	// 			scenario_id: 1,
+		// 	// 			breed_id: 1,
+		// 	// 			predecessor_id: 0
+		// 	// 		})
+		// 	// 		.end(function(err, res){
+		// 	// 			res.should.be.json;
+		// 	// 			res.should.have.status(200);
+		// 	// 			should.exist(res.body.data);
+		// 	// 			done();
+		// 	// 		});
+		// 	// });
 
-			// it("Ingreso fecha '20012019'", function(done){
-			// 	chai.request(server)
-			// 		.post('/housingWay/')
-			// 		.send({
-			// 			projected_quantity: 200,
-			// 			projected_date: '20012019',
-			// 			stage_id: 5,
-			// 			partnership_id: 1,
-			// 			scenario_id: 1,
-			// 			breed_id: 1,
-			// 			predecessor_id: 0
-			// 		})
-			// 		.end(function(err, res){
-			// 			res.should.be.json;
-			// 			res.should.have.status(200);
-			// 			should.exist(res.body.data);
-			// 			done();
-			// 		});
-			// });
+		// 	// it("Ingreso fecha '20012019'", function(done){
+		// 	// 	chai.request(server)
+		// 	// 		.post('/housingWay/')
+		// 	// 		.send({
+		// 	// 			projected_quantity: 200,
+		// 	// 			projected_date: '20012019',
+		// 	// 			stage_id: 5,
+		// 	// 			partnership_id: 1,
+		// 	// 			scenario_id: 1,
+		// 	// 			breed_id: 1,
+		// 	// 			predecessor_id: 0
+		// 	// 		})
+		// 	// 		.end(function(err, res){
+		// 	// 			res.should.be.json;
+		// 	// 			res.should.have.status(200);
+		// 	// 			should.exist(res.body.data);
+		// 	// 			done();
+		// 	// 		});
+		// 	// });
 				
-			// it("Ingreso fecha 20-01-2019", function(done){
-			// 	chai.request(server)
-			// 		.post('/housingWay/')
-			// 		.send({
-			// 			projected_quantity: 200,
-			// 			projected_date: '20-01-2019',
-			// 			stage_id: 5,
-			// 			partnership_id: 1,
-			// 			scenario_id: 1,
-			// 			breed_id: 1,
-			// 			predecessor_id: 0
-			// 		})
-			// 		.end(function(err, res){
-			// 			res.should.be.json;
-			// 			res.should.have.status(200);
-			// 			should.exist(res.body.data);
-			// 			done();
-			// 		});
-			// });
+		// 	// it("Ingreso fecha 20-01-2019", function(done){
+		// 	// 	chai.request(server)
+		// 	// 		.post('/housingWay/')
+		// 	// 		.send({
+		// 	// 			projected_quantity: 200,
+		// 	// 			projected_date: '20-01-2019',
+		// 	// 			stage_id: 5,
+		// 	// 			partnership_id: 1,
+		// 	// 			scenario_id: 1,
+		// 	// 			breed_id: 1,
+		// 	// 			predecessor_id: 0
+		// 	// 		})
+		// 	// 		.end(function(err, res){
+		// 	// 			res.should.be.json;
+		// 	// 			res.should.have.status(200);
+		// 	// 			should.exist(res.body.data);
+		// 	// 			done();
+		// 	// 		});
+		// 	// });
 
-		});
+		// });
 		
 		// describe("Pruebo el metodo POST de HousingWay asociado a la ruta housingWay/findGroupByPartnership", function(done){
 			
@@ -354,7 +354,7 @@ describe("Back Levante y cria", function(){
 		// 	});
 		// });
 		
-		describe("Pruebo el metodo POST de HousingWay con la ruta housingWay/findHousingWByPartnership", function(done){
+		// describe("Pruebo el metodo POST de HousingWay con la ruta housingWay/findHousingWByPartnership", function(done){
 
 			// it("Pruebo con partnership_id valido", function(done){
 			// 	chai.request(server)
@@ -388,7 +388,7 @@ describe("Back Levante y cria", function(){
 			// 		});
 			// });
 
-		});
+		// });
 
 		describe("Pruebo el metodo POST de HousingWay con la ruta housingWay/findHousingByStage", function(done){
 
@@ -665,11 +665,11 @@ describe("Back Levante y cria", function(){
 
 	});
 
-	describe("HousingWayDetail", function(){
+	// describe("HousingWayDetail", function(){
 
-		describe("",function(done){});
+	// 	describe("",function(done){});
 		
-	});
+	// });
 
 });
 
