@@ -1,5 +1,5 @@
 const DBlayer = require("../models/sltxbroiler_detail");
-const DBbroiler = require("../models/sltxbroiler");
+const DBbroiler = require("../models/sltxBroiler");
 const DB_shed = require("../models/shed");
 const DBfarm = require("../models/farm");
 const DBcenter = require("../models/center");
