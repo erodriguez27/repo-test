@@ -392,81 +392,97 @@ describe("Back Levante y cria", function(){
 
 		describe("Pruebo el metodo POST de HousingWay con la ruta housingWay/findHousingByStage", function(done){
 
-			it("Pruebo con stage_id valido", function(done){
-				chai.request(server)
-					.post('/housingWay/findHousingByStage/')
-					.send({
-						partnership_id: 1,
-						stage_id: 5, 
-						scenario_id: 1
-					})
-					.end(function(err, res){
-						should.not.exist(err);
-						// res.should.be.json;
-						// res.should.have.status(500);
-						// should.not.exist(res.body.data);
-						// res.body.data.should.be.a('array');
+			// it("Pruebo con stage_id valido", function(done){
+			// 	chai.request(server)
+			// 		.post('/housingWay/findHousingByStage/')
+			// 		.send({
+			// 			partnership_id: 1,
+			// 			stage_id: 5, 
+			// 			scenario_id: 1
+			// 		})
+			// 		.end(function(err, res){
+			// 			should.not.exist(err);
+			// 			// res.should.be.json;
+			// 			// res.should.have.status(500);
+			// 			// should.not.exist(res.body.data);
+			// 			// res.body.data.should.be.a('array');
 						
-						done();
-						console.log("DONEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
-					});
-			});
+			// 			done();
+			// 			console.log("DONEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+			// 		});
+			// });
 			
-			it("Pruebo con stage_id invalido", function(done){
-				chai.request(server)
-					.post('/housingWay/findHousingByStage/')
-					.send({
-						partnership_id: 1,
-						stage_id: 56, 
-						scenario_id: 1
-					})
-					.end(function(err, res){
-						should.not.exist(err);
-						// res.should.be.json;
-						// res.should.have.status(500);
-						// should.not.exist(res.body.data)
-						// res.body.data.should.have.lengthOf(0);
-						// res.body.data.should.be.a('array');
+			// it("Pruebo con stage_id invalido", function(done){
+			// 	chai.request(server)
+			// 		.post('/housingWay/findHousingByStage/')
+			// 		.send({
+			// 			partnership_id: 1,
+			// 			stage_id: 56, 
+			// 			scenario_id: 1
+			// 		})
+			// 		.end(function(err, res){
+			// 			should.not.exist(err);
+			// 			// res.should.be.json;
+			// 			// res.should.have.status(500);
+			// 			// should.not.exist(res.body.data)
+			// 			// res.body.data.should.have.lengthOf(0);
+			// 			// res.body.data.should.be.a('array');
 						
-						done();
-					});
-			});
+			// 			done();
+			// 		});
+			// });
 
-			it("Pruebo con scenario_id invalido", function(done){
-				chai.request(server)
-					.post('/housingWay/findHousingByStage/')
-					.send({
-						partnership_id: 1,
-						stage_id: 1, 
-						scenario_id: 15
-					})
-					.end(function(err, res){
-						should.not.exist(err);
-						// res.should.be.json;
-						// res.should.have.status(500);
-						// should.not.exist(res.body.data)
-						// res.body.data.should.have.lengthOf(0);
-						// res.body.data.should.be.a('array');
+			// it("Pruebo con scenario_id invalido", function(done){
+			// 	chai.request(server)
+			// 		.post('/housingWay/findHousingByStage/')
+			// 		.send({
+			// 			partnership_id: 1,
+			// 			stage_id: 1, 
+			// 			scenario_id: 15
+			// 		})
+			// 		.end(function(err, res){
+			// 			should.not.exist(err);
+			// 			// res.should.be.json;
+			// 			// res.should.have.status(500);
+			// 			// should.not.exist(res.body.data)
+			// 			// res.body.data.should.have.lengthOf(0);
+			// 			// res.body.data.should.be.a('array');
 						
-						done();
-					});
-			});
+			// 			done();
+			// 		});
+			// });
 
-			it("Pruebo con partnership_id invalido", function(done){
+			// it("Pruebo con partnership_id invalido", function(done){
+			// 	chai.request(server)
+			// 		.post('/housingWay/findHousingByStage/')
+			// 		.send({
+			// 			partnership_id: 15,
+			// 			stage_id: 1, 
+			// 			scenario_id: 1
+			// 		})
+			// 		.end(function(err, res){
+			// 			should.not.exist(err);
+			// 			// res.should.be.json;
+			// 			// res.should.have.status(500);
+			// 			// should.not.exist(res.body.data)
+			// 			// res.body.data.should.have.lengthOf(0);
+			// 			// res.body.data.should.be.a('array');
+						
+			// 			done();
+			// 		});
+			// });
+			it("returns 2", function(done){
 				chai.request(server)
-					.post('/housingWay/findHousingByStage/')
+					.post('/housingWay/returns2/')
 					.send({
 						partnership_id: 15,
 						stage_id: 1, 
 						scenario_id: 1
 					})
 					.end(function(err, res){
-						should.not.exist(err);
-						// res.should.be.json;
-						// res.should.have.status(500);
-						// should.not.exist(res.body.data)
-						// res.body.data.should.have.lengthOf(0);
-						// res.body.data.should.be.a('array');
+						res.should.be.json;
+						res.should.have.status(200);
+						res.body.data.should.exist
 						
 						done();
 					});

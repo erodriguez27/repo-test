@@ -59,28 +59,16 @@ exports.deleteHousingWay = function(req, res) {
         });
 };
 
-exports.deleteHousingWayById = async function(req, res) {
-    let is_programmed = await DBlayer.DBisProgrammedHousingway(req.body.housing_way_id);
-    console.log("is_programmed");
-    console.log(is_programmed);
-    console.log(is_programmed.length);
+exports.deleteHousingWayById = async function (req, res) {
+    try {
+        let is_programmed = await DBlayer.DBisProgrammedHousingway(req.body.housing_way_id);
+        console.log("is_programmed");
+        console.log(is_programmed);
+        console.log(is_programmed.length);
 
-    if (is_programmed.length == 1 && is_programmed[0].programmed == false) {
-        console.log(" se puede eliminar no hay programaciones de ningun tipo");
-        await DBlayer.DBdeleteHousingWayById(req.body.housing_way_id);
-        console.log("stage_id ", req.body.stage_id);
-        let data = await DBlayer.DBfindHousingByStage(req.body.stage_id, req.body.partnership_id, req.body.scenario_id);
-        console.log("la nueva data ", data);
-        res.status(200).json({
-            statusCode: 200,
-            data: data,
-            msg: "Grupos elimandos con exito"
-        });
-    }
-    else{
-        if (is_programmed.length == 1 && (is_programmed[0].programmed == true && is_programmed[0].programmed_disable == true)) {
-            console.log("es true aqui se deshabilita");
-            await DBlayer.DBupdateDisableHousingWayById(req.body.housing_way_id);
+        if (is_programmed.length == 1 && is_programmed[0].programmed == false) {
+            console.log(" se puede eliminar no hay programaciones de ningun tipo");
+            await DBlayer.DBdeleteHousingWayById(req.body.housing_way_id);
             console.log("stage_id ", req.body.stage_id);
             let data = await DBlayer.DBfindHousingByStage(req.body.stage_id, req.body.partnership_id, req.body.scenario_id);
             console.log("la nueva data ", data);
@@ -90,42 +78,39 @@ exports.deleteHousingWayById = async function(req, res) {
                 msg: "Grupos elimandos con exito"
             });
         }
-        if ((is_programmed.length > 1 && (is_programmed[0].programmed_disable == null || is_programmed[1].programmed_disable == null))
-            || (is_programmed.length == 1 && (is_programmed[0].programmed == true && is_programmed[0].programmed_disable == null))) {
-            console.log("es null aqui no se puede eliminar");
-            res.status(409).json({
-                statusCode: 409,
-                msg: "No se puede eliminar"
-            });
+        else {
+            if (is_programmed.length == 1 && (is_programmed[0].programmed == true && is_programmed[0].programmed_disable == true)) {
+                console.log("es true aqui se deshabilita");
+                await DBlayer.DBupdateDisableHousingWayById(req.body.housing_way_id);
+                console.log("stage_id ", req.body.stage_id);
+                let data = await DBlayer.DBfindHousingByStage(req.body.stage_id, req.body.partnership_id, req.body.scenario_id);
+                console.log("la nueva data ", data);
+                res.status(200).json({
+                    statusCode: 200,
+                    data: data,
+                    msg: "Grupos elimandos con exito"
+                });
+            }
+            if ((is_programmed.length > 1 && (is_programmed[0].programmed_disable == null || is_programmed[1].programmed_disable == null))
+                || (is_programmed.length == 1 && (is_programmed[0].programmed == true && is_programmed[0].programmed_disable == null))) {
+                console.log("es null aqui no se puede eliminar");
+                res.status(409).json({
+                    statusCode: 409,
+                    msg: "No se puede eliminar"
+                });
+            }
+
         }
-        
+
+
+
+
     }
-
-    
-
-
-
-
-    /*  programmed = is_programmed.programmed;
-    console.log("resultado ",is_programmed.programmed);
-    if(!programmed){
-        await DBlayer.DBdeleteHousingWayById(req.body.housing_way_id);
-        console.log("stage_id ", req.body.stage_id);
-        let data = await DBlayer.DBfindHousingByStage(req.body.stage_id, req.body.partnership_id, req.body.scenario_id);
-        console.log("la nueva data ", data);
+    catch (err) {
         res.status(200).json({
-            statusCode: 200,
-            data: data,
-            msg: "Grupos elimandos con exito"
+            statusCode: 500
         });
-         
-    }else{
-        res.status(409).json({
-            statusCode: 409,
-            msg: "No se puede eliminar"
-        });
-    }*/
-    
+    }    
 };
 
 
@@ -144,7 +129,7 @@ exports.findHousingWByPartnership = async function(req, res) {
 };
 
 exports.findHousingByStage = async function(req, res) {
-    console.log(req.body.partnership_id);
+    // console.log(req.body.partnership_id);
     try {
         let data  = await DBlayer.DBfindHousingByStage(req.body.stage_id, req.body.partnership_id, req.body.scenario_id);
         res.status(200).json({
@@ -152,7 +137,20 @@ exports.findHousingByStage = async function(req, res) {
             data: data
         });
     }catch (err) {
-        console.log(err);
+        // console.log(err);
+        res.status(500).send(err);
+    }
+};
+
+exports.returns2 = async function(req, res) {
+    // console.log(req.body.partnership_id);
+    try {
+        res.status(200).json({
+            statusCode: 200,
+            data: 2
+        });
+    }catch (err) {
+        // console.log(err);
         res.status(500).send(err);
     }
 };

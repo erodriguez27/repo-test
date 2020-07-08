@@ -13,6 +13,7 @@ api_housingWay.delete("/", housingWaysCtrl.deleteHousingWay);
 api_housingWay.post("/deleteHousingWayById", housingWaysCtrl.deleteHousingWayById);
 api_housingWay.post("/findHousingWByPartnership", housingWaysCtrl.findHousingWByPartnership);
 api_housingWay.post("/findHousingByStage", housingWaysCtrl.findHousingByStage);
+api_housingWay.post("/returns2", housingWaysCtrl.returns2);
 api_housingWay.post("/findHousingByFilters", housingWaysCtrl.findHousingByFilters);
 
 
