@@ -45,7 +45,7 @@
     "fs": "0.0.1-security",
     "helmet": "^3.12.0",
     "https": "^1.0.0",
-    "mocha": "^7.2.0",
+    "mocha": "^10.2.0",
     "mochawesome": "^6.1.1",
     "moment": "^2.22.2",
     "morgan": "^1.9.0",
